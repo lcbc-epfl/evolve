@@ -2,7 +2,6 @@
  * Author: Nicholas Browning
  * **/
 
-
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/detail/classification.hpp>
 #include <boost/algorithm/string/predicate.hpp>
@@ -651,164 +650,162 @@ int normalstuff(int argc, char * argv[]) {
 			 } */
 
 		}
+	}
 
-		if (!fragmentLibraryPath.empty()) {
-			loadFragmentLibrary();
+	if (!fragmentLibraryPath.empty()) {
+		loadFragmentLibrary();
 
-			if (fragmentPathMap.size() == 0) {
-				cout << "Fragment library failed to load, exiting program"
-						<< endl;
-				return -1;
-			}
-		}
-
-		for (unsigned int i = 0; i < fragmentSubstitution.size(); i++) {
-
-			cout << fragmentSubstitution[i] << ", "
-					<< fragmentPathMap[fragmentSubstitution[i]] << ","
-					<< fragmentExtensionMap[fragmentSubstitution[i]] << endl;
-			OBMol * frag = new OBMol;
-
-			if (!conv.SetInFormat(
-					fragmentExtensionMap[fragmentSubstitution[i]].c_str())) {
-				cout << "OBConversion failed to set extension \""
-						<< fragmentExtensionMap[fragmentSubstitution[i]]
-						<< "\" for fragment \"" << fragmentSubstitution[i]
-						<< "\"" << endl;
-				return -1;
-			}
-
-			if (!conv.ReadFile(frag,
-					fragmentPathMap[fragmentSubstitution[i]])) {
-				cout << "OBConversion failed to read in fragment from path \""
-						<< fragmentPathMap[fragmentSubstitution[i]] << "\""
-						<< endl;
-				return -1;
-			}
-
-			cout << "fragment loaded: " << frag->GetTitle() << endl;
-
-			fragments.push_back(frag);
-		}
-
-		doActions();
-
-		if (!conv.SetOutFormat(outFileExtension.c_str())) {
-			cout << "OBConversion failed to set out extension \""
-					<< outFileExtension << "\" for molecule" << endl;
+		if (fragmentPathMap.size() == 0) {
+			cout << "Fragment library failed to load, exiting program" << endl;
 			return -1;
 		}
+	}
 
-		if (!conv.WriteFile(&molecule, outFilePath)) {
-			cout << "OBConversion failed to write to outfile \"" << outFilePath
+	for (unsigned int i = 0; i < fragmentSubstitution.size(); i++) {
+
+		cout << fragmentSubstitution[i] << ", "
+				<< fragmentPathMap[fragmentSubstitution[i]] << ","
+				<< fragmentExtensionMap[fragmentSubstitution[i]] << endl;
+		OBMol * frag = new OBMol;
+
+		if (!conv.SetInFormat(
+				fragmentExtensionMap[fragmentSubstitution[i]].c_str())) {
+			cout << "OBConversion failed to set extension \""
+					<< fragmentExtensionMap[fragmentSubstitution[i]]
+					<< "\" for fragment \"" << fragmentSubstitution[i] << "\""
 					<< endl;
 			return -1;
 		}
 
-		int molStartNumAtoms = molecule.NumAtoms();
+		if (!conv.ReadFile(frag, fragmentPathMap[fragmentSubstitution[i]])) {
+			cout << "OBConversion failed to read in fragment from path \""
+					<< fragmentPathMap[fragmentSubstitution[i]] << "\"" << endl;
+			return -1;
+		}
+
+		cout << "fragment loaded: " << frag->GetTitle() << endl;
+
+		fragments.push_back(frag);
+	}
+
+	doActions();
+
+	if (!conv.SetOutFormat(outFileExtension.c_str())) {
+		cout << "OBConversion failed to set out extension \""
+				<< outFileExtension << "\" for molecule" << endl;
+		return -1;
+	}
+
+	if (!conv.WriteFile(&molecule, outFilePath)) {
+		cout << "OBConversion failed to write to outfile \"" << outFilePath
+				<< endl;
+		return -1;
+	}
+
+	int molStartNumAtoms = molecule.NumAtoms();
 
 //cout << "ACTION SIZE:" << actions.size() << endl;
 
-		for (unsigned int a = 0; a < actions.size(); a++) {
-			//cout << "IDXS: " << molatom1Index[a] << " " << molatom2Index[a] << " " << fragatom1Index[a] << " " << fragatom2Index[a] << endl;
+	for (unsigned int a = 0; a < actions.size(); a++) {
+		//cout << "IDXS: " << molatom1Index[a] << " " << molatom2Index[a] << " " << fragatom1Index[a] << " " << fragatom2Index[a] << endl;
 
-			OBMol * frag = fragments[a];
+		OBMol * frag = fragments[a];
 
-			if (molatom1Index[a] != -1) {
-				OBAtom* molatom1 = molecule.GetAtom(molatom1Index[a]);
+		if (molatom1Index[a] != -1) {
+			OBAtom* molatom1 = molecule.GetAtom(molatom1Index[a]);
 
-				OBPairInteger *connectionPoint = new OBPairInteger;
-				connectionPoint->SetAttribute("molatom1");
-				connectionPoint->SetValue(a);
-				molatom1->SetData(connectionPoint);
+			OBPairInteger *connectionPoint = new OBPairInteger;
+			connectionPoint->SetAttribute("molatom1");
+			connectionPoint->SetValue(a);
+			molatom1->SetData(connectionPoint);
 
-			}
-
-			if (molatom2Index[a] != -1) {
-
-				OBAtom* molatom2 = molecule.GetAtom(molatom2Index[a]);
-
-				OBPairInteger *connectionPoint = new OBPairInteger;
-				connectionPoint->SetAttribute("molatom2");
-				connectionPoint->SetValue(a);
-				molatom2->SetData(connectionPoint);
-			}
-
-			if (fragatom1Index[a] != -1) {
-
-				OBAtom* fragatom1 = frag->GetAtom(fragatom1Index[a]);
-				OBPairInteger *connectionPoint = new OBPairInteger;
-				connectionPoint->SetAttribute("fragatom1");
-				connectionPoint->SetValue(a);
-				fragatom1->SetData(connectionPoint);
-			}
-
-			if (fragatom2Index[a] != -1) {
-
-				OBAtom* fragatom2 = frag->GetAtom(fragatom2Index[a]);
-
-				OBPairInteger *connectionPoint = new OBPairInteger;
-				connectionPoint->SetAttribute("fragatom2");
-				connectionPoint->SetValue(a);
-				fragatom2->SetData(connectionPoint);
-				//cout << fragatom2->GetData().size() << endl;
-			}
 		}
+
+		if (molatom2Index[a] != -1) {
+
+			OBAtom* molatom2 = molecule.GetAtom(molatom2Index[a]);
+
+			OBPairInteger *connectionPoint = new OBPairInteger;
+			connectionPoint->SetAttribute("molatom2");
+			connectionPoint->SetValue(a);
+			molatom2->SetData(connectionPoint);
+		}
+
+		if (fragatom1Index[a] != -1) {
+
+			OBAtom* fragatom1 = frag->GetAtom(fragatom1Index[a]);
+			OBPairInteger *connectionPoint = new OBPairInteger;
+			connectionPoint->SetAttribute("fragatom1");
+			connectionPoint->SetValue(a);
+			fragatom1->SetData(connectionPoint);
+		}
+
+		if (fragatom2Index[a] != -1) {
+
+			OBAtom* fragatom2 = frag->GetAtom(fragatom2Index[a]);
+
+			OBPairInteger *connectionPoint = new OBPairInteger;
+			connectionPoint->SetAttribute("fragatom2");
+			connectionPoint->SetValue(a);
+			fragatom2->SetData(connectionPoint);
+			//cout << fragatom2->GetData().size() << endl;
+		}
+	}
 
 //cout << fragments.size() << " " << molatom1Index.size() << " " << molatom2Index.size() << " " << fragatom1Index.size() << " "
 //		<< fragatom2Index.size() << " " << bondO.size() << " " << referenceBondTorsionFromFragment.size() << " "
 //		<< updateResidueInfo.size() << endl;
 
 //cout << "Starting building." << endl;
-		for (unsigned int a = 0; a < fragments.size(); a++) {
-			OBMol * frag = fragments[a];
-			molecule.BeginModify();
-			build.addFragmentToMol(molecule, *frag);
+	for (unsigned int a = 0; a < fragments.size(); a++) {
+		OBMol * frag = fragments[a];
+		molecule.BeginModify();
+		build.addFragmentToMol(molecule, *frag);
 
-			int ma1index = build.getAtomIndexFromData(molecule, "molatom1", a);
-			int ma2index = build.getAtomIndexFromData(molecule, "molatom2", a);
-			int fa1index = build.getAtomIndexFromData(molecule, "fragatom1", a);
-			int fa2index = build.getAtomIndexFromData(molecule, "fragatom2", a);
-			int bo = bondO[a];
-			bool refTorsion = referenceBondTorsionFromFragment[a];
-			bool updateRes = updateResidueInfo[a];
+		int ma1index = build.getAtomIndexFromData(molecule, "molatom1", a);
+		int ma2index = build.getAtomIndexFromData(molecule, "molatom2", a);
+		int fa1index = build.getAtomIndexFromData(molecule, "fragatom1", a);
+		int fa2index = build.getAtomIndexFromData(molecule, "fragatom2", a);
+		int bo = bondO[a];
+		bool refTorsion = referenceBondTorsionFromFragment[a];
+		bool updateRes = updateResidueInfo[a];
 
-			//cout << " " << ma1index << " " << ma2index << " " << fa1index << " " << fa2index << " " << bo << " " << refTorsion << " "
-			//		<< updateRes << endl;
+		//cout << " " << ma1index << " " << ma2index << " " << fa1index << " " << fa2index << " " << bo << " " << refTorsion << " "
+		//		<< updateRes << endl;
 
-			build.connect(molecule, *frag, ma1index, ma2index, fa1index,
-					fa2index, a, bo, updateRes);
-			//cout << "Finished connection" << endl;
-			molecule.EndModify();
+		build.connect(molecule, *frag, ma1index, ma2index, fa1index, fa2index,
+				a, bo, updateRes);
+		//cout << "Finished connection" << endl;
+		molecule.EndModify();
 
-			if (refTorsion) {
-				ma1index = build.getAtomIndexFromData(molecule, "molatom1", a);
-				fa2index = build.getAtomIndexFromData(molecule, "fragatom2", a);
-				//cout << "Attempting to reference torsion by AtomID profile. " << ma1index << " " << fa2index << endl;
-				build.referenceTorsionByAtomIDProfile(molecule, *frag, ma1index,
-						fragatom1Index[a], fragatom2Index[a], fa2index);
-			}
-
+		if (refTorsion) {
+			ma1index = build.getAtomIndexFromData(molecule, "molatom1", a);
+			fa2index = build.getAtomIndexFromData(molecule, "fragatom2", a);
+			//cout << "Attempting to reference torsion by AtomID profile. " << ma1index << " " << fa2index << endl;
+			build.referenceTorsionByAtomIDProfile(molecule, *frag, ma1index,
+					fragatom1Index[a], fragatom2Index[a], fa2index);
 		}
 
-		for (int a = 0; a < psiAngle.size(); a++) {
-			build.setPhiPsi(molecule, psiphiResidueIndex[a], phiAngle[a],
-					psiAngle[a]);
-		}
-//cout << "Finished building." << endl;
-		if (!conv.SetOutFormat(outFileExtension.c_str())) {
-			cout << "Could not set output file format" << endl;
-			return -1;
-		}
-
-		if (!conv.WriteFile(&molecule, outFilePath)) {
-			cout << "Could not write out file" << endl;
-			return -1;
-		}
-
-		cout << "FINISHED" << endl;
-		return 0;
 	}
+
+	for (int a = 0; a < psiAngle.size(); a++) {
+		build.setPhiPsi(molecule, psiphiResidueIndex[a], phiAngle[a],
+				psiAngle[a]);
+	}
+//cout << "Finished building." << endl;
+	if (!conv.SetOutFormat(outFileExtension.c_str())) {
+		cout << "Could not set output file format" << endl;
+		return -1;
+	}
+
+	if (!conv.WriteFile(&molecule, outFilePath)) {
+		cout << "Could not write out file" << endl;
+		return -1;
+	}
+
+	cout << "FINISHED" << endl;
+	return 0;
+}
 
 int main(int argc, char * argv[]) {
 	normalstuff(argc, argv);
