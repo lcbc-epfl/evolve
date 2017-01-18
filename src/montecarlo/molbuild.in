@@ -1,8 +1,0 @@
-%LOAD_MOL
-2aa.pdb
-
-%OUT_FILE
-2aa_output.pdb
-
-%SET_PSIPHI
-1 -47.9474 -34.3962
