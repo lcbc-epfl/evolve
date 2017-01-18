@@ -1,0 +1,13 @@
+/__init__.pyc
+/analysis.pyc
+/archivers.pyc
+/ec.pyc
+/emo.pyc
+/evaluators.pyc
+/generators.pyc
+/migrators.pyc
+/observers.pyc
+/replacers.pyc
+/selectors.pyc
+/terminators.pyc
+/utilities.pyc
