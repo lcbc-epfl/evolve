@@ -43,7 +43,7 @@ all: MoleculeBuilder
 MoleculeBuilder: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	clang++ -std=c++11 -L/software/boost-1.55.0/lib -L/software/openbabel-2.3.2/lib -o "MoleculeBuilder" $(OBJS) $(USER_OBJS) $(LIBS)
+	c++ -std=c++11 -L/software/boost-1.55.0/lib -L/software/openbabel-2.3.2/lib -o "MoleculeBuilder" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
