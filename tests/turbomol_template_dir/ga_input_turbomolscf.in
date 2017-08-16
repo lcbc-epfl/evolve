@@ -1,0 +1,57 @@
+[OPTIMIZATION]
+composition_optimization = False
+dihedral_optimization = True
+dihedral_residue_indexes = 0 2 3
+
+
+[MOLECULE]
+initial_molecule = gpgg.pdb
+
+[GA_GLOBAL]
+seed_population = False
+population_file_path = None
+population_size = 10
+max_iteration = 10
+
+[GA_SELECTION]
+selector = tournament_wor
+tournament_size = 2
+
+[GA_CROSSOVER]
+crossover = sbx
+mating_probability = 0.8
+genewise_crossover_probability = 0.3
+sbx_distribution_index = 5.0
+
+[GA_MUTATION]
+mutator = poly
+mutation_probability = 0.1
+genewise__mutation_probability = 0.1
+poly_eta = 5.0
+
+[GA_REPLACER]
+replacer = elitist
+elitist_factor = 0.3
+
+[MC_GENERATE]
+mc_generate_dihedrals = True
+distribution_path = DO_NOT_CHANGE
+mcmove_lbound = -45.0
+mcmove_ubound = 45.0
+num_mc_steps = 1000
+dihedral_probability_pointers = 0 0 0 0 0 0 0 0 0
+
+[EVALUATOR]
+evaluators = turbomole_scf_energy
+turbomole_template = control_template
+
+[IO]
+output_file = ga.out
+
+[DEBUG]
+verbose = False
+
+
+
+
+
