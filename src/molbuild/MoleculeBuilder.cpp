@@ -33,8 +33,7 @@ OBAtom * MoleculeBuilder::getAlphaCarbon(OBResidue * res) {
 			return atom;
 		}
 	}
-	cout << "FAIL (getAlphaCarbon) -> " << "residue " << res->GetIdx()
-			<< " does not seem to have a C_alpha" << endl;
+	cout << "FAIL (getAlphaCarbon) -> " << "residue " << res->GetIdx() << " does not seem to have a C_alpha" << endl;
 	return NULL;
 }
 
@@ -84,8 +83,7 @@ OBAtom * MoleculeBuilder::getBackboneNitrogen(OBResidue * res) {
 
 		return nbratom;
 	}
-	cout << "FAIL (getAmideNitrogen) -> " << "residue " << res->GetIdx()
-			<< " does not seem to have a backbone nitrogen" << endl;
+	cout << "FAIL (getAmideNitrogen) -> " << "residue " << res->GetIdx() << " does not seem to have a backbone nitrogen" << endl;
 	return NULL;
 }
 
@@ -115,17 +113,14 @@ OBAtom * MoleculeBuilder::getBackboneNitrogen_CarboxylCarbon(OBResidue * res) {
 			continue;
 		}
 
-		for (abbond = nbratom->BeginBond(j); abbond;
-				abbond = nbratom->NextBond(j))
-			if (abbond->GetBO() == 2
-					&& (abbond->GetNbrAtom(nbratom))->GetAtomicNum() == 8) {
+		for (abbond = nbratom->BeginBond(j); abbond; abbond = nbratom->NextBond(j))
+			if (abbond->GetBO() == 2 && (abbond->GetNbrAtom(nbratom))->GetAtomicNum() == 8) {
 				return nbratom;
 			} else {
 				continue;
 			}
 	}
-	cout << "FAIL (getBackboneNitrogen_CarboxylCarbon) -> " << "residue "
-			<< res->GetIdx() << " does not seem to have a backbone (N)-C=(O)"
+	cout << "FAIL (getBackboneNitrogen_CarboxylCarbon) -> " << "residue " << res->GetIdx() << " does not seem to have a backbone (N)-C=(O)"
 			<< endl;
 	return NULL;
 }
@@ -145,10 +140,8 @@ bool MoleculeBuilder::isBackboneCarboxylCarbon(OBAtom * atom) {
 			continue;
 		}
 
-		for (abbond = nbratom->BeginBond(j); abbond;
-				abbond = nbratom->NextBond(j))
-			if (abbond->GetBO() == 2
-					&& (abbond->GetNbrAtom(nbratom))->GetAtomicNum() == 8) {
+		for (abbond = nbratom->BeginBond(j); abbond; abbond = nbratom->NextBond(j))
+			if (abbond->GetBO() == 2 && (abbond->GetNbrAtom(nbratom))->GetAtomicNum() == 8) {
 				return true;
 			}
 
@@ -177,19 +170,15 @@ OBAtom * MoleculeBuilder::getBackboneCarboxylCarbon(OBResidue * res) {
 			continue;
 		}
 
-		for (abbond = nbratom->BeginBond(j); abbond;
-				abbond = nbratom->NextBond(j)) {
+		for (abbond = nbratom->BeginBond(j); abbond; abbond = nbratom->NextBond(j)) {
 
-			if (abbond->GetBO() == 2
-					&& (abbond->GetNbrAtom(nbratom))->GetAtomicNum() == 8) {
+			if (abbond->GetBO() == 2 && (abbond->GetNbrAtom(nbratom))->GetAtomicNum() == 8) {
 				return nbratom;
 			}
 		}
 
 	}
-	cout << "FAIL (getBackboneCarboxylCarbon) -> " << "residue "
-			<< res->GetIdx() << " does not seem to have a backbone Carbon"
-			<< endl;
+	cout << "FAIL (getBackboneCarboxylCarbon) -> " << "residue " << res->GetIdx() << " does not seem to have a backbone Carbon" << endl;
 	return NULL;
 }
 
@@ -217,8 +206,7 @@ OBAtom * MoleculeBuilder::getCarboxylCarbon_Nitrogen(OBResidue * res) {
 		return nbratom;
 	}
 
-	cout << "FAIL (getCarboxylOxygen) -> " << "residue " << res->GetIdx()
-			<< " does not seem to have a backbone (O=C)-N-(C_a)" << endl;
+	cout << "FAIL (getCarboxylOxygen) -> " << "residue " << res->GetIdx() << " does not seem to have a backbone (O=C)-N-(C_a)" << endl;
 	return NULL;
 }
 
@@ -258,8 +246,7 @@ OBAtom * MoleculeBuilder::getBetaAtom(OBResidue * res) {
 		return betaAtom;
 	}
 
-	cout << "FAIL (getBetaAtom) -> " << "residue " << res->GetIdx()
-			<< " does not seem to have an atom in beta position" << endl;
+	cout << "FAIL (getBetaAtom) -> " << "residue " << res->GetIdx() << " does not seem to have an atom in beta position" << endl;
 	return NULL;
 
 }
@@ -281,9 +268,7 @@ void MoleculeBuilder::printPhiPsi(OBMol &mol, int resIndex) {
 	OBAtom * C_N = getCarboxylCarbon_Nitrogen(res);
 	double phi = INFINITY, psi = INFINITY;
 	if (CA == NULL || CB == NULL) {
-		cout << "Residue " << resIndex
-				<< ": Cannot read psi or phi torsion: C_alpha or (C|H)_beta were not found"
-				<< endl;
+		cout << "Residue " << resIndex << ": Cannot read psi or phi torsion: C_alpha or (C|H)_beta were not found" << endl;
 		return;
 	}
 
@@ -292,27 +277,20 @@ void MoleculeBuilder::printPhiPsi(OBMol &mol, int resIndex) {
 		//want side chain to remain fixed, so do it the other way
 		phi = mol.GetTorsion(N_C, N, CA, C);
 	} else {
-		cout << "Residue " << resIndex
-				<< ": Cannot read phi torsion: N-C=(O) was not completely found"
-				<< endl;
+		cout << "Residue " << resIndex << ": Cannot read phi torsion: N-C=(O) was not completely found" << endl;
 	}
 
 	if (C_N != NULL && C != NULL) {
 		//mol.SetTorsion(CO, C, CA, CB, phi_deg * (M_PI / 180));
 		psi = mol.GetTorsion(N, CA, C, C_N);
 	} else {
-		cout << "Residue " << resIndex
-				<< ": Cannot read psi torsion: C-N-(Ca) was not completely found"
-				<< endl;
+		cout << "Residue " << resIndex << ": Cannot read psi torsion: C-N-(Ca) was not completely found" << endl;
 	}
 
-	cout << "Residue: " << resIndex << "("
-			<< mol.GetResidue(resIndex)->GetName() << "): " << "PSI: " << psi
-			<< " PHI: " << phi << endl;
+	cout << "Residue: " << resIndex << "(" << mol.GetResidue(resIndex)->GetName() << "): " << "PSI: " << psi << " PHI: " << phi << endl;
 }
 
-void MoleculeBuilder::setPhiPsi(OBMol &mol, int resIndex, double phi_deg,
-		double psi_deg) {
+void MoleculeBuilder::setPhiPsi(OBMol &mol, int resIndex, double phi_deg, double psi_deg) {
 
 //TODO need to add proline support
 //TODO dihedrals should be set ALONG main chain:
@@ -334,9 +312,7 @@ void MoleculeBuilder::setPhiPsi(OBMol &mol, int resIndex, double phi_deg,
 	OBAtom * C_N = getCarboxylCarbon_Nitrogen(res);
 
 	if (CA == NULL || CB == NULL) {
-		cout << "Residue " << resIndex
-				<< ": Cannot set psi or phi torsion: C_alpha or (C|H)_beta were not found"
-				<< endl;
+		cout << "Residue " << resIndex << ": Cannot set psi or phi torsion: C_alpha or (C|H)_beta were not found" << endl;
 		return;
 	}
 
@@ -346,9 +322,7 @@ void MoleculeBuilder::setPhiPsi(OBMol &mol, int resIndex, double phi_deg,
 			//want side chain to remain fixed, so do it the other way
 			mol.SetTorsion(N_C, N, CA, C, phi_deg * (M_PI / 180));
 		} else {
-			cout << "Residue " << resIndex
-					<< ": Cannot set phi torsion: N-C=(O) was not completely found"
-					<< endl;
+			cout << "Residue " << resIndex << ": Cannot set phi torsion: N-C=(O) was not completely found" << endl;
 		}
 
 	}
@@ -357,9 +331,7 @@ void MoleculeBuilder::setPhiPsi(OBMol &mol, int resIndex, double phi_deg,
 			//mol.SetTorsion(CO, C, CA, CB, phi_deg * (M_PI / 180));
 			mol.SetTorsion(N, CA, C, C_N, psi_deg * (M_PI / 180));
 		} else {
-			cout << "Residue " << resIndex
-					<< ": Cannot set psi torsion: C-N-(Ca) was not completely found"
-					<< endl;
+			cout << "Residue " << resIndex << ": Cannot set psi torsion: C-N-(Ca) was not completely found" << endl;
 		}
 	}
 }
@@ -368,10 +340,8 @@ void MoleculeBuilder::setPhiPsi(OBMol &mol, int resIndex, double phi_deg,
 void MoleculeBuilder::addFragmentToMol(OBMol &mol, OBMol &fragment) {
 
 	if (mol.GetDimension() != fragment.GetDimension()) {
-		cout
-				<< "FAIL (addFragmentToMol) -> Cannot add two mols with different dimensions "
-				<< mol.GetDimension() + "D + " << fragment.GetDimension() << "D"
-				<< endl;
+		cout << "FAIL (addFragmentToMol) -> Cannot add two mols with different dimensions " << mol.GetDimension() + "D + "
+				<< fragment.GetDimension() << "D" << endl;
 		return;
 	}
 
@@ -411,14 +381,11 @@ void MoleculeBuilder::addFragmentToMol(OBMol &mol, OBMol &fragment) {
 
 	for (bond = fragment.BeginBond(j); bond; bond = fragment.NextBond(j)) {
 		bond->SetId(NoId); //Need to remove ID which relates to source mol rather than this mol
-		mol.AddBond(bond->GetBeginAtomIdx() + prevatms,
-				bond->GetEndAtomIdx() + prevatms, bond->GetBO(),
-				bond->GetFlags());
+		mol.AddBond(bond->GetBeginAtomIdx() + prevatms, bond->GetEndAtomIdx() + prevatms, bond->GetBO(), bond->GetFlags());
 	}
 
 // Now update all copied residues too
-	for (residue = fragment.BeginResidue(k); residue;
-			residue = fragment.NextResidue(k)) {
+	for (residue = fragment.BeginResidue(k); residue; residue = fragment.NextResidue(k)) {
 
 		mol.AddResidue(*residue);
 		OBResidue * molRes = mol.GetResidue(mol.NumResidues() - 1);
@@ -433,10 +400,8 @@ void MoleculeBuilder::addFragmentToMol(OBMol &mol, OBMol &fragment) {
 		}
 	}
 
-	std::vector<OBGenericData*> vdata = fragment.GetAllData(
-			OBGenericDataType::StereoData);
-	for (std::vector<OBGenericData*>::iterator data = vdata.begin();
-			data != vdata.end(); ++data) {
+	std::vector<OBGenericData*> vdata = fragment.GetAllData(OBGenericDataType::StereoData);
+	for (std::vector<OBGenericData*>::iterator data = vdata.begin(); data != vdata.end(); ++data) {
 		OBStereo::Type datatype = ((OBStereoBase*) *data)->GetType();
 		if (datatype == OBStereo::CisTrans) {
 			OBCisTransStereo *ct = dynamic_cast<OBCisTransStereo*>(*data);
@@ -444,8 +409,7 @@ void MoleculeBuilder::addFragmentToMol(OBMol &mol, OBMol &fragment) {
 			OBCisTransStereo::Config ct_cfg = ct->GetConfig();
 			ct_cfg.begin = correspondingId[ct_cfg.begin];
 			ct_cfg.end = correspondingId[ct_cfg.end];
-			for (OBStereo::RefIter ri = ct_cfg.refs.begin();
-					ri != ct_cfg.refs.end(); ++ri)
+			for (OBStereo::RefIter ri = ct_cfg.refs.begin(); ri != ct_cfg.refs.end(); ++ri)
 				*ri = correspondingId[*ri];
 			nct->SetConfig(ct_cfg);
 			mol.SetData(nct);
@@ -455,8 +419,7 @@ void MoleculeBuilder::addFragmentToMol(OBMol &mol, OBMol &fragment) {
 			OBTetrahedralStereo::Config ts_cfg = ts->GetConfig();
 			ts_cfg.center = correspondingId[ts_cfg.center];
 			ts_cfg.from = correspondingId[ts_cfg.from];
-			for (OBStereo::RefIter ri = ts_cfg.refs.begin();
-					ri != ts_cfg.refs.end(); ++ri)
+			for (OBStereo::RefIter ri = ts_cfg.refs.begin(); ri != ts_cfg.refs.end(); ++ri)
 				*ri = correspondingId[*ri];
 			nts->SetConfig(ts_cfg);
 			mol.SetData(nts);
@@ -490,16 +453,13 @@ void MoleculeBuilder::fixProlines(OBMol & mol) {
 			OBAtom * CD = getAtomByAtomID(res, "CD");
 
 			if (CA == NULL || CB == NULL || CY == NULL || CD == NULL) {
-				cout
-						<< "Cannot find proline ring carbons! Torsion updates will not work."
-						<< endl;
+				cout << "Cannot find proline ring carbons! Torsion updates will not work." << endl;
 				cout << CA << " " << CB << " " << CY << " " << CD << endl;
 				return;
 			}
 
 			if (!CA->IsConnected(CB)) {
-				cout << "CA and CB are not connected in OBMol, connecting."
-						<< endl;
+				cout << "CA and CB are not connected in OBMol, connecting." << endl;
 				OBBond *bond = mol.NewBond();
 				bond->SetBegin(CA);
 				bond->SetEnd(CB);
@@ -513,8 +473,7 @@ void MoleculeBuilder::fixProlines(OBMol & mol) {
 			}
 
 			if (!CB->IsConnected(CY)) {
-				cout << "CB and CY are not connected in OBMol, connecting."
-						<< endl;
+				cout << "CB and CY are not connected in OBMol, connecting." << endl;
 				OBBond *bond = mol.NewBond();
 				bond->SetBegin(CB);
 				bond->SetEnd(CY);
@@ -527,8 +486,7 @@ void MoleculeBuilder::fixProlines(OBMol & mol) {
 				cout << "New bond length: " << CB->GetDistance(CY) << endl;
 			}
 			if (!CY->IsConnected(CD)) {
-				cout << "CY and CD are not connected in OBMol, connecting."
-						<< endl;
+				cout << "CY and CD are not connected in OBMol, connecting." << endl;
 				OBBond *bond = mol.NewBond();
 				bond->SetBegin(CY);
 				bond->SetEnd(CD);
@@ -550,8 +508,7 @@ int MoleculeBuilder::getAtomIdFromData(OBMol &mol, string dataVal, int value) {
 	vector<OBAtom*>::iterator i;
 	for (atom = mol.BeginAtom(i); atom; atom = mol.NextAtom(i)) {
 		if (atom->HasData(dataVal)) {
-			OBPairInteger *data = dynamic_cast<OBPairInteger*>(atom->GetData(
-					dataVal.c_str()));
+			OBPairInteger *data = dynamic_cast<OBPairInteger*>(atom->GetData(dataVal.c_str()));
 			if (data->GetGenericValue() == value) {
 				return atom->GetId();
 			}
@@ -560,14 +517,12 @@ int MoleculeBuilder::getAtomIdFromData(OBMol &mol, string dataVal, int value) {
 	return -1;
 }
 
-int MoleculeBuilder::getAtomIndexFromData(OBMol &mol, string dataVal,
-		int value) {
+int MoleculeBuilder::getAtomIndexFromData(OBMol &mol, string dataVal, int value) {
 	OBAtom * atom;
 	vector<OBAtom*>::iterator i;
 	for (atom = mol.BeginAtom(i); atom; atom = mol.NextAtom(i)) {
 		if (atom->HasData(dataVal)) {
-			OBPairInteger *data = dynamic_cast<OBPairInteger*>(atom->GetData(
-					dataVal.c_str()));
+			OBPairInteger *data = dynamic_cast<OBPairInteger*>(atom->GetData(dataVal.c_str()));
 			if (data->GetGenericValue() == value) {
 				return atom->GetIdx();
 			}
@@ -582,12 +537,10 @@ int MoleculeBuilder::getAtomIndexFromData(OBMol &mol, string dataVal,
  * R1 - fatom1 - fatom2 -R2
  * **/
 
-void MoleculeBuilder::connect(OBMol &mol, OBMol &fragment, int ma1index = -1,
-		int ma2index = -1, int fa1index = -1, int fa2index = -1, int index = -1,
-		int bondOrder = 1, bool updateResidueInfo = false) {
+void MoleculeBuilder::connect(OBMol &mol, OBMol &fragment, int ma1index = -1, int ma2index = -1, int fa1index = -1, int fa2index = -1,
+		int index = -1, int bondOrder = 1, bool updateResidueInfo = false) {
 
-	cout << ma1index << " " << ma2index << " " << fa1index << " " << fa2index
-			<< endl;
+	cout << ma1index << " " << ma2index << " " << fa1index << " " << fa2index << endl;
 	OBBuilder build;
 
 	OBAtom * molatom1 = mol.GetAtom(ma1index);
@@ -677,8 +630,7 @@ void MoleculeBuilder::connect(OBMol &mol, OBMol &fragment, int ma1index = -1,
 //cout << rotationAxisN << endl;
 
 		double dp;
-		dp = OBAPI::dot(molbondvec, fragbondvec)
-				/ (molbondvec.length() * fragbondvec.length());
+		dp = OBAPI::dot(molbondvec, fragbondvec) / (molbondvec.length() * fragbondvec.length());
 		double angle = acos(dp);
 		double diffAng = -angle;
 //cout << "rotating" << endl;
@@ -727,13 +679,13 @@ void MoleculeBuilder::connect(OBMol &mol, OBMol &fragment, int ma1index = -1,
 	if (ma2index != -1) {
 //insert at C_b position
 //cout << molAtoms.size() << " " << fragAtoms.size() << " " << ma2index << endl;
-		molAtoms.insert(molAtoms.begin() + ma2index - 1, fragAtoms.begin(),
-				fragAtoms.end());
+		molAtoms.insert(molAtoms.begin() + ma2index - 1, fragAtoms.begin(), fragAtoms.end());
 	} else {
 //insert after  C_a position
-		molAtoms.insert(molAtoms.begin() + molatom1->GetIdx(),
-				fragAtoms.begin(), fragAtoms.end());
+		molAtoms.insert(molAtoms.begin() + molatom1->GetIdx(), fragAtoms.begin(), fragAtoms.end());
 	}
+
+
 
 	mol.RenumberAtoms(molAtoms);
 
@@ -786,8 +738,7 @@ void OBBond::SetLength(OBAtom *fixed, double length) {
 	vector3 v1, v2, v3, v4, v5;
 	vector<int> children;
 
-	obErrorLog.ThrowError(__FUNCTION__, "Ran OpenBabel::SetBondLength",
-			obAuditMsg);
+	obErrorLog.ThrowError(__FUNCTION__, "Ran OpenBabel::SetBondLength", obAuditMsg);
 
 	int a = fixed->GetIdx();
 	int b = GetNbrAtom(fixed)->GetIdx();
@@ -803,9 +754,7 @@ void OBBond::SetLength(OBAtom *fixed, double length) {
 	v3 = v1 - v2;
 
 	if (IsNearZero(v3.length_2())) { // too small to normalize, move the atoms apart
-		obErrorLog.ThrowError(__FUNCTION__,
-				"Atoms are both at the same location, moving out of the way.",
-				obWarning);
+		obErrorLog.ThrowError(__FUNCTION__, "Atoms are both at the same location, moving out of the way.", obWarning);
 		v3.randomUnitVector();
 	} else {
 		v3.normalize();
@@ -822,8 +771,7 @@ void OBBond::SetLength(OBAtom *fixed, double length) {
 	}
 }
 
-void MoleculeBuilder::referenceTorsionByAtomIDProfile(OBMol &mol, OBMol &frag,
-		int molatom1index, int fragatom1index, int fragatom2index,
+void MoleculeBuilder::referenceTorsionByAtomIDProfile(OBMol &mol, OBMol &frag, int molatom1index, int fragatom1index, int fragatom2index,
 		int molfragatom2index) {
 
 	OBAtom * fragatom1 = frag.GetAtom(fragatom1index);
@@ -846,11 +794,9 @@ void MoleculeBuilder::referenceTorsionByAtomIDProfile(OBMol &mol, OBMol &frag,
 		mc = mol.GetAtom((*t)[2] + 1);
 		md = mol.GetAtom((*t)[3] + 1);
 
-		moltor = mol.GetTorsion(ma->GetIdx(), mb->GetIdx(), mc->GetIdx(),
-				md->GetIdx());
+		moltor = mol.GetTorsion(ma->GetIdx(), mb->GetIdx(), mc->GetIdx(), md->GetIdx());
 //cout << mb->GetId() << " " <<mc->GetId() << endl;
-		if (mb->GetId() == molatom1->GetId()
-				&& mc->GetId() == molfragatom2->GetId()) {
+		if (mb->GetId() == molatom1->GetId() && mc->GetId() == molfragatom2->GetId()) {
 
 			bool foundMatch = false;
 
@@ -869,11 +815,8 @@ void MoleculeBuilder::referenceTorsionByAtomIDProfile(OBMol &mol, OBMol &frag,
 			boost::trim(molatom3ID);
 			boost::trim(molatom4ID);
 
-			cout << molatom1ID << " (" << molresa->GetName() << ") "
-					<< molatom2ID << " (" << molresb->GetName() << ") "
-					<< molatom3ID << " (" << molresc->GetName() << ") "
-					<< molatom4ID << " (" << molresd->GetName() << ") "
-					<< moltor << endl;
+			cout << molatom1ID << " (" << molresa->GetName() << ") " << molatom2ID << " (" << molresb->GetName() << ") " << molatom3ID
+					<< " (" << molresc->GetName() << ") " << molatom4ID << " (" << molresd->GetName() << ") " << moltor << endl;
 
 			OBAtom*fa, *fb, *fc, *fd;
 
@@ -886,8 +829,7 @@ void MoleculeBuilder::referenceTorsionByAtomIDProfile(OBMol &mol, OBMol &frag,
 				fc = frag.GetAtom((*t)[2] + 1);
 				fd = frag.GetAtom((*t)[3] + 1);
 
-				fragtor = frag.GetTorsion(fa->GetIdx(), fb->GetIdx(),
-						fc->GetIdx(), fd->GetIdx());
+				fragtor = frag.GetTorsion(fa->GetIdx(), fb->GetIdx(), fc->GetIdx(), fd->GetIdx());
 
 				OBResidue * fragresa = fa->GetResidue();
 				OBResidue * fragresb = fb->GetResidue();
@@ -904,23 +846,15 @@ void MoleculeBuilder::referenceTorsionByAtomIDProfile(OBMol &mol, OBMol &frag,
 				boost::trim(fragatom3ID);
 				boost::trim(fragatom4ID);
 
-				if (fb->GetId() == fragatom1->GetId()
-						&& fc->GetId() == fragatom2->GetId()) {
-					cout << "potential match: " << fragatom1ID << " "
-							<< fragatom2ID << " " << fragatom3ID << " "
-							<< fragatom4ID << " " << fragtor << endl;
+				if (fb->GetId() == fragatom1->GetId() && fc->GetId() == fragatom2->GetId()) {
+					cout << "potential match: " << fragatom1ID << " " << fragatom2ID << " " << fragatom3ID << " " << fragatom4ID << " "
+							<< fragtor << endl;
 
-					if (molatom1ID.compare(fragatom1ID) == 0
-							&& molatom2ID.compare(fragatom2ID) == 0
-							&& molatom3ID.compare(fragatom3ID) == 0
+					if (molatom1ID.compare(fragatom1ID) == 0 && molatom2ID.compare(fragatom2ID) == 0 && molatom3ID.compare(fragatom3ID) == 0
 							&& molatom4ID.compare(fragatom4ID) == 0) {
-						cout << "found match:" << fragatom1ID << " ("
-								<< fragresa->GetName() << ") " << fragatom2ID
-								<< " (" << fragresb->GetName() << ") "
-								<< fragatom3ID << " (" << fragresc->GetName()
-								<< ") " << fragatom4ID << " ("
-								<< fragresd->GetName() << ") " << fragtor
-								<< endl;
+						cout << "found match:" << fragatom1ID << " (" << fragresa->GetName() << ") " << fragatom2ID << " ("
+								<< fragresb->GetName() << ") " << fragatom3ID << " (" << fragresc->GetName() << ") " << fragatom4ID << " ("
+								<< fragresd->GetName() << ") " << fragtor << endl;
 						mol.SetTorsion(ma, mb, mc, md, fragtor * DEG_TO_RAD);
 						foundMatch = true;
 						break;
@@ -942,8 +876,7 @@ void referenceTorsionByElementProfile() {
 
 }
 /**finds the torsion in mol which should be updated with the one in frag - used after connect() (and ... addFragmentToMol)**/
-void MoleculeBuilder::referenceTorsion(OBMol &mol, OBMol &frag, int molatom1id,
-		int molatom2id, int fragatom1id, int fragatom2id) {
+void MoleculeBuilder::referenceTorsion(OBMol &mol, OBMol &frag, int molatom1id, int molatom2id, int fragatom1id, int fragatom2id) {
 
 	OBAtom*ma, *mb, *mc, *md;
 	double moltor;
@@ -955,8 +888,7 @@ void MoleculeBuilder::referenceTorsion(OBMol &mol, OBMol &frag, int molatom1id,
 		mb = mol.GetAtom((*t)[1] + 1);
 		mc = mol.GetAtom((*t)[2] + 1);
 		md = mol.GetAtom((*t)[3] + 1);
-		moltor = mol.GetTorsion(ma->GetIdx(), mb->GetIdx(), mc->GetIdx(),
-				md->GetIdx());
+		moltor = mol.GetTorsion(ma->GetIdx(), mb->GetIdx(), mc->GetIdx(), md->GetIdx());
 
 		if (mb->GetId() == molatom1id && mc->GetId() == fragatom2id) {
 
@@ -985,8 +917,7 @@ void MoleculeBuilder::referenceTorsion(OBMol &mol, OBMol &frag, int molatom1id,
 				fc = frag.GetAtom((*t)[2] + 1);
 				fd = frag.GetAtom((*t)[3] + 1);
 
-				fragtor = frag.GetTorsion(fa->GetIdx(), fb->GetIdx(),
-						fc->GetIdx(), fd->GetIdx());
+				fragtor = frag.GetTorsion(fa->GetIdx(), fb->GetIdx(), fc->GetIdx(), fd->GetIdx());
 
 				OBResidue * fragresa = fa->GetResidue();
 				OBResidue * fragresb = fb->GetResidue();
@@ -999,16 +930,10 @@ void MoleculeBuilder::referenceTorsion(OBMol &mol, OBMol &frag, int molatom1id,
 				string fragatom4ID = fragresa->GetAtomID(fd);
 
 				if (fb->GetId() == fragatom1id && fc->GetId() == fragatom2id) {
-					if (molatom1ID == fragatom1ID && molatom2ID == fragatom2ID
-							&& molatom3ID == fragatom3ID
-							&& molatom4ID == fragatom4ID) {
-						cout << "found match:" << fragatom1ID << " ("
-								<< fragresa->GetName() << ") " << fragatom2ID
-								<< " (" << fragresb->GetName() << ") "
-								<< fragatom3ID << " (" << fragresc->GetName()
-								<< ") " << fragatom4ID << " ("
-								<< fragresd->GetName() << ") " << fragtor
-								<< endl;
+					if (molatom1ID == fragatom1ID && molatom2ID == fragatom2ID && molatom3ID == fragatom3ID && molatom4ID == fragatom4ID) {
+						cout << "found match:" << fragatom1ID << " (" << fragresa->GetName() << ") " << fragatom2ID << " ("
+								<< fragresb->GetName() << ") " << fragatom3ID << " (" << fragresc->GetName() << ") " << fragatom4ID << " ("
+								<< fragresd->GetName() << ") " << fragtor << endl;
 						mol.SetTorsion(ma, mb, mc, md, fragtor * DEG_TO_RAD);
 						foundMatch = true;
 						break;
@@ -1025,8 +950,7 @@ void MoleculeBuilder::referenceTorsion(OBMol &mol, OBMol &frag, int molatom1id,
 	}
 }
 
-void MoleculeBuilder::rotateAtoms(vector<OBAtom *> atoms, vector3 &origin,
-		vector3 &rotationAxis, double angle) {
+void MoleculeBuilder::rotateAtoms(vector<OBAtom *> atoms, vector3 &origin, vector3 &rotationAxis, double angle) {
 	double rotMatrix[9];
 
 	double sn = sin(angle);
@@ -1177,8 +1101,7 @@ void OBMol::SetTorsion(OBAtom *a, OBAtom *b, OBAtom *c, OBAtom *d, double ang) {
 	vector<int> tor;
 	vector<int> atoms;
 
-	obErrorLog.ThrowError(__FUNCTION__, "Ran OpenBabel::SetTorsion",
-			obAuditMsg);
+	obErrorLog.ThrowError(__FUNCTION__, "Ran OpenBabel::SetTorsion", obAuditMsg);
 
 	tor.push_back(a->GetCIdx());
 	tor.push_back(b->GetCIdx());
@@ -1204,8 +1127,7 @@ void OBMol::SetTorsion(OBAtom *a, OBAtom *b, OBAtom *c, OBAtom *d, double ang) {
 	double x, y, z, mag, rotang, sn, cs, t, tx, ty, tz;
 
 //calculate the torsion angle
-	radang = CalcTorsionAngle(a->GetVector(), b->GetVector(), c->GetVector(),
-			d->GetVector()) / RAD_TO_DEG;
+	radang = CalcTorsionAngle(a->GetVector(), b->GetVector(), c->GetVector(), d->GetVector()) / RAD_TO_DEG;
 //
 // now we have the torsion angle (radang) - set up the rot matrix
 //
@@ -1263,8 +1185,7 @@ void OBMol::SetTorsion(OBAtom *a, OBAtom *b, OBAtom *c, OBAtom *d, double ang) {
 	}
 }
 
-void MoleculeBuilder::rotateMolecule(OBMol &mol, vector3 &origin,
-		vector3 &rotationAxis, double angle) {
+void MoleculeBuilder::rotateMolecule(OBMol &mol, vector3 &origin, vector3 &rotationAxis, double angle) {
 	double rotMatrix[9];
 
 	double sn = sin(angle);

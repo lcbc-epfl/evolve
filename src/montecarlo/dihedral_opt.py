@@ -20,6 +20,11 @@ def get_script_path():
 
 
 def loadold():
+    # 0 : GEN
+    # 1 : GLY
+    # 2 : PREPRO
+    # 3 : PRO
+    
     general_data = np.fromfile('./psiphi/rama500-general-nosec.data', sep=' ')
     gly_data = np.fromfile('./psiphi/rama500-gly-sym-nosec.data', sep=' ')
     prepro_data = np.fromfile('./psiphi/rama500-prepro.data', sep=' ')
