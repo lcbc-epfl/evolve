@@ -32,10 +32,58 @@ def getResType(obres):
 
 def getAlphaCarbon(obres):
     for obatom in openbabel.OBResidueAtomIter(obres):
-        atomID = obres.GetAtomID(obatom)
+        # atomID = obres.GetAtomID(obatom)
         
-        if (atomID.strip(" ") == "CA"):
-            return obatom
+        # if (atomID.strip(" ") == "CA"):
+        #    return obatom
+        
+        if (obatom.IsCarbon()):
+           
+            
+            carboxl_carbon = getConnectedCarboxylCarbon(obatom)
+            # can identify carboxyl carbon in any peptide
+            if (carboxl_carbon is not None):
+                # now can find proline nitrogen
+                amide_nitro = getConnectedAmideNitrogen(obatom)
+                
+                if (amide_nitro is not None):
+                    return obatom
+    return None
+        
+def getConnectedAmideNitrogen(carbon_atom):
+    
+    obres = carbon_atom.GetResidue()
+    # can have trouble here for proline due to it's connectivity, need separate rules
+    #    --> assume that atom is the alpha_carbon
+    if (obres.GetName() == "PRO"):
+        for obatom in openbabel.OBAtomAtomIter(carbon_atom):
+            if (obatom.IsNitrogen()):
+
+                return obatom
+                    
+    else:
+        for obatom in openbabel.OBAtomAtomIter(carbon_atom):
+            if (obatom.IsNitrogen()):
+              
+                for obatom2 in openbabel.OBAtomAtomIter(obatom):
+                    if (obatom2.IsHydrogen()):
+                     
+                        return obatom
+    return None
+
+def getConnectedCarboxylCarbon(atom):
+    
+    obres = atom.GetResidue()
+    
+    for obatom in openbabel.OBAtomAtomIter(atom):
+        if (obatom.IsCarbon()):
+       
+            for obbond in openbabel.OBAtomBondIter(obatom):
+                if (obbond.GetBO() == 2 and obbond.GetNbrAtom(obatom).GetAtomicNum() == 8):
+                   
+                    return obatom
+    return None
+        
         
 def getBetaAtom(obres):
     alpha_carbon = getAlphaCarbon(obres)
@@ -90,7 +138,7 @@ def getBBCarboxyl(obres):
         
         for obbond in openbabel.OBAtomBondIter(obatom):
             # print obbond.GetBO(), obbond.GetBeginAtom().GetType(), obbond.GetEndAtom().GetType()
-            if (obbond.GetNbrAtom(obatom).GetAtomicNum() == 8):
+            if (obbond.GetBO() == 2 and obbond.GetNbrAtom(obatom).GetAtomicNum() == 8):
                 return obatom
             
 
@@ -234,14 +282,20 @@ if __name__ == '__main__':
     print mol.NumBonds()
     print mol.NumResidues()
     
-    getAllPhiPsiDihedrals(mol)
-    
-    for i in xrange(1, mol.NumAtoms()):
-        print mol.GetAtom(i).GetType()
+    # getAllPhiPsiDihedrals(mol)
         
     for j in xrange(0, mol.NumResidues()): 
+        
         obres = mol.GetResidue(j)
+        
+        print "-----"
+        for obatom in openbabel.OBResidueAtomIter(obres):
+            print obatom.GetIdx(), obatom.GetAtomicNum()
+        print "-----"   
         alpha_carbon = getAlphaCarbon(obres)
+        
+        print "ALpha:", alpha_carbon
+        
         bb_nitrogen = getBBNitrogen(obres)
         neg1_carboxl = getNeg1BBCarboxyl(obres)
         carboxl = getBBCarboxyl(obres)
@@ -252,7 +306,7 @@ if __name__ == '__main__':
         
         print j, obres.GetName(), "::" , neg1_carboxl, "---", bb_nitrogen, "---", alpha_carbon, "---", carboxl, "---", plus1_nitrogen
         
-        mol.SetTorsion(neg1_carboxl, bb_nitrogen, alpha_carbon, carboxl, 90.0 * (np.pi / 180.0))
+        mol.SetTorsion(neg1_carboxl, bb_nitrogen, alpha_carbon, carboxl, -60 * (np.pi / 180.0))
         
     print "Writing to file"
     angles = getAllPhiPsiDihedrals(mol)

@@ -135,8 +135,10 @@ def swapsidechain (mol, res_index, aa_mol):
     aa_CA = mi.getAlphaCarbon(new)
     aa_CB = mi.getBetaAtom(new)
     aa_bb_nitrogen = mi.getBBNitrogen(new)
-    aa_gamma_atom = mi.getChi1DihedralAtom(new)
     
+    
+    
+    aa_gamma_atom = mi.getChi1DihedralAtom(new)
     
     frag_res = aa_CB.GetResidue()
     frag_name = frag_res.GetName()
@@ -319,8 +321,8 @@ def swapsidechain (mol, res_index, aa_mol):
     beta_atom = mi.getBetaAtom(curr)
     chi_atom = mi.getChi1DihedralAtom(curr)
     
-    
-    
+    if (chi_atom is not None):
+        mol.SetTorsion(bb_nitrogen, alpha_carbon, beta_atom, chi_atom, aa_tor * (np.pi / 180.0))
     # print "tor", alpha_carbon, bb_nitrogen, beta_atom, chi_atom
     # print debugAtom(alpha_carbon)
     # print debugAtom(bb_nitrogen)
@@ -328,11 +330,7 @@ def swapsidechain (mol, res_index, aa_mol):
     # print debugAtom(chi_atom)
     
     # print "torsion update"
-    mol.SetTorsion(bb_nitrogen, alpha_carbon, beta_atom, chi_atom, aa_tor * (np.pi / 180.0))
-
-    obConversion = openbabel.OBConversion()
-    obConversion.SetOutFormat("pdb")
-    obConversion.WriteFile(mol, "test2.pdb")
+    
     # print "Renumbering Atoms"
     # print "renumber"
     mol.RenumberAtoms(renum_atoms)
@@ -353,23 +351,17 @@ if __name__ == '__main__':
     obtype = openbabel.OBAtomTyper()
     obConversion.ReadFile(mol, "gpgg.pdb") 
     
-        
-    frag = openbabel.OBMol()
-    obConversion.SetInAndOutFormats("mol2", "pdb")
-    obConversion.ReadFile(frag, "/lcbcdata/nbrownin/Rotamers_mol2/ASH/D07.mol2") 
-    
     frag2 = openbabel.OBMol()
     obConversion.SetInAndOutFormats("mol2", "pdb")
     obConversion.ReadFile(frag2, "/lcbcdata/nbrownin/Rotamers_mol2/HID/HD3.mol2") 
     
-
     print "first swap"
     
     swapsidechain(mol, 1, frag)
     
     print "second swap"
     swapsidechain(mol, 3, frag2)
-    print "WRITING OUT"
+    print "WRITING OUT"                                                                                                                                                                                                                                                                                       
     obConversion.WriteFile(mol, "test2.pdb")
     
     
