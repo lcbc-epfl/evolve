@@ -1,6 +1,4 @@
 '''
-printMoleculeInfo
-
 @author: Nicholas Browning
 '''
 

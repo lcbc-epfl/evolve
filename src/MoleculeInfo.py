@@ -144,7 +144,7 @@ def getBBCarboxyl(obres):
         # print "--", obatom.GetType()
         
         for obbond in openbabel.OBAtomBondIter(obatom):
-            print obbond.GetBO(), obbond.GetBeginAtom().GetType(), obbond.GetEndAtom().GetType()
+            # print obbond.GetBO(), obbond.GetBeginAtom().GetType(), obbond.GetEndAtom().GetType()
             if (countBonds(obbond.GetNbrAtom(obatom)) == 1  and obbond.GetNbrAtom(obatom).GetAtomicNum() == 8):
                 return obatom
     return None
