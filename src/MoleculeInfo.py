@@ -79,16 +79,16 @@ def getConnectedCarboxylCarbon(atom):
         if (obatom.IsCarbon()):
        
             for obbond in openbabel.OBAtomBondIter(obatom):
-                if (obbond.GetBO() == 2 and obbond.GetNbrAtom(obatom).GetAtomicNum() == 8):
-                   
+                if (countBonds(obbond.GetNbrAtom(obatom)) == 1 and obbond.GetNbrAtom(obatom).GetAtomicNum() == 8):
                     return obatom
     return None
         
         
 def getBetaAtom(obres):
     alpha_carbon = getAlphaCarbon(obres)
+
     bbcarboxl = getBBCarboxyl(obres)
-    
+ 
     if alpha_carbon is None:
         return None
     
@@ -101,6 +101,7 @@ def getBetaAtom(obres):
         else:
             if (obatom.IsCarbon() and obatom.GetIdx() != bbcarboxl.GetIdx()):
                 return obatom
+    return None
         
 def getBBNitrogen(obres):
     alpha_carbon = getAlphaCarbon(obres)
@@ -111,6 +112,7 @@ def getBBNitrogen(obres):
     for obatom in openbabel.OBAtomAtomIter(alpha_carbon):
         if (obatom.IsNitrogen()):
             return obatom
+    return None
         
 def getNeg1BBCarboxyl(obres):
     ca = getAlphaCarbon(obres)
@@ -124,22 +126,28 @@ def getNeg1BBCarboxyl(obres):
             continue
         
         for obbond in openbabel.OBAtomBondIter(obatom):
-            if (obbond.GetBO() == 2 and obbond.GetNbrAtom(obatom).GetAtomicNum() == 8):
+            if (countBonds(obbond.GetNbrAtom(obatom)) == 1  and obbond.GetNbrAtom(obatom).GetAtomicNum() == 8):
                 return obatom
+    return None
             
 def getBBCarboxyl(obres):
     ca_atom = getAlphaCarbon(obres)
     
+    # print debugAtom(ca_atom)
     for obatom in openbabel.OBAtomAtomIter(ca_atom):
+        
+        # print obatom.GetType()
+
         if (not obatom.IsCarbon()):
             continue
         
         # print "--", obatom.GetType()
         
         for obbond in openbabel.OBAtomBondIter(obatom):
-            # print obbond.GetBO(), obbond.GetBeginAtom().GetType(), obbond.GetEndAtom().GetType()
-            if (obbond.GetBO() == 2 and obbond.GetNbrAtom(obatom).GetAtomicNum() == 8):
+            print obbond.GetBO(), obbond.GetBeginAtom().GetType(), obbond.GetEndAtom().GetType()
+            if (countBonds(obbond.GetNbrAtom(obatom)) == 1  and obbond.GetNbrAtom(obatom).GetAtomicNum() == 8):
                 return obatom
+    return None
             
 
 def getPhiPsiDihedrals(mol, residue_indexes):
@@ -205,7 +213,13 @@ def getChi1DihedralAngle(mol, obres):
         return None
     
     return mol.GetTorsion(bb_nitrogen, alpha_carbon, beta_atom, gamma_atom)
-    
+
+def countBonds(obatom):
+    count = 0
+    for i in xrange(1, 4):
+        count += obatom.CountBondsOfOrder(i)
+    return count
+
 def debugAtom(obatom):
     return "AN:", obatom.GetAtomicNum(), "T:", obatom.GetType(), "idx:", obatom.GetIdx(), "id:", obatom.GetId(), "BO(1):", obatom.CountBondsOfOrder(1), obatom.GetVector()
 

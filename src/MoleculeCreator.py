@@ -131,18 +131,20 @@ def swapsidechain (mol, res_index, aa_mol):
 
     # print "MOL_CA", debugAtom(mol_CA)
     # print "MOL_CB", debugAtom(mol_CB)
-    
+   
     aa_CA = mi.getAlphaCarbon(new)
+    # print "a"
     aa_CB = mi.getBetaAtom(new)
+    # print "b"
     aa_bb_nitrogen = mi.getBBNitrogen(new)
-    
-    
-    
+    # print "c"
     aa_gamma_atom = mi.getChi1DihedralAtom(new)
-    
+
+    # print "wat"
     frag_res = aa_CB.GetResidue()
     frag_name = frag_res.GetName()
-  
+    
+    # print "hm"
     aa_tor = aa_mol.GetTorsion(aa_gamma_atom, aa_CA, aa_CB, aa_bb_nitrogen)
     
     # print aa_tor
@@ -246,12 +248,12 @@ def swapsidechain (mol, res_index, aa_mol):
     
     # print "DEBUGGING MOL BONDS:"
     # for i in xrange (0, mol.NumBonds()):
-    #    print debugBond(mol.GetBond(i))
+        # print debugBond(mol.GetBond(i))
     
     # print "DEBUG MOL ATOMS:"
     # for i in xrange(1, mol.NumAtoms() + 1):
-     #   atom = mol.GetAtom(i)
-     #   print debugAtom(atom)
+       # atom = mol.GetAtom(i)
+        # print debugAtom(atom)
         
     # print mol_CA, mol_CA.GetId() 
     # print aa_CB, aa_CB.GetId()
@@ -277,7 +279,7 @@ def swapsidechain (mol, res_index, aa_mol):
     
     # print "DEBUGGING MOL BONDS:"
     # for i in xrange (0, mol.NumBonds()):
-    #    print debugBond(mol.GetBond(i))
+        # print debugBond(mol.GetBond(i))
     
     # print "Debug Frag Res:"
     # for obatom in openbabel.OBResidueAtomIter(frag_res):
@@ -286,17 +288,17 @@ def swapsidechain (mol, res_index, aa_mol):
      
     # print "DEBUG FRAG ATOMS:"
     # for i in xrange(1, aa_mol.NumAtoms() + 1):
-     #   atom = aa_mol.GetAtom(i)
+        # atom = aa_mol.GetAtom(i)
         # print debugAtom(atom)
         
            
     # print "DEBUG MOL ATOMS:"
     # for i in xrange(1, mol.NumAtoms() + 1):
-    #    atom = mol.GetAtom(i)
+        # atom = mol.GetAtom(i)
         # print debugAtom(atom)
         
     # for data in frag_res.GetData():
-     #   print data
+        # print data
     
     
     frag_res_type = mi.getResType(frag_res)
