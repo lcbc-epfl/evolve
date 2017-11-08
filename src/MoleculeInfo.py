@@ -96,7 +96,7 @@ def getBetaAtom(obres):
     res = getResType(obres)
     for obatom in openbabel.OBAtomAtomIter(alpha_carbon):
         if (res == "GLY"):
-            if (obatom.GetType() == 'H'):
+            if (obatom.GetAtomicNum() == 1):
                 return obatom
         else:
             if (obatom.IsCarbon() and obatom.GetIdx() != bbcarboxl.GetIdx()):
