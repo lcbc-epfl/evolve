@@ -15,6 +15,8 @@ def getResType(obres):
     '''get 3 letter code of OBRes - needed to parse richardson library'''
     res = obres.GetName()
     
+    res = res.strip()
+    res = res[:3]  # if load mol2, GetName() has residue Index attached at end
     # check richardson rotamers and return rotamer_type
     for i in xrange (0, len(constants.rotamers)):
         if (constants.rotamers[i] == res):
@@ -92,11 +94,11 @@ def getBetaAtom(obres):
     if alpha_carbon is None:
         return None
     
-    # need to do additional tests for Glycine
     res = getResType(obres)
     for obatom in openbabel.OBAtomAtomIter(alpha_carbon):
+        
         if (res == "GLY"):
-            
+
             bbnitrogen = getBBNitrogen(obres)
     
             if (obatom.GetAtomicNum() == 1):
@@ -108,7 +110,7 @@ def getBetaAtom(obres):
                 n_vec = np.asarray([bbnitrogen.GetX() - alpha_carbon.GetX(), bbnitrogen.GetY() - alpha_carbon.GetY(), bbnitrogen.GetZ() - alpha_carbon.GetZ()])
 
                 orth_vec = np.cross(ca_vec, n_vec)
-                
+        
                 if (angle(h_vec, orth_vec) < 90.0):
                     # this corresponds to the L enantiomer
                     # print angle(h_vec, orth_vec)
