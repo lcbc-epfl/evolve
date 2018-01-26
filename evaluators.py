@@ -27,6 +27,7 @@ def testDihedralFitness(settings, individuals, fitness_index):
         individuals[i].setFitness(fitness_index, fitness)
 
 
+
 def testEnergyByMinimisation(settings, individuals, fitness_index):
 
     for i in xrange (0, settings.population_size):

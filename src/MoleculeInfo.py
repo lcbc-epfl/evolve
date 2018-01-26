@@ -9,14 +9,14 @@ from openbabel import OBResidue
 from openbabel import OBAtom
 import numpy as np
 import constants
-from Cython.Compiler.Nodes import ContinueStatNode
+
 
 def getResType(obres):
     '''get 3 letter code of OBRes - needed to parse richardson library'''
     res = obres.GetName()
     
     res = res.strip()
-    res = res[:3]  # if load mol2, GetName() has residue Index attached at end
+    res = res[:3]
     # check richardson rotamers and return rotamer_type
     for i in xrange (0, len(constants.rotamers)):
         if (constants.rotamers[i] == res):
