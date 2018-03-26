@@ -1,0 +1,8 @@
+#source leaprc.protein.ff14SB #Source leaprc file for ff14SB protein force field
+source leaprc.gaff #Source leaprc file for gaff
+mol = loadmol2 tests/amber_gpgg/amber_run/antechamber_temp_mol.mol2
+check mol
+loadamberparams tests/amber_gpgg/gpgg_TRS.frcmod #Load additional features of gpgg not included in Amber
+#saveoff mol gpgg.lib
+saveamberparm mol tests/amber_gpgg/amber_run/leap_temp_mol.prmtop tests/amber_gpgg/amber_run/leap_temp_mol.inpcrd
+quit #Quit tleap program

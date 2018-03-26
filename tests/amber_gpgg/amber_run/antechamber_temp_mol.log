@@ -1,0 +1,11 @@
+
+Welcome to antechamber 17.3: molecular input file processor.
+
+acdoctor mode is on: check and diagnosis problems in the input file.
+-- Check Format for Gaussian Output File --
+Warning: No ESP information in the Gaussian output file.
+         This file cannot be used to generate RESP charges with Gaussian via
+         e.g. "#HF/6-31G* SCF=tight Pop=MK iop(6/33=2) iop(6/42=6) opt"
+   Status: pass
+/software/amber/16/gcc-6.3.0-mkl-openmpi/bin/to_be_dispatched/antechamber: Fatal Error!
+No atom found; the gaussian output file may not be complete.

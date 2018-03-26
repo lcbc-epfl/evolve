@@ -11,11 +11,11 @@ crossovers.py
 SBX = 'sbx'
 
 # mutator types
-POLY = 'poly'
+POLY = 'poly_dihedral'
 
 # replacer types
 SWAP = 'swap'
-ELITIST = 'elitist'
+ELITIST = 'elitism'
 
 # selector ty[es
 TOURNAMENT_WOR = 'tournament_wor'

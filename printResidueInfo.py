@@ -17,11 +17,15 @@ def printResidueInfo(mol):
     
     print "Phi, Psi Dihedrals:"
     dihedrals = mi.getAllPhiPsiDihedrals(mol)
+
+    (sorted_atoms_ID, sorted_atoms_OB) = mi.get_atoms_per_residue(mol)
     
     for i in xrange (0, mol.NumResidues()):
         res = mol.GetResidue(i)
         
         print "Res", i, res.GetName()
+
+        print("Atoms {}".format(sorted_atoms_ID[i]))
         
         print "[phi, psi]", dihedrals[i][0], dihedrals[i][1]
     

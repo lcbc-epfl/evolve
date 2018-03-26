@@ -1,0 +1,100 @@
+ Frac coord min, max:  -0.11251087016070291       0.86523266706204394     
+ The system has extended beyond 
+     the extent of the virtual box.
+ Restarting sander will recalculate
+    a new virtual box with 30 Angstroms
+    extra on each side, if there is a
+    restart file for this configuration.
+ SANDER BOMB in subroutine Routine: map_coords (ew_force.f)
+ Atom out of bounds. If a restart has been written,
+ restarting should resolve the error
+ Frac coord min, max:  -0.11251087016070291       0.86523266706204394     
+ The system has extended beyond 
+     the extent of the virtual box.
+ Restarting sander will recalculate
+    a new virtual box with 30 Angstroms
+    extra on each side, if there is a
+    restart file for this configuration.
+ SANDER BOMB in subroutine Routine: map_coords (ew_force.f)
+ Atom out of bounds. If a restart has been written,
+ restarting should resolve the error
+ Frac coord min, max:  -0.11251087016070291       0.86523266706204394     
+ The system has extended beyond 
+     the extent of the virtual box.
+ Restarting sander will recalculate
+    a new virtual box with 30 Angstroms
+    extra on each side, if there is a
+    restart file for this configuration.
+ SANDER BOMB in subroutine Routine: map_coords (ew_force.f)
+ Atom out of bounds. If a restart has been written,
+ restarting should resolve the error
+ Frac coord min, max:  -0.11251087016070291       0.86523266706204394     
+ The system has extended beyond 
+     the extent of the virtual box.
+ Restarting sander will recalculate
+    a new virtual box with 30 Angstroms
+    extra on each side, if there is a
+    restart file for this configuration.
+ SANDER BOMB in subroutine Routine: map_coords (ew_force.f)
+ Atom out of bounds. If a restart has been written,
+ restarting should resolve the error
+ Frac coord min, max:  -0.11251087016070291       0.86523266706204394     
+ The system has extended beyond 
+     the extent of the virtual box.
+ Restarting sander will recalculate
+    a new virtual box with 30 Angstroms
+    extra on each side, if there is a
+    restart file for this configuration.
+ SANDER BOMB in subroutine Routine: map_coords (ew_force.f)
+ Atom out of bounds. If a restart has been written,
+ restarting should resolve the error
+ Frac coord min, max:  -0.11251087016070291       0.86523266706204394     
+ The system has extended beyond 
+     the extent of the virtual box.
+ Restarting sander will recalculate
+    a new virtual box with 30 Angstroms
+    extra on each side, if there is a
+    restart file for this configuration.
+ SANDER BOMB in subroutine Routine: map_coords (ew_force.f)
+ Atom out of bounds. If a restart has been written,
+ restarting should resolve the error
+ Frac coord min, max:  -0.11251087016070291       0.86523266706204394     
+ The system has extended beyond 
+     the extent of the virtual box.
+ Restarting sander will recalculate
+    a new virtual box with 30 Angstroms
+    extra on each side, if there is a
+    restart file for this configuration.
+ SANDER BOMB in subroutine Routine: map_coords (ew_force.f)
+ Atom out of bounds. If a restart has been written,
+ restarting should resolve the error
+ Frac coord min, max:  -0.11251087016070291       0.86523266706204394     
+ The system has extended beyond 
+     the extent of the virtual box.
+ Restarting sander will recalculate
+    a new virtual box with 30 Angstroms
+    extra on each side, if there is a
+    restart file for this configuration.
+ SANDER BOMB in subroutine Routine: map_coords (ew_force.f)
+ Atom out of bounds. If a restart has been written,
+ restarting should resolve the error
+ Frac coord min, max:  -0.11251087016070291       0.86523266706204394     
+ The system has extended beyond 
+     the extent of the virtual box.
+ Restarting sander will recalculate
+    a new virtual box with 30 Angstroms
+    extra on each side, if there is a
+    restart file for this configuration.
+ SANDER BOMB in subroutine Routine: map_coords (ew_force.f)
+ Atom out of bounds. If a restart has been written,
+ restarting should resolve the error
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 1.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+[lcbcpc75:17085] 9 more processes have sent help message help-mpi-api.txt / mpi-abort
+[lcbcpc75:17085] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages

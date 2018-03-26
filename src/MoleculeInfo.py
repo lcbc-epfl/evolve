@@ -9,14 +9,12 @@ from openbabel import OBResidue
 from openbabel import OBAtom
 import numpy as np
 import constants
-
+from Cython.Compiler.Nodes import ContinueStatNode
 
 def getResType(obres):
     '''get 3 letter code of OBRes - needed to parse richardson library'''
     res = obres.GetName()
     
-    res = res.strip()
-    res = res[:3]
     # check richardson rotamers and return rotamer_type
     for i in xrange (0, len(constants.rotamers)):
         if (constants.rotamers[i] == res):
@@ -40,9 +38,8 @@ def getAlphaCarbon(obres):
         #    return obatom
         
         if (obatom.IsCarbon()):
-           
-            
             carboxl_carbon = getConnectedCarboxylCarbon(obatom)
+            
             # can identify carboxyl carbon in any peptide
             if (carboxl_carbon is not None):
                 # now can find proline nitrogen
@@ -60,16 +57,13 @@ def getConnectedAmideNitrogen(carbon_atom):
     if (obres.GetName() == "PRO"):
         for obatom in openbabel.OBAtomAtomIter(carbon_atom):
             if (obatom.IsNitrogen()):
-
                 return obatom
                     
     else:
         for obatom in openbabel.OBAtomAtomIter(carbon_atom):
             if (obatom.IsNitrogen()):
-              
                 for obatom2 in openbabel.OBAtomAtomIter(obatom):
                     if (obatom2.IsHydrogen()):
-                     
                         return obatom
     return None
 
@@ -94,29 +88,12 @@ def getBetaAtom(obres):
     if alpha_carbon is None:
         return None
     
+    # need to do additional tests for Glycine
     res = getResType(obres)
     for obatom in openbabel.OBAtomAtomIter(alpha_carbon):
-        
         if (res == "GLY"):
-
-            bbnitrogen = getBBNitrogen(obres)
-    
-            if (obatom.GetAtomicNum() == 1):
-                
-                # select the L enantiomer hydrogen
-                
-                h_vec = np.asarray([obatom.GetX() - bbcarboxl.GetX(), obatom.GetY() - bbcarboxl.GetY(), obatom.GetZ() - bbcarboxl.GetZ()])
-                ca_vec = np.asarray([alpha_carbon.GetX() - bbcarboxl.GetX(), alpha_carbon.GetY() - bbcarboxl.GetY(), alpha_carbon.GetZ() - bbcarboxl.GetZ()])
-                n_vec = np.asarray([bbnitrogen.GetX() - alpha_carbon.GetX(), bbnitrogen.GetY() - alpha_carbon.GetY(), bbnitrogen.GetZ() - alpha_carbon.GetZ()])
-
-                orth_vec = np.cross(ca_vec, n_vec)
-        
-                if (angle(h_vec, orth_vec) < 90.0):
-                    # this corresponds to the L enantiomer
-                    # print angle(h_vec, orth_vec)
-                    return obatom
-                
-
+            if (obatom.GetType() == 'H'):
+                return obatom
         else:
             if (obatom.IsCarbon() and obatom.GetIdx() != bbcarboxl.GetIdx()):
                 return obatom
@@ -177,11 +154,25 @@ def getPhiPsiDihedrals(mol, residue_indexes):
         obres = mol.GetResidue(residue_indexes[i])
         
         alpha_carbon = getAlphaCarbon(obres)
+        #if alpha_carbon != None:
+            #print('CA: {}'.format(alpha_carbon.GetId()))
+        
         bb_nitrogen = getBBNitrogen(obres)
+        #if bb_nitrogen != None:
+            #print('N: {}'.format(bb_nitrogen.GetId()))
+        
         neg1_carboxl = getNeg1BBCarboxyl(obres)
-        carboxl = getBBCarboxyl(obres)
-        plus1_nitrogen = getPlus1BBNitrogen(obres)
+        #if neg1_carboxl != None:
+            #print('C-1: {}'.format(neg1_carboxl.GetId()))
 
+        carboxl = getBBCarboxyl(obres)
+        #if carboxl != None:
+            #print('C: {}'.format(carboxl.GetId()))
+        
+        plus1_nitrogen = getPlus1BBNitrogen(obres)
+        #if plus1_nitrogen != None:
+            #print('N+1: {}'.format(plus1_nitrogen.GetId()))
+        
         phi = 999
         psi = 999
         
@@ -195,8 +186,6 @@ def getPhiPsiDihedrals(mol, residue_indexes):
 
 
 def setChi1DihedralAngle(mol, residue_index, angle_deg):
-    
-    obres = mol.GetResidue(residue_index)
     
     obres = mol.GetResidue(residue_index)
     alpha_carbon = getAlphaCarbon(obres)
@@ -292,6 +281,7 @@ def SetPhiPsi(mol, obres, phi, psi):
     
     if (bb_nitrogen and plus1_nitrogen and psi != 999):
         mol.SetTorsion(bb_nitrogen, alpha_carbon, carboxl, plus1_nitrogen, psi * (np.pi / 180.0))
+
      
 def getPlus1BBNitrogen(obres):
     
@@ -303,79 +293,66 @@ def getPlus1BBNitrogen(obres):
             return obatom
 
 
+def get_atoms_per_residue(mol):
+    '''
+    Gives a list of lists of j atom character belonging to residue i as well as the OBAtoms equivalent
+    '''
+    sorted_atoms_ID = [[] for _ in xrange(mol.NumResidues())]
+    sorted_atoms_OB = [[] for _ in xrange(mol.NumResidues())]
 
-# ATOM    148  N   GLY     9      38.893  23.411  33.937  0.00  0.00
-# ATOM    150  CA  GLY     9      39.937  23.667  34.946  0.00  0.00
-# ATOM    151  HA2 GLY     9      40.563  24.496  34.619  0.00  0.00
-# ATOM    152  HA3 GLY     9      39.525  24.058  35.876  0.00  0.00
-# ATOM    153  C   GLY     9      40.820  22.504  35.210  0.00  0.00
+    for i, ob_res in enumerate(openbabel.OBResidueIter(mol)):
+        #print "Res", i, ob_res.GetName()
+        
+        for ob_atom in openbabel.OBResidueAtomIter(ob_res):
+            sorted_atoms_OB[i].append(ob_atom)
+            sorted_atoms_ID[i].append(ob_res.GetAtomID(ob_atom).strip())
 
-n_vec = np.asarray([38.893  , 23.411, 33.937])
-c_vec = np.asarray([40.820 , 22.504 , 35.210])
+        #print(sorted_atoms_ID[i])
 
-ca_vec = np.asarray([39.937, 23.667, 34.946])
-ha2_vec = np.asarray([40.563, 24.496, 34.619])
-ha3_vec = np.asarray([39.525 , 24.058 , 35.876])
+    return (sorted_atoms_ID, sorted_atoms_OB)
 
-
-def angle(vec_1, vec_2):
-    return np.arccos(np.dot(vec_1, vec_2) / (np.linalg.norm(vec_1) * np.linalg.norm(vec_2))) * 180 / np.pi
 
 
 if __name__ == '__main__':
-#     print "Starting"
-# 
-#     obConversion = openbabel.OBConversion()
-#     obConversion.SetInAndOutFormats("pdb", "pdb")
-# 
-#     mol = openbabel.OBMol()
-#     obConversion.ReadFile(mol, "gpgg.pdb") 
-#     
-#     print mol.NumAtoms()
-#     print mol.NumBonds()
-#     print mol.NumResidues()
-#     
-#     # getAllPhiPsiDihedrals(mol)
-#         
-#     for j in xrange(0, mol.NumResidues()): 
-#         
-#         obres = mol.GetResidue(j)
-#         
-#         print "-----"
-#         for obatom in openbabel.OBResidueAtomIter(obres):
-#             print obatom.GetIdx(), obatom.GetAtomicNum()
-#         print "-----"   
-#         alpha_carbon = getAlphaCarbon(obres)
-#         
-#         print "ALpha:", alpha_carbon
-#         
-#         bb_nitrogen = getBBNitrogen(obres)
-#         neg1_carboxl = getNeg1BBCarboxyl(obres)
-#         carboxl = getBBCarboxyl(obres)
-#         plus1_nitrogen = getPlus1BBNitrogen(obres)
-#         
-#         if (not neg1_carboxl):
-#             continue
-#         
-#         print j, obres.GetName(), "::" , neg1_carboxl, "---", bb_nitrogen, "---", alpha_carbon, "---", carboxl, "---", plus1_nitrogen
-#         
-#         mol.SetTorsion(neg1_carboxl, bb_nitrogen, alpha_carbon, carboxl, -60 * (np.pi / 180.0))
-#         
-#     print "Writing to file"
-#     angles = getAllPhiPsiDihedrals(mol)
-#     print angles
-#     obConversion.WriteFile(mol, "test.pdb")
+    print "Starting"
 
+    obConversion = openbabel.OBConversion()
+    obConversion.SetInAndOutFormats("pdb", "pdb")
+
+    mol = openbabel.OBMol()
+    obConversion.ReadFile(mol, "gpgg.pdb") 
     
-    h2_vec = ha2_vec - ca_vec
-    h3_vec = ha3_vec - ca_vec
+    print mol.NumAtoms()
+    print mol.NumBonds()
+    print mol.NumResidues()
     
-    orth_vec = np.cross(ca_vec - c_vec, n_vec - ca_vec)
-    
-    
-    print angle(h2_vec, c_vec - ca_vec)
-    print angle(h3_vec, c_vec - ca_vec)
-    
-    print angle(h2_vec, orth_vec)
-    print angle(h3_vec, orth_vec)
-    
+    # getAllPhiPsiDihedrals(mol)
+        
+    for j in xrange(0, mol.NumResidues()): 
+        
+        obres = mol.GetResidue(j)
+        
+        print "-----"
+        for obatom in openbabel.OBResidueAtomIter(obres):
+            print obatom.GetIdx(), obatom.GetAtomicNum()
+        print "-----"   
+        alpha_carbon = getAlphaCarbon(obres)
+        
+        print "ALpha:", alpha_carbon
+        
+        bb_nitrogen = getBBNitrogen(obres)
+        neg1_carboxl = getNeg1BBCarboxyl(obres)
+        carboxl = getBBCarboxyl(obres)
+        plus1_nitrogen = getPlus1BBNitrogen(obres)
+        
+        if (not neg1_carboxl):
+            continue
+        
+        print j, obres.GetName(), "::" , neg1_carboxl, "---", bb_nitrogen, "---", alpha_carbon, "---", carboxl, "---", plus1_nitrogen
+        
+        mol.SetTorsion(neg1_carboxl, bb_nitrogen, alpha_carbon, carboxl, -60 * (np.pi / 180.0))
+        
+    print "Writing to file"
+    angles = getAllPhiPsiDihedrals(mol)
+    print angles
+    obConversion.WriteFile(mol, "test.pdb")

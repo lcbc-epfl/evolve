@@ -1,0 +1,95 @@
+# SAMPLE GABIO INPUT FILE
+# Author: Nick The Amazing
+
+# dihedral_optimization: perform phi/psi optimisation, requires:
+#		dihedral_residue_indexes: list of residues (starting from 0) to perform optimisation on - use python $GABIO/printResidueInfo.py -molecule struct.pdb for help
+
+# composition_optimization: perform compositional optimisation, requires:
+#		composition_residue_indexes: list of residues for which to substite sidechains with Richardson Rotamer Library
+#		composition_lower_bounds: minimum bounds in the richardson rotamer library for rotamer composition_residue_indexes[i] - check $GABIO/src/constants.py rotamers list
+#		composition_upper_bounds: maximal bounds in the richardson rotamer library for rotamer composition_residue_indexes[i] - check $GABIO/src/constants.py rotamers list
+[OPTIMIZATION]
+composition_optimization = False
+dihedral_optimization = True
+dihedral_residue_indexes = 0 1 2 3 4 5 6 7 8 9
+basilisk_and_sidechains = True
+
+# molecule to use - can be any file format supported by openbabel
+[MOLECULE]
+initial_molecule = tests/10AA_amber_5/reduce_10modified.pdb
+
+# directory for GA outputs and final filename
+[IO]
+output_path = tests/10AA_amber_5
+output_file = OUT_molec.pdb
+store_intermediate_mol = True
+
+
+#GA parameters
+# seed_population: not implemented yet, requires:
+#		population_file_path: file path for database containing population
+[GA_GLOBAL]
+seed_population = False
+population_file_path = None
+population_size = 30 
+max_iteration = 20
+
+# evaluators: string selection (seperated by a space) of chosen evaluator(s) in
+# openbabel_ff94, amber
+# there are evaluator specific parameters - ask Nick or Justin for now
+# non_std_residues means that system studied is not entirely discribed by the gaff libraries, use Gaussian at first
+# amber_path = software/amber/16/gcc-6.3.0-mkl-openmpi
+# mpi_path = software/openmpi/2.1.1/gcc-6.3.0
+
+[EVALUATOR]
+evaluators = amber
+use_gaussian = False
+tleap_template = tests/10AA_amber_5/tleap_template.in
+amber_params = tests/10AA_amber_5/amber_minimization.in
+mpi_processors = 10
+
+# Monte Carlo Dihedral Optimisation Params
+# mc_generate_dihedrals: use MC to generate dihedral pairs over dihedral_residue_indexes
+# distribution_path: not implemented, intended for custom probability distributions (e.g not conforming to GDB databank)
+# mcmove_lbound: minimum MC move amount
+# mcmove_ubound: maximum MC move amount
+# num_mc_steps: number of MC steps
+# dihedral probability_pointers: the probabilitiy distributions to use - 0 = GEN, 1 = GLY, 2 = PREPRO, 3 = PRO - use python $GABIO/guessResidueDIHProbPointers.py -molecule struct.pdb for help
+[MC_GENERATE]
+mc_generate_dihedrals = True
+distribution_path = DO_NOT_CHANGE
+mcmove_lbound = -45.0
+mcmove_ubound = 45.0
+num_mc_steps = 1000
+dihedral_probability_pointers = 0 0 0 0 0 0 0 0 1 0 
+
+# selector: choice of selector operator - check $GABIO/src/gaapi/operator_types.py
+[GA_SELECTION]
+selector = tournament_wor
+tournament_size = 2
+
+# crossover: choice of crossover operator - check $GABIO/src/gaapi/operator_types.py
+[GA_CROSSOVER]
+crossover = sbx
+mating_probability = 0.8
+genewise_crossover_probability = 0.5
+sbx_distribution_index = 5.0
+
+# mutator: choice of mutator operator - check $GABIO/src/gaapi/operator_types.py
+[GA_MUTATION]
+mutator = poly_dihedral
+mutation_probability = 0.1
+genewise__mutation_probability = 0.1
+poly_eta = 5.0
+
+# Elitism
+# replacer: choice of elitism operator - check SRC/GAAPI/OPERATOR_TYPES.py
+# elitist_Factor: replace worst X * population_size children by best X * population_size parents 
+[GA_REPLACER]
+replacer = elitism
+elitist_factor = 0.4
+
+
+# gives some more detail on code processes
+[DEBUG]
+verbose = True

@@ -1,0 +1,9 @@
+source leaprc.protein.ff14SB #Source leaprc file for ff14SB protein force field
+source leaprc.gaff #Source leaprc file for gaff
+loadamberparams tests/Trpcage_amber_4/amber_run/parmchk_temp_mol.frcmod
+mol = loadpdb tests/Trpcage_amber_4/amber_run/in_temp_mol.pdb
+#set mol box 50
+saveoff mol tests/Trpcage_amber_4/amber_run/in_temp_mol.lib
+check mol
+saveamberparm mol tests/Trpcage_amber_4/amber_run/leap_temp_mol.prmtop tests/Trpcage_amber_4/amber_run/leap_temp_mol.inpcrd
+quit #Quit tleap program

@@ -7,6 +7,8 @@ import copy
 import numpy as np
 import Individual
 def crossover(settings, individuals, crossover_op, **args):
+    
+    print("CROSSOVER {}".format(settings.crossover))
     new_population = []
     
     for i in xrange (0, settings.population_size, 2):

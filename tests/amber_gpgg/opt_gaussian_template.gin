@@ -1,0 +1,8 @@
+%nproc=12
+%Chk=tests/amber_gpgg/amber_run/opt_gaussian_temp_mol.chk
+%RWF=tests/amber_gpgg/amber_run/
+#T b3lyp/6-31G* opt iop(1/7=10000) 
+
+geometry optimization on in_temp_mol "opt=(maxcycles=2)"
+
+-1 1

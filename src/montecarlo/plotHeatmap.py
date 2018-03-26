@@ -19,10 +19,10 @@ from matplotlib import cm
 from matplotlib.colors import LogNorm
 import time
 
-general_data2 = np.fromfile('../../psiphi/rama500-general-nosec.data', sep=' ')
-gly_data = np.fromfile('../../psiphi/rama500-gly-sym-nosec.data', sep=' ')
-prepro_data = np.fromfile('../../psiphi/rama500-prepro.data', sep=' ')
-pro_data = np.fromfile('../../psiphi/rama500-pro.data', sep=' ')
+general_data2 = np.fromfile('psiphi/rama500-general-nosec.data', sep=' ')
+gly_data = np.fromfile('psiphi/rama500-gly-sym-nosec.data', sep=' ')
+prepro_data = np.fromfile('psiphi/rama500-prepro.data', sep=' ')
+pro_data = np.fromfile('psiphi/rama500-pro.data', sep=' ')
 
 general_data = prepro_data
 
@@ -40,7 +40,6 @@ phi_arr = np.zeros(200)
 
 N = int(len(general_probability) ** .5)
 
-print general_probability
 
 general_probability = general_probability.reshape(N, N)
 
