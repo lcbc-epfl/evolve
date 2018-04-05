@@ -58,7 +58,7 @@ if __name__ == '__main__':
         print "CA:", mol_CA, "CB:", mol_CB, "N:", mol_N, "C(=O):", mol_CO
         sys.exit()
     
-    print "Swapping side chain index: ", args.res_index, curr.GetName(), '->', args.rotamer_path.split(".")[0]
+    print "Swapping Side Chain"
     mc.swapsidechain(mol, args.res_index, frag)
     print "Writing File:", args.out_molecule
     obConversion.WriteFile(mol, args.out_molecule)

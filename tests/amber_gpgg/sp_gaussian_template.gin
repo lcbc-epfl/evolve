@@ -1,0 +1,8 @@
+%nproc=16
+%Chk=tests/amber_gpgg/amber_run/opt_gaussian_temp_mol.chk
+%RWF=tests/amber_gpgg/amber_run/
+#P HF/6-31G* Pop=MK IOp(6/33=2,6/41=10,6/42=17)
+
+HF single point computation on opt_gaussian_temp_mol
+
+-1 1

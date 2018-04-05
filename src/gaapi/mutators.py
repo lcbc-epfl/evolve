@@ -9,6 +9,7 @@ import copy
 import Individual
 
 def mutate(settings, individuals, mutator_op, **args):
+    print("MUTATOR {}".format(settings.mutator))
     mutated_pop = []
     
     for i in xrange (0, settings.population_size):

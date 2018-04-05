@@ -1,0 +1,1022 @@
+
+minimiseStructure.py,254
+def printResidueInfo(mol):printResidueInfo12,164
+    parser = argparse.ArgumentParser()parser52,1021
+    args = parser.parse_args()args57,1168
+    obConversion = openbabel.OBConversion()obConversion61,1230
+    mol = openbabel.OBMol()mol64,1373
+
+evaluators.py,772
+def testDihedralFitness(settings, individuals, fitness_index):testDihedralFitness12,116
+def testEnergyByMinimisation(settings, individuals, fitness_index):testEnergyByMinimisation30,778
+def AmberBackboneStability(settings, individuals):AmberBackboneStability79,2267
+def minimise_sidechain_ff(settings, individual):minimise_sidechain_ff83,2360
+def getSidechainAngleAtoms(mol, sidechain_atoms):getSidechainAngleAtoms134,3800
+def getSidechainBondAtoms(mol, sidechain_atoms):getSidechainBondAtoms151,4425
+def getSidechainDihedralAtoms(mol, sidechain_atoms):getSidechainDihedralAtoms167,4924
+def minimise_backbone_ff(settings, individual):minimise_backbone_ff180,5468
+def turbomol_scf_energy(settings, individuals, fitness_index): turbomol_scf_energy253,8064
+
+guido.py,497
+    parser = argparse.ArgumentParser()parser19,438
+    args = parser.parse_args()args26,684
+    obConversion = openbabel.OBConversion()obConversion30,746
+    mol = openbabel.OBMol()mol36,935
+    frag = openbabel.OBMol()frag43,1149
+    curr = mol.GetResidue(args.res_index)curr49,1375
+    mol_CA = mi.getAlphaCarbon(curr)mol_CA51,1422
+    mol_CB = mi.getBetaAtom(curr)mol_CB52,1459
+    mol_N = mi.getBBNitrogen(curr)mol_N53,1493
+    mol_CO = mi.getBBCarboxyl(curr)mol_CO54,1528
+
+set_dihedrals.py,635
+def printResidueInfo(mol):printResidueInfo13,183
+    parser = argparse.ArgumentParser()parser31,652
+    args = parser.parse_args()args36,799
+    obConversion = openbabel.OBConversion()obConversion40,861
+    mol = openbabel.OBMol()mol43,1004
+    phi_dihedral = np.zeros(mol.NumResidues(), dtype=np.float32)phi_dihedral48,1115
+    psi_dihedral = np.zeros(mol.NumResidues(), dtype=np.float32)psi_dihedral49,1180
+        obres = mol.GetResidue(i)obres52,1294
+        phi_dihedral = np.random.uniform(low=-180, high=180)phi_dihedral54,1337
+        psi_dihedral = np.random.uniform(low=-180, high=180)psi_dihedral55,1398
+
+tests/ASE/error.py,174
+f1 = np.asarray([-2.465E-02, -1.058E-02, 9.966E-05]) * (627.5 / 0.5291772083)f17,182
+f2 = np.asarray([-2.089E-02, -3.969E-03, 1.346E-03]) * (627.5 / 0.5291772083)f28,260
+
+tests/ASE/amber.py,316
+atoms = Atoms('OH2OH2',atoms4,63
+calc = Amber(amber_exe='sander -O',calc12,307
+             infile='mm.in',infile13,343
+             outfile='mm.out',outfile14,372
+             topologyfile='2H2O.top',topologyfile15,403
+             incoordfile='mm.crd')incoordfile16,441
+f = atoms.get_forces()f19,543
+
+guessResidueDIHProbPointers.py,254
+def printResidueInfo(mol):printResidueInfo12,164
+    parser = argparse.ArgumentParser()parser58,1452
+    args = parser.parse_args()args62,1548
+    obConversion = openbabel.OBConversion()obConversion66,1610
+    mol = openbabel.OBMol()mol69,1713
+
+src/molbuild/MoleculeBuilder.cpp,2763
+bool find_str(string parent, string tofind) {find_str20,421
+OBAtom * MoleculeBuilder::getAlphaCarbon(OBResidue * res) {getAlphaCarbon25,548
+bool MoleculeBuilder::isBackboneNitrogen(OBResidue * res, OBAtom * atom) {isBackboneNitrogen41,1077
+OBAtom * MoleculeBuilder::getBackboneNitrogen(OBResidue * res) {getBackboneNitrogen63,1489
+OBAtom * MoleculeBuilder::getBackboneNitrogen_CarboxylCarbon(OBResidue * res) {getBackboneNitrogen_CarboxylCarbon90,2006
+bool MoleculeBuilder::isBackboneCarboxylCarbon(OBAtom * atom) {isBackboneCarboxylCarbon128,2860
+OBAtom * MoleculeBuilder::getBackboneCarboxylCarbon(OBResidue * res) {getBackboneCarboxylCarbon152,3351
+OBAtom * MoleculeBuilder::getCarboxylCarbon_Nitrogen(OBResidue * res) {getCarboxylCarbon_Nitrogen185,4070
+OBAtom * MoleculeBuilder::getBetaAtom(OBResidue * res) {getBetaAtom213,4617
+void MoleculeBuilder::printPhiPsi(OBMol &mol, int resIndex) {printPhiPsi254,5422
+void MoleculeBuilder::setPhiPsi(OBMol &mol, int resIndex, double phi_deg, double psi_deg) {setPhiPsi293,6732
+void MoleculeBuilder::addFragmentToMol(OBMol &mol, OBMol &fragment) {addFragmentToMol340,8261
+OBAtom * MoleculeBuilder::getAtomByAtomID(OBResidue *res, string type) {getAtomByAtomID432,11488
+void MoleculeBuilder::fixProlines(OBMol & mol) {fixProlines443,11729
+int MoleculeBuilder::getAtomIdFromData(OBMol &mol, string dataVal, int value) {getAtomIdFromData506,13488
+int MoleculeBuilder::getAtomIndexFromData(OBMol &mol, string dataVal, int value) {getAtomIndexFromData520,13892
+void MoleculeBuilder::connect(OBMol &mol, OBMol &fragment, int ma1index = -1, int ma2index = -1, int fa1index = -1, int fa2index = -1,connect540,14752
+void OBBond::SetLength(OBAtom *fixed, double length) {SetLength735,19744
+void MoleculeBuilder::referenceTorsionByAtomIDProfile(OBMol &mol, OBMol &frag, int molatom1index, int fragatom1index, int fragatom2index,referenceTorsionByAtomIDProfile774,20699
+void referenceTorsionByElementProfile() {referenceTorsionByElementProfile875,24031
+void MoleculeBuilder::referenceTorsion(OBMol &mol, OBMol &frag, int molatom1id, int molatom2id, int fragatom1id, int fragatom2id) {referenceTorsion879,24202
+void MoleculeBuilder::rotateAtoms(vector<OBAtom *> atoms, vector3 &origin, vector3 &rotationAxis, double angle) {rotateAtoms953,26718
+void OBMol::FindChildren(vector<OBAtom*> &children, OBAtom *bgn, OBAtom *end) {FindChildren1006,28021
+void FindChildrenOld(vector<OBAtom*> &children, OBAtom *bgn, OBAtom *end) {FindChildrenOld1058,29164
+void OBMol::SetTorsion(OBAtom *a, OBAtom *b, OBAtom *c, OBAtom *d, double ang) {SetTorsion1099,30139
+void MoleculeBuilder::rotateMolecule(OBMol &mol, vector3 &origin, vector3 &rotationAxis, double angle) {rotateMolecule1188,32308
+
+src/molbuild/__init__.py,0
+
+src/molbuild/main.cpp,2282
+string inputFilePath;inputFilePath37,976
+string outFilePath;outFilePath38,998
+string outFileExtension;outFileExtension39,1018
+std::map<std::string, std::string> fragmentPathMap;fragmentPathMap41,1044
+std::map<std::string, std::string> fragmentExtensionMap;fragmentExtensionMap42,1096
+OBConversion conv;conv44,1154
+OBMol molecule;molecule45,1173
+MoleculeBuilder build;build46,1189
+vector<int> psiphiResidueIndex;psiphiResidueIndex48,1213
+vector<double> psiAngle;psiAngle49,1245
+vector<double> phiAngle;phiAngle50,1270
+vector<string> actions;actions52,1296
+vector<int> molatom1Index;molatom1Index53,1320
+vector<int> molatom2Index;molatom2Index54,1347
+vector<int> fragatom1Index;fragatom1Index55,1374
+vector<int> fragatom2Index;fragatom2Index56,1402
+vector<bool> referenceBondTorsionFromFragment;referenceBondTorsionFromFragment57,1430
+vector<bool> updateResidueInfo;updateResidueInfo58,1477
+vector<int> bondO;bondO59,1509
+vector<string> fragmentSubstitution;fragmentSubstitution60,1528
+string loadMolPath;loadMolPath61,1565
+vector<OBMol *> fragments;fragments63,1586
+MoleculeBuilder mb;mb65,1614
+string molPath;molPath67,1635
+string molType;molType68,1651
+string fragmentPath;fragmentPath70,1668
+string fragmentType;fragmentType71,1689
+string finalPath;finalPath73,1711
+string finalType;finalType74,1729
+int molatom1index = -1;molatom1index76,1748
+int molatom2index = -1;molatom2index77,1772
+int fragatom1index = -1;fragatom1index79,1797
+int fragatom2index = -1;fragatom2index80,1822
+void performSubstitutions(string fraglibpath, string xyzpath,performSubstitutions82,1848
+void writeHydrogenContainingBonds(string XYZDIR, string OUTDIR) {writeHydrogenContainingBonds252,6859
+void testMolAddition() {testMolAddition323,8768
+void testPsiPhiTorsion() {testPsiPhiTorsion380,10113
+int main3(int argc, char * argv[]) {main3405,10590
+void loadFragmentLibrary() {loadFragmentLibrary421,10889
+bool isSubstring(string str, string sub) {isSubstring451,11636
+bool readInputFile(string inputFilePath) {readInputFile455,11728
+void doActions() {doActions559,14266
+void cleanup() {cleanup563,14289
+int normalstuff(int argc, char * argv[]) {normalstuff570,14392
+int main(int argc, char * argv[]) {main810,21581
+
+src/molbuild/Debug/subdir_lcbc.mk,0
+
+src/molbuild/Debug/objects_lcbc.mk,94
+USER_OBJS :=USER_OBJS5,208
+LIBS := -lopenbabel -lboost_filesystem -lboost_systemLIBS7,222
+
+src/molbuild/Debug/sources.mk,494
+C_UPPER_SRCS := C_UPPER_SRCS5,208
+CXX_SRCS := CXX_SRCS6,225
+OBJ_SRCS := OBJ_SRCS8,251
+CC_SRCS := CC_SRCS9,264
+ASM_SRCS := ASM_SRCS10,276
+CPP_SRCS := CPP_SRCS11,289
+C_SRCS := C_SRCS12,302
+O_SRCS := O_SRCS13,313
+S_UPPER_SRCS := S_UPPER_SRCS14,324
+CC_DEPS := CC_DEPS15,341
+EXECUTABLES := EXECUTABLES17,366
+C_UPPER_DEPS := C_UPPER_DEPS18,382
+CXX_DEPS := CXX_DEPS19,399
+OBJS := OBJS20,412
+CPP_DEPS := CPP_DEPS21,421
+C_DEPS := C_DEPS22,434
+SUBDIRS := \SUBDIRS25,508
+
+src/molbuild/Debug/objects.mk,100
+USER_OBJS :=USER_OBJS5,208
+LIBS := -lopenbabel -lboost_filesystem-mt -lboost_system-mtLIBS7,222
+
+src/molbuild/Debug/subdir.mk,0
+
+src/molbuild/MoleculeBuilder.h,98
+#define MOLECULEBUILDER_H_MOLECULEBUILDER_H_6,85
+class MoleculeBuilder {MoleculeBuilder14,208
+
+src/inspyred/swarm/topologies.py,134
+def star_topology(random, population, args):star_topology47,2046
+def ring_topology(random, population, args):ring_topology64,2581
+
+src/inspyred/swarm/swarm.py,1458
+class PSO(inspyred.ec.EvolutionaryComputation):PSO36,1308
+    def __init__(self, random):__init__61,2439
+    def _swarm_archiver(self, random, population, archive, args):_swarm_archiver70,2839
+    def _swarm_variator(self, random, candidates, args):_swarm_variator82,3267
+    def _swarm_selector(self, random, population, args):_swarm_selector108,4603
+    def _swarm_replacer(self, random, population, parents, offspring, args):_swarm_replacer111,4698
+class TrailComponent(inspyred.ec.Individual):TrailComponent120,5057
+    def __init__(self, element, value, maximize=True, delta=1, epsilon=1):__init__145,6228
+    def element(self):element154,6535
+    def element(self, val):element158,6617
+    def value(self):value162,6697
+    def value(self, val):value166,6776
+    def pheromone(self):pheromone172,6963
+    def pheromone(self, val):pheromone176,7054
+    def desirability(self):desirability181,7207
+    def __eq__(self, other):__eq__184,7271
+    def __str__(self):__str__187,7357
+    def __repr__(self):__repr__190,7453
+class ACS(inspyred.ec.EvolutionaryComputation):ACS194,7516
+    def __init__(self, random, components):__init__210,8216
+    def variator(self):variator221,8670
+    def variator(self, value):variator225,8758
+    def _internal_variator(self, random, candidates, args):_internal_variator232,8996
+    def _internal_archiver(self, random, population, archive, args):_internal_archiver238,9219
+
+src/inspyred/swarm/__init__.py,73
+__all__ = ['ACS', 'PSO', 'TrailComponent', 'topologies']__all__30,1178
+
+src/inspyred/__init__.py,228
+__all__ = ['benchmarks', 'ec', 'swarm']__all__25,982
+__version__ = '1.0'__version__26,1022
+__author__ = 'Aaron Garrett <aaron.lee.garrett@gmail.com>'__author__27,1042
+__url__ = 'http://inspyred.github.com'__url__28,1101
+
+src/inspyred/ec/generators.py,267
+def strategize(generator):strategize35,1338
+    def strategy_generator(random, args):strategy_generator52,2011
+class diversify(object):diversify60,2243
+    def __init__ (self, generator):__init__84,3138
+    def __call__ (self, random, args):__call__92,3339
+
+src/inspyred/ec/emo.py,1043
+class Pareto(object):Pareto31,1176
+    def __init__(self, values=None, maximize=True):__init__68,3077
+    def __len__(self):__len__78,3377
+    def __getitem__(self, key):__getitem__81,3440
+    def __iter__(self):__iter__84,3516
+    def __lt__(self, other):__lt__87,3581
+    def __le__(self, other):__le__106,4278
+    def __gt__(self, other):__gt__109,4367
+    def __ge__(self, other):__ge__112,4436
+    def __eq__(self, other):__eq__115,4525
+    def __ne__(self, other):__ne__118,4609
+    def __str__(self):__str__121,4681
+    def __repr__(self):__repr__124,4748
+class NSGA2(ec.EvolutionaryComputation):NSGA2128,4810
+    def __init__(self, random):__init__138,5350
+    def evolve(self, generator, evaluator, pop_size=100, seeds=None, maximize=True, bounder=None, **args):evolve144,5614
+class PAES(ec.EvolutionaryComputation):PAES150,5950
+    def __init__(self, random):__init__158,6320
+    def evolve(self, generator, evaluator, pop_size=1, seeds=None, maximize=True, bounder=None, **args):evolve165,6644
+
+src/inspyred/ec/variators/crossovers.py,761
+def crossover(cross):crossover33,1046
+    def inspyred_crossover(random, candidates, args):inspyred_crossover65,2267
+def n_point_crossover(random, mom, dad, args):n_point_crossover86,3030
+def uniform_crossover(random, mom, dad, args):uniform_crossover131,4572
+def partially_matched_crossover(random, mom, dad, args):partially_matched_crossover172,5975
+def arithmetic_crossover(random, mom, dad, args):arithmetic_crossover214,7515
+def blend_crossover(random, mom, dad, args):blend_crossover267,9667
+def heuristic_crossover(random, candidates, args):heuristic_crossover321,11964
+def simulated_binary_crossover(random, mom, dad, args):simulated_binary_crossover381,14170
+def laplace_crossover(random, mom, dad, args):laplace_crossover442,16721
+
+src/inspyred/ec/variators/variators.py,74
+def default_variation(random, candidates, args):default_variation26,922
+
+src/inspyred/ec/variators/__init__.py,49
+__all__ = ['default_variation',__all__103,6424
+
+src/inspyred/ec/variators/mutators.py,654
+def mutator(mutate):mutator28,957
+    def inspyred_mutator(random, candidates, args):inspyred_mutator54,1916
+def bit_flip_mutation(random, candidate, args):bit_flip_mutation69,2438
+def random_reset_mutation(random, candidate, args):random_reset_mutation97,3382
+def scramble_mutation(random, candidate, args):scramble_mutation141,4973
+def inversion_mutation(random, candidate, args):inversion_mutation175,6109
+def gaussian_mutation(random, candidate, args):gaussian_mutation208,7220
+def polynomial_mutation(random, candidate, args):polynomial_mutation242,8481
+def nonuniform_mutation(random, candidate, args):nonuniform_mutation278,9797
+
+src/inspyred/ec/evaluators.py,271
+def evaluator(evaluate):evaluator40,1432
+    def inspyred_evaluator(candidates, args):inspyred_evaluator66,2323
+def parallel_evaluation_pp(candidates, args):parallel_evaluation_pp75,2592
+def parallel_evaluation_mp(candidates, args):parallel_evaluation_mp160,6057
+
+src/inspyred/ec/analysis.py,434
+def fitness_statistics(population):fitness_statistics29,1128
+def generation_plot(file, errorbars=True):generation_plot86,3236
+def allele_plot(file, normalize=False, alleles=None, generations=None):allele_plot155,5591
+def hypervolume(pareto_set, reference_point=None):hypervolume269,9894
+    def dominates(p, q, k=None):dominates287,10823
+    def insert(p, k, pl):insert296,11038
+    def slice(pl, k, ref):slice308,11341
+
+src/inspyred/ec/selectors.py,487
+def default_selection(random, population, args):default_selection42,1621
+def truncation_selection(random, population, args):truncation_selection58,2093
+def uniform_selection(random, population, args):uniform_selection81,2905
+def fitness_proportionate_selection(random, population, args):fitness_proportionate_selection105,3688
+def rank_selection(random, population, args):rank_selection162,5867
+def tournament_selection(random, population, args):tournament_selection212,7514
+
+src/inspyred/ec/migrators.py,270
+def default_migration(random, population, args):default_migration46,1752
+class MultiprocessingMigrator(object):MultiprocessingMigrator55,1943
+    def __init__(self, max_migrants=1):__init__87,3632
+    def __call__(self, random, population, args):__call__93,3877
+
+src/inspyred/ec/utilities.py,2036
+    class OrderedDict(dict):OrderedDict51,1766
+        def __init__(self, *args, **kwds):__init__52,1795
+        def __setitem__(self, key, value, dict_setitem=dict.__setitem__):__setitem__63,2227
+        def __delitem__(self, key, dict_delitem=dict.__delitem__):__delitem__70,2515
+        def __iter__(self):__iter__76,2753
+        def __reversed__(self):__reversed__83,2937
+        def clear(self):clear90,3125
+        def popitem(self, last=True):popitem101,3453
+        def keys(self):keys120,4047
+        def values(self):values123,4102
+        def items(self):items126,4176
+        def iterkeys(self):iterkeys129,4256
+        def itervalues(self):itervalues132,4315
+        def iteritems(self):iteritems136,4403
+        def update(*args, **kwds):update140,4495
+        __update = update__update162,5340
+        __marker = object()__marker163,5366
+        def pop(self, key, default=__marker):pop165,5395
+        def setdefault(self, key, default=None):setdefault174,5669
+        def __repr__(self, _repr_running={}):__repr__180,5839
+        def __reduce__(self):__reduce__192,6291
+        def copy(self):copy201,6625
+        def fromkeys(cls, iterable, value=None):fromkeys205,6711
+        def __eq__(self, other):__eq__211,6868
+        def __ne__(self, other):__ne__216,7072
+        def viewkeys(self):viewkeys219,7143
+        def viewvalues(self):viewvalues222,7206
+        def viewitems(self):viewitems225,7273
+class BoundedOrderedDict(OrderedDict):BoundedOrderedDict229,7343
+    def __init__(self, *args, **kwds):__init__230,7382
+    def __setitem__(self, key, value):__setitem__236,7588
+    def _checklen(self):_checklen241,7736
+def memoize(func=None, maxlen=None):memoize247,7883
+        def memo_target(candidates, args):memo_target284,9543
+        def memoize_factory(func):memoize_factory294,9941
+class Objectify(object):Objectify299,10057
+    def __init__(self, func):__init__341,12015
+    def __call__(self, *args, **kwargs):__call__348,12174
+
+src/inspyred/ec/ec.py,2751
+class Error(Exception):Error44,1508
+class EvolutionExit(Error):EvolutionExit49,1583
+class Bounder(object):Bounder68,2239
+    def __init__(self, lower_bound=None, upper_bound=None):__init__112,4229
+    def __call__(self, candidate, args):__call__121,4733
+class DiscreteBounder(object):DiscreteBounder138,5572
+    def __init__(self, values):__init__159,6485
+    def __call__(self, candidate, args):__call__164,6676
+class Individual(object):Individual176,7247
+    def __init__(self, candidate=None, maximize=True):__init__209,8795
+    def candidate(self):candidate218,9067
+    def candidate(self, value):candidate222,9158
+    def __str__(self):__str__226,9263
+    def __repr__(self):__repr__229,9372
+    def __lt__(self, other):__lt__232,9550
+    def __le__(self, other):__le__241,9900
+    def __gt__(self, other):__gt__244,9993
+    def __ge__(self, other):__ge__250,10219
+    def __eq__(self, other):__eq__253,10308
+    def __ne__(self, other):__ne__257,10492
+class EvolutionaryComputation(object):EvolutionaryComputation262,10572
+    def __init__(self, random):__init__335,14287
+    def _should_terminate(self, pop, ng, ne):_should_terminate361,15298
+    def evolve(self, generator, evaluator, pop_size=100, seeds=None, maximize=True, bounder=None, **args):evolve381,16416
+class GA(EvolutionaryComputation):GA557,26763
+    def __init__(self, random):__init__577,27676
+    def evolve(self, generator, evaluator, pop_size=100, seeds=None, maximize=True, bounder=None, **args):evolve583,27970
+class ES(EvolutionaryComputation):ES588,28252
+    def __init__(self, random):__init__622,29899
+    def _internal_variation(self, random, candidates, args):_internal_variation628,30153
+    def _internal_evaluator(self, func):_internal_evaluator651,31138
+        def evaluator(candidates, args):evaluator653,31212
+    def evolve(self, generator, evaluator, pop_size=100, seeds=None, maximize=True, bounder=None, **args):evolve661,31476
+class EDA(EvolutionaryComputation):EDA676,32201
+    def __init__(self, random):__init__697,33226
+    def _internal_variation(self, random, candidates, args):_internal_variation703,33491
+    def evolve(self, generator, evaluator, pop_size=100, seeds=None, maximize=True, bounder=None, **args):evolve719,34286
+class DEA(EvolutionaryComputation):DEA725,34625
+    def __init__(self, random):__init__745,35599
+    def evolve(self, generator, evaluator, pop_size=100, seeds=None, maximize=True, bounder=None, **args):evolve751,35900
+class SA(EvolutionaryComputation):SA756,36175
+    def __init__(self, random):__init__782,37384
+    def evolve(self, generator, evaluator, pop_size=1, seeds=None, maximize=True, bounder=None, **args):evolve788,37652
+
+src/inspyred/ec/replacers.py,1206
+def default_replacement(random, population, parents, offspring, args):default_replacement39,1524
+def truncation_replacement(random, population, parents, offspring, args):truncation_replacement53,1995
+def steady_state_replacement(random, population, parents, offspring, args):steady_state_replacement80,3198
+def argsort(seq):argsort103,4058
+def generational_replacement(random, population, parents, offspring, args):generational_replacement106,4136
+def random_replacement(random, population, parents, offspring, args):random_replacement146,5731
+def plus_replacement(random, population, parents, offspring, args):plus_replacement179,7112
+def comma_replacement(random, population, parents, offspring, args):comma_replacement202,7879
+def crowding_replacement(random, population, parents, offspring, args):crowding_replacement225,8761
+    def distance(x, y):distance255,10191
+def simulated_annealing_replacement(random, population, parents, offspring, args):simulated_annealing_replacement279,11005
+def nsga_replacement(random, population, parents, offspring, args):nsga_replacement335,13300
+def paes_replacement(random, population, parents, offspring, args):paes_replacement409,16669
+
+src/inspyred/ec/__init__.py,98
+__all__ = ['Bounder', 'DiscreteBounder', 'Individual', 'Error', 'EvolutionExit', __all__48,1800
+
+src/inspyred/ec/archivers.py,590
+def default_archiver(random, population, archive, args):default_archiver44,1693
+def population_archiver(random, population, archive, args):population_archiver60,2159
+def best_archiver(random, population, archive, args):best_archiver79,2724
+def adaptive_grid_archiver(random, population, archive, args):adaptive_grid_archiver116,4004
+    def get_grid_location(fitness, num_grid_divisions, global_smallest, global_largest):get_grid_location137,4900
+    def update_grid(individual, archive, num_grid_divisions, global_smallest, global_largest, grid_population):update_grid162,5941
+
+src/inspyred/ec/terminators.py,961
+def default_termination(population, num_generations, num_evaluations, args):default_termination49,1901
+def diversity_termination(population, num_generations, num_evaluations, args):diversity_termination64,2398
+def average_fitness_termination(population, num_generations, num_evaluations, args):average_fitness_termination95,3659
+def evaluation_termination(population, num_generations, num_evaluations, args):evaluation_termination120,4717
+def generation_termination(population, num_generations, num_evaluations, args):generation_termination143,5626
+def time_termination(population, num_generations, num_evaluations, args):time_termination164,6436
+def user_termination(population, num_generations, num_evaluations, args):user_termination212,8665
+    def getch():getch240,9901
+            def _getch(stdscr):_getch252,10256
+def no_improvement_termination(population, num_generations, num_evaluations, args):no_improvement_termination280,11129
+
+src/inspyred/ec/observers.py,1012
+def default_observer(population, num_generations, num_evaluations, args):default_observer49,1742
+def best_observer(population, num_generations, num_evaluations, args):best_observer54,1862
+def stats_observer(population, num_generations, num_evaluations, args):stats_observer70,2448
+def population_observer(population, num_generations, num_evaluations, args):population_observer108,4486
+def file_observer(population, num_generations, num_evaluations, args):file_observer130,5492
+def archive_observer(population, num_generations, num_evaluations, args):archive_observer193,8278
+class EmailObserver(object):EmailObserver215,9233
+    def __init__(self, username, password, server, port=587):__init__256,11200
+    def _send_mail(self, fromaddr, toaddr, subject, text, attachments=None):_send_mail266,11561
+    def __call__(self, population, num_generations, num_evaluations, args):__call__297,13095
+def plot_observer(population, num_generations, num_evaluations, args):    plot_observer332,15361
+
+src/inspyred/benchmarks.py,4835
+class Benchmark(object):Benchmark36,1291
+    def __init__(self, dimensions, objectives=1):__init__64,2562
+    def __str__(self):__str__70,2758
+    def __repr__(self):__repr__76,3057
+    def generator(self, random, args):generator79,3128
+    def evaluator(self, candidates, args):evaluator83,3278
+    def __call__(self, *args, **kwargs):__call__87,3432
+class Binary(Benchmark):Binary92,3589
+    def __init__(self, benchmark, dimension_bits):__init__119,4873
+    def _binary_to_real(self, binary):_binary_to_real127,5296
+    def generator(self, random, args):generator136,5770
+    def evaluator(self, candidates, args):evaluator139,5914
+class Ackley(Benchmark):Ackley151,6364
+    def __init__(self, dimensions=2):__init__176,7297
+    def generator(self, random, args):generator182,7574
+    def evaluator(self, candidates, args):evaluator185,7702
+class Griewank(Benchmark):Griewank192,8059
+    def __init__(self, dimensions=2):__init__218,9064
+    def generator(self, random, args):generator224,9347
+    def evaluator(self, candidates, args):evaluator227,9477
+class Rastrigin(Benchmark):Rastrigin236,9796
+    def __init__(self, dimensions=2):__init__262,10756
+    def generator(self, random, args):generator268,11037
+    def evaluator(self, candidates, args):evaluator271,11165
+class Rosenbrock(Benchmark):Rosenbrock278,11428
+    def __init__(self, dimensions=2):__init__305,12420
+    def generator(self, random, args):generator311,12696
+    def evaluator(self, candidates, args):evaluator314,12823
+class Schwefel(Benchmark):Schwefel323,13126
+    def __init__(self, dimensions=2):__init__348,14015
+    def generator(self, random, args):generator354,14301
+    def evaluator(self, candidates, args):evaluator357,14431
+class Sphere(Benchmark):Sphere363,14665
+    def __init__(self, dimensions=2):__init__389,15593
+    def generator(self, random, args):generator395,15870
+    def evaluator(self, candidates, args):evaluator398,15998
+class Kursawe(Benchmark):Kursawe409,16387
+    def __init__(self, dimensions=2):__init__432,17277
+    def generator(self, random, args):generator437,17484
+    def evaluator(self, candidates, args):evaluator440,17610
+class DTLZ1(Benchmark):DTLZ1448,17975
+    def __init__(self, dimensions=2, objectives=2):__init__481,19568
+    def global_optimum(self):global_optimum488,19973
+    def generator(self, random, args):generator501,20515
+    def evaluator(self, candidates, args):evaluator504,20640
+class DTLZ2(Benchmark):DTLZ2515,21221
+    def __init__(self, dimensions=2, objectives=2):__init__540,22551
+    def global_optimum(self):global_optimum547,22952
+    def generator(self, random, args):generator560,23496
+    def evaluator(self, candidates, args):evaluator563,23621
+class DTLZ3(Benchmark):DTLZ3577,24313
+    def __init__(self, dimensions=2, objectives=2):__init__602,25716
+    def global_optimum(self):global_optimum609,26117
+    def generator(self, random, args):generator622,26665
+    def evaluator(self, candidates, args):evaluator625,26790
+class DTLZ4(Benchmark):DTLZ4638,27515
+    def __init__(self, dimensions=2, objectives=2, alpha=100):__init__663,28939
+    def global_optimum(self):global_optimum671,29379
+    def generator(self, random, args):generator684,29927
+    def evaluator(self, candidates, args):evaluator687,30052
+class DTLZ5(Benchmark):DTLZ5701,30786
+    def __init__(self, dimensions=2, objectives=2):__init__727,32257
+    def global_optimum(self):global_optimum734,32658
+    def generator(self, random, args):generator747,33206
+    def evaluator(self, candidates, args):evaluator750,33331
+class DTLZ6(Benchmark):DTLZ6768,34285
+    def __init__(self, dimensions=2, objectives=2):__init__794,35752
+    def global_optimum(self):global_optimum801,36153
+    def generator(self, random, args):generator814,36699
+    def evaluator(self, candidates, args):evaluator817,36824
+class DTLZ7(Benchmark):DTLZ7835,37772
+    def __init__(self, dimensions=2, objectives=2):__init__869,39347
+    def global_optimum(self):global_optimum876,39748
+    def generator(self, random, args):generator889,40294
+    def evaluator(self, candidates, args):evaluator892,40419
+class TSP(Benchmark):TSP909,41153
+    def __init__(self, weights):__init__945,42998
+    def generator(self, random, args):generator954,43422
+    def constructor(self, random, args):constructor960,43664
+    def evaluator(self, candidates, args):evaluator990,45232
+class Knapsack(Benchmark):Knapsack1009,46033
+    def __init__(self, capacity, items, duplicates=False):__init__1044,47846
+    def generator(self, random, args):generator1059,48500
+    def constructor(self, random, args):constructor1067,48879
+    def evaluator(self, candidates, args):evaluator1093,50168
+
+src/MoleculeCreator.py,563
+def rotate_atoms(mol, atom_indexes, origin, rotation_axis, angle):rotate_atoms16,232
+def add_fragment(mol, fragment, id_start):add_fragment67,1514
+def debugAtom(obatom):debugAtom106,2757
+def debugBond(obbond):debugBond109,2932
+def getAtomByID(mol, atom_id):getAtomByID113,3095
+def swapsidechain (mol, res_index, aa_mol):swapsidechain118,3262
+    obConversion = openbabel.OBConversion()obConversion348,10242
+    mol = openbabel.OBMol()mol351,10337
+    obtype = openbabel.OBAtomTyper()obtype353,10370
+    frag2 = openbabel.OBMol()frag2356,10456
+
+src/gaapi/generators.py,498
+def initialisePopulation(settings):initialisePopulation17,257
+def defaultGenerator(settings):defaultGenerator29,507
+def UniformDihedralGenerator(settings, individuals):UniformDihedralGenerator33,596
+def UniformCompositionGenerator(settings, individuals):UniformCompositionGenerator46,1063
+def MonteCarloDihedralGenerator(settings, individuals):MonteCarloDihedralGenerator55,1466
+def MonteCarloBasiliskDihedralGenerator(settings, individuals):MonteCarloBasiliskDihedralGenerator103,3434
+
+src/gaapi/crossovers.py,287
+def crossover(settings, individuals, crossover_op, **args):crossover9,99
+def uniform_dihedral(settings, mom, dad, **kargs):uniform_dihedral24,601
+def sim_b(m, d, di, lb, ub):sim_b71,2187
+def simulated_binary_dihedral(settings, mom, dad, **kargs):simulated_binary_dihedral92,2879
+
+src/gaapi/selectors.py,162
+def selector(settings, individuals, selector_op, **args):selector9,71
+def tournamentSelectionWOR(settings, individuals, **kargs):tournamentSelectionWOR13,185
+
+src/gaapi/Individual.py,667
+class Individual(object):Individual12,167
+    def __init__(self, settings, orig=None):__init__14,198
+    def initialise_constructor(self, settings):initialise_constructor20,391
+    def copy_constructor(self, settings, orig):copy_constructor53,1720
+    def getPhiPsiDihedrals(self):getPhiPsiDihedrals80,2879
+    def applyPhiPsiDihedrals(self, settings):applyPhiPsiDihedrals87,3116
+    def applyComposition(self, settings):applyComposition95,3471
+    def dominates(self, individual):dominates115,4239
+    def setFitness(self, index, fitness):setFitness122,4437
+    def __lt__(self, other):__lt__125,4526
+    def __gt__(self, other):__gt__128,4597
+
+src/gaapi/operator_types.py,166
+SBX = 'sbx'SBX11,169
+POLY = 'poly'POLY14,198
+SWAP = 'swap'SWAP17,230
+ELITIST = 'elitist'ELITIST18,244
+TOURNAMENT_WOR = 'tournament_wor'TOURNAMENT_WOR21,282
+
+src/gaapi/constants.py,734
+element2mass = {'Ru': 101.904348, 'Re': 186.955744, 'Rf': 261.10869, 'Ra': 226.025403,element2mass8,46
+element2charge = {'H':1, 'C': 6, 'N':7, 'O':8, 'F':9, 'Pb':82, 'I':53, 'Cs':55 }element2charge36,2353
+charge2element = {1: 'H', 6: 'C', 7: 'N', 8: 'O', 9:'F', 32:'S'}charge2element37,2434
+bohr2angstrom = 0.5291772083bohr2angstrom39,2500
+angstrom2bohr = 1.88972613386246angstrom2bohr40,2529
+            'Y01', 'Y02', 'Y03', 'Y04', 'V01', 'V02', 'V03'rotamers60,3992
+            'TYR', 'TYR', 'TYR', 'TYR', 'VAL', 'VAL', 'VAL'rotamer_types80,5500
+            'THR': (-19.37, -20.45, -20.59), 'TRP':(14.43, 13.07, 12.94), 'TYR': (-13.28, -14.89, -15.05), 'VAL':(-7.58, -8.41, -8.49), 'PRO': (0, 0, 0) }energies88,6253
+
+src/gaapi/replacers.py,231
+def replace(settings, parents, children, replace_op, **args):replace9,88
+def swap_replace(settings, parents, children, **args):swap_replace13,215
+def elitist_replace(settings, parents, children, **args):elitist_replace16,291
+
+src/gaapi/__init__.py,0
+
+src/gaapi/mutators.py,196
+def mutate(settings, individuals, mutator_op, **args):mutate11,101
+def poly(indiv_i, xl, xu, eta):poly23,478
+def polynomial_dihedral(settings, individual, **args):polynomial_dihedral43,1038
+
+src/MoleculeInfo.py,1626
+def getResType(obres):getResType14,211
+def getAlphaCarbon(obres):getAlphaCarbon33,845
+def getConnectedAmideNitrogen(carbon_atom):getConnectedAmideNitrogen53,1514
+def getConnectedCarboxylCarbon(atom):getConnectedCarboxylCarbon74,2235
+def getBetaAtom(obres):getBetaAtom87,2646
+def getBBNitrogen(obres):getBBNitrogen106,3183
+def getNeg1BBCarboxyl(obres):getNeg1BBCarboxyl117,3452
+def getBBCarboxyl(obres):getBBCarboxyl133,3948
+def getPhiPsiDihedrals(mol, residue_indexes):getPhiPsiDihedrals153,4583
+def setChi1DihedralAngle(mol, residue_index, angle_deg):setChi1DihedralAngle178,5390
+def getPosition(obatom):getPosition196,5881
+def getChi1DihedralAngle(mol, obres):getChi1DihedralAngle199,5976
+def countBonds(obatom):countBonds217,6459
+def debugAtom(obatom):debugAtom223,6587
+def debugBond(obbond):debugBond226,6782
+def getChi1DihedralAtom(obres):getChi1DihedralAtom231,6948
+def getAllPhiPsiDihedrals(mol):getAllPhiPsiDihedrals261,7783
+def SetPhiPsi(mol, obres, phi, psi):SetPhiPsi264,7881
+def getPlus1BBNitrogen(obres):getPlus1BBNitrogen277,8440
+    obConversion = openbabel.OBConversion()obConversion289,8674
+    mol = openbabel.OBMol()mol292,8769
+        obres = mol.GetResidue(j)obres303,9024
+        alpha_carbon = getAlphaCarbon(obres)alpha_carbon309,9229
+        bb_nitrogen = getBBNitrogen(obres)bb_nitrogen313,9329
+        neg1_carboxl = getNeg1BBCarboxyl(obres)neg1_carboxl314,9372
+        carboxl = getBBCarboxyl(obres)carboxl315,9420
+        plus1_nitrogen = getPlus1BBNitrogen(obres)plus1_nitrogen316,9459
+    angles = getAllPhiPsiDihedrals(mol)angles326,9856
+
+src/remote/SubmitHandler.py,0
+
+src/remote/Clusters.py,0
+
+src/remote/Schedulers.py,0
+
+src/remote/__init__.py,0
+
+src/__init__.py,0
+
+src/montecarlo/plotHeatmap.py,1453
+general_data2 = np.fromfile('psiphi/rama500-general-nosec.data', sep=' ')general_data222,408
+gly_data = np.fromfile('psiphi/rama500-gly-sym-nosec.data', sep=' ')gly_data23,482
+prepro_data = np.fromfile('psiphi/rama500-prepro.data', sep=' ')prepro_data24,551
+pro_data = np.fromfile('psiphi/rama500-pro.data', sep=' ')pro_data25,616
+general_data = prepro_datageneral_data27,676
+general_data = general_data.reshape(len(general_data) / 3, 3)general_data29,704
+general_probability = general_data[:, 2]general_probability32,800
+general_probability = general_probability / max(general_probability)general_probability34,842
+psi_arr = np.zeros(200)psi_arr37,913
+phi_arr = np.zeros(200)phi_arr38,937
+N = int(len(general_probability) ** .5)N41,963
+general_probability = general_probability.reshape(N, N)general_probability44,1005
+iterN = 10000iterN46,1062
+start_phi = np.copy(phi_arr)start_phi60,1386
+start_psi = np.copy(psi_arr)start_psi61,1415
+cl = np.arange(len(psi_arr))cl63,1445
+        y_change = np.random.random_integers(low=-10, high=10)y_change68,1588
+        x_change = np.random.random_integers(low=-10, high=10)x_change69,1651
+        new_x = phi_arr[j] + x_changenew_x71,1715
+        new_y = psi_arr[j] + y_changenew_y72,1753
+            new_y = 180 + new_ynew_y75,1816
+            new_y = new_y - 180new_y77,1874
+            new_x = 180 + new_xnew_x79,1930
+            new_x = new_x - 180new_x81,1988
+
+src/montecarlo/__init__.py,0
+
+src/montecarlo/dihedral_opt.py,711
+def get_script_path():get_script_path18,159
+def loadold():loadold22,242
+def loadDefaultProbabilityDistributions(distribution_paths='/psiphi/rama500-general-nosec.data /psiphi/rama500-gly-sym-nosec.data /psiphi/rama500-prepro.data /psiphi/rama500-pro.data'):loadDefaultProbabilityDistributions62,1750
+def plotProbabilityDistribution(probabilityDistribution):plotProbabilityDistribution75,2397
+def plotProbabilityDistributionAndSolution(probabilityDistributions, probabilityDistributionPointers, solution):plotProbabilityDistributionAndSolution80,2611
+def optimisePsiPhi(probabilityDistributions, probabilityDistributionPointers, solution, numIterations, move_lows, move_highs):optimisePsiPhi117,3954
+
+src/basilisk/evaluate_structure.py,677
+def parse_commandline () :parse_commandline51,1831
+	options = parse_commandline() options81,2696
+	dbn = basilisk_dbn()dbn91,2973
+	pdb = basilisk_utils.load_pdb_file(options.pdb)pdb92,2995
+			pd = 0pd98,3152
+				pd = residuepd105,3354
+			ll_sum = 0ll_sum117,3672
+				out = ""out123,3834
+				phi = -5.phi126,3944
+				psi = -5.psi127,3958
+				chis = []chis128,3972
+				aa = basilisk_utils.three_to_index(residue.resname)aa129,3986
+					phi = residue.xtra["phi"]phi134,4175
+					psi = residue.xtra["psi"]psi141,4372
+						x = "x%d" % ix148,4518
+				ll =  dbn.get_log_likelihood(aa, chis, phi, psi) ll157,4804
+			ll_sum = log(ll_sum)ll_sum163,4950
+
+src/basilisk/basilisk_lib/CalcAngles.py,347
+chi_atoms = {  chi_atoms12,254
+backbone = ["n","ca","c","o"]         backbone43,2132
+sidechain = {sidechain47,2231
+def get_atom(residue, atomname):get_atom71,3198
+def get_chi(residuetype):get_chi96,3933
+def calc_chi_angles(residue, silent=False):calc_chi_angles114,4546
+def calc_phi_psi(residue, predecessor=0) :calc_phi_psi158,6347
+
+src/basilisk/basilisk_lib/basilisk_dbn.py,648
+aa_angle2index = { aa_angle2index37,1227
+aa_chi_len = [0,1,2,3,2aa_chi_len61,1876
+class basilisk_dbn:basilisk_dbn67,1948
+	def __init__(self, load_dbn=True):__init__70,2051
+	def load_dbn_from_parameters(self) :load_dbn_from_parameters82,2419
+	def get_log_likelihood(self, residue_type, chis, phi=-5., psi=-5.) :get_log_likelihood126,3803
+	def get_sample(self, residue_type, phi=-5., psi=-5., no_ll=False) :get_sample153,4746
+	def get_data_mism_sampling(self, residue_type, phi=-5., psi=-5.) :get_data_mism_sampling189,5692
+	def get_data_mism_likelihood(self, residue_type, chis, phi=-5., psi=-5.) :get_data_mism_likelihood224,6587
+
+src/basilisk/basilisk_lib/InfEngineIOHMM.py,437
+class InfEngineIOHMM(AbstractInfEngine):InfEngineIOHMM25,975
+    def __init__(self, dbn, sampler, seq, mismask, weight=1, support_undo=False):__init__30,1081
+    def get_sample_generator(self, mismask=None):get_sample_generator51,1780
+    def set_start_end(self, start, end):set_start_end72,2509
+    def undo(self):undo86,2905
+    def replace_seq(self, seq):replace_seq97,3232
+    def get_viterbi(self):get_viterbi104,3426
+
+src/basilisk/basilisk_lib/SamplerIOHMM.py,200
+one = 0.9one26,1050
+zero = 0.1zero27,1060
+class SamplerFwBt:SamplerFwBt29,1072
+    def __init__(self, dbn, hidden_node):__init__34,1224
+    def sweep(self, mismask, start, end):sweep51,1848
+
+src/basilisk/basilisk_lib/Mocapy/DBN.py,859
+def mocapy_seed(a, b):mocapy_seed32,967
+def load_dbn(fname):load_dbn48,1299
+class DBN:DBN64,1590
+    def __init__(self, nodes_0, nodes_1, name="DBN"):__init__71,1914
+    def _make_index_map(self, nodes_0, nodes_1):_make_index_map111,3320
+    def _map_to_indices(self, parent_i, child_i):_map_to_indices133,4017
+    def __repr__(self):__repr__161,5033
+    def get_nodes(self):get_nodes171,5256
+    def get_node_by_name(self, name):get_node_by_name181,5545
+    def sample_sequence(self, length):sample_sequence197,5968
+    def add_inter(self, parent_i, child_i):add_inter227,6989
+    def add_intra(self, parent_i, child_i):add_intra253,7904
+    def construct(self):construct281,8932
+    def calc_ll(self, seq):calc_ll306,9830
+    def get_parameter_count(self):get_parameter_count329,10561
+    def save(self, fname):save341,10830
+
+src/basilisk/basilisk_lib/Mocapy/VonMises.py,426
+i0_float = lambda x: float(i0(float(x)))i0_float28,951
+def to_radian(coords):to_radian30,993
+def to_coords(angle):to_coords36,1108
+def mod2pi(x):mod2pi40,1174
+class VMSampler:VMSampler49,1306
+    def __init__(self, k, mu):__init__53,1383
+    def __call__(self):__call__70,1847
+class VMDens:VMDens88,2273
+    def __init__(self, k, mu):__init__92,2319
+    def __call__(self, x, log_space=0):__call__115,2894
+
+src/basilisk/basilisk_lib/Mocapy/Node.py,1169
+    mpi=DummyMPImpi30,988
+class Node:Node35,1039
+    def __init__(self, output_size, node_type):__init__39,1116
+    def set_node_index(self, ni):set_node_index67,1948
+    def set_data_index(self, di):set_data_index76,2170
+    def add_intra_child(self, node):add_intra_child86,2412
+    def add_inter_child(self, node):add_inter_child95,2636
+    def add_inter_parent(self, data_index, node_size):add_inter_parent104,2872
+    def add_intra_parent(self, data_index, node_size):add_intra_parent117,3269
+    def get_parentmap(self, seq, weight):get_parentmap130,3645
+    def set_parentmap(self, parentmap):set_parentmap145,4115
+    def construct(self, slice):construct159,4631
+    def sample(self, l):sample173,5090
+    def update_ess(self, family_values):update_ess184,5375
+    def save_ess(self):save_ess195,5774
+    def blanket_sample(self, l):blanket_sample203,6038
+    def get_slice_log_likelihood(self, l):get_slice_log_likelihood214,6345
+    def get_ess_list(self):get_ess_list225,6637
+    def do_M_step(self, ess_list):do_M_step238,7011
+    def get_parameters(self):get_parameters247,7236
+    def fix(self, flag):fix253,7377
+
+src/basilisk/basilisk_lib/Mocapy/MultiGauss.py,279
+class MultiGauss:MultiGauss28,966
+    def __init__(self, mean, sigma):__init__32,1065
+    def __call__(self, a, log_space=0):__call__58,1934
+    def __repr__(self):__repr__89,2762
+    mean=random(4)mean99,2957
+    mgauss=MultiGauss(mean, random((4,4)))mgauss100,2976
+
+src/basilisk/basilisk_lib/Mocapy/VMNode.py,993
+    mpi=DummyMPImpi33,1105
+class VMNode(Node):VMNode43,1366
+    def __init__(self, node_size, user_mus=None, user_kappas=None, name=""):__init__46,1511
+    def __repr__(self):__repr__69,2348
+    def _get_empty_ess(self):_get_empty_ess73,2479
+    def _make_rnd_kms(self, node_size):_make_rnd_kms81,2699
+    def _make_vm_list(self, mus, kappas, node_size):_make_vm_list91,2985
+    def get_ess_list(self):get_ess_list109,3511
+    def construct(self, slice):construct112,3569
+    def get_parentmap(self, seq, weight):get_parentmap145,4867
+    def update_ess(self, family_values):update_ess149,5032
+    def save_ess(self):save_ess158,5442
+    def sample(self, l):sample166,5731
+    def blanket_sample(self,l):blanket_sample179,6100
+    def get_slice_log_likelihood(self, l):get_slice_log_likelihood182,6163
+    def do_M_step(self, ess_list):do_M_step194,6647
+    def get_parameters(self):get_parameters228,7926
+    def par2str(self, precision=2):par2str237,8124
+
+src/basilisk/basilisk_lib/Mocapy/__init__.py,29
+    mpi=DummyMPImpi44,1457
+
+src/basilisk/basilisk_lib/Mocapy/ParentMap.py,843
+class ParentMap:ParentMap28,908
+    def __init__(self, seq, parents_0, parents_1, this_index, weight):__init__33,1065
+    def __setitem__(self, l, v):__setitem__77,2317
+    def __getitem__(self, l):__getitem__90,2603
+    def __getstate__(self):__getstate__104,3006
+    def __len__(self):__len__110,3122
+    def get_weight(self):get_weight113,3170
+    def replace_seq(self, seq):replace_seq122,3349
+class ContinuousParentMap(ParentMap):ContinuousParentMap131,3597
+    def __init__(self, seq, parent, this_index, dim, weight):__init__132,3635
+    def __getitem__(self, l):__getitem__136,3791
+    def __setitem__(self, l, v):__setitem__142,3972
+    seq=array(((1,2,3),seq150,4133
+    parents_0=[0,1]parents_0153,4188
+    parents_1=[0,1]parents_1154,4208
+    f=ParentMap(seq, parents_0, parents_1, 2, 0.0)f156,4229
+
+src/basilisk/basilisk_lib/Mocapy/VonMisesEstimator.py,104
+MAX_KAPPA_VALUE = 500MAX_KAPPA_VALUE24,806
+def estimate_kappa(N, r, mu_coords):estimate_kappa26,829
+
+src/basilisk/basilisk_lib/Mocapy/DummyMPI.py,236
+rank=0rank23,822
+size=1size24,829
+SUM=0SUM26,837
+def bcast(t):bcast29,845
+def barrier():barrier33,889
+def reduce(x, operation):reduce37,942
+def gather(l):gather41,998
+def scatter(l):scatter45,1043
+SUM = NoneSUM50,1090
+
+src/basilisk/basilisk_lib/Mocapy/ArrayMisc.py,221
+def random_sign():random_sign28,920
+def close(x, y, delta=1e-10):close40,1101
+def gen_refmat(p, q):gen_refmat69,1825
+def gen_rotmat(p,q):gen_rotmat95,2371
+def argmax(a):argmax116,2857
+def norm(a):norm145,3539
+
+src/basilisk/basilisk_lib/Mocapy/MocapyExceptions.py,769
+class MocapyException(Exception): passMocapyException23,792
+class MocapyVectorException(MocapyException): passMocapyVectorException25,832
+class MocapyDBNException(MocapyException): passMocapyDBNException27,884
+class MocapyVMFException(MocapyException): passMocapyVMFException29,933
+class MocapyGaussianException(MocapyException): passMocapyGaussianException31,982
+class MocapyDiscreteException(MocapyException): passMocapyDiscreteException33,1036
+class MocapyDirichletException(MocapyException): passMocapyDirichletException35,1090
+class MocapyKentException(MocapyException): passMocapyKentException37,1145
+class MocapyEMException(MocapyException): passMocapyEMException39,1195
+class MocapyVMException(MocapyException): passMocapyVMException41,1243
+
+src/basilisk/basilisk_lib/Mocapy/AbstractInfEngine.py,341
+class AbstractInfEngine:AbstractInfEngine26,886
+    def __init__(self, dbn, seq, weight):__init__31,975
+    def __len__(self):__len__49,1445
+    def _make_parentmap_list(self, seq, weight):_make_parentmap_list58,1608
+    def _set_parentmap(self, parentmap_list):_set_parentmap78,2144
+    def get_viterbi(self):get_viterbi92,2679
+
+src/basilisk/basilisk_lib/Mocapy/DiscreteNode.py,1200
+    mpi=DummyMPImpi35,1065
+_MIN_TRANSITION=1e-50_MIN_TRANSITION43,1198
+_LOG_MIN_TRANSITION=log(_MIN_TRANSITION)_LOG_MIN_TRANSITION44,1220
+def normalize_cpd(cpd):normalize_cpd47,1263
+def make_random_cpd(sizes, no_zeros=1):make_random_cpd66,1764
+class DiscreteNode(Node):DiscreteNode87,2221
+    def __init__(self, node_size, user_cpd=None, prior=None, name=""):__init__91,2282
+    def __repr__(self):__repr__115,3029
+    def _test_cpd(self, cpd, cpd_shape):_test_cpd121,3187
+    def get_ess_list(self):get_ess_list142,3873
+    def get_parentmap(self, seq, weight=1):get_parentmap145,3931
+    def construct(self, slice):construct149,4089
+    def set_cpd(self, new_cpd=None):set_cpd166,4714
+    def sample(self, l):sample183,5398
+    def update_ess(self, par_this_values):update_ess195,5782
+    def save_ess(self):save_ess198,5863
+    def blanket_sample(self, l):blanket_sample204,6072
+    def get_slice_log_likelihood(self, l):get_slice_log_likelihood255,7898
+    def do_M_step(self, ess_list):do_M_step260,8030
+    def get_counts(self):get_counts276,8502
+    def get_parameters(self):get_parameters279,8556
+    def par2str(self, precision=2):par2str288,8728
+
+src/basilisk/basilisk_lib/__init__.py,61
+__all__ = ["basilisk_utils", "basilisk_dbn"]__all__35,1184
+
+src/basilisk/basilisk_lib/LikelihoodIOHMM.py,314
+one = 0.99one22,902
+class LikelihoodIOHMM_Fw:LikelihoodIOHMM_Fw25,976
+    def __init__(self, dbn, hidden_node):__init__29,1082
+    def set_data_in_dbn(self, seq):set_data_in_dbn45,1612
+    def calc_ll(self, seq, mismask, start=None, end=None, ignore_child_mism=True, set_data_in_dbn=True):calc_ll55,1930
+
+src/basilisk/basilisk_lib/basilisk_parameter.py,1503
+index_cpd = array ([ 2.4061224878e-01, 2.4061224878e-01, 3.6224921707e-03, index_cpd2,38
+h0_cpd = array ([[ 1.0000000000e-50, 1.0000000000e-50, 1.9199568307e-01, h0_cpd18,856
+angle_mus = array ([[6.0472574932e+00], [2.9322697800e+00], [4.6618707307e+00], [3.2089972553e+00], [1.9420626921e+00], [5.1601442762e+00], [4.7412185264e+00], [9.1460085913e-01], [5.6352265911e+00], [4.6490350481e+00], [1.1317509759e+00], [5.0486795563e+00], [5.8375503145e+00], [2.6733261483e+00], [1.9927258897e+00], [1.3773054832e+00], [6.2030717530e+00], [4.1069279667e+00], [2.3488501989e+00], [3.6619514007e-01], [5.2849845261e+00], [6.4040704405e-01], [5.1669099967e+00], [5.5221188417e+00], [1.0375062041e+00], [3.1308217120e+00], [4.9927170105e+00], [8.6400062726e-01], [3.3398143144e+00], [4.1755591500e+00] ]) angle_mus430,24625
+angle_kappas = array ([2.9648977620e+01, 5.6919054552e+01, 1.7516481343e+01, 1.1810695940e+01, 1.0843456038e+01, 1.6606577262e+01, 4.5178279466e+00, 3.2764878682e+00, 7.8429376414e+01, 7.1820161029e-01, 5.6446803838e+01, 8.5034003239e+00, 6.2240471898e+01, 1.6045198070e+01, 1.2997118640e+00, 2.4077741790e+01, 1.4530903927e+01, 1.0683092677e+01, 2.2499105662e+01, 2.2096549752e+01, 7.7593532861e+01, 6.0370046667e+01, 1.1097280611e+02, 1.7053583920e+02, 5.3900638287e+01, 6.9069779004e+01, 6.4603966678e+01, 2.5341268155e-01, 3.8456140131e+01, 1.8207679315e+00 ]) angle_kappas431,25248
+h1_cpd = array ([[[ 3.3333333333e-02, 3.3333333333e-02, 3.3333333333e-02, h1_cpd435,25837
+
+src/basilisk/basilisk_lib/basilisk_utils.py,761
+def is_numeric(obj) :is_numeric40,1363
+def is_int(obj) :is_int43,1411
+def is_float(obj) :is_float55,1608
+aa1="ACDEFGHIKLMNPQRSTVWY"aa169,1853
+aa3=["ALA", "CYS", "ASP", "GLU", "PHE", "GLY", "HIS", "ILE", "LYS", "LEU",aa370,1880
+d1_to_index={}d1_to_index73,2031
+dindex_to_1={}dindex_to_174,2046
+d3_to_index={}d3_to_index75,2061
+dindex_to_3={}dindex_to_376,2076
+    n1=aa1[i]n179,2115
+    n3=aa3[i]n380,2129
+def index_to_one(index):index_to_one86,2232
+def one_to_index(s):one_to_index90,2340
+def index_to_three(i):index_to_three94,2440
+def three_to_index(s):three_to_index98,2543
+def three_to_one(s):three_to_one102,2646
+def one_to_three(s):one_to_three107,2776
+def load_pdb_file(filename) :               load_pdb_file114,2986
+
+src/basilisk/get_angles.py,478
+	aa = sys.argv[1]aa52,1962
+		aa = int(aa)aa56,2054
+		aa = basilisk_utils.one_to_index(aa)aa58,2090
+		aa = basilisk_utils.three_to_index(aa)aa60,2150
+	aa_3 = basilisk_utils.index_to_three(aa)aa_366,2350
+	phi = -5.phi77,2658
+	psi = -5.psi78,2669
+		phi = sys.argv[2]phi80,2704
+			phi = float(phi)phi82,2762
+		psi = sys.argv[3]psi84,2785
+			psi = float(psi)psi86,2843
+	dbn = basilisk_dbn()dbn92,3000
+	out = ""out108,3504
+	out_short = ""out_short109,3514
+
+src/basilisk/setup.py,385
+      version='0.1',version6,80
+      description='A generative, probabilistic model of side chains in proteins.',description7,101
+      author='Tim Harder and Jes Frellsen',author8,184
+      author_email='mail@tim-harder.de',author_email9,228
+      url='http://www.binf.ku.dk/',url10,269
+      license='GPLv3',license11,305
+      packages=['basilisk_lib',packages12,328
+
+src/methods.py,983
+element2mass = {'Ru': 101.904348, 'Re': 186.955744, 'Rf': 261.10869, 'Ra': 226.025403,element2mass12,90
+element2charge = {'H':1, 'C': 6, 'N':7, 'O':8, 'F':9, 'Pb':82, 'I':53, 'Cs':55 }element2charge40,2397
+bohr2angstrom = 0.5291772083bohr2angstrom41,2478
+angstrom2bohr = 1.88972613386246angstrom2bohr42,2507
+def loadXYZ(filename, ang2bohr=True):loadXYZ55,3056
+def writeXYZ(fileName, elems, positions, bohr2ang):writeXYZ76,3857
+def generateRandomTrainingSet(size, trainingDat):generateRandomTrainingSet85,4154
+def createCoulombMatrixNaive(elems, positions, cmsize):createCoulombMatrixNaive97,4665
+def createCoulombMatrix(elems, positions, cmsize):createCoulombMatrix111,5475
+def createRIJMatrix(elems, positions, cmsize):createRIJMatrix122,5952
+def CoM(elems, xyzs):CoM133,6324
+def eucdistance (cm1, cm2):eucdistance143,6548
+def distance (cm1, cm2):distance149,6732
+def createSortedCoulombMatrix(elems, positions, cmsize):createSortedCoulombMatrix155,6898
+
+src/RotamerCreator.py,1469
+fail = 999999999fail17,170
+def buildg09InputFile(templateFile='template.com', molbuildoutputstructure='solution.xyz', outputFile='solution.com'):buildg09InputFile19,188
+def extractg09Energy(filein='solution.log'):extractg09Energy43,898
+def extractOptimisedGeometry(program=GAUSSIAN09, out_structure='opt_solution.xyz', **kwargs):extractOptimisedGeometry59,1399
+def evaluateRotamerMolBuilderGaussian(initialMoleculePath=None, gaussianTemplateCom="template.com", gaussianOutputName="solution", outputMolbuildFile="solution.molbuild", outputStructurePath='solution.xyz', designVector=None, m=None, data=None):evaluateRotamerMolBuilderGaussian71,2008
+def writeOBMol(obmol, filename):writeOBMol96,3346
+def evaluateBackboneFitness_amber(settings, mol, orig_energy):evaluateBackboneFitness_amber105,3601
+def evaluateRotamerLEAPGeneration(initialMoleculePath, originalEnergy, moleculeSubstitutionIndexes, designVector):evaluateRotamerLEAPGeneration119,3928
+def runtleap(pdb="solution.pdb", tleapin="tleap.in", tleapout="tleap_ga.in", inpcrd_out="solution.inpcrd", prmtop_out="solution.prmtop"):runtleap157,5107
+def runAmberMPI(np, prmtop="solution.prmtop", inpcrd="solution.inpcrd", amber_out="amber_out.out" , amberin="amber.in", restart="amber_out.rst"):runAmberMPI184,5997
+def parseAmberEnergy(amber_out="amber_out.out"):parseAmberEnergy196,6536
+def createPDB(modifyPDBPath, finalPDBPath, moleculeSubstitutionIndexes, designVector):createPDB227,7581
+
+src/JobConfig.py,148
+class Settings(object):Settings14,173
+    def __init__(self, configFilePath):__init__18,227
+    def printSettings(self):printSettings115,5503
+
+printResidueInfo.py,250
+def printResidueInfo(mol):printResidueInfo12,164
+    parser = argparse.ArgumentParser()parser30,633
+    args = parser.parse_args()args34,729
+    obConversion = openbabel.OBConversion()obConversion38,791
+    mol = openbabel.OBMol()mol41,894
+
+testscript.py,608
+chosenSelector = selectors.tournamentSelectionWORchosenSelector17,317
+chosenMutator = mutators.polynomial_dihedralchosenMutator18,367
+chosenCrossover = crossovers.simulated_binary_dihedralchosenCrossover19,412
+chosenReplacer = replacers.elitist_replacechosenReplacer20,467
+evaluators = [evaluators.testEnergyByMinimisation]evaluators21,510
+settings = JobConfig.Settings('tests/classical/ga_input_classical.in')settings24,595
+parent_population = []parent_population38,950
+def mainLoop(settings):mainLoop40,974
+def printIterationInfo(settings, curr_iteration, pop):printIterationInfo101,3143
+
+main.py,689
+chosenSelector = selectors.tournamentSelectionWORchosenSelector22,337
+chosenMutator = mutators.polynomial_dihedralchosenMutator23,387
+chosenCrossover = crossovers.simulated_binary_dihedralchosenCrossover24,432
+chosenReplacer = replacers.elitist_replacechosenReplacer25,487
+evaluators = [evaluators.testEnergyByMinimisation]evaluators26,530
+parent_population = []parent_population29,583
+def mainLoop(settings):mainLoop31,607
+def printIterationInfo(settings, curr_iteration, pop):printIterationInfo93,2783
+    parser = argparse.ArgumentParser()parser120,3748
+    args = parser.parse_args()args124,3846
+    settings = JobConfig.Settings(args.input_file)settings126,3878

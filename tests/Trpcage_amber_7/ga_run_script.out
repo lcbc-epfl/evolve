@@ -1,0 +1,3579 @@
+Succesfully set molecule filetype: pdb
+Succesfully read molecule: tests/Trpcage_amber_7/min1_pdb4amber_reduce.pdb
+
+-- START SETTINGS PRINT --
+evaluators : ['amber']
+output_file : OUT_molec.pdb
+mcmove_ubound : 45.0
+verbose : False
+output_path : tests/Trpcage_amber_7
+crossover : sbx
+mutator : poly_dihedral
+basilisk_and_sidechains : True
+mating_probability : 0.8
+composition_optimization : False
+genewise_mutation_probability : 0.4
+tournament_size : 2
+dihedral_optimization : True
+mcmove_lbound : -45.0
+mpi_procs : 20
+configFilePath : tests/Trpcage_amber_7/ga_input.in
+elitist_factor : 0.4
+poly_eta : 5.0
+seed_population : False
+mc_generate_dihedrals : True
+num_mc_steps : 1000
+population_file_path : None
+distribution_path : DO_NOT_CHANGE
+store_intermediate_mol : True
+selector : tournament_wor
+sbx_distribution_index : 5.0
+dihedral_probability_pointers : [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 3, 0, 0, 1, 0, 3, 3, 3]
+initial_molecule_path : tests/Trpcage_amber_7/min1_pdb4amber_reduce.pdb
+mutation_probability : 0.1
+replacer : elitism
+initial_molecule : <openbabel.OBMol; proxy of <Swig Object of type 'OpenBabel::OBMol *' at 0x7fae86cc1d50> >
+tleap_template : tests/Trpcage_amber_7/tleap_template.in
+genewise_crossover_probability : 0.5
+config : <ConfigParser.ConfigParser instance at 0x7fae88a3b710>
+amber_params : tests/Trpcage_amber_7/amber_minimization.in
+population_size : 30
+use_gaussian : False
+dihedral_residue_indexes : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+max_iteration : 100
+-- END SETTINGS PRINT -- 
+
+--- START MOLECULE PRINT --
+Num Atoms: 304
+Num Bonds: 310
+Num Residues: 20
+Phi, Psi Dihedrals:
+Res 0 ASN
+Atoms ['N', 'CA', 'CB', 'CG', 'OD1', 'ND2', 'C', 'O', 'H1', 'H2', 'H3', 'HA', 'HB2', 'HB3', 'HD21', 'HD22']
+[phi, psi] 999 135.653155067
+Res 1 LEU
+Atoms ['N', 'CA', 'CB', 'CG', 'CD1', 'CD2', 'C', 'O', 'H', 'HA', 'HB2', 'HB3', 'HG', 'HD11', 'HD12', 'HD13', 'HD21', 'HD22', 'HD23']
+[phi, psi] -145.978199065 143.094243001
+Res 2 TYR
+Atoms ['N', 'CA', 'CB', 'CG', 'CD1', 'CE1', 'CZ', 'OH', 'CE2', 'CD2', 'C', 'O', 'H', 'HA', 'HB2', 'HB3', 'HD1', 'HD2', 'HE1', 'HE2', 'HH']
+[phi, psi] -141.176453705 151.586507941
+Res 3 ILE
+Atoms ['N', 'CA', 'CB', 'CG2', 'CG1', 'CD1', 'C', 'O', 'H', 'HA', 'HB', 'HG12', 'HG13', 'HG21', 'HG22', 'HG23', 'HD11', 'HD12', 'HD13']
+[phi, psi] -148.390759864 143.654775039
+Res 4 GLN
+Atoms ['N', 'CA', 'CB', 'CG', 'CD', 'OE1', 'NE2', 'C', 'O', 'H', 'HA', 'HB2', 'HB3', 'HG2', 'HG3', 'HE21', 'HE22']
+[phi, psi] -149.815225087 138.829496744
+Res 5 TRP
+Atoms ['N', 'CA', 'CB', 'CG', 'CD1', 'NE1', 'CE2', 'CZ2', 'CH2', 'CZ3', 'CE3', 'CD2', 'C', 'O', 'H', 'HA', 'HB2', 'HB3', 'HD1', 'HE1', 'HE3', 'HZ2', 'HZ3', 'HH2']
+[phi, psi] -147.805037761 152.689989546
+Res 6 LEU
+Atoms ['N', 'CA', 'CB', 'CG', 'CD1', 'CD2', 'C', 'O', 'H', 'HA', 'HB2', 'HB3', 'HG', 'HD11', 'HD12', 'HD13', 'HD21', 'HD22', 'HD23']
+[phi, psi] -149.571218492 146.717859331
+Res 7 LYS
+Atoms ['N', 'CA', 'CB', 'CG', 'CD', 'CE', 'NZ', 'C', 'O', 'H', 'HA', 'HB2', 'HB3', 'HG2', 'HG3', 'HD2', 'HD3', 'HE2', 'HE3', 'HZ1', 'HZ2', 'HZ3']
+[phi, psi] -136.103408207 146.607597375
+Res 8 ASP
+Atoms ['N', 'CA', 'CB', 'CG', 'OD1', 'OD2', 'C', 'O', 'H', 'HA', 'HB2', 'HB3']
+[phi, psi] -144.038995785 154.960329546
+Res 9 GLY
+Atoms ['N', 'CA', 'C', 'O', 'H', 'HA2', 'HA3']
+[phi, psi] -170.645741391 172.801460559
+Res 10 GLY
+Atoms ['N', 'CA', 'C', 'O', 'H', 'HA2', 'HA3']
+[phi, psi] -178.977529572 -175.759910941
+Res 11 PRO
+Atoms ['N', 'CD', 'CG', 'CB', 'CA', 'C', 'O', 'HA', 'HB2', 'HB3', 'HG2', 'HG3', 'HD2', 'HD3']
+[phi, psi] -55.471215522 150.706617571
+Res 12 SER
+Atoms ['N', 'CA', 'CB', 'OG', 'C', 'O', 'H', 'HA', 'HB2', 'HB3', 'HG']
+[phi, psi] -148.993518836 156.361166083
+Res 13 SER
+Atoms ['N', 'CA', 'CB', 'OG', 'C', 'O', 'H', 'HA', 'HB2', 'HB3', 'HG']
+[phi, psi] -152.131217 164.231298833
+Res 14 GLY
+Atoms ['N', 'CA', 'C', 'O', 'H', 'HA2', 'HA3']
+[phi, psi] -165.78205645 158.250950064
+Res 15 ARG
+Atoms ['N', 'CA', 'CB', 'CG', 'CD', 'NE', 'CZ', 'NH1', 'NH2', 'C', 'O', 'H', 'HA', 'HB2', 'HB3', 'HG2', 'HG3', 'HD2', 'HD3', 'HE', 'HH11', 'HH12', 'HH21', 'HH22']
+[phi, psi] -151.732141062 153.116384337
+Res 16 PRO
+Atoms ['N', 'CD', 'CG', 'CB', 'CA', 'C', 'O', 'HA', 'HB2', 'HB3', 'HG2', 'HG3', 'HD2', 'HD3']
+[phi, psi] -51.2770651559 168.847900794
+Res 17 PRO
+Atoms ['N', 'CD', 'CG', 'CB', 'CA', 'C', 'O', 'HA', 'HB2', 'HB3', 'HG2', 'HG3', 'HD2', 'HD3']
+[phi, psi] -52.2133942787 157.936239686
+Res 18 PRO
+Atoms ['N', 'CD', 'CG', 'CB', 'CA', 'C', 'O', 'HA', 'HB2', 'HB3', 'HG2', 'HG3', 'HD2', 'HD3']
+[phi, psi] -51.5799790875 148.76482344
+Res 19 SER
+Atoms ['N', 'CA', 'CB', 'OG', 'C', 'O', 'OXT', 'H', 'HA', 'HB2', 'HB3', 'HG']
+[phi, psi] -139.846538083 999
+--- END MOLECULE PRINT --
+
+Running GA
+Fitness of tests/Trpcage_amber_7/min1_pdb4amber_reduce.pdb:
+EVALUATORS amber_energy
+ind 0, fitness [-598.78]
+Generating Initial Population dihedrals via MC
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+Backbone-dependent side chains generated by Basilisk
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+EVALUATORS amber_energy
+ILL INDIVIDUAL, re-seeding indiv 0 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 0 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 0 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 0, fitness [-564.4]
+ind 1, fitness [-563.84]
+ind 2, fitness [-554.71]
+ILL INDIVIDUAL, re-seeding indiv 3 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 3 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 3 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 3, fitness [-539.55]
+ind 4, fitness [-566.32]
+ILL INDIVIDUAL, re-seeding indiv 5 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 5, fitness [-540.62]
+ILL INDIVIDUAL, re-seeding indiv 6 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 6 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 6 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 6, fitness [-520.45]
+ILL INDIVIDUAL, re-seeding indiv 7 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 7 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 7, fitness [-526.62]
+ILL INDIVIDUAL, re-seeding indiv 8 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 8, fitness [-569.79]
+ind 9, fitness [-560.05]
+ind 10, fitness [-549.13]
+ind 11, fitness [-554.31]
+ILL INDIVIDUAL, re-seeding indiv 12 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 12 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 12, fitness [-537.16]
+ILL INDIVIDUAL, re-seeding indiv 13 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 13 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 13 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 13, fitness [-556.85]
+ind 14, fitness [-540.68]
+ILL INDIVIDUAL, re-seeding indiv 15 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 15 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 15, fitness [-572.96]
+ind 16, fitness [-525.6]
+ENERGY EXPLOSION, re-seeding indiv 17 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 17 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 17 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 17 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 17, fitness [-539.92]
+ILL INDIVIDUAL, re-seeding indiv 18 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 18 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 18 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 18, fitness [-511.06]
+ind 19, fitness [-557.13]
+ind 20, fitness [-561.46]
+ind 21, fitness [-569.8]
+ILL INDIVIDUAL, re-seeding indiv 22 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 22 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 22 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 22, fitness [-586.54]
+ILL INDIVIDUAL, re-seeding indiv 23 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 23 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 23 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 23 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ENERGY EXPLOSION, re-seeding indiv 23 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 23, fitness [-541.67]
+ILL INDIVIDUAL, re-seeding indiv 24 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 24, fitness [-533.04]
+ind 25, fitness [-558.19]
+ILL INDIVIDUAL, re-seeding indiv 26 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 26 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 26 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 26 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 26, fitness [-575.66]
+ind 27, fitness [-579.09]
+ind 28, fitness [-585.19]
+ILL INDIVIDUAL, re-seeding indiv 29 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 29 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 29 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 29 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 29, fitness [-536.78]
+CURRENT POPULATION
+Current Iteration:  0
+Population Average Fitness(es): -552.619
+Population STD(s): 19.0621856652
+Best individual: 22
+Best ind - PHIs, PSIs
+[ 999.         -123.59111251   63.34951871   42.90473704   63.39197033
+  -57.72665631  -87.2499435   -59.41560798 -144.89988648  -69.00099093
+   73.85855721   73.34641339 -147.69930078 -147.21863409   71.04830718
+ -137.35164235  -62.64364      63.5552451    64.7493789 ] [ 162.37811599   11.60307527  -49.73929026   40.383748    -25.05408201
+  -27.57611407    2.66107904  150.16503642  164.04424183  162.78112968
+ -136.6731645  -163.42711195   79.8665181   157.72265107 -135.39161743
+  160.47348056  132.64766063 -158.89665251 -157.73678994]
+Best ind - Fitness(es): [-586.54]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_0.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-545.07]
+ILL INDIVIDUAL, re-seeding indiv 1 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 1, fitness [-563.91]
+ind 2, fitness [-572.62]
+ind 3, fitness [-548.76]
+ind 4, fitness [-580.01]
+ILL INDIVIDUAL, re-seeding indiv 5 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 5, fitness [-559.84]
+ind 6, fitness [-563.51]
+ILL INDIVIDUAL, re-seeding indiv 7 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 7, fitness [-588.4]
+ILL INDIVIDUAL, re-seeding indiv 8 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 8 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 8, fitness [-570.35]
+ind 9, fitness [-556.8]
+ILL INDIVIDUAL, re-seeding indiv 10 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 10, fitness [-542.22]
+ind 11, fitness [-579.96]
+ILL INDIVIDUAL, re-seeding indiv 12 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 12, fitness [-556.98]
+ind 13, fitness [-563.52]
+ind 14, fitness [-555.02]
+ind 15, fitness [-570.11]
+ind 16, fitness [-568.82]
+ind 17, fitness [-563.96]
+ind 18, fitness [-551.98]
+ind 19, fitness [-568.87]
+ILL INDIVIDUAL, re-seeding indiv 20 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 20 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 20, fitness [-547.04]
+ind 21, fitness [-570.12]
+ind 22, fitness [-595.02]
+ind 23, fitness [-595.02]
+ind 24, fitness [-586.74]
+ind 25, fitness [-575.76]
+ind 26, fitness [-557.47]
+ind 27, fitness [-559.12]
+ILL INDIVIDUAL, re-seeding indiv 28 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ENERGY EXPLOSION, re-seeding indiv 28 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 28, fitness [-578.15]
+ILL INDIVIDUAL, re-seeding indiv 29 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 29, fitness [-531.99]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0142516217942
+CURRENT POPULATION
+Current Iteration:  1
+Population Average Fitness(es): -573.791333333
+Population STD(s): 9.61768466016
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.         -141.81078165 -132.00663309 -134.92326335  -82.67438458
+  -79.74901814  -76.23157577  -77.94227024  -89.21325047  -67.34730846
+  -83.0131296   -59.93824778  -78.03701845   59.7607593   -78.00946926
+ -135.83321267  -57.6072829   -62.36073131  -78.72470322] [  98.2999386   154.85138425   -8.7320357   133.53585757  133.95217476
+  -32.27271379  155.03539435  133.1916485   158.27958504   15.88194261
+ -153.1285354   -17.5149532    -1.58313977   35.06195086 -164.45189555
+  -32.69544712  175.85509387  155.79932861   59.38406842]
+Best ind - Fitness(es): [-595.02]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_1.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-595.02]
+ind 1, fitness [-584.53]
+ILL INDIVIDUAL, re-seeding indiv 2 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 2, fitness [-558.15]
+ENERGY EXPLOSION, re-seeding indiv 3 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 3, fitness [-529.27]
+ILL INDIVIDUAL, re-seeding indiv 4 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 4, fitness [-567.48]
+ind 5, fitness [-588.51]
+ind 6, fitness [-596.1]
+ind 7, fitness [-589.13]
+ind 8, fitness [-576.45]
+ind 9, fitness [-574.17]
+ind 10, fitness [-566.69]
+ind 11, fitness [-563.68]
+ILL INDIVIDUAL, re-seeding indiv 12 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 12, fitness [-530.57]
+ind 13, fitness [-587.03]
+ind 14, fitness [-573.69]
+ILL INDIVIDUAL, re-seeding indiv 15 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 15, fitness [-580.79]
+ind 16, fitness [-597.18]
+ind 17, fitness [-596.17]
+ind 18, fitness [-595.92]
+ind 19, fitness [-595.34]
+ind 20, fitness [-600.1]
+ind 21, fitness [-577.73]
+ind 22, fitness [-587.65]
+ind 23, fitness [-593.94]
+ind 24, fitness [-576.65]
+ind 25, fitness [-577.62]
+ind 26, fitness [-561.29]
+ind 27, fitness [-571.25]
+ind 28, fitness [-554.79]
+ind 29, fitness [-565.01]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0084652557907
+CURRENT POPULATION
+Current Iteration:  2
+Population Average Fitness(es): -587.835666667
+Population STD(s): 7.61135760266
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.         -130.50025607   43.92574237   62.51114954  -69.31269772
+  -73.72881257  -73.38208017  -71.47450927   56.27504465  -81.6029067
+  -77.10480924  -57.87486462  -69.41729642   55.74611763  -63.55440616
+  -84.31189669  -68.7414409   -61.53992534  -81.93521386] [ 136.81904377   11.34750233   46.76044718  -66.91331955  -32.27472139
+   -8.37605904  -23.13893474  142.16561267  172.23925029   -1.75748396
+ -172.32506851  138.95954831  -40.02833261   21.07590255  145.32591862
+  -21.21481438  134.43854756  130.02925232   68.37724931]
+Best ind - Fitness(es): [-600.1]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_2.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ILL INDIVIDUAL, re-seeding indiv 0 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 0, fitness [-555.56]
+ind 1, fitness [-592.69]
+ind 2, fitness [-573.12]
+ind 3, fitness [-584.84]
+ind 4, fitness [-601.68]
+ind 5, fitness [-597.18]
+ind 6, fitness [-590.36]
+ind 7, fitness [-570.97]
+ind 8, fitness [-600.08]
+ind 9, fitness [-600.35]
+ind 10, fitness [-581.17]
+ind 11, fitness [-594.67]
+ILL INDIVIDUAL, re-seeding indiv 12 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 12, fitness [-557.99]
+ind 13, fitness [-578.57]
+ind 14, fitness [-566.55]
+ind 15, fitness [-570.78]
+ind 16, fitness [-597.18]
+ind 17, fitness [-581.17]
+ind 18, fitness [-587.09]
+ind 19, fitness [-568.86]
+ind 20, fitness [-591.86]
+ind 21, fitness [-593.27]
+ind 22, fitness [-586.31]
+ind 23, fitness [-581.53]
+ind 24, fitness [-603.61]
+ind 25, fitness [-597.18]
+ind 26, fitness [-598.52]
+ind 27, fitness [-598.52]
+ind 28, fitness [-584.88]
+ILL INDIVIDUAL, re-seeding indiv 29 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 29, fitness [-561.24]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00581501300509
+CURRENT POPULATION
+Current Iteration:  3
+Population Average Fitness(es): -595.669
+Population STD(s): 5.33621485699
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -138.0494714    58.52122307 -136.44313701 -133.5835368
+ -123.67076718  -58.10383814   55.55191516  -63.19645205   83.666471
+  175.18166016  -62.93114523 -144.19107471   61.59937102  -62.63080256
+  -83.25127857  -64.17995169  -65.31911487  -57.27601653] [ 148.32643324  123.74713188   -0.36446103  143.35402832  156.49518914
+  171.48547384  127.60746068   38.68022195  168.09101128   10.96216034
+   98.03266203  -22.34869607  160.14411661  178.6945525   124.6012287
+  137.59105989  -40.7172901   159.29025987  144.99468444]
+Best ind - Fitness(es): [-603.61]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_3.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-600.95]
+ind 1, fitness [-608.06]
+ind 2, fitness [-586.65]
+ind 3, fitness [-580.55]
+ind 4, fitness [-589.86]
+ind 5, fitness [-592.52]
+ind 6, fitness [-589.06]
+ind 7, fitness [-593.21]
+ind 8, fitness [-601.84]
+ind 9, fitness [-605.48]
+ind 10, fitness [-591.]
+ind 11, fitness [-595.63]
+ILL INDIVIDUAL, re-seeding indiv 12 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 12 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 12, fitness [-574.16]
+ind 13, fitness [-590.74]
+ind 14, fitness [-599.59]
+ind 15, fitness [-599.27]
+ind 16, fitness [-585.66]
+ILL INDIVIDUAL, re-seeding indiv 17 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 17, fitness [-528.43]
+ind 18, fitness [-592.55]
+ind 19, fitness [-585.69]
+ILL INDIVIDUAL, re-seeding indiv 20 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 20, fitness [-578.45]
+ind 21, fitness [-587.71]
+ind 22, fitness [-578.33]
+ind 23, fitness [-585.49]
+ind 24, fitness [-562.71]
+ILL INDIVIDUAL, re-seeding indiv 25 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 25 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 25, fitness [-556.89]
+ILL INDIVIDUAL, re-seeding indiv 26 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 26, fitness [-550.42]
+ind 27, fitness [-584.86]
+ind 28, fitness [-578.65]
+ind 29, fitness [-584.3]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00731835674111
+CURRENT POPULATION
+Current Iteration:  4
+Population Average Fitness(es): -596.896
+Population STD(s): 6.35651455857
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.         -136.23488438   59.28353671 -134.92366365 -131.98584906
+ -121.48434757  -56.9330124    56.77751059  -64.97853734   91.64788226
+  164.69903958  -63.45202171 -144.91978531   62.10848647  -64.01105461
+  -79.7512845   -64.9450991   -65.5606448   -56.62814306] [ 155.23420742  123.68259558   -0.34207598  141.43874082  152.89796971
+  171.15125862  129.40412816   35.26296016  165.99862232    6.73029364
+  110.94113519  -21.72280054  159.94755085  174.44701447  121.32466782
+  134.96121001  -40.56662832  159.60013618  145.67263575]
+Best ind - Fitness(es): [-608.06]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_4.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-601.37]
+ind 1, fitness [-594.37]
+ILL INDIVIDUAL, re-seeding indiv 2 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 2, fitness [-577.87]
+ind 3, fitness [-605.8]
+ind 4, fitness [-601.33]
+ind 5, fitness [-599.71]
+ind 6, fitness [-599.23]
+ind 7, fitness [-593.93]
+ind 8, fitness [-608.79]
+ind 9, fitness [-601.32]
+ind 10, fitness [-610.77]
+ind 11, fitness [-610.77]
+ILL INDIVIDUAL, re-seeding indiv 12 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 12, fitness [-552.49]
+ind 13, fitness [-593.93]
+ILL INDIVIDUAL, re-seeding indiv 14 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 14, fitness [-502.13]
+ind 15, fitness [-594.73]
+ind 16, fitness [-610.77]
+ind 17, fitness [-610.77]
+ILL INDIVIDUAL, re-seeding indiv 18 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 18, fitness [-575.4]
+ind 19, fitness [-579.98]
+ind 20, fitness [-611.25]
+ind 21, fitness [-610.99]
+ind 22, fitness [-597.69]
+ind 23, fitness [-601.86]
+ind 24, fitness [-593.41]
+ind 25, fitness [-600.01]
+ind 26, fitness [-603.3]
+ind 27, fitness [-596.2]
+ind 28, fitness [-590.64]
+ind 29, fitness [-592.5]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00521881390593
+CURRENT POPULATION
+Current Iteration:  5
+Population Average Fitness(es): -604.094
+Population STD(s): 4.40903284935
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.         -134.50334368   59.67625014 -129.38193729 -131.97678086
+ -126.81679179  -56.40031932   56.01214778  -63.8381172    83.8378408
+  170.30185465  -63.72670266 -144.69628947   61.50890922  -63.61109163
+  -79.01634106  -65.39387052  -66.05323122  -56.0951649 ] [ 157.98862158  126.64999388   -8.95210849  143.49646452  153.30617032
+  170.45087449  129.36945774   34.58402571  167.05067883    8.70721409
+   98.88396313  -22.87660491  158.68024212  176.20348599  124.41256442
+  134.96680336  -41.36721461  160.41333649  142.24472664]
+Best ind - Fitness(es): [-611.25]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_5.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-611.5]
+ind 1, fitness [-611.92]
+ind 2, fitness [-581.68]
+ind 3, fitness [-598.92]
+ind 4, fitness [-601.97]
+ind 5, fitness [-605.51]
+ind 6, fitness [-611.33]
+ind 7, fitness [-614.02]
+ind 8, fitness [-612.57]
+ind 9, fitness [-612.57]
+ind 10, fitness [-612.57]
+ind 11, fitness [-612.57]
+ind 12, fitness [-588.63]
+ind 13, fitness [-576.45]
+ind 14, fitness [-611.45]
+ind 15, fitness [-611.45]
+ILL INDIVIDUAL, re-seeding indiv 16 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 16, fitness [-549.2]
+ind 17, fitness [-589.23]
+ILL INDIVIDUAL, re-seeding indiv 18 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 18, fitness [-588.4]
+ind 19, fitness [-594.31]
+ind 20, fitness [-603.04]
+ind 21, fitness [-612.57]
+ind 22, fitness [-612.57]
+ind 23, fitness [-612.57]
+ILL INDIVIDUAL, re-seeding indiv 24 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 24, fitness [-551.39]
+ind 25, fitness [-600.29]
+ind 26, fitness [-601.42]
+ind 27, fitness [-602.11]
+ind 28, fitness [-596.62]
+ILL INDIVIDUAL, re-seeding indiv 29 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 29, fitness [-564.94]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00451125370509
+CURRENT POPULATION
+Current Iteration:  6
+Population Average Fitness(es): -609.378666667
+Population STD(s): 3.77798423619
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.         -136.73620016   60.19467619 -121.86658097 -131.72506308
+ -121.99403079  -55.83348758   56.03634569  -61.64039056   84.60366295
+  166.7195767   -64.39669589 -145.24322072   61.52196885  -63.65782421
+  -75.77690362  -65.59283816  -66.36937124  -57.20959208] [ 153.23144568  123.91295739  -22.40278081  144.41333584  150.70305287
+  169.69677752  128.1027381    33.77045925  165.45613005    6.26230603
+  105.52678696  -21.41855822  159.99871638  177.49332258  119.68624458
+  137.6647358   -41.5911786   160.04339017  149.09568674]
+Best ind - Fitness(es): [-614.02]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_6.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-590.77]
+ENERGY EXPLOSION, re-seeding indiv 1 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 1 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 1, fitness [-546.08]
+ind 2, fitness [-572.99]
+ind 3, fitness [-596.02]
+ind 4, fitness [-615.61]
+ind 5, fitness [-615.61]
+ind 6, fitness [-613.67]
+ind 7, fitness [-611.08]
+ind 8, fitness [-615.61]
+ind 9, fitness [-615.61]
+ind 10, fitness [-615.21]
+ind 11, fitness [-612.29]
+ind 12, fitness [-570.2]
+ind 13, fitness [-596.94]
+ind 14, fitness [-615.61]
+ind 15, fitness [-615.61]
+ind 16, fitness [-616.38]
+ind 17, fitness [-611.55]
+ind 18, fitness [-614.16]
+ind 19, fitness [-611.45]
+ind 20, fitness [-615.61]
+ind 21, fitness [-615.61]
+ind 22, fitness [-614.95]
+ind 23, fitness [-614.58]
+ind 24, fitness [-611.73]
+ind 25, fitness [-616.88]
+ind 26, fitness [-615.3]
+ind 27, fitness [-612.82]
+ind 28, fitness [-612.33]
+ind 29, fitness [-611.7]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0046362339515
+CURRENT POPULATION
+Current Iteration:  7
+Population Average Fitness(es): -614.215666667
+Population STD(s): 1.69361287063
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.6055131    59.75963337  -71.29919979 -130.90369135
+ -128.10154889  -55.85198659   56.4324664   -63.4624025    84.04064383
+  162.22774833  -63.20445623 -144.8464487    61.92335694  -63.42260719
+  -77.26549116  -65.92028757  -66.38649935  -57.48775048] [ 153.22416128  114.13120446  -56.17453124  141.84314258  149.14447933
+  170.69279759  128.83411394   31.652226    167.68181835    4.65168112
+  111.23137086  -20.97797457  161.83318025  179.08693877  116.18147996
+  138.23635348  -41.81848029  161.84589707  149.5058478 ]
+Best ind - Fitness(es): [-616.88]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_7.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-615.75]
+ind 1, fitness [-615.48]
+ind 2, fitness [-619.35]
+ind 3, fitness [-615.93]
+ind 4, fitness [-614.87]
+ind 5, fitness [-616.12]
+ind 6, fitness [-621.45]
+ind 7, fitness [-615.61]
+ind 8, fitness [-611.48]
+ind 9, fitness [-615.08]
+ind 10, fitness [-614.61]
+ind 11, fitness [-612.57]
+ind 12, fitness [-616.12]
+ind 13, fitness [-613.75]
+ind 14, fitness [-614.07]
+ind 15, fitness [-616.03]
+ind 16, fitness [-612.48]
+ind 17, fitness [-608.88]
+ind 18, fitness [-615.99]
+ind 19, fitness [-616.15]
+ind 20, fitness [-616.12]
+ind 21, fitness [-615.96]
+ind 22, fitness [-619.23]
+ind 23, fitness [-615.13]
+ind 24, fitness [-615.38]
+ind 25, fitness [-612.37]
+ind 26, fitness [-616.88]
+ind 27, fitness [-616.23]
+ind 28, fitness [-614.85]
+ind 29, fitness [-615.46]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00735376941025
+CURRENT POPULATION
+Current Iteration:  8
+Population Average Fitness(es): -616.586666667
+Population STD(s): 1.5940479569
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -134.57109878   60.48085864  -68.14922066 -134.21183046
+ -137.27675218  -56.79997279   56.1240318   -65.56055365   83.88446889
+  161.29340986  -62.56232224 -144.33339716   62.4572422   -63.07294991
+  -82.39170164  -66.84305756  -66.86145271  -56.90457984] [ 153.19448159   99.81778243  -53.50222958  141.55108717  152.65485847
+  172.69605229  132.49599959   31.65204205  168.23288278    5.28852525
+  116.22538467  -21.40420705  162.90072919  179.04544137  116.75906063
+  134.41221159  -41.71676902  165.703329    145.32436197]
+Best ind - Fitness(es): [-621.45]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_8.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-620.72]
+ind 1, fitness [-615.97]
+ind 2, fitness [-617.02]
+ind 3, fitness [-617.02]
+ind 4, fitness [-618.6]
+ind 5, fitness [-616.3]
+ind 6, fitness [-615.95]
+ind 7, fitness [-615.76]
+ind 8, fitness [-622.71]
+ind 9, fitness [-616.84]
+ind 10, fitness [-617.05]
+ind 11, fitness [-616.72]
+ind 12, fitness [-619.29]
+ind 13, fitness [-616.39]
+ind 14, fitness [-616.88]
+ind 15, fitness [-620.43]
+ind 16, fitness [-616.61]
+ind 17, fitness [-616.61]
+ind 18, fitness [-620.12]
+ind 19, fitness [-610.18]
+ind 20, fitness [-624.72]
+ind 21, fitness [-617.6]
+ind 22, fitness [-618.34]
+ind 23, fitness [-621.45]
+ind 24, fitness [-616.54]
+ind 25, fitness [-616.37]
+ind 26, fitness [-621.33]
+ind 27, fitness [-617.31]
+ind 28, fitness [-620.04]
+ind 29, fitness [-616.15]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00523434498655
+CURRENT POPULATION
+Current Iteration:  9
+Population Average Fitness(es): -619.252
+Population STD(s): 2.28738628133
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -133.5658471    60.72046268  -68.13413274 -134.71138928
+ -138.52966766  -58.11316388   59.87355612  -67.41380922   85.96549583
+  162.56443889  -62.30084856 -143.49983642   62.84583935  -62.5422632
+  -88.8017544   -66.73704537  -67.70465964  -56.11504094] [ 154.21279038   99.27183062  -53.56739961  141.42779499  152.53923543
+  171.62932464  135.70647809   27.00668386  165.99250687    1.58921656
+  120.34218108  -22.01164176  163.32772672  177.4689879   120.44789623
+  131.88812636  -41.39545843  167.81255902  141.15945418]
+Best ind - Fitness(es): [-624.72]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_9.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-620.49]
+ind 1, fitness [-624.9]
+ind 2, fitness [-624.24]
+ind 3, fitness [-621.04]
+ind 4, fitness [-622.29]
+ind 5, fitness [-624.12]
+ind 6, fitness [-624.67]
+ind 7, fitness [-618.68]
+ind 8, fitness [-623.18]
+ind 9, fitness [-622.07]
+ind 10, fitness [-618.76]
+ind 11, fitness [-623.52]
+ind 12, fitness [-622.42]
+ind 13, fitness [-622.02]
+ind 14, fitness [-619.41]
+ind 15, fitness [-613.62]
+ind 16, fitness [-624.36]
+ind 17, fitness [-621.94]
+ind 18, fitness [-625.38]
+ind 19, fitness [-621.04]
+ind 20, fitness [-622.99]
+ind 21, fitness [-623.72]
+ind 22, fitness [-624.82]
+ind 23, fitness [-623.71]
+ind 24, fitness [-619.75]
+ind 25, fitness [-620.65]
+ind 26, fitness [-625.5]
+ind 27, fitness [-618.37]
+ind 28, fitness [-623.89]
+ind 29, fitness [-621.54]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00124700239808
+CURRENT POPULATION
+Current Iteration:  10
+Population Average Fitness(es): -623.055
+Population STD(s): 1.49066148628
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.         -135.33111597   59.75963921  -70.79391128 -130.9597578
+ -129.65009247  -57.09706277   61.11269805  -65.45099249   83.475934
+  166.97862121  -62.52139963 -146.24510268   62.48372457  -62.20185486
+  -94.53430675  -66.85256007  -67.40729186  -55.45298989] [ 152.68234118  110.49292307  -56.13940054  140.54595364  149.08928066
+  168.42257386  132.3088438    25.44663095  163.88875127    5.12961686
+  115.81195065  -19.88985253  162.52319693  179.18112041  124.79957951
+  134.70543549  -41.69669613  167.65094062  141.30188754]
+Best ind - Fitness(es): [-625.5]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_10.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-625.22]
+ind 1, fitness [-624.67]
+ind 2, fitness [-625.64]
+ind 3, fitness [-625.79]
+ind 4, fitness [-626.94]
+ind 5, fitness [-626.55]
+ind 6, fitness [-625.83]
+ind 7, fitness [-622.25]
+ind 8, fitness [-622.05]
+ind 9, fitness [-625.77]
+ind 10, fitness [-625.89]
+ind 11, fitness [-625.08]
+ind 12, fitness [-624.24]
+ind 13, fitness [-625.83]
+ind 14, fitness [-622.79]
+ind 15, fitness [-624.48]
+ind 16, fitness [-625.05]
+ind 17, fitness [-625.34]
+ind 18, fitness [-626.45]
+ind 19, fitness [-625.59]
+ind 20, fitness [-625.34]
+ind 21, fitness [-625.63]
+ind 22, fitness [-627.82]
+ind 23, fitness [-626.98]
+ind 24, fitness [-625.14]
+ind 25, fitness [-622.91]
+ind 26, fitness [-624.72]
+ind 27, fitness [-626.31]
+ind 28, fitness [-624.32]
+ind 29, fitness [-624.69]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00369532668599
+CURRENT POPULATION
+Current Iteration:  11
+Population Average Fitness(es): -625.906333333
+Population STD(s): 0.914189926778
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -134.79704746   60.01908302  -70.48166968 -131.61456535
+ -133.16358545  -57.1494817    63.52889067  -66.32933319   84.78063232
+  171.43155393  -63.22590984 -145.12430423   61.18888895  -62.18620577
+ -133.16909021  -66.15942818  -65.96523469  -54.37232975] [ 152.94683519  108.75068488  -55.63672214  141.56103225  148.55682496
+  170.38245706  132.67509696   22.00480295  161.10267873    0.87126
+  117.22493113  -19.65654299  162.01857266 -172.56457249  154.28940712
+  128.81439256  -39.51647417  169.20479152  146.80035953]
+Best ind - Fitness(es): [-627.82]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_11.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-629.12]
+ind 1, fitness [-629.12]
+ind 2, fitness [-627.29]
+ind 3, fitness [-626.53]
+ind 4, fitness [-599.59]
+ind 5, fitness [-601.62]
+ind 6, fitness [-626.21]
+ind 7, fitness [-625.91]
+ind 8, fitness [-627.47]
+ind 9, fitness [-626.45]
+ind 10, fitness [-605.19]
+ind 11, fitness [-611.94]
+ind 12, fitness [-626.04]
+ind 13, fitness [-626.51]
+ind 14, fitness [-627.22]
+ind 15, fitness [-626.88]
+ind 16, fitness [-506.62]
+ind 17, fitness [-605.38]
+ind 18, fitness [-628.24]
+ind 19, fitness [-626.96]
+ind 20, fitness [-619.31]
+ind 21, fitness [-607.32]
+ind 22, fitness [-627.06]
+ind 23, fitness [-627.31]
+ind 24, fitness [-627.31]
+ind 25, fitness [-627.31]
+ind 26, fitness [-627.47]
+ind 27, fitness [-625.38]
+ind 28, fitness [-627.32]
+ind 29, fitness [-626.65]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00206637843337
+CURRENT POPULATION
+Current Iteration:  12
+Population Average Fitness(es): -627.351333333
+Population STD(s): 0.799732177392
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -134.66347744   60.03360588  -69.94227287 -133.73358128
+ -135.32683928  -56.27110264   64.13261562  -67.64045922   81.21462511
+  175.23540955  -62.66916775 -146.16304374   61.1652982   -62.63162404
+ -138.44464116  -66.26674387  -66.17425646  -53.6489566 ] [ 152.83095817  108.3238043   -55.79564887  141.78463478  146.52425734
+  172.727897    129.37862172   22.40098282  160.23059926    1.85341514
+  112.95982389  -18.0152844   161.44050723 -169.78222267  155.06784281
+  128.81724037  -38.95594364  173.53804516  149.40036505]
+Best ind - Fitness(es): [-629.12]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_12.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-627.86]
+ind 1, fitness [-629.62]
+ind 2, fitness [-519.25]
+ind 3, fitness [-602.69]
+ind 4, fitness [-629.62]
+ind 5, fitness [-629.62]
+ind 6, fitness [-629.62]
+ind 7, fitness [-629.62]
+ind 8, fitness [-621.23]
+ind 9, fitness [-625.95]
+ind 10, fitness [-627.97]
+ind 11, fitness [-629.14]
+ind 12, fitness [-628.28]
+ind 13, fitness [-627.09]
+ind 14, fitness [-629.62]
+ind 15, fitness [-629.62]
+ind 16, fitness [-629.62]
+ind 17, fitness [-629.62]
+ind 18, fitness [-563.17]
+ind 19, fitness [-596.08]
+ind 20, fitness [-627.37]
+ind 21, fitness [-629.62]
+ind 22, fitness [-626.7]
+ind 23, fitness [-627.53]
+ind 24, fitness [-629.12]
+ind 25, fitness [-628.55]
+ind 26, fitness [-627.4]
+ind 27, fitness [-626.93]
+ind 28, fitness [-627.72]
+ind 29, fitness [-627.73]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.000794129792573
+CURRENT POPULATION
+Current Iteration:  13
+Population Average Fitness(es): -628.807
+Population STD(s): 0.814821657379
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.31263985   59.98108136  -69.48118611 -136.07277848
+ -138.26439326  -55.62483098   64.79602864  -68.20665867   80.83549873
+  175.95388954  -63.1248933  -146.36544825   61.49619692  -62.38485804
+ -137.11919249  -66.04083669  -66.77959722  -54.93553287] [ 152.26737755  107.63939959  -56.3459885   140.29645115  146.03753481
+  173.88994894  128.62366129   21.55278119  159.7522876    -0.61201486
+  117.06801874  -18.79404445  162.49067219 -171.58545707  154.24505892
+  129.2162418   -38.77078764  175.00578811  152.51806018]
+Best ind - Fitness(es): [-629.62]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_13.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-629.85]
+ind 1, fitness [-629.85]
+ind 2, fitness [-629.58]
+ind 3, fitness [-629.62]
+ind 4, fitness [-629.75]
+ind 5, fitness [-629.24]
+ind 6, fitness [-629.35]
+ind 7, fitness [-629.62]
+ind 8, fitness [-629.85]
+ind 9, fitness [-629.85]
+ind 10, fitness [-629.85]
+ind 11, fitness [-602.86]
+ind 12, fitness [-617.3]
+ind 13, fitness [-621.24]
+ind 14, fitness [-629.71]
+ind 15, fitness [-629.28]
+ind 16, fitness [-629.85]
+ind 17, fitness [-629.24]
+ind 18, fitness [-628.96]
+ind 19, fitness [-619.36]
+ind 20, fitness [-629.62]
+ind 21, fitness [-629.24]
+ind 22, fitness [-629.85]
+ind 23, fitness [-606.88]
+ind 24, fitness [-629.85]
+ind 25, fitness [-629.85]
+ind 26, fitness [-629.85]
+ind 27, fitness [-629.34]
+ind 28, fitness [-629.25]
+ind 29, fitness [-629.68]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.000365166309439
+CURRENT POPULATION
+Current Iteration:  14
+Population Average Fitness(es): -629.717333333
+Population STD(s): 0.130152047835
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.1450768    60.03348104  -69.60161379 -137.49195942
+ -139.82538789  -55.29220722   64.91925327  -67.93492305   81.54824844
+  174.77460552  -63.14870229 -145.51980533   61.59387958  -61.99414561
+ -137.7885574   -65.84446469  -66.58968341  -55.00220865] [ 152.48102016  106.98877466  -56.25822557  139.82569652  146.20933736
+  175.41854286  128.56036109   20.93959162  159.82654101   -3.72555281
+  121.62409337  -19.57810359  162.88576477 -171.39113608  152.99183882
+  129.43452169  -38.64998966  174.28158404  153.13905274]
+Best ind - Fitness(es): [-629.85]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_14.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-630.]
+ind 1, fitness [-630.]
+ind 2, fitness [-629.96]
+ind 3, fitness [-629.85]
+ind 4, fitness [-630.]
+ind 5, fitness [-630.]
+ind 6, fitness [-629.89]
+ind 7, fitness [-629.75]
+ind 8, fitness [-629.83]
+ind 9, fitness [-629.47]
+ind 10, fitness [-630.]
+ind 11, fitness [-630.]
+ind 12, fitness [-629.87]
+ind 13, fitness [-629.74]
+ind 14, fitness [-630.]
+ind 15, fitness [-630.]
+ind 16, fitness [-630.]
+ind 17, fitness [-630.]
+ind 18, fitness [-630.]
+ind 19, fitness [-630.]
+ind 20, fitness [-630.]
+ind 21, fitness [-630.]
+ind 22, fitness [-630.]
+ind 23, fitness [-630.]
+ind 24, fitness [-629.78]
+ind 25, fitness [-629.82]
+ind 26, fitness [-630.]
+ind 27, fitness [-630.]
+ind 28, fitness [-629.75]
+ind 29, fitness [-629.72]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.000238095238095
+CURRENT POPULATION
+Current Iteration:  15
+Population Average Fitness(es): -629.963666667
+Population STD(s): 0.0631127738435
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.46712537   59.9695602   -69.27813194 -138.37636342
+ -140.89347532  -55.18247642   65.13693888  -68.28791519   82.76503014
+  173.10902116  -62.76752482 -142.94556153   61.91570181  -61.5063732
+ -136.91039079  -65.63041753  -66.59956655  -55.38420967] [ 152.20422078  106.83711621  -56.16156206  139.15202262  145.96287641
+  176.5467001   128.47113461   20.64586364  160.4585097    -7.95340538
+  128.0320423   -23.31657876  164.30967616 -172.85722657  151.55983375
+  129.40415803  -38.64947092  173.86273848  153.73130569]
+Best ind - Fitness(es): [-630.]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_15.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-630.13]
+ind 1, fitness [-630.13]
+ind 2, fitness [-630.13]
+ind 3, fitness [-630.13]
+ind 4, fitness [-630.13]
+ind 5, fitness [-630.13]
+ind 6, fitness [-630.13]
+ind 7, fitness [-630.13]
+ind 8, fitness [-630.13]
+ind 9, fitness [-630.13]
+ind 10, fitness [-630.13]
+ind 11, fitness [-630.13]
+ind 12, fitness [-630.13]
+ind 13, fitness [-630.13]
+ind 14, fitness [-630.13]
+ind 15, fitness [-630.13]
+ind 16, fitness [-630.13]
+ind 17, fitness [-630.]
+ind 18, fitness [-630.13]
+ind 19, fitness [-630.13]
+ind 20, fitness [-630.13]
+ind 21, fitness [-630.13]
+ind 22, fitness [-630.13]
+ind 23, fitness [-630.13]
+ind 24, fitness [-630.13]
+ind 25, fitness [-630.13]
+ind 26, fitness [-630.13]
+ind 27, fitness [-630.13]
+ind 28, fitness [-630.13]
+ind 29, fitness [-630.22]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.000349084446701
+CURRENT POPULATION
+Current Iteration:  16
+Population Average Fitness(es): -630.121666667
+Population STD(s): 0.0547164407549
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.5018177    59.90940086  -69.41702556 -138.78756149
+ -141.78077377  -54.76848825   65.19912667  -67.8347603    83.88587155
+  170.46500601  -62.98011829 -137.29395813   62.4412394   -61.10399165
+ -136.22173715  -65.30962888  -66.20245849  -55.66644118] [ 152.20707459  107.20674696  -56.17815247  139.06805484  145.54793686
+  177.14648529  128.14854551   20.482905    161.14171795  -15.05373962
+  136.47170086  -27.9716751   165.98011723 -175.40616355  150.37157725
+  128.23493638  -38.45089771  172.75628463  154.19499444]
+Best ind - Fitness(es): [-630.22]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_16.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-630.22]
+ind 1, fitness [-630.22]
+ind 2, fitness [-630.22]
+ind 3, fitness [-630.22]
+ind 4, fitness [-630.22]
+ind 5, fitness [-630.22]
+ind 6, fitness [-630.22]
+ind 7, fitness [-630.22]
+ind 8, fitness [-630.22]
+ind 9, fitness [-630.22]
+ind 10, fitness [-630.26]
+ind 11, fitness [-630.13]
+ind 12, fitness [-630.22]
+ind 13, fitness [-630.22]
+ind 14, fitness [-630.31]
+ind 15, fitness [-630.22]
+ind 16, fitness [-630.22]
+ind 17, fitness [-630.22]
+ind 18, fitness [-630.22]
+ind 19, fitness [-630.22]
+ind 20, fitness [-630.13]
+ind 21, fitness [-630.13]
+ind 22, fitness [-630.1]
+ind 23, fitness [-630.12]
+ind 24, fitness [-630.22]
+ind 25, fitness [-630.31]
+ind 26, fitness [-630.22]
+ind 27, fitness [-630.22]
+ind 28, fitness [-630.19]
+ind 29, fitness [-630.17]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.000142786882645
+CURRENT POPULATION
+Current Iteration:  17
+Population Average Fitness(es): -630.221333333
+Population STD(s): 0.052455271952
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.47196256   59.8963238   -69.53725581 -138.91505075
+ -142.03484884  -54.53824378   64.99409081  -67.07355687   83.62687586
+  169.80081003  -63.1631669  -134.83824002   62.82766709  -61.35598911
+ -136.57474805  -64.99144112  -65.72174711  -55.70159607] [ 152.24427535  107.60412605  -56.30784483  139.05003502  145.27035836
+  177.27217886  127.78848362   20.53709327  161.05179691  -18.24696951
+  138.47392432  -27.6236729   165.99396402 -176.91327801  150.436376
+  127.24646116  -38.16793338  172.03215117  154.24583006]
+Best ind - Fitness(es): [-630.31]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_17.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-630.27]
+ind 1, fitness [-630.29]
+ind 2, fitness [-630.31]
+ind 3, fitness [-630.31]
+ind 4, fitness [-630.31]
+ind 5, fitness [-630.31]
+ind 6, fitness [-630.31]
+ind 7, fitness [-630.31]
+ind 8, fitness [-630.31]
+ind 9, fitness [-630.31]
+ind 10, fitness [-630.2]
+ind 11, fitness [-630.05]
+ind 12, fitness [-630.31]
+ind 13, fitness [-630.31]
+ind 14, fitness [-630.33]
+ind 15, fitness [-630.33]
+ind 16, fitness [-630.31]
+ind 17, fitness [-630.33]
+ind 18, fitness [-630.31]
+ind 19, fitness [-630.26]
+ind 20, fitness [-630.33]
+ind 21, fitness [-630.33]
+ind 22, fitness [-630.31]
+ind 23, fitness [-630.34]
+ind 24, fitness [-630.33]
+ind 25, fitness [-630.31]
+ind 26, fitness [-629.98]
+ind 27, fitness [-630.05]
+ind 28, fitness [-630.33]
+ind 29, fitness [-630.33]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 4.75933623125e-05
+CURRENT POPULATION
+Current Iteration:  18
+Population Average Fitness(es): -630.312
+Population STD(s): 0.0267581763205
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.48358918   59.91175484  -69.42042003 -139.04107433
+ -142.05066689  -54.50091389   64.90572664  -66.79686433   83.34197139
+  169.45776382  -63.16078803 -133.67858205   63.05137133  -61.55411421
+ -136.54028152  -64.96835498  -65.52536475  -55.72423941] [ 152.09406966  107.4394023   -56.29629957  138.85160221  145.11002111
+  177.35009292  127.39206465   20.64419797  160.98910699  -18.81971985
+  138.56630317  -27.63306976  166.15985377 -177.91575325  150.71804442
+  127.01121244  -37.97572663  171.80003423  153.98934782]
+Best ind - Fitness(es): [-630.34]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_18.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-630.32]
+ind 1, fitness [-630.34]
+ind 2, fitness [-630.34]
+ind 3, fitness [-630.32]
+ind 4, fitness [-630.35]
+ind 5, fitness [-630.35]
+ind 6, fitness [-630.33]
+ind 7, fitness [-630.33]
+ind 8, fitness [-630.35]
+ind 9, fitness [-630.35]
+ind 10, fitness [-630.3]
+ind 11, fitness [-630.31]
+ind 12, fitness [-630.34]
+ind 13, fitness [-630.32]
+ind 14, fitness [-630.34]
+ind 15, fitness [-630.34]
+ind 16, fitness [-630.34]
+ind 17, fitness [-630.32]
+ind 18, fitness [-630.34]
+ind 19, fitness [-630.34]
+ind 20, fitness [-630.33]
+ind 21, fitness [-630.33]
+ind 22, fitness [-630.33]
+ind 23, fitness [-630.33]
+ind 24, fitness [-630.34]
+ind 25, fitness [-630.32]
+ind 26, fitness [-630.33]
+ind 27, fitness [-630.33]
+ind 28, fitness [-630.33]
+ind 29, fitness [-630.33]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 1.58642024272e-05
+CURRENT POPULATION
+Current Iteration:  19
+Population Average Fitness(es): -630.336333333
+Population STD(s): 0.00706320670013
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.         -135.55231972   59.879878    -69.4734081  -138.94555187
+ -141.88148859  -54.48351349   64.8888175   -66.47244887   83.14155992
+  169.14240221  -63.23546266 -131.65067434   63.03860088  -61.62787587
+ -136.74507198  -64.96786847  -65.42093398  -55.65187536] [ 152.14294614  107.93846338  -56.49616166  138.78507959  144.98165473
+  177.28645838  127.28477094   20.53120023  161.02413883  -19.44411615
+  137.90232386  -27.42671499  165.40677858 -178.10774442  151.07953722
+  126.86022969  -37.97667931  171.7149024   154.16717338]
+Best ind - Fitness(es): [-630.35]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_19.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-630.34]
+ind 1, fitness [-630.34]
+ind 2, fitness [-630.35]
+ind 3, fitness [-630.35]
+ind 4, fitness [-630.34]
+ind 5, fitness [-630.34]
+ind 6, fitness [-630.33]
+ind 7, fitness [-630.34]
+ind 8, fitness [-630.35]
+ind 9, fitness [-630.35]
+ind 10, fitness [-630.34]
+ind 11, fitness [-630.35]
+ind 12, fitness [-630.34]
+ind 13, fitness [-630.34]
+ind 14, fitness [-630.34]
+ind 15, fitness [-630.34]
+ind 16, fitness [-630.34]
+ind 17, fitness [-630.34]
+ind 18, fitness [-630.33]
+ind 19, fitness [-630.34]
+ind 20, fitness [-630.34]
+ind 21, fitness [-630.34]
+ind 22, fitness [-630.34]
+ind 23, fitness [-630.34]
+ind 24, fitness [-630.36]
+ind 25, fitness [-630.36]
+ind 26, fitness [-630.36]
+ind 27, fitness [-630.36]
+ind 28, fitness [-630.36]
+ind 29, fitness [-630.36]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 1.58639507583e-05
+CURRENT POPULATION
+Current Iteration:  20
+Population Average Fitness(es): -630.349666667
+Population STD(s): 0.0087496031656
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.4994093    59.87608203  -69.45739992 -138.91977742
+ -141.88168936  -54.53428922   64.85435733  -66.38681486   82.97951963
+  168.92169212  -63.21560702 -130.4377997    63.04759032  -61.82433079
+ -136.8752747   -65.01122598  -65.25783745  -55.64549939] [ 152.16671277  107.83046328  -56.52043863  138.6449352   144.90247732
+  177.26589869  127.07587761   20.54572572  161.05182506  -19.80335792
+  137.44503497  -27.41653783  165.20973782 -178.47371055  151.42695616
+  126.85005476  -37.92399886  171.59454435  154.0357685 ]
+Best ind - Fitness(es): [-630.36]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_20.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-630.35]
+ind 1, fitness [-630.36]
+ind 2, fitness [-630.37]
+ind 3, fitness [-630.35]
+ind 4, fitness [-630.36]
+ind 5, fitness [-630.35]
+ind 6, fitness [-630.36]
+ind 7, fitness [-630.36]
+ind 8, fitness [-630.36]
+ind 9, fitness [-630.37]
+ind 10, fitness [-630.36]
+ind 11, fitness [-630.35]
+ind 12, fitness [-630.37]
+ind 13, fitness [-630.37]
+ind 14, fitness [-630.37]
+ind 15, fitness [-630.37]
+ind 16, fitness [-630.35]
+ind 17, fitness [-630.35]
+ind 18, fitness [-630.37]
+ind 19, fitness [-630.37]
+ind 20, fitness [-630.37]
+ind 21, fitness [-630.37]
+ind 22, fitness [-630.36]
+ind 23, fitness [-630.36]
+ind 24, fitness [-630.36]
+ind 25, fitness [-630.36]
+ind 26, fitness [-630.37]
+ind 27, fitness [-630.37]
+ind 28, fitness [-630.36]
+ind 29, fitness [-630.36]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 1.58636990973e-05
+CURRENT POPULATION
+Current Iteration:  21
+Population Average Fitness(es): -630.364333333
+Population STD(s): 0.00558768487141
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.62523215   59.84477019  -69.50404137 -138.99660579
+ -141.9035654   -54.45344724   64.78408155  -66.03180713   82.9261115
+  168.09349118  -63.18786205 -127.74700166   63.31531755  -62.00540296
+ -137.02305385  -64.91353275  -65.24790224  -55.73614495] [ 152.10647399  107.71769737  -56.32325571  138.62328172  145.02570335
+  177.20341729  127.12367775   20.50250326  160.84139731  -20.20087831
+  137.1506241   -27.59375542  164.69517601 -179.14757099  151.82832075
+  126.66800415  -37.87018316  171.56927963  154.07399776]
+Best ind - Fitness(es): [-630.37]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_21.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-630.38]
+ind 1, fitness [-630.37]
+ind 2, fitness [-630.38]
+ind 3, fitness [-630.37]
+ind 4, fitness [-630.37]
+ind 5, fitness [-630.38]
+ind 6, fitness [-630.36]
+ind 7, fitness [-630.37]
+ind 8, fitness [-630.4]
+ind 9, fitness [-630.4]
+ind 10, fitness [-630.38]
+ind 11, fitness [-630.38]
+ind 12, fitness [-630.37]
+ind 13, fitness [-630.4]
+ind 14, fitness [-630.37]
+ind 15, fitness [-630.37]
+ind 16, fitness [-630.41]
+ind 17, fitness [-630.41]
+ind 18, fitness [-630.37]
+ind 19, fitness [-630.37]
+ind 20, fitness [-630.37]
+ind 21, fitness [-630.36]
+ind 22, fitness [-630.37]
+ind 23, fitness [-630.37]
+ind 24, fitness [-630.35]
+ind 25, fitness [-630.37]
+ind 26, fitness [-630.37]
+ind 27, fitness [-630.36]
+ind 28, fitness [-630.4]
+ind 29, fitness [-630.4]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 6.34507701337e-05
+CURRENT POPULATION
+Current Iteration:  22
+Population Average Fitness(es): -630.380333333
+Population STD(s): 0.0140198272299
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.         -135.58360866   59.88256104  -69.52651615 -138.92009008
+ -141.80125514  -54.541179     64.80467085  -65.61088436   82.62508109
+  166.60445607  -63.47342489 -119.00489024   63.42039028  -62.69633784
+ -137.69102104  -64.99055266  -65.22746688  -55.79779239] [ 152.10824904  107.68790671  -56.4567872   138.53268686  145.12364269
+  177.17054344  126.97828094   20.2630434   160.71493218  -20.28596103
+  135.26081009  -28.96576026  163.0314053  -179.49229017  153.08044409
+  126.93602392  -37.84309089  171.55958856  154.21048455]
+Best ind - Fitness(es): [-630.41]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_22.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-630.36]
+ind 1, fitness [-630.33]
+ind 2, fitness [-630.38]
+ind 3, fitness [-630.38]
+ind 4, fitness [-630.35]
+ind 5, fitness [-630.38]
+ind 6, fitness [-630.58]
+ind 7, fitness [-630.74]
+ind 8, fitness [-630.46]
+ind 9, fitness [-630.42]
+ind 10, fitness [-629.66]
+ind 11, fitness [-629.9]
+ind 12, fitness [-630.38]
+ind 13, fitness [-630.42]
+ind 14, fitness [-629.74]
+ind 15, fitness [-629.86]
+ind 16, fitness [-630.44]
+ind 17, fitness [-630.37]
+ind 18, fitness [-630.4]
+ind 19, fitness [-630.37]
+ind 20, fitness [-630.57]
+ind 21, fitness [-630.39]
+ind 22, fitness [-630.38]
+ind 23, fitness [-630.38]
+ind 24, fitness [-630.34]
+ind 25, fitness [-630.37]
+ind 26, fitness [-630.45]
+ind 27, fitness [-630.38]
+ind 28, fitness [-630.38]
+ind 29, fitness [-630.42]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.000523194977328
+CURRENT POPULATION
+Current Iteration:  23
+Population Average Fitness(es): -630.447666667
+Population STD(s): 0.0996889607173
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.88530474   59.95420785  -69.59512903 -138.94238414
+ -141.80850971  -54.70860501   64.9448674   -64.99528863   82.58915499
+  162.65348133  -64.66654264  -95.84333537   63.79742843  -64.33780081
+ -139.62715315  -65.27146694  -65.02201005  -55.99780236] [ 151.93283153  107.40811051  -56.21425227  138.60157401  145.32248297
+  177.23920877  127.00882772   20.00096849  159.8741099   -19.40475616
+  132.94291899  -34.15057404  159.0288836  -178.96410917  155.47149054
+  128.33238415  -38.02730309  171.52052736  154.76817148]
+Best ind - Fitness(es): [-630.74]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_23.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-630.87]
+ind 1, fitness [-630.4]
+ind 2, fitness [-630.44]
+ind 3, fitness [-630.38]
+ind 4, fitness [-630.79]
+ind 5, fitness [-630.79]
+ind 6, fitness [-629.72]
+ind 7, fitness [-630.25]
+ind 8, fitness [-630.72]
+ind 9, fitness [-630.87]
+ind 10, fitness [-630.41]
+ind 11, fitness [-630.67]
+ind 12, fitness [-630.75]
+ind 13, fitness [-630.71]
+ind 14, fitness [-631.02]
+ind 15, fitness [-630.68]
+ind 16, fitness [-586.46]
+ind 17, fitness [-631.12]
+ind 18, fitness [-630.39]
+ind 19, fitness [-630.58]
+ind 20, fitness [-626.83]
+ind 21, fitness [-615.15]
+ind 22, fitness [-630.74]
+ind 23, fitness [-630.74]
+ind 24, fitness [-630.54]
+ind 25, fitness [-630.42]
+ind 26, fitness [-629.73]
+ind 27, fitness [-629.8]
+ind 28, fitness [-630.98]
+ind 29, fitness [-630.93]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.000602104195716
+CURRENT POPULATION
+Current Iteration:  24
+Population Average Fitness(es): -630.755
+Population STD(s): 0.2151549829
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.55513993   59.79746664  -69.67450072 -138.60501449
+ -141.40362482  -55.01698434   64.70314396  -63.67733216   82.93933075
+  153.38108847  -65.13126454  -81.97928204   63.09033494  -66.28037873
+ -138.70358393  -65.0402501   -64.50840323  -56.37871117] [ 152.27446022  107.63644911  -56.54349469  138.66766049  145.82125123
+  177.30401978  126.39570026   20.23737301  159.01484764  -20.60903618
+  136.37252956  -33.22249256  153.97682089 -179.5998103   158.34934071
+  127.19472116  -37.49347313  171.04850325  155.65671787]
+Best ind - Fitness(es): [-631.12]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_24.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-631.17]
+ind 1, fitness [-631.17]
+ind 2, fitness [-630.55]
+ind 3, fitness [-630.89]
+ind 4, fitness [-630.64]
+ind 5, fitness [-630.49]
+ind 6, fitness [-630.86]
+ind 7, fitness [-630.89]
+ind 8, fitness [-630.9]
+ind 9, fitness [-631.]
+ind 10, fitness [-630.95]
+ind 11, fitness [-630.9]
+ind 12, fitness [-630.7]
+ind 13, fitness [-630.72]
+ind 14, fitness [-630.93]
+ind 15, fitness [-630.89]
+ind 16, fitness [-631.09]
+ind 17, fitness [-630.93]
+ind 18, fitness [-630.95]
+ind 19, fitness [-631.06]
+ind 20, fitness [-631.02]
+ind 21, fitness [-630.98]
+ind 22, fitness [-630.48]
+ind 23, fitness [-629.91]
+ind 24, fitness [-631.17]
+ind 25, fitness [-630.93]
+ind 26, fitness [-630.44]
+ind 27, fitness [-630.41]
+ind 28, fitness [-591.91]
+ind 29, fitness [-630.98]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 7.92179602959e-05
+CURRENT POPULATION
+Current Iteration:  25
+Population Average Fitness(es): -631.005
+Population STD(s): 0.091131772725
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.         -135.34743908   59.90425223  -69.4788554  -138.47986942
+ -141.48395281  -54.74686427   64.56136825  -63.07590855   83.11879118
+  141.21011221  -65.00938768  -80.28976583   62.76872709  -66.63395094
+ -138.71445751  -64.94676514  -64.59671713  -56.29898535] [ 152.38896451  107.10310778  -56.29788481  138.93500372  145.64581195
+  176.84366505  126.00115858   19.97303212  157.13545011  -12.88577696
+  136.46080798  -32.23828829  152.79148099 -179.50540979  158.93308162
+  126.88010921  -37.54581252  171.058113    155.92254349]
+Best ind - Fitness(es): [-631.17]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_25.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-630.89]
+ind 1, fitness [-631.04]
+ind 2, fitness [-631.09]
+ind 3, fitness [-631.09]
+ind 4, fitness [-631.09]
+ind 5, fitness [-631.08]
+ind 6, fitness [-631.02]
+ind 7, fitness [-631.]
+ind 8, fitness [-631.01]
+ind 9, fitness [-630.88]
+ind 10, fitness [-631.19]
+ind 11, fitness [-631.1]
+ind 12, fitness [-631.12]
+ind 13, fitness [-631.06]
+ind 14, fitness [-631.13]
+ind 15, fitness [-631.1]
+ind 16, fitness [-631.03]
+ind 17, fitness [-631.09]
+ind 18, fitness [-631.02]
+ind 19, fitness [-631.03]
+ind 20, fitness [-631.12]
+ind 21, fitness [-631.01]
+ind 22, fitness [-631.11]
+ind 23, fitness [-631.12]
+ind 24, fitness [-630.97]
+ind 25, fitness [-631.11]
+ind 26, fitness [-631.]
+ind 27, fitness [-631.04]
+ind 28, fitness [-631.01]
+ind 29, fitness [-630.91]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 3.16861800727e-05
+CURRENT POPULATION
+Current Iteration:  26
+Population Average Fitness(es): -631.102666667
+Population STD(s): 0.0378535188442
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.         -135.28261593   59.87699725  -69.4609114  -138.5246035
+ -141.67559272  -54.51750653   64.35747843  -62.82615801   83.16477751
+  138.7006434   -65.00836808  -80.19345531   62.9005405   -66.73324907
+ -138.78318136  -64.88122611  -64.43341422  -55.96496067] [ 152.43955177  107.43829741  -56.13306289  139.21203115  145.45367563
+  176.90140829  125.90898978   19.81073682  156.54782887  -12.09266683
+  137.81573827  -32.14136883  153.13201193  179.97437655  158.78036724
+  126.4287118   -37.39405611  170.70844493  155.71326203]
+Best ind - Fitness(es): [-631.19]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_26.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-631.11]
+ind 1, fitness [-631.13]
+ind 2, fitness [-631.36]
+ind 3, fitness [-631.15]
+ind 4, fitness [-630.71]
+ind 5, fitness [-630.91]
+ind 6, fitness [-631.12]
+ind 7, fitness [-631.11]
+ind 8, fitness [-631.15]
+ind 9, fitness [-631.06]
+ind 10, fitness [-631.14]
+ind 11, fitness [-631.19]
+ind 12, fitness [-631.1]
+ind 13, fitness [-631.13]
+ind 14, fitness [-631.11]
+ind 15, fitness [-631.11]
+ind 16, fitness [-631.11]
+ind 17, fitness [-631.12]
+ind 18, fitness [-631.14]
+ind 19, fitness [-631.4]
+ind 20, fitness [-631.11]
+ind 21, fitness [-631.11]
+ind 22, fitness [-630.62]
+ind 23, fitness [-630.13]
+ind 24, fitness [-631.12]
+ind 25, fitness [-631.13]
+ind 26, fitness [-630.63]
+ind 27, fitness [-628.75]
+ind 28, fitness [-631.14]
+ind 29, fitness [-631.09]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.000332594235033
+CURRENT POPULATION
+Current Iteration:  27
+Population Average Fitness(es): -631.175
+Population STD(s): 0.0958036185816
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.46621492   59.79003087  -69.53893574 -138.64482168
+ -141.63747808  -54.7224028    64.33280873  -62.68782226   82.45151834
+  117.80882048  -65.36433518  -77.82334953   62.36188251  -67.29418061
+ -138.1633936   -64.75131468  -64.60015139  -56.50838892] [  1.52454439e+02   1.07456064e+02  -5.64608867e+01   1.38700456e+02
+   1.45947525e+02   1.76716085e+02   1.26006189e+02   2.03779046e+01
+   1.54711985e+02  -7.89100654e-02   1.40702805e+02  -3.07511413e+01
+   1.51538006e+02  -1.79871887e+02   1.59409761e+02   1.25673501e+02
+  -3.71971446e+01   1.71020013e+02   1.55871789e+02]
+Best ind - Fitness(es): [-631.4]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_27.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-631.15]
+ind 1, fitness [-631.35]
+ind 2, fitness [-631.58]
+ind 3, fitness [-631.54]
+ind 4, fitness [-631.39]
+ind 5, fitness [-631.52]
+ind 6, fitness [-631.15]
+ind 7, fitness [-631.16]
+ind 8, fitness [-631.14]
+ind 9, fitness [-631.13]
+ind 10, fitness [-631.07]
+ind 11, fitness [-631.13]
+ind 12, fitness [-631.49]
+ind 13, fitness [-631.58]
+ind 14, fitness [-630.99]
+ind 15, fitness [-630.76]
+ind 16, fitness [-629.81]
+ind 17, fitness [-618.25]
+ind 18, fitness [-631.14]
+ind 19, fitness [-631.08]
+ind 20, fitness [-631.21]
+ind 21, fitness [-631.15]
+ind 22, fitness [-631.17]
+ind 23, fitness [-631.19]
+ind 24, fitness [-631.68]
+ind 25, fitness [-631.68]
+ind 26, fitness [-617.81]
+ind 27, fitness [-629.12]
+ind 28, fitness [-631.24]
+ind 29, fitness [-631.52]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.000443262411347
+CURRENT POPULATION
+Current Iteration:  28
+Population Average Fitness(es): -631.363
+Population STD(s): 0.167553971404
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.         -135.32984032   59.98493674  -69.26584852 -138.4728457
+ -141.98752044  -54.43129448   64.06859239  -62.46712964   82.46597332
+  103.02457394  -65.77229801  -76.00231256   61.95404467  -67.96616541
+ -137.97817546  -64.68715773  -64.84301287  -56.47035544] [ 152.49030048  106.33589065  -56.14524414  139.32224385  145.97718759
+  176.53454718  125.88015      20.64312361  152.86512671    4.73836568
+  146.57156519  -29.59147237  150.40313001 -179.24413026  159.87013135
+  125.46053881  -37.31712682  171.19663809  155.6155269 ]
+Best ind - Fitness(es): [-631.68]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_28.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-631.66]
+ind 1, fitness [-631.54]
+ind 2, fitness [-630.78]
+ind 3, fitness [-630.94]
+ind 4, fitness [-631.42]
+ind 5, fitness [-631.67]
+ind 6, fitness [-631.66]
+ind 7, fitness [-631.94]
+ind 8, fitness [-632.2]
+ind 9, fitness [-631.53]
+ind 10, fitness [-631.04]
+ind 11, fitness [-630.43]
+ind 12, fitness [-632.13]
+ind 13, fitness [-631.86]
+ind 14, fitness [-631.68]
+ind 15, fitness [-631.51]
+ind 16, fitness [-631.68]
+ind 17, fitness [-631.65]
+ind 18, fitness [-631.63]
+ind 19, fitness [-631.56]
+ind 20, fitness [-588.03]
+ind 21, fitness [-631.88]
+ind 22, fitness [-631.7]
+ind 23, fitness [-631.88]
+ind 24, fitness [-631.58]
+ind 25, fitness [-631.51]
+ind 26, fitness [-631.74]
+ind 27, fitness [-631.57]
+ind 28, fitness [-631.15]
+ind 29, fitness [-631.22]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.000822524517558
+CURRENT POPULATION
+Current Iteration:  29
+Population Average Fitness(es): -631.771
+Population STD(s): 0.223179300115
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.31687375   59.8864247   -69.13356843 -138.47661259
+ -142.58258499  -54.48136518   63.8022433   -61.53742593   83.5958376
+   94.52267977  -66.97045374  -73.3319056    61.36297349  -68.76384804
+ -137.07774462  -64.28541799  -64.96599455  -56.49991946] [ 152.59454727  106.35617041  -56.07417169  139.67345319  146.4728976
+  176.3801427   126.07388997   21.33017546  148.92185987   -0.55524533
+  158.09642622  -29.20108368  149.26166331 -179.29225896  160.22974526
+  123.70736458  -37.05764495  171.29326963  155.58364607]
+Best ind - Fitness(es): [-632.2]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_29.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-632.38]
+ind 1, fitness [-632.38]
+ind 2, fitness [-632.24]
+ind 3, fitness [-632.11]
+ind 4, fitness [-631.71]
+ind 5, fitness [-632.46]
+ind 6, fitness [-632.65]
+ind 7, fitness [-632.65]
+ind 8, fitness [-632.11]
+ind 9, fitness [-632.11]
+ind 10, fitness [-632.13]
+ind 11, fitness [-632.45]
+ind 12, fitness [-632.32]
+ind 13, fitness [-631.71]
+ind 14, fitness [-632.09]
+ind 15, fitness [-632.22]
+ind 16, fitness [-632.04]
+ind 17, fitness [-632.07]
+ind 18, fitness [-630.87]
+ind 19, fitness [-631.71]
+ind 20, fitness [-632.41]
+ind 21, fitness [-631.87]
+ind 22, fitness [-631.62]
+ind 23, fitness [-632.11]
+ind 24, fitness [-632.13]
+ind 25, fitness [-632.25]
+ind 26, fitness [-632.25]
+ind 27, fitness [-632.13]
+ind 28, fitness [-632.65]
+ind 29, fitness [-632.33]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.000711293764325
+CURRENT POPULATION
+Current Iteration:  30
+Population Average Fitness(es): -632.247666667
+Population STD(s): 0.224791508341
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.05463017   60.1640016   -69.03752336 -138.04976479
+ -142.95059501  -54.49109128   63.06496293  -60.19324581   84.61889224
+   89.73073607  -67.44695027  -71.58578308   61.2764341   -69.36957738
+ -136.24822725  -63.68553683  -64.05813287  -56.09059754] [ 152.89432941  105.59724014  -55.81638003  140.09842355  146.21900198
+  175.73487876  125.58031744   22.76636511  145.22305366   -3.28945644
+  165.46020942  -29.11727363  149.08488211  179.63266913  159.95368181
+  121.89246963  -36.54441259  170.25341871  155.18559416]
+Best ind - Fitness(es): [-632.65]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_30.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-632.51]
+ind 1, fitness [-632.66]
+ind 2, fitness [-632.35]
+ind 3, fitness [-632.35]
+ind 4, fitness [-605.71]
+ind 5, fitness [-613.71]
+ind 6, fitness [-632.83]
+ind 7, fitness [-632.67]
+ind 8, fitness [-632.49]
+ind 9, fitness [-632.38]
+ind 10, fitness [-632.96]
+ind 11, fitness [-632.96]
+ind 12, fitness [-632.39]
+ind 13, fitness [-632.76]
+ind 14, fitness [-632.49]
+ind 15, fitness [-632.56]
+ind 16, fitness [-632.3]
+ind 17, fitness [-632.41]
+ind 18, fitness [-615.45]
+ind 19, fitness [-614.19]
+ind 20, fitness [-632.53]
+ind 21, fitness [-632.55]
+ind 22, fitness [-632.81]
+ind 23, fitness [-632.67]
+ind 24, fitness [-632.55]
+ind 25, fitness [-632.5]
+ind 26, fitness [-632.96]
+ind 27, fitness [-632.96]
+ind 28, fitness [-631.56]
+ind 29, fitness [-632.43]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.000489762386249
+CURRENT POPULATION
+Current Iteration:  31
+Population Average Fitness(es): -632.669666667
+Population STD(s): 0.20020794745
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -134.86784506   60.19855731  -69.02584814 -137.35338102
+ -142.8723218   -54.18670481   62.34921247  -58.88136177   84.23792129
+   86.79254015  -67.0867167   -69.90326765   60.9976752   -70.31348291
+ -135.91629909  -63.37757609  -63.14291161  -55.50383769] [ 153.10353858  105.48906557  -55.50566533  140.3277139   145.0545496
+  174.89658684  124.30902279   24.23398637  142.58306546   -3.78363817
+  168.4697181   -27.98462226  148.45788337  179.56535544  159.97610324
+  120.8569841   -36.12973101  169.03929982  155.02939654]
+Best ind - Fitness(es): [-632.96]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_31.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-633.14]
+ind 1, fitness [-633.06]
+ind 2, fitness [-633.23]
+ind 3, fitness [-633.23]
+ind 4, fitness [-632.86]
+ind 5, fitness [-633.02]
+ind 6, fitness [-632.7]
+ind 7, fitness [-633.08]
+ind 8, fitness [-633.2]
+ind 9, fitness [-633.2]
+ind 10, fitness [-632.8]
+ind 11, fitness [-632.87]
+ind 12, fitness [-633.]
+ind 13, fitness [-632.95]
+ind 14, fitness [-632.68]
+ind 15, fitness [-632.95]
+ind 16, fitness [-633.2]
+ind 17, fitness [-632.96]
+ind 18, fitness [-632.91]
+ind 19, fitness [-632.92]
+ind 20, fitness [-592.48]
+ind 21, fitness [-607.45]
+ind 22, fitness [-632.79]
+ind 23, fitness [-632.72]
+ind 24, fitness [-633.28]
+ind 25, fitness [-632.95]
+ind 26, fitness [-633.2]
+ind 27, fitness [-633.2]
+ind 28, fitness [-633.03]
+ind 29, fitness [-633.06]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.000505305709954
+CURRENT POPULATION
+Current Iteration:  32
+Population Average Fitness(es): -633.070666667
+Population STD(s): 0.140616104657
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -134.99132457   60.07896921  -68.78149856 -136.68577428
+ -142.076254    -53.34530828   61.01528219  -58.14336335   82.37470715
+   85.82590428  -67.23343954  -68.33417492   60.95855756  -72.05199478
+ -137.75592566  -63.25365205  -60.86647281  -54.30792384] [ 152.87168409  106.73666941  -55.39829039  140.85793708  141.73502492
+  174.73427259  121.71546049   26.30550084  140.71390949   -1.94882065
+  169.69518907  -25.64816548  149.14146915  179.90025813  160.34571387
+  122.04532941  -36.21660721  166.15181472  155.30861228]
+Best ind - Fitness(es): [-633.28]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_32.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-633.18]
+ind 1, fitness [-633.19]
+ind 2, fitness [-633.28]
+ind 3, fitness [-633.2]
+ind 4, fitness [-633.13]
+ind 5, fitness [-632.96]
+ind 6, fitness [-633.29]
+ind 7, fitness [-633.31]
+ind 8, fitness [-633.24]
+ind 9, fitness [-633.26]
+ind 10, fitness [-633.24]
+ind 11, fitness [-632.98]
+ind 12, fitness [-633.32]
+ind 13, fitness [-633.32]
+ind 14, fitness [-633.16]
+ind 15, fitness [-632.98]
+ind 16, fitness [-633.09]
+ind 17, fitness [-633.31]
+ind 18, fitness [-632.91]
+ind 19, fitness [-633.32]
+ind 20, fitness [-633.12]
+ind 21, fitness [-633.04]
+ind 22, fitness [-633.32]
+ind 23, fitness [-633.21]
+ind 24, fitness [-633.32]
+ind 25, fitness [-633.33]
+ind 26, fitness [-633.27]
+ind 27, fitness [-633.23]
+ind 28, fitness [-632.92]
+ind 29, fitness [-633.28]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 7.89477839358e-05
+CURRENT POPULATION
+Current Iteration:  33
+Population Average Fitness(es): -633.270666667
+Population STD(s): 0.0460386311216
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.52025722   59.83702911  -68.90823376 -136.97819005
+ -141.97475469  -53.14070163   61.01614566  -58.20719674   82.52205382
+   85.83503664  -67.12519017  -68.60076336   60.95452831  -71.81249787
+ -137.76148522  -63.24988678  -60.68774668  -54.05986435] [ 152.39427896  108.54835816  -55.77200766  140.50168229  140.53356692
+  175.00952121  121.30234398   25.84305146  140.72841039   -2.14360665
+  169.66765975  -26.00080437  149.28521     179.85310711  160.08420713
+  122.14513853  -36.27806367  165.71317079  155.6611739 ]
+Best ind - Fitness(es): [-633.33]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_33.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-633.38]
+ind 1, fitness [-633.41]
+ind 2, fitness [-633.35]
+ind 3, fitness [-633.32]
+ind 4, fitness [-633.33]
+ind 5, fitness [-633.36]
+ind 6, fitness [-633.38]
+ind 7, fitness [-633.38]
+ind 8, fitness [-633.33]
+ind 9, fitness [-633.33]
+ind 10, fitness [-633.28]
+ind 11, fitness [-633.37]
+ind 12, fitness [-633.34]
+ind 13, fitness [-633.34]
+ind 14, fitness [-633.29]
+ind 15, fitness [-633.35]
+ind 16, fitness [-633.26]
+ind 17, fitness [-633.3]
+ind 18, fitness [-633.17]
+ind 19, fitness [-633.29]
+ind 20, fitness [-633.35]
+ind 21, fitness [-633.34]
+ind 22, fitness [-633.25]
+ind 23, fitness [-633.35]
+ind 24, fitness [-633.4]
+ind 25, fitness [-633.4]
+ind 26, fitness [-633.31]
+ind 27, fitness [-633.31]
+ind 28, fitness [-633.4]
+ind 29, fitness [-633.4]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.000126300500466
+CURRENT POPULATION
+Current Iteration:  34
+Population Average Fitness(es): -633.359333333
+Population STD(s): 0.0325508149753
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.50595349   59.85017898  -68.84993919 -137.15758646
+ -141.87720415  -53.05407421   60.3101684   -58.02346125   81.63616386
+   85.18735468  -67.0767182   -67.24677615   60.54101438  -73.35832138
+ -138.35077581  -62.95976966  -60.22009675  -53.85042121] [ 152.42120414  108.86115605  -56.05252327  140.54793688  140.2082503
+  175.41614262  120.60329936   27.03190889  139.63989543   -1.4157926
+  169.10248878  -24.32249944  148.8149075  -179.00143098  161.20066846
+  122.52203273  -36.28145283  164.77853773  155.27258995]
+Best ind - Fitness(es): [-633.41]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_34.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-633.43]
+ILL INDIVIDUAL, re-seeding indiv 1 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 1, fitness [-573.5]
+ind 2, fitness [-633.36]
+ind 3, fitness [-633.4]
+ind 4, fitness [-633.4]
+ind 5, fitness [-633.43]
+ind 6, fitness [-633.44]
+ind 7, fitness [-633.37]
+ind 8, fitness [-633.39]
+ind 9, fitness [-633.37]
+ind 10, fitness [-633.41]
+ind 11, fitness [-633.41]
+ind 12, fitness [-633.42]
+ind 13, fitness [-633.34]
+ind 14, fitness [-633.43]
+ind 15, fitness [-633.43]
+ind 16, fitness [-633.39]
+ind 17, fitness [-633.39]
+ind 18, fitness [-633.]
+ind 19, fitness [-632.78]
+ind 20, fitness [-633.45]
+ind 21, fitness [-576.93]
+ind 22, fitness [-633.38]
+ind 23, fitness [-633.39]
+ind 24, fitness [-633.36]
+ind 25, fitness [-633.43]
+ind 26, fitness [-633.43]
+ind 27, fitness [-633.43]
+ind 28, fitness [-633.43]
+ind 29, fitness [-633.57]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00025253720978
+CURRENT POPULATION
+Current Iteration:  35
+Population Average Fitness(es): -633.427333333
+Population STD(s): 0.0509204172105
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.18219134   59.87208482  -68.98019033 -138.04532158
+ -142.18143718  -52.75738503   60.10335244  -58.07211283   80.86856186
+   85.21940533  -67.88905582  -66.85489769   59.50185754  -75.89605319
+ -139.41523919  -62.9620409   -59.99331025  -53.78559895] [ 152.76784752  109.1734438   -56.04535133  140.36238291  140.22603862
+  175.6346772   120.54769258   26.86088122  138.93568461   -0.84589967
+  167.34779877  -21.88795407  147.74176379 -176.6879033   164.020367
+  124.19562417  -36.47727198  164.68402067  154.23443358]
+Best ind - Fitness(es): [-633.57]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_35.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-633.85]
+ind 1, fitness [-633.85]
+ind 2, fitness [-633.45]
+ind 3, fitness [-633.5]
+ind 4, fitness [-633.46]
+ind 5, fitness [-633.42]
+ind 6, fitness [-633.85]
+ind 7, fitness [-633.46]
+ind 8, fitness [-633.53]
+ind 9, fitness [-633.45]
+ind 10, fitness [-633.8]
+ind 11, fitness [-633.39]
+ind 12, fitness [-633.47]
+ind 13, fitness [-633.45]
+ind 14, fitness [-633.67]
+ind 15, fitness [-633.41]
+ind 16, fitness [-633.39]
+ind 17, fitness [-633.77]
+ind 18, fitness [-633.36]
+ind 19, fitness [-633.68]
+ind 20, fitness [-633.45]
+ind 21, fitness [-633.42]
+ind 22, fitness [-633.76]
+ind 23, fitness [-633.46]
+ind 24, fitness [-633.39]
+ind 25, fitness [-633.38]
+ind 26, fitness [-633.85]
+ind 27, fitness [-633.85]
+ind 28, fitness [-633.85]
+ind 29, fitness [-633.88]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.000489051555499
+CURRENT POPULATION
+Current Iteration:  36
+Population Average Fitness(es): -633.648666667
+Population STD(s): 0.177251860984
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.35689702   59.91524054  -68.69450826 -138.06191411
+ -142.22432695  -52.91456775   60.03587266  -57.99336394   79.98022453
+   86.42914047  -68.88056996  -66.80497047   58.64038252  -77.25635596
+ -140.74865417  -63.30897767  -59.80505029  -53.73350954] [ 152.47643602  108.51831554  -55.80395347  140.35907129  139.9852439
+  175.76201334  120.37355407   27.1428886   138.2990846     0.33036478
+  164.77323541  -19.88941879  146.19354935 -174.84812083  166.4584192
+  126.77965599  -36.73660667  164.72152547  153.20716166]
+Best ind - Fitness(es): [-633.88]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_36.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-633.84]
+ind 1, fitness [-633.91]
+ind 2, fitness [-633.95]
+ind 3, fitness [-633.95]
+ind 4, fitness [-633.6]
+ind 5, fitness [-633.84]
+ind 6, fitness [-633.86]
+ind 7, fitness [-633.9]
+ind 8, fitness [-633.95]
+ind 9, fitness [-633.85]
+ind 10, fitness [-633.92]
+ind 11, fitness [-633.88]
+ind 12, fitness [-633.93]
+ind 13, fitness [-633.9]
+ind 14, fitness [-633.67]
+ind 15, fitness [-633.46]
+ind 16, fitness [-633.91]
+ind 17, fitness [-633.91]
+ind 18, fitness [-633.95]
+ind 19, fitness [-633.85]
+ind 20, fitness [-633.9]
+ind 21, fitness [-633.86]
+ind 22, fitness [-633.95]
+ind 23, fitness [-633.99]
+ind 24, fitness [-633.7]
+ind 25, fitness [-633.71]
+ind 26, fitness [-633.83]
+ind 27, fitness [-633.83]
+ind 28, fitness [-633.84]
+ind 29, fitness [-633.84]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.000173504313948
+CURRENT POPULATION
+Current Iteration:  37
+Population Average Fitness(es): -633.903666667
+Population STD(s): 0.0465104528275
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.70460002   59.83933371  -69.10604173 -138.67340394
+ -142.0611932   -52.61300866   60.56856439  -58.18398082   79.92836126
+   88.66785211  -70.15892221  -67.16669158   58.06653017  -77.78805136
+ -142.36509852  -63.75916227  -59.7973184   -53.93549296] [ 152.30817773  109.41053144  -56.11019099  139.60861033  139.91400421
+  175.89764227  120.58436252   25.85150906  138.76513132    0.99962069
+  161.64860614  -19.66872493  145.60746457 -172.78391428  168.35943312
+  129.825613    -37.20742013  165.10843252  153.63258608]
+Best ind - Fitness(es): [-633.99]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_37.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-633.87]
+ind 1, fitness [-633.9]
+ind 2, fitness [-633.95]
+ind 3, fitness [-633.95]
+ind 4, fitness [-633.91]
+ind 5, fitness [-633.96]
+ind 6, fitness [-633.96]
+ind 7, fitness [-633.96]
+ind 8, fitness [-633.93]
+ind 9, fitness [-633.91]
+ind 10, fitness [-633.9]
+ind 11, fitness [-633.92]
+ind 12, fitness [-633.99]
+ind 13, fitness [-633.99]
+ind 14, fitness [-633.96]
+ind 15, fitness [-633.95]
+ind 16, fitness [-633.99]
+ind 17, fitness [-633.99]
+ind 18, fitness [-633.97]
+ind 19, fitness [-633.99]
+ind 20, fitness [-633.95]
+ind 21, fitness [-633.91]
+ind 22, fitness [-633.92]
+ind 23, fitness [-633.91]
+ind 24, fitness [-633.95]
+ind 25, fitness [-633.93]
+ind 26, fitness [-633.94]
+ind 27, fitness [-633.97]
+ind 28, fitness [-633.96]
+ind 29, fitness [-633.96]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0
+CURRENT POPULATION
+Current Iteration:  38
+Population Average Fitness(es): -633.965666667
+Population STD(s): 0.0176414914965
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.70460002   59.83933371  -69.10604173 -138.67340394
+ -142.0611932   -52.61300866   60.56856439  -58.18398082   79.92836126
+   88.66785211  -70.15892221  -67.16669158   58.06653017  -77.78805136
+ -142.36509852  -63.75916227  -59.7973184   -53.93549296] [ 152.30817773  109.41053144  -56.11019099  139.60861033  139.91400421
+  175.89764227  120.58436252   25.85150906  138.76513132    0.99962069
+  161.64860614  -19.66872493  145.60746457 -172.78391428  168.35943312
+  129.825613    -37.20742013  165.10843252  153.63258608]
+Best ind - Fitness(es): [-633.99]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_38.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-633.98]
+ind 1, fitness [-633.97]
+ind 2, fitness [-633.99]
+ind 3, fitness [-633.99]
+ind 4, fitness [-633.99]
+ind 5, fitness [-633.99]
+ind 6, fitness [-633.98]
+ind 7, fitness [-633.98]
+ind 8, fitness [-633.99]
+ind 9, fitness [-633.99]
+ind 10, fitness [-633.98]
+ind 11, fitness [-633.98]
+ind 12, fitness [-633.99]
+ind 13, fitness [-633.99]
+ind 14, fitness [-633.96]
+ind 15, fitness [-633.98]
+ind 16, fitness [-633.99]
+ind 17, fitness [-633.98]
+ind 18, fitness [-633.99]
+ind 19, fitness [-633.99]
+ind 20, fitness [-633.97]
+ind 21, fitness [-633.97]
+ind 22, fitness [-633.97]
+ind 23, fitness [-633.99]
+ind 24, fitness [-633.98]
+ind 25, fitness [-633.97]
+ind 26, fitness [-633.99]
+ind 27, fitness [-633.99]
+ind 28, fitness [-633.99]
+ind 29, fitness [-633.98]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0
+CURRENT POPULATION
+Current Iteration:  39
+Population Average Fitness(es): -633.987666667
+Population STD(s): 0.00558768487141
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.70460002   59.83933371  -69.10604173 -138.67340394
+ -142.0611932   -52.61300866   60.56856439  -58.18398082   79.92836126
+   88.66785211  -70.15892221  -67.16669158   58.06653017  -77.78805136
+ -142.36509852  -63.75916227  -59.7973184   -53.93549296] [ 152.30817773  109.41053144  -56.11019099  139.60861033  139.91400421
+  175.89764227  120.58436252   25.85150906  138.76513132    0.99962069
+  161.64860614  -19.66872493  145.60746457 -172.78391428  168.35943312
+  129.825613    -37.20742013  165.10843252  153.63258608]
+Best ind - Fitness(es): [-633.99]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_39.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-633.99]
+ind 1, fitness [-633.99]
+ind 2, fitness [-633.99]
+ind 3, fitness [-633.99]
+ind 4, fitness [-633.99]
+ind 5, fitness [-633.99]
+ind 6, fitness [-633.99]
+ind 7, fitness [-633.99]
+ind 8, fitness [-633.99]
+ind 9, fitness [-633.99]
+ind 10, fitness [-633.99]
+ind 11, fitness [-633.99]
+ind 12, fitness [-633.99]
+ind 13, fitness [-633.99]
+ind 14, fitness [-633.99]
+ind 15, fitness [-633.99]
+ind 16, fitness [-633.99]
+ind 17, fitness [-633.99]
+ind 18, fitness [-633.99]
+ind 19, fitness [-633.99]
+ind 20, fitness [-633.99]
+ind 21, fitness [-633.99]
+ind 22, fitness [-633.99]
+ind 23, fitness [-633.99]
+ind 24, fitness [-633.99]
+ind 25, fitness [-633.99]
+ind 26, fitness [-633.99]
+ind 27, fitness [-633.99]
+ind 28, fitness [-633.99]
+ind 29, fitness [-633.99]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0
+CURRENT POPULATION
+Current Iteration:  40
+Population Average Fitness(es): -633.99
+Population STD(s): 2.27373675443e-13
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.70460002   59.83933371  -69.10604173 -138.67340394
+ -142.0611932   -52.61300866   60.56856439  -58.18398082   79.92836126
+   88.66785211  -70.15892221  -67.16669158   58.06653017  -77.78805136
+ -142.36509852  -63.75916227  -59.7973184   -53.93549296] [ 152.30817773  109.41053144  -56.11019099  139.60861033  139.91400421
+  175.89764227  120.58436252   25.85150906  138.76513132    0.99962069
+  161.64860614  -19.66872493  145.60746457 -172.78391428  168.35943312
+  129.825613    -37.20742013  165.10843252  153.63258608]
+Best ind - Fitness(es): [-633.99]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_40.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-633.99]
+ind 1, fitness [-633.99]
+ind 2, fitness [-633.99]
+ind 3, fitness [-633.99]
+ind 4, fitness [-633.99]
+ind 5, fitness [-633.99]
+ind 6, fitness [-633.99]
+ind 7, fitness [-633.99]
+ind 8, fitness [-633.99]
+ind 9, fitness [-633.99]
+ind 10, fitness [-633.99]
+ind 11, fitness [-633.99]
+ind 12, fitness [-633.99]
+ind 13, fitness [-633.99]
+ind 14, fitness [-633.99]
+ind 15, fitness [-633.99]
+ind 16, fitness [-633.99]
+ind 17, fitness [-633.99]
+ind 18, fitness [-633.99]
+ind 19, fitness [-633.99]
+ind 20, fitness [-633.99]
+ind 21, fitness [-633.99]
+ind 22, fitness [-633.99]
+ind 23, fitness [-633.99]
+ind 24, fitness [-633.99]
+ind 25, fitness [-633.99]
+ind 26, fitness [-633.99]
+ind 27, fitness [-633.99]
+ind 28, fitness [-633.99]
+ind 29, fitness [-633.99]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0
+CURRENT POPULATION
+Current Iteration:  41
+Population Average Fitness(es): -633.99
+Population STD(s): 2.27373675443e-13
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.70460002   59.83933371  -69.10604173 -138.67340394
+ -142.0611932   -52.61300866   60.56856439  -58.18398082   79.92836126
+   88.66785211  -70.15892221  -67.16669158   58.06653017  -77.78805136
+ -142.36509852  -63.75916227  -59.7973184   -53.93549296] [ 152.30817773  109.41053144  -56.11019099  139.60861033  139.91400421
+  175.89764227  120.58436252   25.85150906  138.76513132    0.99962069
+  161.64860614  -19.66872493  145.60746457 -172.78391428  168.35943312
+  129.825613    -37.20742013  165.10843252  153.63258608]
+Best ind - Fitness(es): [-633.99]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_41.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-633.99]
+ind 1, fitness [-633.99]
+ind 2, fitness [-633.99]
+ind 3, fitness [-633.99]
+ind 4, fitness [-633.99]
+ind 5, fitness [-633.99]
+ind 6, fitness [-633.99]
+ind 7, fitness [-633.99]
+ind 8, fitness [-633.99]
+ind 9, fitness [-633.99]
+ind 10, fitness [-633.99]
+ind 11, fitness [-633.99]
+ind 12, fitness [-633.99]
+ind 13, fitness [-633.99]
+ind 14, fitness [-633.99]
+ind 15, fitness [-633.99]
+ind 16, fitness [-633.99]
+ind 17, fitness [-633.99]
+ind 18, fitness [-633.99]
+ind 19, fitness [-633.99]
+ind 20, fitness [-633.99]
+ind 21, fitness [-633.99]
+ind 22, fitness [-633.99]
+ind 23, fitness [-633.99]
+ind 24, fitness [-633.99]
+ind 25, fitness [-633.99]
+ind 26, fitness [-633.99]
+ind 27, fitness [-633.99]
+ind 28, fitness [-633.99]
+ind 29, fitness [-633.99]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0
+CURRENT POPULATION
+Current Iteration:  42
+Population Average Fitness(es): -633.99
+Population STD(s): 2.27373675443e-13
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.54685222   59.82730587  -69.02729698 -138.71265767
+ -141.98941873  -52.5661423    60.63247148  -58.18223213   80.00239041
+   88.79332213  -69.99977667  -67.10575195   57.98856823  -77.71293592
+ -142.51093915  -63.77722983  -59.79967539  -53.95440442] [ 152.34832365  109.8991453   -56.27930895  139.47953691  139.91993807
+  175.94897019  120.51829775   25.69091385  138.89016221    0.92904187
+  161.19642501  -19.63148641  145.54341305 -172.57707426  168.36879997
+  129.86531054  -37.16968404  165.09721503  153.67573316]
+Best ind - Fitness(es): [-633.99]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_42.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-633.99]
+ind 1, fitness [-633.99]
+ind 2, fitness [-633.99]
+ind 3, fitness [-633.99]
+ind 4, fitness [-633.99]
+ind 5, fitness [-633.99]
+ind 6, fitness [-633.99]
+ind 7, fitness [-633.99]
+ind 8, fitness [-633.99]
+ind 9, fitness [-633.99]
+ind 10, fitness [-633.99]
+ind 11, fitness [-633.99]
+ind 12, fitness [-633.99]
+ind 13, fitness [-633.99]
+ind 14, fitness [-633.99]
+ind 15, fitness [-633.99]
+ind 16, fitness [-633.99]
+ind 17, fitness [-633.99]
+ind 18, fitness [-633.99]
+ind 19, fitness [-633.99]
+ind 20, fitness [-633.99]
+ind 21, fitness [-633.99]
+ind 22, fitness [-633.99]
+ind 23, fitness [-633.99]
+ind 24, fitness [-633.99]
+ind 25, fitness [-633.99]
+ind 26, fitness [-633.99]
+ind 27, fitness [-633.99]
+ind 28, fitness [-633.99]
+ind 29, fitness [-633.99]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0
+CURRENT POPULATION
+Current Iteration:  43
+Population Average Fitness(es): -633.99
+Population STD(s): 2.27373675443e-13
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.54685222   59.82730587  -69.02729698 -138.71265767
+ -141.98941873  -52.5661423    60.63247148  -58.18223213   80.00239041
+   88.79332213  -69.99977667  -67.10575195   57.98856823  -77.71293592
+ -142.51093915  -63.77722983  -59.79967539  -53.95440442] [ 152.34832365  109.8991453   -56.27930895  139.47953691  139.91993807
+  175.94897019  120.51829775   25.69091385  138.89016221    0.92904187
+  161.19642501  -19.63148641  145.54341305 -172.57707426  168.36879997
+  129.86531054  -37.16968404  165.09721503  153.67573316]
+Best ind - Fitness(es): [-633.99]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_43.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ILL INDIVIDUAL, re-seeding indiv 0 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ILL INDIVIDUAL, re-seeding indiv 0 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 0, fitness [-579.47]
+ind 1, fitness [-536.6]
+ind 2, fitness [-633.99]
+ind 3, fitness [-633.99]
+ind 4, fitness [-633.99]
+ind 5, fitness [-633.99]
+ind 6, fitness [-633.99]
+ind 7, fitness [-633.99]
+ind 8, fitness [-633.99]
+ind 9, fitness [-633.99]
+ind 10, fitness [-633.99]
+ind 11, fitness [-633.99]
+ind 12, fitness [-633.99]
+ind 13, fitness [-633.99]
+ind 14, fitness [-633.99]
+ind 15, fitness [-633.99]
+ind 16, fitness [-633.99]
+ind 17, fitness [-633.99]
+ind 18, fitness [-633.99]
+ind 19, fitness [-633.99]
+ind 20, fitness [-633.99]
+ind 21, fitness [-633.99]
+ind 22, fitness [-633.99]
+ind 23, fitness [-633.99]
+ind 24, fitness [-633.99]
+ind 25, fitness [-633.99]
+ind 26, fitness [-633.99]
+ind 27, fitness [-633.99]
+ind 28, fitness [-633.99]
+ind 29, fitness [-633.99]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0
+CURRENT POPULATION
+Current Iteration:  44
+Population Average Fitness(es): -633.99
+Population STD(s): 2.27373675443e-13
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.65478989   59.72326889  -69.03985247 -138.6829023
+ -141.9442537   -52.52273401   60.71372882  -58.20804901   79.99101731
+   88.92597349  -70.07178746  -67.19224567   58.02287781  -77.73281472
+ -142.61503068  -63.81823304  -59.8395092   -53.95488862] [ 152.16690676  110.35746971  -56.3660709   139.40763579  139.89876637
+  175.99393133  120.48074449   25.49671351  139.02546795    0.89017407
+  160.93746547  -19.55080159  145.55301566 -172.42373349  168.53696195
+  129.96852178  -37.19301406  165.20597072  153.71246081]
+Best ind - Fitness(es): [-633.99]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_44.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-633.99]
+ind 1, fitness [-633.99]
+ind 2, fitness [-633.99]
+ind 3, fitness [-633.99]
+ind 4, fitness [-633.99]
+ind 5, fitness [-633.99]
+ind 6, fitness [-633.99]
+ind 7, fitness [-633.99]
+ind 8, fitness [-633.99]
+ind 9, fitness [-633.99]
+ind 10, fitness [-633.99]
+ind 11, fitness [-633.99]
+ind 12, fitness [-633.99]
+ind 13, fitness [-633.99]
+ind 14, fitness [-633.99]
+ind 15, fitness [-633.99]
+ind 16, fitness [-633.99]
+ind 17, fitness [-633.99]
+ind 18, fitness [-633.99]
+ind 19, fitness [-633.99]
+ind 20, fitness [-633.99]
+ind 21, fitness [-633.99]
+ind 22, fitness [-633.99]
+ind 23, fitness [-633.99]
+ind 24, fitness [-633.99]
+ind 25, fitness [-633.99]
+ind 26, fitness [-633.99]
+ind 27, fitness [-633.99]
+ind 28, fitness [-633.99]
+ind 29, fitness [-633.99]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0
+CURRENT POPULATION
+Current Iteration:  45
+Population Average Fitness(es): -633.99
+Population STD(s): 2.27373675443e-13
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.70726122   59.74502815  -69.11388959 -138.66654546
+ -141.86568198  -52.49166213   60.7530555   -58.22188603   80.10781894
+   88.98074019  -69.98888695  -67.23104757   58.02355739  -77.64860184
+ -142.60621202  -63.8507725   -59.79792267  -53.96672758] [ 152.27236765  110.49442577  -56.40642992  139.40530149  139.81145141
+  176.02367584  120.44906466   25.45893188  139.01707786    0.81534725
+  160.79245714  -19.52970376  145.50644269 -172.43526654  168.54002124
+  130.05740446  -37.19301406  165.14605931  153.72632811]
+Best ind - Fitness(es): [-633.99]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_45.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-633.99]
+ind 1, fitness [-633.99]
+ind 2, fitness [-633.99]
+ind 3, fitness [-633.99]
+ind 4, fitness [-633.99]
+ind 5, fitness [-633.99]
+ind 6, fitness [-633.99]
+ind 7, fitness [-633.99]
+ind 8, fitness [-602.92]
+ind 9, fitness [-591.96]
+ind 10, fitness [-633.99]
+ind 11, fitness [-633.99]
+ind 12, fitness [-633.99]
+ind 13, fitness [-633.99]
+ind 14, fitness [-633.99]
+ind 15, fitness [-633.99]
+ind 16, fitness [-633.99]
+ind 17, fitness [-633.99]
+ind 18, fitness [-633.99]
+ind 19, fitness [-633.99]
+ind 20, fitness [-633.99]
+ind 21, fitness [-633.99]
+ind 22, fitness [-633.99]
+ind 23, fitness [-633.99]
+ind 24, fitness [-633.99]
+ind 25, fitness [-633.99]
+ind 26, fitness [-633.99]
+ind 27, fitness [-633.99]
+ind 28, fitness [-633.99]
+ind 29, fitness [-633.99]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0
+CURRENT POPULATION
+Current Iteration:  46
+Population Average Fitness(es): -633.99
+Population STD(s): 2.27373675443e-13
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.70726122   59.74502815  -69.11388959 -138.66654546
+ -141.86568198  -52.49166213   60.7530555   -58.22188603   80.10781894
+   88.98074019  -69.98888695  -67.23104757   58.02355739  -77.64860184
+ -142.60621202  -63.8507725   -59.79792267  -53.96672758] [ 152.27236765  110.49442577  -56.40642992  139.40530149  139.81145141
+  176.02367584  120.44906466   25.45893188  139.01707786    0.81534725
+  160.79245714  -19.52970376  145.50644269 -172.43526654  168.54002124
+  130.05740446  -37.19301406  165.14605931  153.72632811]
+Best ind - Fitness(es): [-633.99]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_46.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-633.99]
+ind 1, fitness [-633.99]
+ind 2, fitness [-633.99]
+ind 3, fitness [-633.99]
+ind 4, fitness [-633.99]
+ind 5, fitness [-633.99]
+ind 6, fitness [-633.99]
+ind 7, fitness [-633.99]
+ind 8, fitness [-633.99]
+ind 9, fitness [-633.99]
+ind 10, fitness [-606.61]
+ind 11, fitness [-607.77]
+ind 12, fitness [-633.99]
+ind 13, fitness [-633.99]
+ind 14, fitness [-633.99]
+ind 15, fitness [-633.99]
+ind 16, fitness [-633.99]
+ind 17, fitness [-633.99]
+ind 18, fitness [-633.99]
+ind 19, fitness [-633.99]
+ind 20, fitness [-633.99]
+ind 21, fitness [-633.99]
+ind 22, fitness [-633.99]
+ind 23, fitness [-633.99]
+ind 24, fitness [-633.99]
+ind 25, fitness [-633.99]
+ind 26, fitness [-633.99]
+ind 27, fitness [-633.99]
+ind 28, fitness [-633.99]
+ind 29, fitness [-633.99]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0
+CURRENT POPULATION
+Current Iteration:  47
+Population Average Fitness(es): -633.99
+Population STD(s): 2.27373675443e-13
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.70726122   59.74502815  -69.11388959 -138.66654546
+ -141.86568198  -52.49166213   60.7530555   -58.22188603   80.10781894
+   88.98074019  -69.98888695  -67.23104757   58.02355739  -77.64860184
+ -142.60621202  -63.8507725   -59.79792267  -53.96672758] [ 152.27236765  110.49442577  -56.40642992  139.40530149  139.81145141
+  176.02367584  120.44906466   25.45893188  139.01707786    0.81534725
+  160.79245714  -19.52970376  145.50644269 -172.43526654  168.54002124
+  130.05740446  -37.19301406  165.14605931  153.72632811]
+Best ind - Fitness(es): [-633.99]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_47.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-633.99]
+ind 1, fitness [-633.99]
+ind 2, fitness [-633.99]
+ind 3, fitness [-633.99]
+ind 4, fitness [-633.99]
+ind 5, fitness [-633.99]
+ind 6, fitness [-633.99]
+ind 7, fitness [-633.99]
+ind 8, fitness [-633.99]
+ind 9, fitness [-633.99]
+ind 10, fitness [-633.99]
+ind 11, fitness [-633.99]
+ind 12, fitness [-618.36]
+ind 13, fitness [-632.96]
+ind 14, fitness [-633.99]
+ind 15, fitness [-633.99]
+ind 16, fitness [-633.99]
+ind 17, fitness [-633.99]
+ind 18, fitness [-633.99]
+ind 19, fitness [-633.99]
+ind 20, fitness [-633.99]
+ind 21, fitness [-633.99]
+ind 22, fitness [-633.99]
+ENERGY EXPLOSION, re-seeding indiv 23 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 23, fitness [-549.01]
+ind 24, fitness [-633.99]
+ind 25, fitness [-633.99]
+ind 26, fitness [-633.99]
+ind 27, fitness [-633.99]
+ind 28, fitness [-633.99]
+ind 29, fitness [-633.99]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0
+CURRENT POPULATION
+Current Iteration:  48
+Population Average Fitness(es): -633.99
+Population STD(s): 2.27373675443e-13
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.70726122   59.74502815  -69.11388959 -138.66654546
+ -141.86568198  -52.49166213   60.7530555   -58.22188603   80.10781894
+   88.98074019  -69.98888695  -67.23104757   58.02355739  -77.64860184
+ -142.60621202  -63.8507725   -59.79792267  -53.96672758] [ 152.27236765  110.49442577  -56.40642992  139.40530149  139.81145141
+  176.02367584  120.44906466   25.45893188  139.01707786    0.81534725
+  160.79245714  -19.52970376  145.50644269 -172.43526654  168.54002124
+  130.05740446  -37.19301406  165.14605931  153.72632811]
+Best ind - Fitness(es): [-633.99]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_48.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-633.99]
+ind 1, fitness [-633.99]
+ind 2, fitness [-633.99]
+ind 3, fitness [-633.99]
+ind 4, fitness [-633.99]
+ind 5, fitness [-633.99]
+ind 6, fitness [-633.99]
+ind 7, fitness [-633.99]
+ind 8, fitness [-633.99]
+ind 9, fitness [-633.99]
+ind 10, fitness [-633.99]
+ind 11, fitness [-633.99]
+ind 12, fitness [-633.99]
+ind 13, fitness [-633.99]
+ind 14, fitness [-633.99]
+ind 15, fitness [-633.99]
+ind 16, fitness [-633.99]
+ind 17, fitness [-633.99]
+ENERGY EXPLOSION, re-seeding indiv 18 according to initilization settings
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED
+ind 18, fitness [-565.95]
+ind 19, fitness [-633.99]
+ind 20, fitness [-633.99]
+ind 21, fitness [-633.99]
+ind 22, fitness [-633.99]
+ind 23, fitness [-633.99]
+ind 24, fitness [-633.99]
+ind 25, fitness [-633.99]
+ind 26, fitness [-633.99]
+ind 27, fitness [-633.99]
+ind 28, fitness [-633.99]
+ind 29, fitness [-633.99]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0
+CURRENT POPULATION
+Current Iteration:  49
+Population Average Fitness(es): -633.99
+Population STD(s): 2.27373675443e-13
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.7238306    59.65495464  -69.07488351 -138.63604637
+ -141.82826195  -52.50219643   60.75457714  -58.23828971   80.14566688
+   89.01762744  -70.08599727  -67.18863822   58.02833931  -77.78760592
+ -142.59329807  -63.81153448  -59.86964908  -53.97506897] [ 152.20380296  110.52900323  -56.29185897  139.41376185  139.94590385
+  175.91331393  120.47267095   25.49368303  139.00228184    0.79098562
+  160.81778085  -19.50950179  145.46784402 -172.38695739  168.56058203
+  130.11042089  -37.25471484  165.20208142  153.75581981]
+Best ind - Fitness(es): [-633.99]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_49.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-633.99]
+ind 1, fitness [-633.99]
+ind 2, fitness [-633.99]
+ind 3, fitness [-633.99]
+ind 4, fitness [-633.99]
+ind 5, fitness [-633.99]
+ind 6, fitness [-633.99]
+ind 7, fitness [-633.99]
+ind 8, fitness [-633.99]
+ind 9, fitness [-633.99]
+ind 10, fitness [-633.99]
+ind 11, fitness [-633.99]
+ind 12, fitness [-633.99]
+ind 13, fitness [-633.99]
+ind 14, fitness [-633.99]
+ind 15, fitness [-633.99]
+ind 16, fitness [-633.99]
+ind 17, fitness [-633.99]
+ind 18, fitness [-633.99]
+ind 19, fitness [-633.99]
+ind 20, fitness [-633.99]
+ind 21, fitness [-633.99]
+ind 22, fitness [-633.99]
+ind 23, fitness [-633.99]
+ind 24, fitness [-633.99]
+ind 25, fitness [-633.99]
+ind 26, fitness [-633.99]
+ind 27, fitness [-633.99]
+ind 28, fitness [-633.99]
+ind 29, fitness [-633.99]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0
+CURRENT POPULATION
+Current Iteration:  50
+Population Average Fitness(es): -633.99
+Population STD(s): 2.27373675443e-13
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.7238306    59.65495464  -69.07488351 -138.63604637
+ -141.82826195  -52.50219643   60.75457714  -58.23828971   80.14566688
+   89.01762744  -70.08599727  -67.18863822   58.02833931  -77.78760592
+ -142.59329807  -63.81153448  -59.86964908  -53.97506897] [ 152.20380296  110.52900323  -56.29185897  139.41376185  139.94590385
+  175.91331393  120.47267095   25.49368303  139.00228184    0.79098562
+  160.81778085  -19.50950179  145.46784402 -172.38695739  168.56058203
+  130.11042089  -37.25471484  165.20208142  153.75581981]
+Best ind - Fitness(es): [-633.99]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_50.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-633.99]
+ind 1, fitness [-633.99]
+ind 2, fitness [-633.99]
+ind 3, fitness [-633.99]
+ind 4, fitness [-633.99]
+ind 5, fitness [-633.99]
+ind 6, fitness [-633.99]
+ind 7, fitness [-633.99]
+ind 8, fitness [-633.99]
+ind 9, fitness [-633.99]
+ind 10, fitness [-633.99]
+ind 11, fitness [-633.99]
+ind 12, fitness [-633.99]
+ind 13, fitness [-633.99]
+ind 14, fitness [-633.99]
+ind 15, fitness [-633.99]
+ind 16, fitness [-633.99]
+ind 17, fitness [-633.99]
+ind 18, fitness [-633.99]
+ind 19, fitness [-633.99]
+ind 20, fitness [-633.99]
+ind 21, fitness [-633.99]
+ind 22, fitness [-633.99]
+ind 23, fitness [-633.99]
+ind 24, fitness [-633.99]
+ind 25, fitness [-633.99]
+ind 26, fitness [-633.99]
+ind 27, fitness [-633.99]
+ind 28, fitness [-633.99]
+ind 29, fitness [-633.99]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0
+CURRENT POPULATION
+Current Iteration:  51
+Population Average Fitness(es): -633.99
+Population STD(s): 2.27373675443e-13
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.7238306    59.65495464  -69.07488351 -138.63604637
+ -141.82826195  -52.50219643   60.75457714  -58.23828971   80.14566688
+   89.01762744  -70.08599727  -67.18863822   58.02833931  -77.78760592
+ -142.59329807  -63.81153448  -59.86964908  -53.97506897] [ 152.20380296  110.52900323  -56.29185897  139.41376185  139.94590385
+  175.91331393  120.47267095   25.49368303  139.00228184    0.79098562
+  160.81778085  -19.50950179  145.46784402 -172.38695739  168.56058203
+  130.11042089  -37.25471484  165.20208142  153.75581981]
+Best ind - Fitness(es): [-633.99]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_51.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-633.99]
+ind 1, fitness [-633.99]
+ind 2, fitness [-633.99]
+ind 3, fitness [-633.99]
+ind 4, fitness [-633.99]
+ind 5, fitness [-633.99]
+ind 6, fitness [-633.99]
+ind 7, fitness [-633.99]
+ind 8, fitness [-633.99]
+ind 9, fitness [-633.99]
+ind 10, fitness [-633.99]
+ind 11, fitness [-633.99]
+ind 12, fitness [-633.99]
+ind 13, fitness [-633.99]
+ind 14, fitness [-633.99]
+ind 15, fitness [-633.99]
+ind 16, fitness [-633.99]
+ind 17, fitness [-633.99]
+ind 18, fitness [-633.99]
+ind 19, fitness [-633.99]
+ind 20, fitness [-633.99]
+ind 21, fitness [-633.99]
+ind 22, fitness [-633.99]
+ind 23, fitness [-633.99]
+ind 24, fitness [-633.99]
+ind 25, fitness [-633.99]
+ind 26, fitness [-633.99]
+ind 27, fitness [-633.99]
+ind 28, fitness [-633.99]
+ind 29, fitness [-633.99]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0
+CURRENT POPULATION
+Current Iteration:  52
+Population Average Fitness(es): -633.99
+Population STD(s): 2.27373675443e-13
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.7238306    59.65495464  -69.07488351 -138.63604637
+ -141.82826195  -52.50219643   60.75457714  -58.23828971   80.14566688
+   89.01762744  -70.08599727  -67.18863822   58.02833931  -77.78760592
+ -142.59329807  -63.81153448  -59.86964908  -53.97506897] [ 152.20380296  110.52900323  -56.29185897  139.41376185  139.94590385
+  175.91331393  120.47267095   25.49368303  139.00228184    0.79098562
+  160.81778085  -19.50950179  145.46784402 -172.38695739  168.56058203
+  130.11042089  -37.25471484  165.20208142  153.75581981]
+Best ind - Fitness(es): [-633.99]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_52.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-633.99]
+ind 1, fitness [-633.99]
+ind 2, fitness [-633.99]
+ind 3, fitness [-633.99]
+ind 4, fitness [-633.99]
+ind 5, fitness [-594.37]
+ind 6, fitness [-633.99]
+ind 7, fitness [-633.99]
+ind 8, fitness [-633.99]
+ind 9, fitness [-633.99]
+ind 10, fitness [-633.99]
+ind 11, fitness [-633.99]
+ind 12, fitness [-633.99]
+ind 13, fitness [-633.99]
+ind 14, fitness [-633.99]
+ind 15, fitness [-633.99]
+ind 16, fitness [-633.99]
+ind 17, fitness [-633.99]
+ind 18, fitness [-633.99]
+ind 19, fitness [-633.99]
+ind 20, fitness [-633.99]
+ind 21, fitness [-633.99]
+ind 22, fitness [-633.99]
+ind 23, fitness [-633.99]
+ind 24, fitness [-633.99]
+ind 25, fitness [-633.99]
+ind 26, fitness [-633.99]
+ind 27, fitness [-633.99]
+ind 28, fitness [-633.99]
+ind 29, fitness [-633.99]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0
+CURRENT POPULATION
+Current Iteration:  53
+Population Average Fitness(es): -633.99
+Population STD(s): 2.27373675443e-13
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.7238306    59.65495464  -69.07488351 -138.63604637
+ -141.82826195  -52.50219643   60.75457714  -58.23828971   80.14566688
+   89.01762744  -70.08599727  -67.18863822   58.02833931  -77.78760592
+ -142.59329807  -63.81153448  -59.86964908  -53.97506897] [ 152.20380296  110.52900323  -56.29185897  139.41376185  139.94590385
+  175.91331393  120.47267095   25.49368303  139.00228184    0.79098562
+  160.81778085  -19.50950179  145.46784402 -172.38695739  168.56058203
+  130.11042089  -37.25471484  165.20208142  153.75581981]
+Best ind - Fitness(es): [-633.99]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_53.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-633.99]
+ind 1, fitness [-633.99]
+ind 2, fitness [-633.99]
+ind 3, fitness [-633.99]
+ind 4, fitness [-633.99]
+ind 5, fitness [-633.99]
+ind 6, fitness [-633.99]
+ind 7, fitness [-633.99]
+ind 8, fitness [-633.99]
+ind 9, fitness [-633.99]
+ind 10, fitness [-633.99]
+ind 11, fitness [-633.99]
+ind 12, fitness [-633.99]
+ind 13, fitness [-633.99]
+ind 14, fitness [-633.99]
+ind 15, fitness [-633.99]
+ind 16, fitness [-633.99]
+ind 17, fitness [-633.99]
+ind 18, fitness [-633.99]
+ind 19, fitness [-633.99]
+ind 20, fitness [-633.99]
+ind 21, fitness [-633.99]
+ind 22, fitness [-633.99]
+ind 23, fitness [-633.99]
+ind 24, fitness [-633.99]
+ind 25, fitness [-633.99]
+ind 26, fitness [-633.99]
+ind 27, fitness [-633.99]
+ind 28, fitness [-633.99]
+ind 29, fitness [-633.99]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0
+CURRENT POPULATION
+Current Iteration:  54
+Population Average Fitness(es): -633.99
+Population STD(s): 2.27373675443e-13
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.7238306    59.65495464  -69.07488351 -138.63604637
+ -141.82826195  -52.50219643   60.75457714  -58.23828971   80.14566688
+   89.01762744  -70.08599727  -67.18863822   58.02833931  -77.78760592
+ -142.59329807  -63.81153448  -59.86964908  -53.97506897] [ 152.20380296  110.52900323  -56.29185897  139.41376185  139.94590385
+  175.91331393  120.47267095   25.49368303  139.00228184    0.79098562
+  160.81778085  -19.50950179  145.46784402 -172.38695739  168.56058203
+  130.11042089  -37.25471484  165.20208142  153.75581981]
+Best ind - Fitness(es): [-633.99]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_54.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-633.99]
+ind 1, fitness [-633.99]
+ind 2, fitness [-633.99]
+ind 3, fitness [-633.99]
+ind 4, fitness [-633.99]
+ind 5, fitness [-633.99]
+ind 6, fitness [-633.99]
+ind 7, fitness [-633.99]
+ind 8, fitness [-633.99]
+ind 9, fitness [-633.99]
+ind 10, fitness [-633.99]
+ind 11, fitness [-633.99]
+ind 12, fitness [-633.99]
+ind 13, fitness [-633.99]
+ind 14, fitness [-633.99]
+ind 15, fitness [-633.99]
+ind 16, fitness [-633.99]
+ind 17, fitness [-633.99]
+ind 18, fitness [-633.99]
+ind 19, fitness [-633.99]
+ind 20, fitness [-633.99]
+ind 21, fitness [-633.99]
+ind 22, fitness [-633.99]
+ind 23, fitness [-633.99]
+ind 24, fitness [-633.99]
+ind 25, fitness [-633.99]
+ind 26, fitness [-633.99]
+ind 27, fitness [-633.99]
+ind 28, fitness [-633.99]
+ind 29, fitness [-633.99]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0
+CURRENT POPULATION
+Current Iteration:  55
+Population Average Fitness(es): -633.99
+Population STD(s): 2.27373675443e-13
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.7238306    59.65495464  -69.07488351 -138.63604637
+ -141.82826195  -52.50219643   60.75457714  -58.23828971   80.14566688
+   89.01762744  -70.08599727  -67.18863822   58.02833931  -77.78760592
+ -142.59329807  -63.81153448  -59.86964908  -53.97506897] [ 152.20380296  110.52900323  -56.29185897  139.41376185  139.94590385
+  175.91331393  120.47267095   25.49368303  139.00228184    0.79098562
+  160.81778085  -19.50950179  145.46784402 -172.38695739  168.56058203
+  130.11042089  -37.25471484  165.20208142  153.75581981]
+Best ind - Fitness(es): [-633.99]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_55.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-633.99]
+ind 1, fitness [-633.99]
+ind 2, fitness [-633.99]
+ind 3, fitness [-633.99]
+ind 4, fitness [-633.99]
+ind 5, fitness [-633.99]
+ind 6, fitness [-633.99]
+ind 7, fitness [-633.99]
+ind 8, fitness [-633.99]
+ind 9, fitness [-633.99]
+ind 10, fitness [-633.99]
+ind 11, fitness [-633.99]
+ind 12, fitness [-633.99]
+ind 13, fitness [-633.99]
+ind 14, fitness [-633.99]
+ind 15, fitness [-633.99]
+ind 16, fitness [-633.99]
+ind 17, fitness [-633.99]
+ind 18, fitness [-633.99]
+ind 19, fitness [-633.99]
+ind 20, fitness [-633.99]
+ind 21, fitness [-633.99]
+ind 22, fitness [-633.99]
+ind 23, fitness [-633.99]
+ind 24, fitness [-633.99]
+ind 25, fitness [-633.99]
+ind 26, fitness [-633.99]
+ind 27, fitness [-633.99]
+ind 28, fitness [-633.99]
+ind 29, fitness [-633.99]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0
+CURRENT POPULATION
+Current Iteration:  56
+Population Average Fitness(es): -633.99
+Population STD(s): 2.27373675443e-13
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.7238306    59.65495464  -69.07488351 -138.63604637
+ -141.82826195  -52.50219643   60.75457714  -58.23828971   80.14566688
+   89.01762744  -70.08599727  -67.18863822   58.02833931  -77.78760592
+ -142.59329807  -63.81153448  -59.86964908  -53.97506897] [ 152.20380296  110.52900323  -56.29185897  139.41376185  139.94590385
+  175.91331393  120.47267095   25.49368303  139.00228184    0.79098562
+  160.81778085  -19.50950179  145.46784402 -172.38695739  168.56058203
+  130.11042089  -37.25471484  165.20208142  153.75581981]
+Best ind - Fitness(es): [-633.99]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_56.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-633.99]
+ind 1, fitness [-633.99]
+ind 2, fitness [-633.99]
+ind 3, fitness [-633.99]
+ind 4, fitness [-633.99]
+ind 5, fitness [-633.99]
+ind 6, fitness [-633.99]
+ind 7, fitness [-633.99]
+ind 8, fitness [-633.99]
+ind 9, fitness [-633.99]
+ind 10, fitness [-633.99]
+ind 11, fitness [-633.99]
+ind 12, fitness [-633.99]
+ind 13, fitness [-633.99]
+ind 14, fitness [-633.99]
+ind 15, fitness [-633.99]
+ind 16, fitness [-633.99]
+ind 17, fitness [-633.99]
+ind 18, fitness [-633.99]
+ind 19, fitness [-633.99]
+ind 20, fitness [-633.99]
+ind 21, fitness [-633.99]
+ind 22, fitness [-633.99]
+ind 23, fitness [-633.99]
+ind 24, fitness [-633.99]
+ind 25, fitness [-633.99]
+ind 26, fitness [-633.99]
+ind 27, fitness [-633.99]
+ind 28, fitness [-633.99]
+ind 29, fitness [-633.99]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0
+CURRENT POPULATION
+Current Iteration:  57
+Population Average Fitness(es): -633.99
+Population STD(s): 2.27373675443e-13
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.7238306    59.65495464  -69.07488351 -138.63604637
+ -141.82826195  -52.50219643   60.75457714  -58.23828971   80.14566688
+   89.01762744  -70.08599727  -67.18863822   58.02833931  -77.78760592
+ -142.59329807  -63.81153448  -59.86964908  -53.97506897] [ 152.20380296  110.52900323  -56.29185897  139.41376185  139.94590385
+  175.91331393  120.47267095   25.49368303  139.00228184    0.79098562
+  160.81778085  -19.50950179  145.46784402 -172.38695739  168.56058203
+  130.11042089  -37.25471484  165.20208142  153.75581981]
+Best ind - Fitness(es): [-633.99]
+OUT: INTERMEDIATE MOLECULE in tests/Trpcage_amber_7/min_mol_iter_57.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS amber_energy
+ind 0, fitness [-633.99]
+ind 1, fitness [-633.99]
+ind 2, fitness [-633.99]
+ind 3, fitness [-633.99]
+ind 4, fitness [-633.99]
+ind 5, fitness [-633.99]
+ind 6, fitness [-633.99]
+ind 7, fitness [-633.99]
+ind 8, fitness [-633.99]
+ind 9, fitness [-633.99]
+ind 10, fitness [-633.99]
+ind 11, fitness [-633.99]
+ind 12, fitness [-633.99]
+ind 13, fitness [-633.99]
+ind 14, fitness [-633.99]
+ind 15, fitness [-633.99]
+ind 16, fitness [-633.99]
+ind 17, fitness [-633.99]
+ind 18, fitness [-633.99]
+ind 19, fitness [-633.99]
+ind 20, fitness [-633.99]
+ind 21, fitness [-633.99]
+ind 22, fitness [-633.99]
+ind 23, fitness [-633.99]
+ind 24, fitness [-633.99]
+ind 25, fitness [-633.99]
+ind 26, fitness [-633.99]
+ind 27, fitness [-633.99]
+ind 28, fitness [-633.99]
+ind 29, fitness [-633.99]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0
+CURRENT POPULATION
+Current Iteration:  58
+Population Average Fitness(es): -633.99
+Population STD(s): 2.27373675443e-13
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.         -135.7238306    59.65495464  -69.07488351 -138.63604637
+ -141.82826195  -52.50219643  

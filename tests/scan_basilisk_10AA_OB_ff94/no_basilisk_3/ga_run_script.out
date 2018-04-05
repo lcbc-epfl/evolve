@@ -1,0 +1,2598 @@
+Succesfully set molecule filetype: pdb
+Succesfully read molecule: tests/scan_basilisk_10AA_OB_ff94/reduce_10modified.pdb
+
+-- START SETTINGS PRINT --
+evaluators : ['openbabel_ff94']
+output_file : OUT_molec.pdb
+mcmove_ubound : 45.0
+verbose : False
+output_path : tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3
+crossover : sbx
+mutator : poly_dihedral
+basilisk_and_sidechains : False
+mating_probability : 0.8
+composition_optimization : False
+genewise_mutation_probability : 0.1
+tournament_size : 2
+dihedral_optimization : True
+mcmove_lbound : -45.0
+configFilePath : tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/ga_input.in
+elitist_factor : 0.4
+poly_eta : 5.0
+seed_population : False
+mc_generate_dihedrals : True
+num_mc_steps : 1000
+population_file_path : None
+distribution_path : DO_NOT_CHANGE
+store_intermediate_mol : True
+selector : tournament_wor
+sbx_distribution_index : 5.0
+dihedral_probability_pointers : [0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+initial_molecule_path : tests/scan_basilisk_10AA_OB_ff94/reduce_10modified.pdb
+mutation_probability : 0.1
+replacer : elitism
+initial_molecule : <openbabel.OBMol; proxy of <Swig Object of type 'OpenBabel::OBMol *' at 0x7fe69eb17d50> >
+genewise_crossover_probability : 0.5
+config : <ConfigParser.ConfigParser instance at 0x7fe6a0915c68>
+population_size : 30
+dihedral_residue_indexes : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+max_iteration : 50
+-- END SETTINGS PRINT -- 
+
+--- START MOLECULE PRINT --
+Num Atoms: 165
+Num Bonds: 167
+Num Residues: 10
+Phi, Psi Dihedrals:
+Res 0 ALA
+Atoms ['N', 'H1', 'H2', 'H3', 'CA', 'HA', 'CB', 'HB1', 'HB2', 'HB3', 'C', 'O']
+[phi, psi] 999 155.881537017
+Res 1 LYS
+Atoms ['N', 'H', 'CA', 'HA', 'CB', 'HB2', 'HB3', 'CG', 'HG2', 'HG3', 'CD', 'HD2', 'HD3', 'CE', 'HE2', 'HE3', 'NZ', 'HZ1', 'HZ2', 'HZ3', 'C', 'O']
+[phi, psi] -108.039877803 145.603546768
+Res 2 TRP
+Atoms ['N', 'H', 'CA', 'HA', 'CB', 'HB2', 'HB3', 'CG', 'CD1', 'HD1', 'NE1', 'HE1', 'CE2', 'CZ2', 'HZ2', 'CH2', 'HH2', 'CZ3', 'HZ3', 'CE3', 'HE3', 'CD2', 'C', 'O']
+[phi, psi] -129.169616033 148.040599156
+Res 3 VAL
+Atoms ['N', 'H', 'CA', 'HA', 'CB', 'HB', 'CG1', 'HG11', 'HG12', 'HG13', 'CG2', 'HG21', 'HG22', 'HG23', 'C', 'O']
+[phi, psi] -127.856443242 120.696086007
+Res 4 CYS
+Atoms ['N', 'H', 'CA', 'HA', 'CB', 'HB2', 'HB3', 'SG', 'C', 'O', 'HG']
+[phi, psi] -53.5204260034 133.784329774
+Res 5 LYS
+Atoms ['N', 'H', 'CA', 'HA', 'CB', 'HB2', 'HB3', 'CG', 'HG2', 'HG3', 'CD', 'HD2', 'HD3', 'CE', 'HE2', 'HE3', 'NZ', 'HZ1', 'HZ2', 'HZ3', 'C', 'O']
+[phi, psi] -99.7790776493 11.6327848052
+Res 6 ILE
+Atoms ['N', 'H', 'CA', 'HA', 'CB', 'HB', 'CG2', 'HG21', 'HG22', 'HG23', 'CG1', 'HG12', 'HG13', 'CD1', 'HD11', 'HD12', 'HD13', 'C', 'O']
+[phi, psi] -121.086679445 -8.20258789179
+Res 7 CYS
+Atoms ['N', 'H', 'CA', 'HA', 'CB', 'HB2', 'HB3', 'SG', 'C', 'O', 'HG']
+[phi, psi] -156.492207457 0.479663726769
+Res 8 GLY
+Atoms ['N', 'H', 'CA', 'HA2', 'HA3', 'C', 'O']
+[phi, psi] 59.7262486588 23.7938932479
+Res 9 TYR
+Atoms ['N', 'H', 'CA', 'HA', 'CB', 'HB2', 'HB3', 'CG', 'CD1', 'HD1', 'CE1', 'HE1', 'CZ', 'OH', 'HH', 'CE2', 'HE2', 'CD2', 'HD2', 'C', 'O']
+[phi, psi] -69.1433959543 999
+--- END MOLECULE PRINT --
+
+Running GA
+Fitness of tests/scan_basilisk_10AA_OB_ff94/reduce_10modified.pdb:
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 246.87557573]
+Generating Initial Population dihedrals via MC
+INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED
+MC_OPTIMIZED DIHEDRALS GENERATED
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 282.21227259]
+ind 1, fitness [ 308.09206609]
+ind 2, fitness [ 281.98572958]
+ind 3, fitness [ 300.99774235]
+ind 4, fitness [ 298.09451334]
+ind 5, fitness [ 280.46273158]
+ind 6, fitness [ 297.38365633]
+ind 7, fitness [ 285.042224]
+ind 8, fitness [ 320.14227642]
+ind 9, fitness [ 309.06355046]
+ind 10, fitness [ 314.22554857]
+ind 11, fitness [ 311.93752088]
+ind 12, fitness [ 1226.96898013]
+ind 13, fitness [ 296.70086077]
+ind 14, fitness [ 309.29263867]
+ind 15, fitness [ 324.20177806]
+ind 16, fitness [ 286.16528399]
+ind 17, fitness [ 284.61028715]
+ind 18, fitness [ 314.47451611]
+ind 19, fitness [ 325.04298018]
+ind 20, fitness [ 325.84227055]
+ind 21, fitness [ 297.69019856]
+ind 22, fitness [ 356.6751287]
+ind 23, fitness [ 295.24425003]
+ind 24, fitness [ 351.90877651]
+ind 25, fitness [ 311.06858979]
+ind 26, fitness [ 306.28614021]
+ind 27, fitness [ 297.44964537]
+ind 28, fitness [ 301.55920192]
+ind 29, fitness [ 276.7725765]
+CURRENT POPULATION
+Current Iteration:  0
+Population Average Fitness(es): 335.919797845
+Population STD(s): 166.531407149
+Best individual: 29
+Best ind - PHIs, PSIs
+[ 999.         -157.62002751 -159.58387192 -150.79963265 -111.27475194
+   77.03595084  -98.29748537 -139.99067594 -178.34646498 -137.57754757] [ -58.95054801  145.91531469  144.53615581   97.95262409  161.20841362
+ -125.98805722  141.88468172  117.85254953 -177.66557784  999.        ]
+Best ind - Fitness(es): [ 276.7725765]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_0.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 269.29565543]
+ind 1, fitness [ 264.58496952]
+ind 2, fitness [ 286.12554006]
+ind 3, fitness [ 275.19710898]
+ind 4, fitness [ 270.43054024]
+ind 5, fitness [ 270.43054024]
+ind 6, fitness [ 260.87081932]
+ind 7, fitness [ 285.84935013]
+ind 8, fitness [ 300.09864649]
+ind 9, fitness [ 306.1480772]
+ind 10, fitness [ 317.26800345]
+ind 11, fitness [ 272.77593089]
+ind 12, fitness [ 274.51600345]
+ind 13, fitness [ 275.7098237]
+ind 14, fitness [ 256.33101995]
+ind 15, fitness [ 602.84103686]
+ind 16, fitness [ 293.97468383]
+ind 17, fitness [ 284.98059085]
+ind 18, fitness [ 349.62095538]
+ind 19, fitness [ 295.27938488]
+ind 20, fitness [ 300.229983]
+ind 21, fitness [ 289.61846526]
+ind 22, fitness [ 275.72579505]
+ind 23, fitness [ 275.61627111]
+ind 24, fitness [ 278.21342525]
+ind 25, fitness [ 298.68456801]
+ind 26, fitness [ 299.82581329]
+ind 27, fitness [ 281.6174643]
+ind 28, fitness [ 293.24195585]
+ind 29, fitness [ 257.49428121]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0797467140391
+CURRENT POPULATION
+Current Iteration:  1
+Population Average Fitness(es): 277.83199773
+Population STD(s): 11.0577844103
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           70.89888484  -90.34186307  -77.47804636 -149.18563961
+  -86.01829731 -129.06816714  -77.08175191  -85.91786263   63.18925853] [ 162.90091183   37.76160344  124.0829306   115.64542621  170.23363736
+  -24.95653017  172.19424472  -13.00952765  150.01993365  999.        ]
+Best ind - Fitness(es): [ 256.33101995]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_1.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 257.98514433]
+ind 1, fitness [ 267.24296047]
+ind 2, fitness [ 288.69719606]
+ind 3, fitness [ 262.56249935]
+ind 4, fitness [ 265.27203041]
+ind 5, fitness [ 265.27203041]
+ind 6, fitness [ 270.72359659]
+ind 7, fitness [ 270.1956078]
+ind 8, fitness [ 276.04251395]
+ind 9, fitness [ 263.29200151]
+ind 10, fitness [ 274.98517482]
+ind 11, fitness [ 283.32014591]
+ind 12, fitness [ 240.34634129]
+ind 13, fitness [ 240.34634129]
+ind 14, fitness [ 262.10190808]
+ind 15, fitness [ 299.89144247]
+ind 16, fitness [ 263.0979693]
+ind 17, fitness [ 293.62066099]
+ind 18, fitness [ 247.51246436]
+ind 19, fitness [ 240.65196326]
+ind 20, fitness [ 367.44537665]
+ind 21, fitness [ 269.82315655]
+ind 22, fitness [ 281.95111504]
+ind 23, fitness [ 468.38516856]
+ind 24, fitness [ 262.99859045]
+ind 25, fitness [ 262.99859045]
+ind 26, fitness [ 275.71781265]
+ind 27, fitness [ 256.64878373]
+ind 28, fitness [ 257.92947243]
+ind 29, fitness [ 1242.20357653]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.066506852498
+CURRENT POPULATION
+Current Iteration:  2
+Population Average Fitness(es): 260.555320398
+Population STD(s): 10.0493897671
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           71.02945015  -84.61030456  -90.11929315 -163.2903795
+  -89.12127181 -124.22055856  -79.80928055  -85.89922426   63.75115531] [ 158.90777881   38.39047338  137.39177263  131.43031242  168.59790582
+  -27.0415942   171.62666101  -10.793528    150.29553742  999.        ]
+Best ind - Fitness(es): [ 240.34634129]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_2.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 258.98240564]
+ind 1, fitness [ 260.89782771]
+ind 2, fitness [ 271.12525332]
+ind 3, fitness [ 324.53395754]
+ind 4, fitness [ 238.91147557]
+ind 5, fitness [ 251.40384496]
+ind 6, fitness [ 281.49165604]
+ind 7, fitness [ 272.50835383]
+ind 8, fitness [ 263.80803981]
+ind 9, fitness [ 266.5946466]
+ind 10, fitness [ 270.58752675]
+ind 11, fitness [ 274.60237036]
+ind 12, fitness [ 267.1116045]
+ind 13, fitness [ 268.87949053]
+ind 14, fitness [ 261.71115904]
+ind 15, fitness [ 251.78624617]
+ind 16, fitness [ 254.4164716]
+ind 17, fitness [ 254.4164716]
+ind 18, fitness [ 251.10626573]
+ind 19, fitness [ 237.92351672]
+ind 20, fitness [ 254.34354975]
+ind 21, fitness [ 258.55209043]
+ind 22, fitness [ 273.57257751]
+ind 23, fitness [ 245.03712936]
+ind 24, fitness [ 290.18454996]
+ind 25, fitness [ 264.34728849]
+ind 26, fitness [ 406.35671806]
+ind 27, fitness [ 258.44328906]
+ind 28, fitness [ 234.02406961]
+ind 29, fitness [ 230.00270136]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0449718193125
+CURRENT POPULATION
+Current Iteration:  3
+Population Average Fitness(es): 250.485249964
+Population STD(s): 10.1935070537
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.           68.00080804  -83.77032022  -98.16575769 -170.92543779
+  -94.47872059 -121.49745016  -81.82715848  -86.95696556   65.51471297] [ 154.5600384    40.61101345  147.51757084  143.40634257  172.67189017
+  -27.13753076  170.99487385   -7.77281614  149.49837385  999.        ]
+Best ind - Fitness(es): [ 230.00270136]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_3.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 271.24473442]
+ind 1, fitness [ 278.97457597]
+ind 2, fitness [ 233.72523198]
+ind 3, fitness [ 259.78488002]
+ind 4, fitness [ 236.86735025]
+ind 5, fitness [ 254.6712019]
+ind 6, fitness [ 255.01679306]
+ind 7, fitness [ 238.77830553]
+ind 8, fitness [ 265.47977734]
+ind 9, fitness [ 237.38346829]
+ind 10, fitness [ 229.42970109]
+ind 11, fitness [ 250.97766563]
+ind 12, fitness [ 265.99735934]
+ind 13, fitness [ 246.7937071]
+ind 14, fitness [ 260.24298369]
+ind 15, fitness [ 251.60322986]
+ind 16, fitness [ 250.12351468]
+ind 17, fitness [ 273.75083139]
+ind 18, fitness [ 227.19097513]
+ind 19, fitness [ 227.19097513]
+ind 20, fitness [ 264.64067413]
+ind 21, fitness [ 286.52569073]
+ind 22, fitness [ 252.78034857]
+ind 23, fitness [ 243.29720151]
+ind 24, fitness [ 262.8816306]
+ind 25, fitness [ 261.65790347]
+ind 26, fitness [ 246.32243855]
+ind 27, fitness [ 236.05419735]
+ind 28, fitness [ 226.96161297]
+ind 29, fitness [ 234.21567406]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0133991310232
+CURRENT POPULATION
+Current Iteration:  4
+Population Average Fitness(es): 239.712673159
+Population STD(s): 8.28196527313
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           67.71814179  -84.37668024  -99.27821313 -172.24320811
+  -93.28734453 -120.14669856  -81.58960445  -87.07962966   66.54257392] [ 156.25956      42.14394198  151.83141028  146.00830375  173.5218938
+  -27.26971308  170.8374769    -7.12765085  149.03365942  999.        ]
+Best ind - Fitness(es): [ 226.96161297]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_4.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 230.92386683]
+ind 1, fitness [ 230.92386683]
+ind 2, fitness [ 226.34585958]
+ind 3, fitness [ 266.22272406]
+ind 4, fitness [ 236.80570879]
+ind 5, fitness [ 261.19874145]
+ind 6, fitness [ 225.64078444]
+ind 7, fitness [ 234.64633015]
+ind 8, fitness [ 232.57787293]
+ind 9, fitness [ 239.54847919]
+ind 10, fitness [ 241.59550707]
+ind 11, fitness [ 246.98062549]
+ind 12, fitness [ 224.93296568]
+ind 13, fitness [ 234.41166234]
+ind 14, fitness [ 246.40922741]
+ind 15, fitness [ 250.57824816]
+ind 16, fitness [ 240.09640484]
+ind 17, fitness [ 225.36978738]
+ind 18, fitness [ 227.37859624]
+ind 19, fitness [ 224.96107363]
+ind 20, fitness [ 268.82269399]
+ind 21, fitness [ 260.37052622]
+ind 22, fitness [ 245.02707926]
+ind 23, fitness [ 264.05536468]
+ind 24, fitness [ 225.69069958]
+ind 25, fitness [ 237.58335229]
+ind 26, fitness [ 268.15004379]
+ind 27, fitness [ 266.81779687]
+ind 28, fitness [ 229.9277995]
+ind 29, fitness [ 232.00537136]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00901889716044
+CURRENT POPULATION
+Current Iteration:  5
+Population Average Fitness(es): 231.248950033
+Population STD(s): 4.51414929212
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           67.15188175  -84.26363097  -99.45973259 -165.82366852
+  -94.29895828 -120.40673653  -81.09135135  -87.27190483   67.37238116] [ 150.53054706   42.9442161   155.62915945  158.36421605  173.86705496
+  -27.26418613  170.93429785   -6.95754181  148.94391478  999.        ]
+Best ind - Fitness(es): [ 224.93296568]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_5.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 230.82122027]
+ind 1, fitness [ 222.08715449]
+ind 2, fitness [ 222.20906635]
+ind 3, fitness [ 218.48439145]
+ind 4, fitness [ 224.80971555]
+ind 5, fitness [ 223.47655822]
+ind 6, fitness [ 226.72847006]
+ind 7, fitness [ 225.96502939]
+ind 8, fitness [ 224.36234066]
+ind 9, fitness [ 223.7652942]
+ind 10, fitness [ 232.94512035]
+ind 11, fitness [ 223.76720204]
+ind 12, fitness [ 228.95298264]
+ind 13, fitness [ 223.90160797]
+ind 14, fitness [ 230.92386683]
+ind 15, fitness [ 224.04089292]
+ind 16, fitness [ 226.55426413]
+ind 17, fitness [ 225.81948224]
+ind 18, fitness [ 221.93633477]
+ind 19, fitness [ 225.04372965]
+ind 20, fitness [ 241.2416769]
+ind 21, fitness [ 235.12902673]
+ind 22, fitness [ 223.26379871]
+ind 23, fitness [ 224.53441609]
+ind 24, fitness [ 242.93767517]
+ind 25, fitness [ 260.16537695]
+ind 26, fitness [ 224.93657439]
+ind 27, fitness [ 224.17739484]
+ind 28, fitness [ 224.43300715]
+ind 29, fitness [ 224.41310676]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0295150339837
+CURRENT POPULATION
+Current Iteration:  6
+Population Average Fitness(es): 224.382579401
+Population STD(s): 2.65116025371
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.           70.3539087   -85.52008245 -111.16914266 -176.85665964
+  -94.1099035   -76.12078681  -91.87321539   87.56949841   59.41949314] [ 159.22957393   45.88101012  148.76722018  150.68240985  174.01664696
+  -16.95907354  -23.44913715   32.19115478 -169.83595515  999.        ]
+Best ind - Fitness(es): [ 218.48439145]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_6.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 218.36044566]
+ind 1, fitness [ 223.37360103]
+ind 2, fitness [ 223.65759047]
+ind 3, fitness [ 223.1490659]
+ind 4, fitness [ 231.43119]
+ind 5, fitness [ 223.2871581]
+ind 6, fitness [ 224.02990806]
+ind 7, fitness [ 223.59863636]
+ind 8, fitness [ 222.45435302]
+ind 9, fitness [ 223.6293694]
+ind 10, fitness [ 223.93324212]
+ind 11, fitness [ 222.77229856]
+ind 12, fitness [ 222.97929021]
+ind 13, fitness [ 222.43496353]
+ind 14, fitness [ 222.13767759]
+ind 15, fitness [ 222.90420301]
+ind 16, fitness [ 214.82095648]
+ind 17, fitness [ 214.82095648]
+ind 18, fitness [ 223.03523525]
+ind 19, fitness [ 225.29765211]
+ind 20, fitness [ 234.79682887]
+ind 21, fitness [ 241.50142724]
+ind 22, fitness [ 223.2803315]
+ind 23, fitness [ 223.03582401]
+ind 24, fitness [ 223.50147503]
+ind 25, fitness [ 222.95320844]
+ind 26, fitness [ 223.296634]
+ind 27, fitness [ 223.50775448]
+ind 28, fitness [ 251.8142456]
+ind 29, fitness [ 233.53686046]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0170534338413
+CURRENT POPULATION
+Current Iteration:  7
+Population Average Fitness(es): 221.582964095
+Population STD(s): 2.47011585373
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           68.81009348  -85.20803102 -115.01045535 -177.02035758
+  -93.39423794  -76.11159011  -92.13418269   88.48917397   60.2602628 ] [ 158.63850686   46.05443756  152.13139855  151.24906448  173.94402541
+  -16.57128003  -22.93528325   33.14168768 -167.82105498  999.        ]
+Best ind - Fitness(es): [ 214.82095648]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_7.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 215.50393932]
+ind 1, fitness [ 221.79378525]
+ind 2, fitness [ 243.37585357]
+ind 3, fitness [ 235.95274952]
+ind 4, fitness [ 245.24636665]
+ind 5, fitness [ 242.20462211]
+ind 6, fitness [ 228.26218876]
+ind 7, fitness [ 240.29119843]
+ind 8, fitness [ 211.93561418]
+ind 9, fitness [ 214.80162525]
+ind 10, fitness [ 213.7646449]
+ind 11, fitness [ 221.03948252]
+ind 12, fitness [ 221.76004901]
+ind 13, fitness [ 222.25170914]
+ind 14, fitness [ 242.82447188]
+ind 15, fitness [ 1246.86923297]
+ind 16, fitness [ 212.63543898]
+ind 17, fitness [ 211.6204388]
+ind 18, fitness [ 222.19418477]
+ind 19, fitness [ 221.6612077]
+ind 20, fitness [ 249.21662257]
+ind 21, fitness [ 241.60471002]
+ind 22, fitness [ 235.59167027]
+ind 23, fitness [ 241.82497384]
+ind 24, fitness [ 221.36056185]
+ind 25, fitness [ 221.19250889]
+ind 26, fitness [ 215.09337026]
+ind 27, fitness [ 226.36647665]
+ind 28, fitness [ 243.31287428]
+ind 29, fitness [ 223.36741776]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0151238589792
+CURRENT POPULATION
+Current Iteration:  8
+Population Average Fitness(es): 218.92978957
+Population STD(s): 4.44748160667
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           68.33087764  -85.26681792 -118.69473038 -177.28253952
+  -93.72042618  -75.71854822  -92.36296999   89.22939511   61.1511774 ] [ 158.47023312   46.88154719  155.3178518   151.92145363  174.47766777
+  -15.81125647  -22.24310737   33.27967768 -165.76407923  999.        ]
+Best ind - Fitness(es): [ 211.6204388]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_8.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 226.12888282]
+ind 1, fitness [ 224.32996828]
+ind 2, fitness [ 291.75940633]
+ind 3, fitness [ 211.88636683]
+ind 4, fitness [ 210.51828118]
+ind 5, fitness [ 221.28853052]
+ind 6, fitness [ 211.9391214]
+ind 7, fitness [ 215.95841049]
+ind 8, fitness [ 247.86411195]
+ind 9, fitness [ 245.69996054]
+ind 10, fitness [ 211.50933585]
+ind 11, fitness [ 214.87919215]
+ind 12, fitness [ 231.9709276]
+ind 13, fitness [ 267.52473155]
+ind 14, fitness [ 271.22731367]
+ind 15, fitness [ 214.34241985]
+ind 16, fitness [ 211.6954221]
+ind 17, fitness [ 213.93683364]
+ind 18, fitness [ 220.83842427]
+ind 19, fitness [ 244.01874771]
+ind 20, fitness [ 250.63567664]
+ind 21, fitness [ 241.83495605]
+ind 22, fitness [ 223.73728368]
+ind 23, fitness [ 225.15346578]
+ind 24, fitness [ 219.08312832]
+ind 25, fitness [ 211.88636683]
+ind 26, fitness [ 270.61588637]
+ind 27, fitness [ 222.92190585]
+ind 28, fitness [ 220.12454144]
+ind 29, fitness [ 217.72725619]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00523544852458
+CURRENT POPULATION
+Current Iteration:  9
+Population Average Fitness(es): 215.486870852
+Population STD(s): 3.97756079108
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.           68.09813685  -85.19604275 -125.58941746 -177.66254292
+  -94.80764814  -75.35369675  -92.66616515   88.46199423   61.27040015] [ 158.57988473   47.72864184  157.56257473  152.11756415  175.16574209
+  -14.81218652  -21.74548034   33.12120757 -162.94951799  999.        ]
+Best ind - Fitness(es): [ 210.51828118]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_9.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 237.81804218]
+ind 1, fitness [ 236.84391102]
+ind 2, fitness [ 210.5138207]
+ind 3, fitness [ 210.5138207]
+ind 4, fitness [ 213.02084516]
+ind 5, fitness [ 216.12008699]
+ind 6, fitness [ 209.94459148]
+ind 7, fitness [ 216.12008699]
+ind 8, fitness [ 211.88636683]
+ind 9, fitness [ 216.12008699]
+ind 10, fitness [ 210.36719773]
+ind 11, fitness [ 212.77027843]
+ind 12, fitness [ 210.53002777]
+ind 13, fitness [ 216.75319673]
+ind 14, fitness [ 210.73347462]
+ind 15, fitness [ 217.92875889]
+ind 16, fitness [ 211.32366152]
+ind 17, fitness [ 211.32366152]
+ind 18, fitness [ 210.77543123]
+ind 19, fitness [ 211.28073627]
+ind 20, fitness [ 211.32366152]
+ind 21, fitness [ 216.12008699]
+ind 22, fitness [ 211.961502]
+ind 23, fitness [ 211.20612116]
+ind 24, fitness [ 210.67497432]
+ind 25, fitness [ 211.73425252]
+ind 26, fitness [ 212.13096441]
+ind 27, fitness [ 212.13096441]
+ind 28, fitness [ 211.51725065]
+ind 29, fitness [ 211.06164479]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00273257669455
+CURRENT POPULATION
+Current Iteration:  10
+Population Average Fitness(es): 211.246798532
+Population STD(s): 0.654263209903
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.           68.26947754  -85.9248655  -128.70017474 -177.82222938
+  -96.13823035  -75.26385509  -92.73898498   87.18719374   61.09036848] [ 158.56791946   48.74889133  160.09254697  152.7299903   176.05838361
+  -13.41768361  -21.27507085   32.85007257 -161.13054345  999.        ]
+Best ind - Fitness(es): [ 209.94459148]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_10.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 210.15142194]
+ind 1, fitness [ 210.15142194]
+ind 2, fitness [ 210.57457143]
+ind 3, fitness [ 211.13987649]
+ind 4, fitness [ 218.42739948]
+ind 5, fitness [ 211.20152867]
+ind 6, fitness [ 211.38899333]
+ind 7, fitness [ 212.36205468]
+ind 8, fitness [ 211.04294981]
+ind 9, fitness [ 210.22417607]
+ind 10, fitness [ 210.11373925]
+ind 11, fitness [ 209.48480658]
+ind 12, fitness [ 209.66697081]
+ind 13, fitness [ 210.09930255]
+ind 14, fitness [ 212.97578753]
+ind 15, fitness [ 215.13063954]
+ind 16, fitness [ 209.55982719]
+ind 17, fitness [ 210.15509672]
+ind 18, fitness [ 210.20637802]
+ind 19, fitness [ 209.45541282]
+ind 20, fitness [ 210.55109157]
+ind 21, fitness [ 210.29857631]
+ind 22, fitness [ 209.84209089]
+ind 23, fitness [ 210.11206679]
+ind 24, fitness [ 210.33878816]
+ind 25, fitness [ 209.84501657]
+ind 26, fitness [ 235.33251095]
+ind 27, fitness [ 218.45403095]
+ind 28, fitness [ 209.61491508]
+ind 29, fitness [ 210.99267514]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00233547872565
+CURRENT POPULATION
+Current Iteration:  11
+Population Average Fitness(es): 210.128796572
+Population STD(s): 0.398048440176
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           68.42930357  -86.25502528 -108.83277423 -175.35057108
+  -96.94703025  -74.50231065  -89.94821328   89.20907976   58.57354276] [ 159.23927909   46.90031863  153.40322791  153.54863429 -179.30600734
+   -3.90346159  -22.56698617   30.19213872 -167.36584494  999.        ]
+Best ind - Fitness(es): [ 209.45541282]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_11.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 209.94234991]
+ind 1, fitness [ 209.1160786]
+ind 2, fitness [ 209.5229348]
+ind 3, fitness [ 209.93657626]
+ind 4, fitness [ 209.92302741]
+ind 5, fitness [ 209.33037658]
+ind 6, fitness [ 209.73969762]
+ind 7, fitness [ 209.05240423]
+ind 8, fitness [ 209.75201266]
+ind 9, fitness [ 209.54222437]
+ind 10, fitness [ 212.08318434]
+ind 11, fitness [ 210.84366166]
+ind 12, fitness [ 209.40239616]
+ind 13, fitness [ 209.71683233]
+ind 14, fitness [ 209.23071449]
+ind 15, fitness [ 210.03164638]
+ind 16, fitness [ 210.08188655]
+ind 17, fitness [ 209.52815612]
+ind 18, fitness [ 210.02704969]
+ind 19, fitness [ 209.35267801]
+ind 20, fitness [ 209.56648765]
+ind 21, fitness [ 209.49051294]
+ind 22, fitness [ 209.69096793]
+ind 23, fitness [ 209.21386128]
+ind 24, fitness [ 209.66846164]
+ind 25, fitness [ 208.73459444]
+ind 26, fitness [ 209.35545573]
+ind 27, fitness [ 209.66641599]
+ind 28, fitness [ 209.4615739]
+ind 29, fitness [ 209.67329739]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0034532770185
+CURRENT POPULATION
+Current Iteration:  12
+Population Average Fitness(es): 209.498916131
+Population STD(s): 0.261089465245
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           68.53604932  -86.16781972 -134.78470769 -176.65789627
+ -101.53543623  -76.38816365  -91.2968881    87.61601582   60.37773748] [ 159.16579553   48.49542512  157.64566912  152.30552812  177.830793
+   -7.01335666  -20.35538033   31.68455443 -163.72113736  999.        ]
+Best ind - Fitness(es): [ 208.73459444]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_12.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 209.13908535]
+ind 1, fitness [ 209.19270335]
+ind 2, fitness [ 208.67613157]
+ind 3, fitness [ 208.84985826]
+ind 4, fitness [ 209.19270335]
+ind 5, fitness [ 209.19270335]
+ind 6, fitness [ 208.58520167]
+ind 7, fitness [ 209.04451714]
+ind 8, fitness [ 209.00437317]
+ind 9, fitness [ 209.08322151]
+ind 10, fitness [ 209.28825952]
+ind 11, fitness [ 208.36596881]
+ind 12, fitness [ 209.13724716]
+ind 13, fitness [ 209.37411271]
+ind 14, fitness [ 209.37793832]
+ind 15, fitness [ 209.11632787]
+ind 16, fitness [ 208.62316986]
+ind 17, fitness [ 208.9685358]
+ind 18, fitness [ 209.07234553]
+ind 19, fitness [ 208.5497283]
+ind 20, fitness [ 209.06934197]
+ind 21, fitness [ 209.44990726]
+ind 22, fitness [ 209.23919819]
+ind 23, fitness [ 209.21502103]
+ind 24, fitness [ 208.99409292]
+ind 25, fitness [ 209.19277579]
+ind 26, fitness [ 208.77527267]
+ind 27, fitness [ 210.66916301]
+ind 28, fitness [ 209.28311459]
+ind 29, fitness [ 209.24196483]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00176912589434
+CURRENT POPULATION
+Current Iteration:  13
+Population Average Fitness(es): 209.029402057
+Population STD(s): 0.270929161659
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           68.42185889  -86.33514498 -136.45618667 -175.82277715
+ -101.19073066  -75.50244703  -91.21111945   86.58123111   60.34514462] [ 159.30435451   48.66185113  158.9268464   153.32764043  176.51344478
+   -8.17540549  -21.10255383   32.23528116 -161.96507803  999.        ]
+Best ind - Fitness(es): [ 208.36596881]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_13.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 208.87655302]
+ind 1, fitness [ 208.80287458]
+ind 2, fitness [ 208.57027123]
+ind 3, fitness [ 208.35302212]
+ind 4, fitness [ 209.13037837]
+ind 5, fitness [ 208.45763606]
+ind 6, fitness [ 208.87350309]
+ind 7, fitness [ 208.71773645]
+ind 8, fitness [ 208.3238427]
+ind 9, fitness [ 208.70511475]
+ind 10, fitness [ 209.00368593]
+ind 11, fitness [ 208.43915271]
+ind 12, fitness [ 208.26423997]
+ind 13, fitness [ 209.32857931]
+ind 14, fitness [ 208.58693821]
+ind 15, fitness [ 208.28153467]
+ind 16, fitness [ 208.91281376]
+ind 17, fitness [ 208.60121357]
+ind 18, fitness [ 208.90642008]
+ind 19, fitness [ 208.88830076]
+ind 20, fitness [ 211.78337767]
+ind 21, fitness [ 208.6159677]
+ind 22, fitness [ 208.94771284]
+ind 23, fitness [ 208.6710542]
+ind 24, fitness [ 208.91281376]
+ind 25, fitness [ 208.25714388]
+ind 26, fitness [ 208.86135602]
+ind 27, fitness [ 208.92206045]
+ind 28, fitness [ 208.87206916]
+ind 29, fitness [ 208.18739951]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.000857733491238
+CURRENT POPULATION
+Current Iteration:  14
+Population Average Fitness(es): 208.546973725
+Population STD(s): 0.197535334184
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           68.45315643  -86.75610418 -125.84238505 -174.76625629
+  -99.45242294  -74.4865983   -90.38526183   85.62342806   59.97955813] [ 158.85060739   49.81530601  160.70829411  155.38302068  178.42071269
+   -6.13593977  -22.4149259    31.50161652 -161.99491651  999.        ]
+Best ind - Fitness(es): [ 208.18739951]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_14.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 207.9468389]
+ind 1, fitness [ 207.9468389]
+ind 2, fitness [ 208.36816158]
+ind 3, fitness [ 208.0019133]
+ind 4, fitness [ 208.37494795]
+ind 5, fitness [ 208.03751196]
+ind 6, fitness [ 207.88598921]
+ind 7, fitness [ 207.88059397]
+ind 8, fitness [ 208.19975345]
+ind 9, fitness [ 207.99345451]
+ind 10, fitness [ 208.26334391]
+ind 11, fitness [ 208.36305384]
+ind 12, fitness [ 208.63508934]
+ind 13, fitness [ 208.40090077]
+ind 14, fitness [ 208.86629798]
+ind 15, fitness [ 208.74930568]
+ind 16, fitness [ 207.9468389]
+ind 17, fitness [ 208.36305384]
+ind 18, fitness [ 208.17288123]
+ind 19, fitness [ 208.81528456]
+ind 20, fitness [ 207.89986173]
+ind 21, fitness [ 208.00125668]
+ind 22, fitness [ 207.92639664]
+ind 23, fitness [ 207.36963735]
+ind 24, fitness [ 207.79514873]
+ind 25, fitness [ 207.96960466]
+ind 26, fitness [ 208.32560836]
+ind 27, fitness [ 208.46044678]
+ind 28, fitness [ 207.93065147]
+ind 29, fitness [ 208.28458251]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00394349993663
+CURRENT POPULATION
+Current Iteration:  15
+Population Average Fitness(es): 207.9894497
+Population STD(s): 0.260834782097
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.           68.68299633  -87.56033243 -130.70304424 -173.00790974
+  -96.93704887  -73.45390689  -90.51741652   85.78273041   59.98430766] [ 158.89896339   50.40183863  162.50734006  158.81352886  177.1154688
+   -7.14944041  -24.46181846   32.72674372 -161.20730989  999.        ]
+Best ind - Fitness(es): [ 207.36963735]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_15.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 207.63995073]
+ind 1, fitness [ 208.03905009]
+ind 2, fitness [ 209.47021834]
+ind 3, fitness [ 208.90766132]
+ind 4, fitness [ 206.72735796]
+ind 5, fitness [ 207.72011251]
+ind 6, fitness [ 207.56498072]
+WARNING: damped steplength 25.5996 to 18.4821
+ind 7, fitness [ 206.67130438]
+ind 8, fitness [ 207.01003881]
+ind 9, fitness [ 207.42749266]
+ind 10, fitness [ 206.81717741]
+ind 11, fitness [ 207.05193927]
+ind 12, fitness [ 207.3981492]
+ind 13, fitness [ 206.98466797]
+ind 14, fitness [ 207.77294062]
+ind 15, fitness [ 207.86501433]
+WARNING: damped steplength 27.8713 to 22.5233
+ind 16, fitness [ 205.89915176]
+WARNING: damped steplength 27.8713 to 22.5233
+ind 17, fitness [ 205.89915176]
+ind 18, fitness [ 210.52900612]
+ind 19, fitness [ 209.49417059]
+ind 20, fitness [ 207.08671814]
+ind 21, fitness [ 207.7477112]
+WARNING: damped steplength 27.8713 to 22.5233
+ind 22, fitness [ 205.89915176]
+WARNING: damped steplength 27.8713 to 22.5233
+ind 23, fitness [ 205.89915176]
+ind 24, fitness [ 207.62315529]
+ind 25, fitness [ 207.27695478]
+ind 26, fitness [ 207.29642757]
+WARNING: damped steplength 27.8713 to 22.5233
+ind 27, fitness [ 205.89915176]
+WARNING: damped steplength 27.8713 to 22.5233
+ind 28, fitness [ 205.89915176]
+WARNING: damped steplength 27.8713 to 22.5233
+ind 29, fitness [ 205.89915176]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00714177586653
+CURRENT POPULATION
+Current Iteration:  16
+Population Average Fitness(es): 207.004068155
+Population STD(s): 0.756802249115
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.           69.15730768  -87.45282539 -140.7755809  -168.13321852
+  -90.67911787  -72.34415641  -91.02325142   87.35616232   59.77985036] [ 158.1159439    51.26905742  159.77795743  163.92587769  176.72188794
+   -7.36017549  -26.506239     34.2310759  -161.6115839   999.        ]
+Best ind - Fitness(es): [ 205.89915176]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_16.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 206.30802815]
+ind 1, fitness [ 206.49989691]
+ind 2, fitness [ 205.67535623]
+ind 3, fitness [ 205.67535623]
+ind 4, fitness [ 205.85878059]
+ind 5, fitness [ 206.70976036]
+ind 6, fitness [ 205.67535623]
+WARNING: damped steplength 27.8713 to 22.5233
+ind 7, fitness [ 205.89915176]
+ind 8, fitness [ 205.82941498]
+ind 9, fitness [ 206.26507778]
+ind 10, fitness [ 206.50489941]
+ind 11, fitness [ 205.68788183]
+ind 12, fitness [ 206.07748021]
+ind 13, fitness [ 205.95421601]
+ind 14, fitness [ 206.83005049]
+ind 15, fitness [ 206.83792422]
+ind 16, fitness [ 206.80942137]
+ind 17, fitness [ 206.57608557]
+ind 18, fitness [ 205.67535623]
+ind 19, fitness [ 205.67535623]
+ind 20, fitness [ 205.67535623]
+ind 21, fitness [ 205.67535623]
+ind 22, fitness [ 206.83714094]
+ind 23, fitness [ 206.5277324]
+ind 24, fitness [ 206.35126103]
+ind 25, fitness [ 205.71162669]
+ind 26, fitness [ 206.81281163]
+ind 27, fitness [ 206.35395332]
+ind 28, fitness [ 206.37923382]
+ind 29, fitness [ 206.04427896]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00108810086807
+CURRENT POPULATION
+Current Iteration:  17
+Population Average Fitness(es): 205.937013958
+Population STD(s): 0.307998691281
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.           69.11165555  -87.40202004 -142.17230284 -167.15794431
+  -89.46237577  -72.11529138  -91.23389234   87.6602173    59.69400426] [ 157.46588127   51.97050056  159.13015612  165.02608874  176.66155313
+   -7.20440969  -26.83705182   34.64325739 -161.90169309  999.        ]
+Best ind - Fitness(es): [ 205.67535623]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_17.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 205.50141167]
+ind 1, fitness [ 205.520819]
+ind 2, fitness [ 205.64074009]
+ind 3, fitness [ 205.64074009]
+ind 4, fitness [ 205.77027536]
+ind 5, fitness [ 205.62924155]
+ind 6, fitness [ 205.77119469]
+ind 7, fitness [ 205.57457011]
+ind 8, fitness [ 205.84102035]
+ind 9, fitness [ 205.39697274]
+ind 10, fitness [ 205.4358069]
+ind 11, fitness [ 205.83126193]
+ind 12, fitness [ 205.64074009]
+ind 13, fitness [ 205.64074009]
+ind 14, fitness [ 205.62777958]
+ind 15, fitness [ 205.56015733]
+ind 16, fitness [ 205.68607728]
+ind 17, fitness [ 205.64925255]
+ind 18, fitness [ 205.77333648]
+ind 19, fitness [ 205.66277366]
+ind 20, fitness [ 205.67654862]
+ind 21, fitness [ 205.77035376]
+ind 22, fitness [ 205.64074009]
+ind 23, fitness [ 205.64074009]
+ind 24, fitness [ 205.67535623]
+ind 25, fitness [ 205.69030562]
+ind 26, fitness [ 205.64074009]
+ind 27, fitness [ 205.64074009]
+ind 28, fitness [ 205.79234448]
+ind 29, fitness [ 205.64106864]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00135534369538
+CURRENT POPULATION
+Current Iteration:  18
+Population Average Fitness(es): 205.62599337
+Population STD(s): 0.071957820998
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           69.41931702  -87.63270547 -143.09573759 -165.66661917
+  -86.94791264  -71.82294009  -91.54627115   88.22783372   59.57629889] [ 155.87239942   53.71383646  158.43108036  166.29609863  176.60961327
+   -6.67036771  -27.50704284   35.03074775 -162.16271908  999.        ]
+Best ind - Fitness(es): [ 205.39697274]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_18.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 205.4969439]
+ind 1, fitness [ 205.37035964]
+ind 2, fitness [ 205.53559523]
+ind 3, fitness [ 205.55064114]
+ind 4, fitness [ 205.5658194]
+ind 5, fitness [ 205.57663481]
+ind 6, fitness [ 205.56001141]
+ind 7, fitness [ 205.56001141]
+ind 8, fitness [ 205.53971736]
+ind 9, fitness [ 205.45812446]
+ind 10, fitness [ 205.64074003]
+ind 11, fitness [ 205.64074003]
+ind 12, fitness [ 205.61151213]
+ind 13, fitness [ 205.50398501]
+ind 14, fitness [ 205.66815678]
+ind 15, fitness [ 205.64902669]
+ind 16, fitness [ 205.61530558]
+ind 17, fitness [ 205.65623879]
+ind 18, fitness [ 205.559834]
+ind 19, fitness [ 205.57252457]
+ind 20, fitness [ 205.64074003]
+ind 21, fitness [ 205.64074003]
+ind 22, fitness [ 205.55122661]
+ind 23, fitness [ 205.64951292]
+ind 24, fitness [ 205.49830477]
+ind 25, fitness [ 205.3912004]
+ind 26, fitness [ 205.56001141]
+ind 27, fitness [ 205.64074003]
+ind 28, fitness [ 205.58598734]
+ind 29, fitness [ 205.53894814]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.000129585884803
+CURRENT POPULATION
+Current Iteration:  19
+Population Average Fitness(es): 205.539982233
+Population STD(s): 0.0726779367
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           69.42995366  -87.63473758 -143.72911653 -165.43351135
+  -86.8379791   -71.81527182  -91.52461733   88.15345279   59.57069339] [ 155.2746416    54.45094723  158.10037821  166.46240997  176.71628258
+   -6.31232157  -27.66760717   35.04719148 -162.29224511  999.        ]
+Best ind - Fitness(es): [ 205.37035964]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_19.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 205.559834]
+ind 1, fitness [ 205.44330307]
+ind 2, fitness [ 205.51150978]
+ind 3, fitness [ 205.5757557]
+ind 4, fitness [ 205.44330307]
+ind 5, fitness [ 205.4600239]
+ind 6, fitness [ 205.50996526]
+ind 7, fitness [ 205.39603722]
+ind 8, fitness [ 205.41866756]
+ind 9, fitness [ 205.41241994]
+ind 10, fitness [ 205.54222243]
+ind 11, fitness [ 205.37172873]
+ind 12, fitness [ 205.5581465]
+ind 13, fitness [ 205.44516209]
+ind 14, fitness [ 205.38810071]
+ind 15, fitness [ 205.38810071]
+ind 16, fitness [ 205.34552132]
+ind 17, fitness [ 205.53066499]
+ind 18, fitness [ 205.29137569]
+ind 19, fitness [ 205.46974916]
+ind 20, fitness [ 233.93268134]
+ind 21, fitness [ 271.64488162]
+ind 22, fitness [ 205.57779523]
+WARNING: damped steplength 50.3662 to 41.6027
+ind 23, fitness [ 205.31797689]
+ind 24, fitness [ 205.38810071]
+ind 25, fitness [ 205.38810071]
+ind 26, fitness [ 205.35984306]
+ind 27, fitness [ 205.3751954]
+ind 28, fitness [ 205.43580677]
+ind 29, fitness [ 205.44330307]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.000384740700703
+CURRENT POPULATION
+Current Iteration:  20
+Population Average Fitness(es): 205.421391197
+Population STD(s): 0.0606047416917
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           69.65435678  -88.15457271 -144.09509217 -164.89055154
+  -86.12872347  -71.7241368   -91.69710994   88.19486505   59.55172254] [ 154.16094272   55.90951842  158.06664042  166.82072492  176.56948487
+   -6.16251379  -27.95833713   35.26020623 -162.08705888  999.        ]
+Best ind - Fitness(es): [ 205.29137569]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_20.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 205.42220236]
+ind 1, fitness [ 205.36870456]
+ind 2, fitness [ 205.38810071]
+ind 3, fitness [ 205.44330307]
+ind 4, fitness [ 205.29284726]
+ind 5, fitness [ 205.33640605]
+ind 6, fitness [ 205.38810071]
+ind 7, fitness [ 205.31794265]
+ind 8, fitness [ 205.29855263]
+ind 9, fitness [ 205.38442429]
+ind 10, fitness [ 205.32263302]
+ind 11, fitness [ 205.29524318]
+ind 12, fitness [ 205.31794265]
+ind 13, fitness [ 205.31794265]
+ind 14, fitness [ 205.3781368]
+ind 15, fitness [ 205.34465473]
+ind 16, fitness [ 205.34552132]
+ind 17, fitness [ 205.31783353]
+ind 18, fitness [ 205.44330307]
+ind 19, fitness [ 205.44330307]
+ind 20, fitness [ 205.18813375]
+ind 21, fitness [ 205.36900515]
+ind 22, fitness [ 205.38810071]
+ind 23, fitness [ 205.38810071]
+ind 24, fitness [ 205.38810071]
+ind 25, fitness [ 205.38810071]
+ind 26, fitness [ 205.32383977]
+ind 27, fitness [ 205.38990002]
+ind 28, fitness [ 205.35981258]
+ind 29, fitness [ 205.42419386]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.000503157462214
+CURRENT POPULATION
+Current Iteration:  21
+Population Average Fitness(es): 205.341830934
+Population STD(s): 0.0429339718359
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           69.91719481  -89.04757845 -144.62256361 -164.65762378
+  -84.7699587   -71.79788529  -91.84191404   88.10546013   59.54255325] [ 152.89384778   57.66948548  157.90170829  167.02645988  177.02667943
+   -5.2791595   -28.37339062   35.51603611 -162.0767666   999.        ]
+Best ind - Fitness(es): [ 205.18813375]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_21.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 205.37813675]
+ind 1, fitness [ 205.29284697]
+ind 2, fitness [ 205.34552132]
+ind 3, fitness [ 205.34552132]
+ind 4, fitness [ 205.29273441]
+ind 5, fitness [ 205.31779861]
+ind 6, fitness [ 205.36900492]
+ind 7, fitness [ 205.31752223]
+ind 8, fitness [ 205.32612502]
+ind 9, fitness [ 205.30473812]
+ind 10, fitness [ 205.33733119]
+ind 11, fitness [ 205.3586501]
+ind 12, fitness [ 205.24337163]
+ind 13, fitness [ 205.32469106]
+ind 14, fitness [ 205.32793639]
+ind 15, fitness [ 205.30408089]
+ind 16, fitness [ 205.31451651]
+ind 17, fitness [ 205.1850536]
+ind 18, fitness [ 205.36567215]
+ind 19, fitness [ 205.32332815]
+ind 20, fitness [ 205.21438029]
+ind 21, fitness [ 205.31231988]
+ind 22, fitness [ 205.31779861]
+ind 23, fitness [ 205.31733279]
+ind 24, fitness [ 205.29397949]
+ind 25, fitness [ 205.35392715]
+ind 26, fitness [ 205.33597386]
+ind 27, fitness [ 205.18613656]
+ind 28, fitness [ 205.3083204]
+ind 29, fitness [ 205.20102002]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 1.5011575166e-05
+CURRENT POPULATION
+Current Iteration:  22
+Population Average Fitness(es): 205.288262467
+Population STD(s): 0.0447510191276
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           69.86667275  -88.84578476 -144.30824129 -164.72587225
+  -84.90692049  -71.7698246   -91.77648302   88.24619425   59.5244952 ] [ 153.34065827   57.26723869  157.91599022  166.95967341  177.10342918
+   -5.48264565  -28.36214751   35.56868288 -162.28664154  999.        ]
+Best ind - Fitness(es): [ 205.1850536]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_22.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 205.18481881]
+ind 1, fitness [ 205.24255327]
+ind 2, fitness [ 205.31714952]
+ind 3, fitness [ 205.20102002]
+ind 4, fitness [ 205.18472251]
+ind 5, fitness [ 205.3062013]
+ind 6, fitness [ 205.31714952]
+ind 7, fitness [ 205.31714952]
+ind 8, fitness [ 205.17619153]
+ind 9, fitness [ 205.18210347]
+ind 10, fitness [ 205.3056215]
+ind 11, fitness [ 205.30135978]
+ind 12, fitness [ 205.24252492]
+ind 13, fitness [ 205.11951422]
+WARNING: damped steplength 45.7932 to 41.4923
+ind 14, fitness [ 205.04196169]
+ind 15, fitness [ 205.27885257]
+ind 16, fitness [ 205.22232999]
+ind 17, fitness [ 205.19280595]
+ind 18, fitness [ 205.30831859]
+ind 19, fitness [ 205.30473812]
+ind 20, fitness [ 205.23058439]
+ind 21, fitness [ 205.22393789]
+ind 22, fitness [ 205.28651785]
+ind 23, fitness [ 205.25539182]
+ind 24, fitness [ 204.97704214]
+WARNING: damped steplength 70.1943 to 48.575
+ind 25, fitness [ 205.12644907]
+ind 26, fitness [ 205.17783369]
+ind 27, fitness [ 205.26003427]
+ind 28, fitness [ 205.18790479]
+ind 29, fitness [ 205.12689449]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00101480367446
+CURRENT POPULATION
+Current Iteration:  23
+Population Average Fitness(es): 205.183147669
+Population STD(s): 0.0884762148854
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.           70.7639302   -92.06491035 -145.57435561 -164.40347704
+  -81.66987064  -71.85661083  -92.42705358   87.71887856   59.54996963] [ 149.89792597   62.21205964  157.67392556  166.62406012  177.70639523
+   -3.4820036   -29.37510695   36.05779863 -161.56069363  999.        ]
+Best ind - Fitness(es): [ 204.97704214]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_23.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 205.19123682]
+ind 1, fitness [ 205.27896177]
+ind 2, fitness [ 205.21438025]
+ind 3, fitness [ 204.97702093]
+ind 4, fitness [ 204.97702093]
+ind 5, fitness [ 204.97702093]
+ind 6, fitness [ 205.00260963]
+ind 7, fitness [ 205.12505944]
+ind 8, fitness [ 205.22393789]
+ind 9, fitness [ 204.99285101]
+ind 10, fitness [ 205.17489973]
+ind 11, fitness [ 205.21807867]
+ind 12, fitness [ 205.14680616]
+ind 13, fitness [ 205.18229554]
+ind 14, fitness [ 205.21309505]
+ind 15, fitness [ 205.19094426]
+ind 16, fitness [ 205.17619153]
+ind 17, fitness [ 205.20102002]
+ind 18, fitness [ 205.04545213]
+ind 19, fitness [ 205.19198939]
+ind 20, fitness [ 204.95342473]
+ind 21, fitness [ 205.18442982]
+ind 22, fitness [ 205.0709147]
+ind 23, fitness [ 205.1567103]
+ind 24, fitness [ 205.19188443]
+ind 25, fitness [ 205.20784228]
+ind 26, fitness [ 205.18642402]
+ind 27, fitness [ 205.09782328]
+ind 28, fitness [ 205.09172819]
+ind 29, fitness [ 205.03516538]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.000115233055449
+CURRENT POPULATION
+Current Iteration:  24
+Population Average Fitness(es): 205.081476929
+Population STD(s): 0.0864530284127
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.           71.08070757  -93.95635034 -145.77750272 -164.49653272
+  -81.41405334  -72.06426855  -92.55576011   87.50460653   59.56503364] [ 148.41588936   64.47596171  157.73596651  166.49771545  177.65324215
+   -2.96269039  -29.48005038   36.18098419 -161.49342735  999.        ]
+Best ind - Fitness(es): [ 204.95342473]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_24.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 204.99941195]
+ind 1, fitness [ 204.96337778]
+ind 2, fitness [ 205.00927433]
+ind 3, fitness [ 205.33988273]
+ind 4, fitness [ 204.94125571]
+ind 5, fitness [ 205.15052887]
+ind 6, fitness [ 204.95342308]
+ind 7, fitness [ 205.12394513]
+ind 8, fitness [ 205.20712193]
+ind 9, fitness [ 204.75707293]
+ind 10, fitness [ 205.18792186]
+ind 11, fitness [ 205.00764861]
+ind 12, fitness [ 204.95342473]
+ind 13, fitness [ 204.97702093]
+ind 14, fitness [ 204.90784857]
+ind 15, fitness [ 204.97990558]
+ind 16, fitness [ 205.20509696]
+ind 17, fitness [ 205.00763092]
+ind 18, fitness [ 204.93664883]
+ind 19, fitness [ 204.94738322]
+ind 20, fitness [ 204.93604432]
+ind 21, fitness [ 204.99789808]
+ind 22, fitness [ 204.94448889]
+ind 23, fitness [ 204.98944809]
+ind 24, fitness [ 204.92764727]
+ind 25, fitness [ 205.03562502]
+ind 26, fitness [ 204.95342308]
+ind 27, fitness [ 205.14680616]
+ind 28, fitness [ 205.00290531]
+ind 29, fitness [ 205.15387739]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.000958950044087
+CURRENT POPULATION
+Current Iteration:  25
+Population Average Fitness(es): 204.962627517
+Population STD(s): 0.0484827738611
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           71.47376269 -101.35158849 -146.27216705 -164.5358068
+  -80.93786788  -72.2785365   -92.55318147   87.53758534   59.44148589] [ 141.37159887   75.03838883  158.04355599  166.33682105  177.67088813
+   -2.0730049   -29.72094586   36.35902951 -162.12284639  999.        ]
+Best ind - Fitness(es): [ 204.75707293]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_25.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 204.89797974]
+WARNING: damped steplength 51.2838 to 15.6264
+ind 1, fitness [ 204.7839115]
+ind 2, fitness [ 204.45299781]
+ind 3, fitness [ 204.76592785]
+ind 4, fitness [ 204.95342214]
+ind 5, fitness [ 204.90784836]
+ind 6, fitness [ 204.95342308]
+ind 7, fitness [ 204.95342308]
+ind 8, fitness [ 204.91181926]
+ind 9, fitness [ 204.46881886]
+ind 10, fitness [ 204.92447519]
+ind 11, fitness [ 204.94467133]
+ind 12, fitness [ 204.90637524]
+ind 13, fitness [ 204.96632365]
+ind 14, fitness [ 204.95420587]
+ind 15, fitness [ 204.86135823]
+ind 16, fitness [ 204.9290754]
+ind 17, fitness [ 204.73793554]
+ind 18, fitness [ 204.9078483]
+ind 19, fitness [ 204.98944809]
+ind 20, fitness [ 204.85358825]
+ind 21, fitness [ 204.93638154]
+ind 22, fitness [ 204.8407951]
+ind 23, fitness [ 204.92744899]
+ind 24, fitness [ 204.95561716]
+ind 25, fitness [ 204.9302302]
+ind 26, fitness [ 204.97779325]
+ind 27, fitness [ 204.99255489]
+ind 28, fitness [ 204.87891156]
+ind 29, fitness [ 204.91646492]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00148726173243
+CURRENT POPULATION
+Current Iteration:  26
+Population Average Fitness(es): 204.866188727
+Population STD(s): 0.123930302737
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           71.49980488 -108.14987177 -146.63815969 -164.55057085
+  -80.51405597  -72.27110363  -92.66974538   87.59650896   59.4957642 ] [ 136.87575266   82.36478736  158.7456437   166.25684635  177.43081476
+   -2.71121607  -29.68395168   36.45667262 -162.10023926  999.        ]
+Best ind - Fitness(es): [ 204.45299781]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_26.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 206.00847003]
+ind 1, fitness [ 205.64619697]
+ind 2, fitness [ 204.48422616]
+ind 3, fitness [ 204.97116603]
+ind 4, fitness [ 204.90784829]
+ind 5, fitness [ 203.50740668]
+ind 6, fitness [ 205.38037393]
+ind 7, fitness [ 205.53790737]
+ind 8, fitness [ 204.93604432]
+ind 9, fitness [ 204.89142784]
+ind 10, fitness [ 204.86341089]
+ind 11, fitness [ 204.88168064]
+ind 12, fitness [ 203.63047047]
+ind 13, fitness [ 204.90977478]
+ind 14, fitness [ 204.73155667]
+ind 15, fitness [ 203.61275898]
+ind 16, fitness [ 205.27290172]
+ind 17, fitness [ 204.47958437]
+ind 18, fitness [ 204.90878615]
+ind 19, fitness [ 203.79756813]
+ind 20, fitness [ 204.73793554]
+ind 21, fitness [ 204.48729182]
+ind 22, fitness [ 204.87286848]
+ind 23, fitness [ 204.32393986]
+ind 24, fitness [ 203.72399462]
+ind 25, fitness [ 204.8380689]
+ind 26, fitness [ 204.85077812]
+ind 27, fitness [ 204.58728146]
+ind 28, fitness [ 204.3408213]
+ind 29, fitness [ 204.3408213]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00464647032629
+CURRENT POPULATION
+Current Iteration:  27
+Population Average Fitness(es): 204.469395048
+Population STD(s): 0.456856680018
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.           71.19663222 -117.16819044 -147.04618374 -164.5252533
+  -80.48536257  -72.30423382  -92.69346345   87.47322287   59.51369292] [ 130.54138267   91.70055039  159.45082919  166.20275972  177.41369855
+   -2.50320905  -29.71968442   36.47857031 -162.0123425   999.        ]
+Best ind - Fitness(es): [ 203.50740668]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_27.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 201.65938019]
+ind 1, fitness [ 200.96870564]
+ind 2, fitness [ 203.53873222]
+ind 3, fitness [ 203.38161692]
+ind 4, fitness [ 201.10129677]
+ind 5, fitness [ 202.98929924]
+ind 6, fitness [ 204.19066992]
+ind 7, fitness [ 202.63129803]
+ind 8, fitness [ 203.96290617]
+ind 9, fitness [ 203.96290617]
+ind 10, fitness [ 203.43281701]
+ind 11, fitness [ 203.16249739]
+ind 12, fitness [ 204.29648629]
+ind 13, fitness [ 203.4232046]
+ind 14, fitness [ 204.25918874]
+ind 15, fitness [ 203.98338042]
+ind 16, fitness [ 200.96721313]
+ind 17, fitness [ 204.41464934]
+ind 18, fitness [ 204.40351381]
+ind 19, fitness [ 203.473575]
+ind 20, fitness [ 201.29070446]
+ind 21, fitness [ 203.1335725]
+ind 22, fitness [ 201.1825456]
+ind 23, fitness [ 201.41873662]
+ind 24, fitness [ 203.43805662]
+ind 25, fitness [ 204.73793554]
+ind 26, fitness [ 206.75695663]
+ind 27, fitness [ 206.0865705]
+ind 28, fitness [ 201.26318567]
+ind 29, fitness [ 204.42114064]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.012639840681
+CURRENT POPULATION
+Current Iteration:  28
+Population Average Fitness(es): 202.859399422
+Population STD(s): 1.1549914621
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           70.9699238  -128.29332344 -147.51632678 -164.49318755
+  -80.05938136  -72.29893333  -92.81281463   87.51096296   59.58687359] [ 119.65727385  102.88139194  160.3504762   166.27934891  177.30757191
+   -3.10632364  -29.58264333   36.57623093 -161.99329724  999.        ]
+Best ind - Fitness(es): [ 200.96721313]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_28.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 199.61175814]
+ind 1, fitness [ 202.24951974]
+ind 2, fitness [ 200.23118567]
+ind 3, fitness [ 200.04925605]
+ind 4, fitness [ 200.13239242]
+ind 5, fitness [ 200.25825294]
+ind 6, fitness [ 201.01922287]
+ind 7, fitness [ 201.33562731]
+ind 8, fitness [ 201.90108261]
+ind 9, fitness [ 199.71547619]
+ind 10, fitness [ 200.16088926]
+ind 11, fitness [ 201.2492583]
+ind 12, fitness [ 199.71434319]
+ind 13, fitness [ 200.1639484]
+ind 14, fitness [ 202.95397703]
+ind 15, fitness [ 199.44275752]
+ind 16, fitness [ 201.08773737]
+ind 17, fitness [ 200.39045678]
+ind 18, fitness [ 200.45185121]
+ind 19, fitness [ 200.86896409]
+ind 20, fitness [ 200.67317426]
+ind 21, fitness [ 200.14485012]
+ind 22, fitness [ 199.78240519]
+ind 23, fitness [ 200.05145132]
+ind 24, fitness [ 199.72136637]
+ind 25, fitness [ 200.9449253]
+ind 26, fitness [ 203.43699418]
+ind 27, fitness [ 199.46472033]
+ind 28, fitness [ 199.65004822]
+ind 29, fitness [ 204.59638271]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00764357467289
+CURRENT POPULATION
+Current Iteration:  29
+Population Average Fitness(es): 200.41272734
+Population STD(s): 0.882880782474
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           71.5072917  -125.02863722 -147.09244385 -164.41302309
+  -80.59320911  -72.39704802  -92.59147558   87.24886267   59.52235301] [ 112.03835411  107.3167344   161.17019522  165.83983858  177.57564857
+   -2.04602617  -29.77602135   36.48007669 -162.06244655  999.        ]
+Best ind - Fitness(es): [ 199.44275752]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_29.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 199.29158214]
+ind 1, fitness [ 199.27348991]
+ind 2, fitness [ 199.80479956]
+ind 3, fitness [ 198.67161744]
+ind 4, fitness [ 199.64127999]
+ind 5, fitness [ 199.19136252]
+ind 6, fitness [ 198.8286082]
+ind 7, fitness [ 199.38990803]
+ind 8, fitness [ 200.23899793]
+ind 9, fitness [ 199.77942859]
+ind 10, fitness [ 199.44103335]
+ind 11, fitness [ 199.38622841]
+ind 12, fitness [ 199.60327423]
+ind 13, fitness [ 199.05864838]
+ind 14, fitness [ 199.22512359]
+ind 15, fitness [ 199.24063637]
+ind 16, fitness [ 199.13109824]
+ind 17, fitness [ 199.59336377]
+ind 18, fitness [ 199.25981618]
+ind 19, fitness [ 199.58187258]
+ind 20, fitness [ 198.70112515]
+ind 21, fitness [ 199.32589603]
+ind 22, fitness [ 199.48763782]
+ind 23, fitness [ 198.73740419]
+ind 24, fitness [ 199.29785315]
+ind 25, fitness [ 200.387451]
+ind 26, fitness [ 199.11251634]
+ind 27, fitness [ 199.80733783]
+ind 28, fitness [ 198.66862075]
+ind 29, fitness [ 198.66862075]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00389662324704
+CURRENT POPULATION
+Current Iteration:  30
+Population Average Fitness(es): 199.271075463
+Population STD(s): 0.348029982761
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           73.05347981 -131.12972832 -146.93318251 -164.44574922
+  -80.21080733  -72.45535368  -92.82774088   87.20363222   59.58022018] [ 107.58146283  112.65276982  160.66244829  165.50475941  177.13426796
+   -2.47033159  -29.74407972   36.47914183 -161.77237587  999.        ]
+Best ind - Fitness(es): [ 198.66862075]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_30.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 198.83411664]
+ind 1, fitness [ 199.2920592]
+ind 2, fitness [ 198.82955288]
+ind 3, fitness [ 198.66862075]
+ind 4, fitness [ 198.86854596]
+ind 5, fitness [ 198.90252284]
+ind 6, fitness [ 198.22240338]
+ind 7, fitness [ 199.16222865]
+ind 8, fitness [ 198.52357499]
+ind 9, fitness [ 198.37358734]
+ind 10, fitness [ 198.72019742]
+ind 11, fitness [ 198.88127909]
+ind 12, fitness [ 198.16064486]
+ind 13, fitness [ 198.36303533]
+ind 14, fitness [ 198.19663359]
+ind 15, fitness [ 198.19663359]
+ind 16, fitness [ 198.40769074]
+ind 17, fitness [ 198.77907182]
+ind 18, fitness [ 198.70814826]
+ind 19, fitness [ 198.86726617]
+ind 20, fitness [ 198.91554]
+ind 21, fitness [ 198.19663359]
+ind 22, fitness [ 198.62443128]
+ind 23, fitness [ 198.77164947]
+ind 24, fitness [ 198.84057296]
+ind 25, fitness [ 198.79178011]
+ind 26, fitness [ 198.41482627]
+ind 27, fitness [ 198.57484473]
+ind 28, fitness [ 198.60232873]
+ind 29, fitness [ 198.55999168]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00256345497289
+CURRENT POPULATION
+Current Iteration:  31
+Population Average Fitness(es): 198.575156343
+Population STD(s): 0.275651375921
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           73.43380404 -136.51429138 -147.04932886 -164.7002232
+  -80.58912102  -72.67592097  -92.64496926   86.91766548   59.50731854] [ 106.14103421  118.99129829  160.24872968  165.20445111  177.59966414
+   -1.43088482  -30.05661546   36.58374196 -161.78155264  999.        ]
+Best ind - Fitness(es): [ 198.16064486]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_31.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 197.98981016]
+ind 1, fitness [ 198.1014025]
+ind 2, fitness [ 197.78970418]
+ind 3, fitness [ 198.06821107]
+ind 4, fitness [ 198.19663359]
+ind 5, fitness [ 198.19663359]
+ind 6, fitness [ 198.12246393]
+ind 7, fitness [ 197.89392751]
+ind 8, fitness [ 197.7847441]
+ind 9, fitness [ 197.7847441]
+ind 10, fitness [ 197.8678409]
+ind 11, fitness [ 198.14284792]
+ind 12, fitness [ 198.00319195]
+ind 13, fitness [ 197.80512959]
+ind 14, fitness [ 197.99199576]
+ind 15, fitness [ 198.18432506]
+ind 16, fitness [ 197.7847441]
+ind 17, fitness [ 197.7847441]
+ind 18, fitness [ 197.7847441]
+ind 19, fitness [ 197.7847441]
+ind 20, fitness [ 197.70048561]
+ind 21, fitness [ 197.70048561]
+ind 22, fitness [ 197.81177476]
+ind 23, fitness [ 198.05436826]
+ind 24, fitness [ 198.52818115]
+ind 25, fitness [ 198.05174125]
+ind 26, fitness [ 198.02349142]
+ind 27, fitness [ 198.02349142]
+ind 28, fitness [ 198.19663359]
+ind 29, fitness [ 198.2688189]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00232755752856
+CURRENT POPULATION
+Current Iteration:  32
+Population Average Fitness(es): 198.010384844
+Population STD(s): 0.218305167905
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           73.70467797 -142.53504894 -147.43500039 -164.77240471
+  -80.5062771   -72.80868852  -92.6805781    86.67097193   59.46133243] [ 104.85126955  125.68503264  160.17019197  165.1849181   177.57606646
+   -1.09796814  -30.17699603   36.6999863  -161.65599107  999.        ]
+Best ind - Fitness(es): [ 197.70048561]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_32.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 197.66544771]
+ind 1, fitness [ 197.42657901]
+ind 2, fitness [ 197.35174377]
+ind 3, fitness [ 197.35174377]
+ind 4, fitness [ 197.42542235]
+ind 5, fitness [ 197.42542235]
+ind 6, fitness [ 197.4427365]
+ind 7, fitness [ 197.53718897]
+ind 8, fitness [ 197.7847441]
+ind 9, fitness [ 197.35174377]
+ind 10, fitness [ 197.43823501]
+ind 11, fitness [ 197.35174377]
+ind 12, fitness [ 197.61813644]
+ind 13, fitness [ 197.34753425]
+ind 14, fitness [ 197.45752296]
+ind 15, fitness [ 197.78684507]
+ind 16, fitness [ 197.29496431]
+ind 17, fitness [ 197.55525553]
+ind 18, fitness [ 197.43823501]
+ind 19, fitness [ 197.43823501]
+ind 20, fitness [ 197.37623284]
+ind 21, fitness [ 197.72041158]
+ind 22, fitness [ 197.42542235]
+ind 23, fitness [ 197.42542235]
+ind 24, fitness [ 197.79450723]
+ind 25, fitness [ 197.43454941]
+ind 26, fitness [ 197.43224763]
+ind 27, fitness [ 197.11311024]
+ind 28, fitness [ 197.42030787]
+ind 29, fitness [ 197.40688097]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00297988988748
+CURRENT POPULATION
+Current Iteration:  33
+Population Average Fitness(es): 197.439458127
+Population STD(s): 0.188294224634
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.           74.30534162 -148.68781589 -147.76686419 -164.70827526
+  -80.03610973  -72.89118951  -92.90524529   86.35520343   59.4976775 ] [ 101.79049432  133.76164292  160.73869491  165.43866323  176.95816557
+   -1.30911519  -30.10030766   36.84693716 -161.18086286  999.        ]
+Best ind - Fitness(es): [ 197.11311024]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_33.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 197.14555789]
+ind 1, fitness [ 197.04005133]
+ind 2, fitness [ 197.05784389]
+ind 3, fitness [ 197.12850452]
+ind 4, fitness [ 197.11133423]
+ind 5, fitness [ 197.05684726]
+ind 6, fitness [ 197.05784389]
+ind 7, fitness [ 197.05784389]
+ind 8, fitness [ 197.55096268]
+ind 9, fitness [ 197.21337317]
+ind 10, fitness [ 197.08060978]
+ind 11, fitness [ 197.10242734]
+ind 12, fitness [ 198.40802499]
+ind 13, fitness [ 197.03990357]
+ind 14, fitness [ 196.8722164]
+ind 15, fitness [ 197.13118286]
+ind 16, fitness [ 197.04316469]
+ind 17, fitness [ 197.06661456]
+ind 18, fitness [ 197.12390291]
+ind 19, fitness [ 197.05784389]
+ind 20, fitness [ 196.99138657]
+ind 21, fitness [ 196.97065126]
+ind 22, fitness [ 197.13029661]
+ind 23, fitness [ 197.10297053]
+ind 24, fitness [ 197.06805226]
+ind 25, fitness [ 197.10436806]
+ind 26, fitness [ 196.74703598]
+ind 27, fitness [ 197.29785642]
+ind 28, fitness [ 196.82839069]
+ind 29, fitness [ 196.82839069]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00186063420722
+CURRENT POPULATION
+Current Iteration:  34
+Population Average Fitness(es): 197.078618097
+Population STD(s): 0.148273070185
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           74.2664101  -149.39208219 -147.71415498 -164.87145162
+  -79.72913271  -72.97275917  -92.92159104   86.26389721   59.52438455] [ 100.3240626   136.95933969  160.44581721  165.38187742  177.1426069
+   -1.02468806  -30.20676479   36.99811202 -161.15916233  999.        ]
+Best ind - Fitness(es): [ 196.74703598]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_34.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 196.75081067]
+ind 1, fitness [ 196.79935569]
+ind 2, fitness [ 196.56770695]
+ind 3, fitness [ 196.71007561]
+ind 4, fitness [ 196.77366403]
+ind 5, fitness [ 196.71007561]
+ind 6, fitness [ 196.77140929]
+ind 7, fitness [ 196.72084595]
+ind 8, fitness [ 196.86939623]
+ind 9, fitness [ 196.81616334]
+ind 10, fitness [ 196.85531974]
+ind 11, fitness [ 196.66570392]
+ind 12, fitness [ 196.59622838]
+ind 13, fitness [ 196.59622838]
+ind 14, fitness [ 196.80546172]
+ind 15, fitness [ 196.47284237]
+ind 16, fitness [ 196.75314858]
+ind 17, fitness [ 196.83550644]
+ind 18, fitness [ 196.77366403]
+ind 19, fitness [ 196.77366403]
+ind 20, fitness [ 196.4798461]
+ind 21, fitness [ 196.79369015]
+ind 22, fitness [ 196.82292846]
+ind 23, fitness [ 196.49713389]
+ind 24, fitness [ 196.60741024]
+ind 25, fitness [ 196.65929048]
+ind 26, fitness [ 196.78225244]
+ind 27, fitness [ 196.63299632]
+ind 28, fitness [ 196.78214146]
+ind 29, fitness [ 196.80091558]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00139558019042
+CURRENT POPULATION
+Current Iteration:  35
+Population Average Fitness(es): 196.747623071
+Population STD(s): 0.171906668636
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           74.64345547 -150.81242406 -147.55334963 -165.01467754
+  -79.56873741  -73.07529456  -93.00045815   86.0264302    59.52995796] [  9.77971657e+01   1.39892202e+02   1.60624896e+02   1.65391611e+02
+   1.76692198e+02  -7.78574108e-01  -3.03540721e+01   3.72034426e+01
+  -1.60975352e+02   9.99000000e+02]
+Best ind - Fitness(es): [ 196.47284237]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_35.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 196.2958632]
+ind 1, fitness [ 196.2958632]
+ind 2, fitness [ 196.17885027]
+ind 3, fitness [ 196.44123807]
+ind 4, fitness [ 196.02735989]
+ind 5, fitness [ 196.2958632]
+ind 6, fitness [ 196.61486676]
+ind 7, fitness [ 195.94044873]
+ind 8, fitness [ 196.52803168]
+ind 9, fitness [ 196.51311915]
+ind 10, fitness [ 196.32959307]
+ind 11, fitness [ 196.2958632]
+ind 12, fitness [ 196.38029709]
+ind 13, fitness [ 196.38029709]
+ind 14, fitness [ 196.45011398]
+ind 15, fitness [ 196.31467404]
+ind 16, fitness [ 196.51933247]
+ind 17, fitness [ 196.43370233]
+ind 18, fitness [ 195.77715698]
+ind 19, fitness [ 196.46363608]
+ind 20, fitness [ 196.3694538]
+ind 21, fitness [ 196.37235683]
+ind 22, fitness [ 196.41161635]
+ind 23, fitness [ 196.25950018]
+ind 24, fitness [ 196.40317147]
+ind 25, fitness [ 196.32959307]
+ind 26, fitness [ 196.40893563]
+ind 27, fitness [ 196.36799246]
+ind 28, fitness [ 196.31705]
+ind 29, fitness [ 196.21335494]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00355345538257
+CURRENT POPULATION
+Current Iteration:  36
+Population Average Fitness(es): 196.316492095
+Population STD(s): 0.192533759729
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           74.95786552 -151.99158416 -146.70112978 -165.68930879
+  -80.50885845  -74.73606567  -92.13805554   83.91681689   59.5150351 ] [  93.37650796  144.93644707  160.4093621   165.26482956  176.04020232
+    2.84335729  -31.91661234   39.27231819 -160.95158697  999.        ]
+Best ind - Fitness(es): [ 195.77715698]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_36.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 196.03896607]
+ind 1, fitness [ 195.76905283]
+ind 2, fitness [ 195.76193613]
+ind 3, fitness [ 195.8692625]
+ind 4, fitness [ 195.57320063]
+ind 5, fitness [ 195.57320063]
+ind 6, fitness [ 196.07503461]
+ind 7, fitness [ 195.559007]
+ind 8, fitness [ 195.89977965]
+ind 9, fitness [ 195.63073437]
+ind 10, fitness [ 196.03798712]
+ind 11, fitness [ 195.78383734]
+ind 12, fitness [ 195.57320063]
+ind 13, fitness [ 195.68685722]
+ind 14, fitness [ 195.70274696]
+ind 15, fitness [ 195.78984482]
+ind 16, fitness [ 195.8743711]
+ind 17, fitness [ 195.94313426]
+ind 18, fitness [ 195.76238348]
+ind 19, fitness [ 195.66185749]
+ind 20, fitness [ 195.6880934]
+ind 21, fitness [ 196.03550616]
+ind 22, fitness [ 195.57320063]
+ind 23, fitness [ 195.57320063]
+ind 24, fitness [ 195.87633604]
+ind 25, fitness [ 195.9470487]
+ind 26, fitness [ 195.26103525]
+ind 27, fitness [ 195.37684598]
+ind 28, fitness [ 195.57320063]
+ind 29, fitness [ 195.57320063]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00264323973008
+CURRENT POPULATION
+Current Iteration:  37
+Population Average Fitness(es): 195.700781926
+Population STD(s): 0.302525455867
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.           75.01167824 -152.27323031 -146.66320553 -166.11717282
+  -81.70890188  -76.91313234  -89.20258946   80.15970745   59.38803425] [  92.82002223  145.45094435  160.12262897  165.21853329  175.17107928
+    7.47268141  -35.06232576   42.69264367 -161.09066244  999.        ]
+Best ind - Fitness(es): [ 195.26103525]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_37.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 196.82716322]
+ind 1, fitness [ 195.06145872]
+ind 2, fitness [ 195.05445475]
+ind 3, fitness [ 195.41011979]
+ind 4, fitness [ 195.17870538]
+ind 5, fitness [ 195.61486843]
+ind 6, fitness [ 194.92362833]
+ind 7, fitness [ 195.26103525]
+ind 8, fitness [ 195.27347876]
+ind 9, fitness [ 194.92559763]
+ind 10, fitness [ 195.01295036]
+ind 11, fitness [ 195.25152907]
+ind 12, fitness [ 195.26103525]
+ind 13, fitness [ 195.26103525]
+ind 14, fitness [ 195.29562138]
+ind 15, fitness [ 195.59888787]
+ind 16, fitness [ 195.7807166]
+ind 17, fitness [ 194.92362833]
+ind 18, fitness [ 194.92362833]
+ind 19, fitness [ 194.92362833]
+ind 20, fitness [ 194.61324498]
+ind 21, fitness [ 195.44572586]
+ind 22, fitness [ 195.27728829]
+ind 23, fitness [ 195.42877762]
+ind 24, fitness [ 195.3262468]
+ind 25, fitness [ 195.10745856]
+ind 26, fitness [ 195.26103525]
+ind 27, fitness [ 195.26103525]
+ind 28, fitness [ 194.92362833]
+ind 29, fitness [ 195.24124964]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0033286032293
+CURRENT POPULATION
+Current Iteration:  38
+Population Average Fitness(es): 195.128242281
+Population STD(s): 0.273533358252
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.           75.07162206 -152.4275007  -146.69306671 -166.796725
+  -80.9764535   -80.16506334  -85.87879425   77.3929361    59.22852824] [  92.68268651  145.49481186  159.88435943  164.83094831  172.15021006
+   14.14463593  -38.23149029   45.86572716 -161.59393236  999.        ]
+Best ind - Fitness(es): [ 194.61324498]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_38.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 194.71968002]
+ind 1, fitness [ 195.03341017]
+ind 2, fitness [ 193.81848799]
+ind 3, fitness [ 195.33487651]
+ind 4, fitness [ 194.26759533]
+ind 5, fitness [ 194.6108379]
+ind 6, fitness [ 195.41079148]
+ind 7, fitness [ 194.21074684]
+ind 8, fitness [ 194.88651149]
+ind 9, fitness [ 194.55907421]
+ind 10, fitness [ 194.308015]
+ind 11, fitness [ 194.308015]
+ind 12, fitness [ 194.51906983]
+ind 13, fitness [ 194.85387505]
+ind 14, fitness [ 194.61324498]
+ind 15, fitness [ 194.61324498]
+ind 16, fitness [ 194.6435513]
+ind 17, fitness [ 195.10587423]
+ind 18, fitness [ 194.99209836]
+ind 19, fitness [ 194.63801899]
+ind 20, fitness [ 194.61324498]
+ind 21, fitness [ 195.04085932]
+ind 22, fitness [ 195.20161813]
+ind 23, fitness [ 194.47393784]
+ind 24, fitness [ 195.4603736]
+ind 25, fitness [ 194.23807554]
+ind 26, fitness [ 194.59245506]
+ind 27, fitness [ 194.74386991]
+ind 28, fitness [ 194.4169742]
+ind 29, fitness [ 194.45991555]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0041005220815
+CURRENT POPULATION
+Current Iteration:  39
+Population Average Fitness(es): 194.584590893
+Population STD(s): 0.28453497105
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           75.1083865  -152.48553139 -146.33600934 -167.39126195
+  -79.05831658  -81.58032029  -84.62675433   76.59193952   59.11455738] [  92.71097052  145.45141817  159.80723639  165.07305392  172.12891922
+   19.38070827  -39.0456526    46.4847506  -162.06357817  999.        ]
+Best ind - Fitness(es): [ 193.81848799]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_39.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 194.03823997]
+ind 1, fitness [ 193.87252707]
+ind 2, fitness [ 194.13407283]
+ind 3, fitness [ 194.20386866]
+ind 4, fitness [ 193.83379233]
+ind 5, fitness [ 194.60077301]
+ind 6, fitness [ 194.00656971]
+ind 7, fitness [ 194.00656971]
+ind 8, fitness [ 194.25706201]
+ind 9, fitness [ 194.33242291]
+ind 10, fitness [ 194.60634307]
+ind 11, fitness [ 193.81630738]
+ind 12, fitness [ 194.01235203]
+ind 13, fitness [ 193.92791243]
+ind 14, fitness [ 194.00656971]
+ind 15, fitness [ 194.00656971]
+ind 16, fitness [ 194.28094102]
+ind 17, fitness [ 194.28160239]
+ind 18, fitness [ 194.00656971]
+ind 19, fitness [ 194.00656971]
+ind 20, fitness [ 194.39993051]
+ind 21, fitness [ 193.48763442]
+ind 22, fitness [ 193.98445573]
+ind 23, fitness [ 194.48901158]
+ind 24, fitness [ 193.95000201]
+ind 25, fitness [ 194.37020316]
+ind 26, fitness [ 194.0290089]
+ind 27, fitness [ 193.92001769]
+ind 28, fitness [ 194.61324498]
+ind 29, fitness [ 194.01028071]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00170994680066
+CURRENT POPULATION
+Current Iteration:  40
+Population Average Fitness(es): 194.026412443
+Population STD(s): 0.195868058242
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           75.12347798 -152.51587264 -146.3321118  -167.70047785
+  -78.0326165   -83.9105217   -83.43621781   76.41111105   58.8388426 ] [  92.65985793  145.4418549   159.48656117  164.59271682  169.99787433
+   23.22429509  -39.62309696   47.13645137 -163.03771427  999.        ]
+Best ind - Fitness(es): [ 193.48763442]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_40.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 193.95180041]
+ind 1, fitness [ 193.53557486]
+ind 2, fitness [ 193.65227266]
+ind 3, fitness [ 193.63084817]
+ind 4, fitness [ 194.1732489]
+ind 5, fitness [ 193.24648978]
+ind 6, fitness [ 193.70069753]
+ind 7, fitness [ 193.68282341]
+ind 8, fitness [ 193.48073077]
+ind 9, fitness [ 194.26498616]
+ind 10, fitness [ 193.73601266]
+ind 11, fitness [ 193.73601266]
+ind 12, fitness [ 193.6623212]
+ind 13, fitness [ 193.71211407]
+ind 14, fitness [ 194.48540673]
+ind 15, fitness [ 193.05704722]
+ind 16, fitness [ 193.59914918]
+ind 17, fitness [ 193.47290061]
+ind 18, fitness [ 193.89973109]
+ind 19, fitness [ 193.38020288]
+ind 20, fitness [ 193.53398571]
+ind 21, fitness [ 193.9924723]
+ind 22, fitness [ 193.49615067]
+ind 23, fitness [ 193.74448301]
+ind 24, fitness [ 193.73352439]
+ind 25, fitness [ 193.50506973]
+ind 26, fitness [ 193.71303269]
+ind 27, fitness [ 193.55939629]
+ind 28, fitness [ 193.64622081]
+ind 29, fitness [ 193.73601266]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.0022303625121
+CURRENT POPULATION
+Current Iteration:  41
+Population Average Fitness(es): 193.617122629
+Population STD(s): 0.194752859556
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           75.12149096 -152.51892805 -145.98357762 -167.68871687
+  -77.54638407  -84.86205177  -81.98429094   75.82678605   58.28463531] [  92.60445139  145.46057496  159.27021821  164.61233491  168.71151926
+   27.59624652  -38.97434644   47.20262018 -164.65783064  999.        ]
+Best ind - Fitness(es): [ 193.05704722]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_41.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 193.28164793]
+ind 1, fitness [ 192.72639484]
+ind 2, fitness [ 193.10301847]
+ind 3, fitness [ 193.54620599]
+ind 4, fitness [ 193.23234033]
+ind 5, fitness [ 192.8317721]
+ind 6, fitness [ 193.37636089]
+ind 7, fitness [ 193.00546388]
+ind 8, fitness [ 193.20592313]
+ind 9, fitness [ 193.01474507]
+ind 10, fitness [ 193.14352566]
+ind 11, fitness [ 193.41205505]
+ind 12, fitness [ 193.29192033]
+ind 13, fitness [ 193.12521615]
+ind 14, fitness [ 192.92309915]
+ind 15, fitness [ 193.20589115]
+ind 16, fitness [ 193.36638962]
+ind 17, fitness [ 192.74331012]
+ind 18, fitness [ 192.83407465]
+ind 19, fitness [ 193.34274651]
+ind 20, fitness [ 192.78175708]
+ind 21, fitness [ 193.2872389]
+ind 22, fitness [ 193.18372347]
+ind 23, fitness [ 193.14394268]
+ind 24, fitness [ 193.28637296]
+ind 25, fitness [ 193.25292321]
+ind 26, fitness [ 193.3446461]
+ind 27, fitness [ 193.26945594]
+ind 28, fitness [ 193.10099144]
+ind 29, fitness [ 193.18372347]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00171565697159
+CURRENT POPULATION
+Current Iteration:  42
+Population Average Fitness(es): 193.054331221
+Population STD(s): 0.20471247855
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           75.22780431 -152.47235546 -146.19195214 -165.75467129
+  -77.71532815  -85.893194    -81.56544265   74.03937246   58.08784555] [  92.51781845  145.29783014  159.97065382  164.72017731  167.56132446
+   32.23670785  -40.70876332   47.12981656 -160.60359124  999.        ]
+Best ind - Fitness(es): [ 192.72639484]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_42.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 192.98011768]
+ind 1, fitness [ 192.5328175]
+ind 2, fitness [ 192.62817701]
+ind 3, fitness [ 192.65150784]
+ind 4, fitness [ 192.53515431]
+ind 5, fitness [ 192.49691863]
+ind 6, fitness [ 192.95769553]
+ind 7, fitness [ 192.8424444]
+ind 8, fitness [ 192.79603264]
+ind 9, fitness [ 192.47553516]
+ind 10, fitness [ 192.49948036]
+ind 11, fitness [ 192.28919536]
+ind 12, fitness [ 192.85602343]
+ind 13, fitness [ 192.97717491]
+ind 14, fitness [ 193.19716154]
+ind 15, fitness [ 192.76902112]
+ind 16, fitness [ 192.47806133]
+ind 17, fitness [ 192.50269325]
+ind 18, fitness [ 193.14997431]
+ind 19, fitness [ 192.57721543]
+ind 20, fitness [ 192.34800995]
+ind 21, fitness [ 192.23589914]
+ind 22, fitness [ 192.36638309]
+ind 23, fitness [ 192.36638309]
+WARNING: damped steplength 90.3978 to 25.9134
+ind 24, fitness [ 192.09325582]
+ind 25, fitness [ 192.41651922]
+ind 26, fitness [ 192.44066585]
+ind 27, fitness [ 192.76607376]
+ind 28, fitness [ 192.19608132]
+ind 29, fitness [ 192.62108386]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00329599815814
+CURRENT POPULATION
+Current Iteration:  43
+Population Average Fitness(es): 192.526395414
+Population STD(s): 0.229463793944
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.           75.00603509 -151.7904422  -145.18522568 -164.42407812
+  -78.23052864  -85.92219555  -80.70674294   73.05363789   57.69193468] [  92.27808879  145.97713813  160.18966967  165.20103365  167.41712771
+   36.48226992  -40.55572889   46.61696378 -159.97383358  999.        ]
+Best ind - Fitness(es): [ 192.09325582]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_43.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 192.29271587]
+ind 1, fitness [ 192.46888864]
+ind 2, fitness [ 192.12864552]
+ind 3, fitness [ 192.18852539]
+ind 4, fitness [ 192.50266519]
+ind 5, fitness [ 191.88505748]
+ind 6, fitness [ 191.93958247]
+ind 7, fitness [ 192.00457504]
+ind 8, fitness [ 192.32499493]
+ind 9, fitness [ 191.93303247]
+ind 10, fitness [ 192.19849689]
+ind 11, fitness [ 192.33701076]
+ind 12, fitness [ 191.8648333]
+ind 13, fitness [ 191.82298701]
+ind 14, fitness [ 192.47553516]
+ind 15, fitness [ 192.53515431]
+ind 16, fitness [ 192.41337145]
+ind 17, fitness [ 192.36398478]
+ind 18, fitness [ 192.40200967]
+ind 19, fitness [ 192.02094614]
+ind 20, fitness [ 192.19867529]
+ind 21, fitness [ 192.25566424]
+ind 22, fitness [ 192.08260279]
+ind 23, fitness [ 192.39518797]
+ind 24, fitness [ 192.47553516]
+ind 25, fitness [ 192.47553516]
+ind 26, fitness [ 192.51209567]
+ind 27, fitness [ 192.25803629]
+ind 28, fitness [ 192.11187464]
+ind 29, fitness [ 192.39603547]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00140894902848
+CURRENT POPULATION
+Current Iteration:  44
+Population Average Fitness(es): 192.183242626
+Population STD(s): 0.182074499138
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           74.96130875 -151.83257624 -144.87902806 -164.77543361
+  -78.50963291  -85.26138601  -80.61575517   72.41642478   57.44132021] [  92.10829164  146.32368544  161.13235804  165.07774327  167.2063181
+   37.35829768  -39.78720575   45.76716628 -159.50031931  999.        ]
+Best ind - Fitness(es): [ 191.82298701]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_44.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+WARNING: damped steplength 43.3385 to 30.4627
+ind 0, fitness [ 191.39076861]
+ind 1, fitness [ 191.99118328]
+ind 2, fitness [ 192.1885252]
+ind 3, fitness [ 192.11245963]
+ind 4, fitness [ 191.93422791]
+ind 5, fitness [ 191.82786051]
+ind 6, fitness [ 191.78373699]
+ind 7, fitness [ 191.69399892]
+ind 8, fitness [ 191.68643173]
+ind 9, fitness [ 191.70142691]
+ind 10, fitness [ 191.9211855]
+ind 11, fitness [ 192.02636489]
+ind 12, fitness [ 191.87908415]
+ind 13, fitness [ 191.87908415]
+ind 14, fitness [ 191.67303711]
+ind 15, fitness [ 191.60197725]
+ind 16, fitness [ 192.17323661]
+ind 17, fitness [ 191.73819133]
+ind 18, fitness [ 192.29796237]
+ind 19, fitness [ 192.08948941]
+ind 20, fitness [ 191.71227843]
+ind 21, fitness [ 192.06584472]
+ind 22, fitness [ 192.0386622]
+ind 23, fitness [ 191.93852801]
+WARNING: damped steplength 28.8827 to 28.4524
+ind 24, fitness [ 191.64552257]
+ind 25, fitness [ 191.83316862]
+WARNING: damped steplength 37.5229 to 28.0426
+ind 26, fitness [ 191.60830522]
+ind 27, fitness [ 192.01164657]
+ind 28, fitness [ 191.98773958]
+ind 29, fitness [ 191.89531037]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00225830330785
+CURRENT POPULATION
+Current Iteration:  45
+Population Average Fitness(es): 191.842712603
+Population STD(s): 0.170578558978
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           74.925747   -151.43301772 -144.23045121 -163.84496714
+  -78.90853797  -84.6059018   -80.26852155   71.59821902   57.16788777] [  91.93847016  146.68431336  161.88933999  165.77675353  166.80357673
+   39.30063699  -39.09498986   44.89442989 -159.02240107  999.        ]
+Best ind - Fitness(es): [ 191.39076861]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_45.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 191.58003562]
+ind 1, fitness [ 191.58883464]
+ind 2, fitness [ 191.82096813]
+ind 3, fitness [ 191.54422028]
+ind 4, fitness [ 191.75484644]
+ind 5, fitness [ 191.50315202]
+ind 6, fitness [ 191.69399892]
+ind 7, fitness [ 191.70120184]
+ind 8, fitness [ 191.72583564]
+ind 9, fitness [ 191.36849056]
+ind 10, fitness [ 191.52215671]
+ind 11, fitness [ 191.56573232]
+ind 12, fitness [ 191.43752349]
+ind 13, fitness [ 191.51182138]
+ind 14, fitness [ 191.68872279]
+ind 15, fitness [ 191.34182682]
+ind 16, fitness [ 191.28322035]
+ind 17, fitness [ 191.74584116]
+ind 18, fitness [ 191.58980418]
+ind 19, fitness [ 191.73501616]
+ind 20, fitness [ 191.89531037]
+ind 21, fitness [ 191.52053828]
+ind 22, fitness [ 191.34471366]
+ind 23, fitness [ 191.48171764]
+ind 24, fitness [ 192.00457504]
+ind 25, fitness [ 191.52053827]
+ind 26, fitness [ 191.82152305]
+ind 27, fitness [ 191.4889157]
+ind 28, fitness [ 191.82946763]
+ind 29, fitness [ 191.96071369]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.000562246164856
+CURRENT POPULATION
+Current Iteration:  46
+Population Average Fitness(es): 191.559596762
+Population STD(s): 0.133182247964
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           74.88682147 -151.39372625 -143.83353963 -163.08373914
+  -78.89956637  -84.49892053  -80.25554338   71.45852064   57.11177693] [  91.83222063  146.82139083  162.34569393  166.35189709  166.91341772
+   39.5749742   -39.03130962   44.74540443 -158.87187201  999.        ]
+Best ind - Fitness(es): [ 191.28322035]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_46.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 191.4889157]
+ind 1, fitness [ 191.25933113]
+ind 2, fitness [ 191.50095834]
+ind 3, fitness [ 191.50101317]
+ind 4, fitness [ 191.40780398]
+ind 5, fitness [ 190.99102543]
+ind 6, fitness [ 191.26597169]
+WARNING: damped steplength 84.1866 to 39.1339
+ind 7, fitness [ 190.99101389]
+ind 8, fitness [ 191.39151403]
+ind 9, fitness [ 191.33185814]
+ind 10, fitness [ 191.48256074]
+ind 11, fitness [ 191.45406257]
+ind 12, fitness [ 191.34737407]
+ind 13, fitness [ 191.33958768]
+ind 14, fitness [ 191.50471277]
+ind 15, fitness [ 191.42866336]
+ind 16, fitness [ 191.36725038]
+ind 17, fitness [ 191.49592889]
+ind 18, fitness [ 191.21568286]
+ind 19, fitness [ 191.42003121]
+ind 20, fitness [ 191.44521967]
+ind 21, fitness [ 191.46449888]
+ind 22, fitness [ 191.42757639]
+ind 23, fitness [ 191.63692257]
+ind 24, fitness [ 191.22168603]
+ind 25, fitness [ 191.48147237]
+ind 26, fitness [ 191.50346258]
+ind 27, fitness [ 191.34182595]
+ind 28, fitness [ 191.34471366]
+ind 29, fitness [ 191.34471366]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.00152994873491
+CURRENT POPULATION
+Current Iteration:  47
+Population Average Fitness(es): 191.352996151
+Population STD(s): 0.12743550977
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           74.87800953 -151.30851484 -143.28716258 -162.51088078
+  -79.22298095  -83.79626761  -80.16008901   70.97609171   56.90931214] [  91.82511144  146.86366766  163.05312118  166.77813958  166.89481663
+   41.40228404  -38.83873155   44.09938206 -158.61252897  999.        ]
+Best ind - Fitness(es): [ 190.99101389]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_47.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 190.80705452]
+ind 1, fitness [ 191.34172597]
+ind 2, fitness [ 191.18801936]
+ind 3, fitness [ 191.32903273]
+ind 4, fitness [ 191.36872491]
+ind 5, fitness [ 191.36481685]
+ind 6, fitness [ 191.42757639]
+ind 7, fitness [ 191.34172597]
+ind 8, fitness [ 191.26106919]
+ind 9, fitness [ 191.17751608]
+ind 10, fitness [ 190.8958692]
+ind 11, fitness [ 190.97756702]
+ind 12, fitness [ 191.36725038]
+ind 13, fitness [ 191.34471366]
+ind 14, fitness [ 191.4200312]
+ind 15, fitness [ 191.22168603]
+ind 16, fitness [ 191.32133591]
+ind 17, fitness [ 191.22606241]
+ind 18, fitness [ 191.11376139]
+ind 19, fitness [ 191.04030905]
+ind 20, fitness [ 191.33185814]
+ind 21, fitness [ 190.80705452]
+ind 22, fitness [ 191.09504427]
+ind 23, fitness [ 191.29834063]
+ind 24, fitness [ 191.0127118]
+ind 25, fitness [ 191.05343145]
+ind 26, fitness [ 190.9067986]
+ind 27, fitness [ 191.02275762]
+ind 28, fitness [ 191.36725038]
+ind 29, fitness [ 191.20891805]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.000964111975639
+CURRENT POPULATION
+Current Iteration:  48
+Population Average Fitness(es): 191.13423002
+Population STD(s): 0.169527967244
+Best individual: 0
+Best ind - PHIs, PSIs
+[ 999.           74.88144461 -151.20199287 -142.71663552 -162.41666538
+  -79.24264707  -83.55464372  -79.79485348   70.51391102   56.74188795] [  91.70706412  147.04405858  163.29145084  167.03195823  166.78168219
+   41.93919189  -37.98180869   43.54428386 -158.61658419  999.        ]
+Best ind - Fitness(es): [ 190.80705452]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_48.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 190.8019073]
+ind 1, fitness [ 190.91225881]
+ind 2, fitness [ 191.01924314]
+ind 3, fitness [ 191.04416368]
+ind 4, fitness [ 190.8410282]
+ind 5, fitness [ 191.14141294]
+ind 6, fitness [ 191.00646874]
+ind 7, fitness [ 190.98879965]
+ind 8, fitness [ 191.02509632]
+ind 9, fitness [ 191.13633117]
+ind 10, fitness [ 190.97920418]
+ind 11, fitness [ 191.08121423]
+ind 12, fitness [ 191.18801936]
+ind 13, fitness [ 190.80705452]
+ind 14, fitness [ 190.95206418]
+ind 15, fitness [ 190.91566329]
+ind 16, fitness [ 191.21900254]
+ind 17, fitness [ 191.19996742]
+ind 18, fitness [ 190.9164386]
+ind 19, fitness [ 190.77123901]
+ind 20, fitness [ 191.13219]
+ind 21, fitness [ 191.23356595]
+ind 22, fitness [ 191.03601312]
+ind 23, fitness [ 190.96534593]
+ind 24, fitness [ 190.97586794]
+ind 25, fitness [ 191.0600914]
+ind 26, fitness [ 191.22168603]
+ind 27, fitness [ 190.97756702]
+ind 28, fitness [ 190.88042879]
+ind 29, fitness [ 191.09640196]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 0.000187740612808
+CURRENT POPULATION
+Current Iteration:  49
+Population Average Fitness(es): 190.939612225
+Population STD(s): 0.088361751424
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           74.91891329 -151.29316552 -142.82409895 -162.74551913
+  -79.30904545  -83.490755    -79.72781      70.51798914   56.62192534] [  91.79749421  146.90178644  163.16825632  166.82779096  166.7263197
+   42.23455517  -37.79650739   43.39619255 -158.92843836  999.        ]
+Best ind - Fitness(es): [ 190.77123901]
+OUT: INTERMEDIATE MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/min_mol_iter_49.pdb
+
+------------Iterating
+SELECTORS tournament_wor
+CROSSOVER sbx
+MUTATOR poly_dihedral
+EVALUATORS testEnergyByMinimisation
+ind 0, fitness [ 190.77512889]
+ind 1, fitness [ 190.79008797]
+ind 2, fitness [ 190.79652836]
+ind 3, fitness [ 191.01560119]
+ind 4, fitness [ 190.76922969]
+ind 5, fitness [ 190.87438281]
+ind 6, fitness [ 190.7555646]
+ind 7, fitness [ 190.77017096]
+ind 8, fitness [ 190.80705452]
+ind 9, fitness [ 190.80705452]
+ind 10, fitness [ 190.8566736]
+ind 11, fitness [ 190.90165559]
+ind 12, fitness [ 190.92938353]
+ind 13, fitness [ 190.80304059]
+ind 14, fitness [ 191.00246756]
+ind 15, fitness [ 190.78897817]
+ind 16, fitness [ 190.84303764]
+ind 17, fitness [ 190.84931352]
+ind 18, fitness [ 190.80161083]
+ind 19, fitness [ 190.90058928]
+ind 20, fitness [ 190.95206418]
+ind 21, fitness [ 190.97756701]
+ind 22, fitness [ 190.84018102]
+ind 23, fitness [ 190.84018102]
+ind 24, fitness [ 190.92168515]
+ind 25, fitness [ 190.93582028]
+ind 26, fitness [ 190.83057425]
+ind 27, fitness [ 190.96410642]
+ind 28, fitness [ 190.9160977]
+ind 29, fitness [ 190.82300033]
+ELITIST REPLACER with 12 elite parents
+Convergence relative error: 8.21701383461e-05
+CURRENT POPULATION
+Current Iteration:  50
+Population Average Fitness(es): 190.823360727
+Population STD(s): 0.0433392731196
+Best individual: 12
+Best ind - PHIs, PSIs
+[ 999.           74.90835212 -151.23436677 -142.55672478 -162.44866279
+  -79.27934577  -83.43362789  -79.7933226    70.48537836   56.62913509] [  91.75044399  147.0184645   163.36194297  166.98801937  166.8565816
+   42.21449418  -37.86870409   43.40454663 -158.74394776  999.        ]
+Best ind - Fitness(es): [ 190.7555646]
+OUT: FINAL MOLECULE in tests/scan_basilisk_10AA_OB_ff94/no_basilisk_3/OUT_molec.pdb
+Best GA fitnesses written in fitnesses.dat
+Finished GA in --- 4792.98 seconds ---

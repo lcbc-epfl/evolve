@@ -1,0 +1,60 @@
+
+          -------------------------------------------------------
+          Amber 16 SANDER                              2016
+          -------------------------------------------------------
+
+| Run on 02/14/2018 at 18:02:28
+
+|   Executable path: sander.MPI
+| Working directory: /scratch-store/scratch/jvillard/GAcode
+|          Hostname: Unknown
+  [-O]verwriting output
+
+File Assignments:
+|  MDIN: tests/amber_gpgg/amber_minimization.in                                
+| MDOUT: tests/amber_gpgg/amber_run/amber.out                                  
+|INPCRD: tests/amber_gpgg/amber_run/leap_temp_mol.inpcrd                       
+|  PARM: tests/amber_gpgg/amber_run/leap_temp_mol.prmtop                       
+|RESTRT: tests/amber_gpgg/amber_run/amber.rst                                  
+|  REFC: refc                                                                  
+| MDVEL: mdvel                                                                 
+| MDFRC: mdfrc                                                                 
+|  MDEN: mden                                                                  
+| MDCRD: mdcrd                                                                 
+|MDINFO: mdinfo                                                                
+|  MTMD: mtmd                                                                  
+|INPDIP: inpdip                                                                
+|RSTDIP: rstdip                                                                
+|INPTRA: inptraj                                                               
+
+|    REMLOG: rem.log
+|   REMTYPE: rem.type
+|  REMSTRIP: 
+|   SAVEENE: saveene
+|CLUSTERINF: cluster.info
+| RESERVOIR: reserv/frame
+|   REMDDIM: 
+
+
+ Here is the input file:
+
+Minimize                                                                       
+ &cntrl                                                                        
+  imin = 1,                                                                    
+  ntmin = 1,                                                                   
+  maxcyc = 30000,                                                              
+  ncyc = 1001,                                                                 
+  ntr = 0,                                                                     
+  igb = 0,                                                                     
+  ntb = 0,                                                                     
+  cut = 99.0                                                                   
+ /                                                                             
+
+--------------------------------------------------------------------------------
+   1.  RESOURCE   USE: 
+--------------------------------------------------------------------------------
+
+| Flags: MPI                                                                    
+|    NONPERIODIC   ntb=0 and igb=0: Setting up nonperiodic simulation
+
+  Error opening unit    9: File "tests/amber_gpgg/amber_run/leap_temp_mol.inpcrd" is missing or unreadable                

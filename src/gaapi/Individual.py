@@ -12,6 +12,7 @@ import numpy as np
 class Individual(object):
     
     def __init__(self, settings, orig=None):
+        self.init = False # True if indiv is the initial structure of GA
         if orig is None:
             self.initialise_constructor(settings)
         else:
@@ -27,6 +28,10 @@ class Individual(object):
         
         self.composition_residue_indexes = None
         self.composition = None
+
+        self.chi_angles = None
+        self.chi_atoms = None
+        
         
         if (settings.dihedral_optimization):
             
@@ -45,7 +50,12 @@ class Individual(object):
             
             self.composition_residue_indexes = settings.composition_residue_indexes
             self.composition = np.zeros(len(self.composition_residue_indexes), dtype=np.int)
-            
+
+        if (settings.basilisk_and_sidechains):
+
+            self.chi_angles = [] #Sidechain chi dihedrals
+            self.chi_atoms = [] #Sidechain atoms defining chi dihedrals, name not OBAtom
+
             
         self.fitnesses = np.zeros(len(settings.evaluators))
     
@@ -70,6 +80,13 @@ class Individual(object):
             self.composition = np.zeros(len(self.composition_residue_indexes), dtype=np.int)
             for i in xrange (0, len(self.composition_residue_indexes)):
                 self.composition[i] = orig.composition[i]
+
+        self.chi_angles = orig.chi_angles
+        
+        if (self.chi_angles != None):
+            self.chi_angles = orig.chi_angles
+            self.chi_atoms = orig.chi_atoms
+            
         
         self.fitnesses = np.zeros(len(orig.fitnesses))
         
@@ -84,13 +101,14 @@ class Individual(object):
         
         return mi.getPhiPsiDihedrals(self.mol, self.dihedral_residue_indexes)
 
-    def applyPhiPsiDihedrals(self, settings):
-        if (self.phi_dihedrals == None):
+    def applyPhiPsiDihedrals(self):
+        if (self.phi_dihedrals is None):
             return
         
         for i in xrange (0, len(self.dihedral_residue_indexes)):
             obres = self.mol.GetResidue(self.dihedral_residue_indexes[i])
             mi.SetPhiPsi(self.mol, obres, self.phi_dihedrals[i], self.psi_dihedrals[i])
+            
             
     def applyComposition(self, settings):
         from src import constants
@@ -98,36 +116,83 @@ class Individual(object):
         if (self.composition_residue_indexes == None):
             return
 
-        for i in xrange (0, len(self.composition_residue_indexes)):
+        for i in xrange(0, len(self.composition_residue_indexes)):
             frag = openbabel.OBMol()
             obConversion = openbabel.OBConversion()
             obConversion.SetInFormat("mol2")
             
             rotamer_type = constants.rotamers[self.composition[i]]
             
-            obConversion.ReadFile(frag, settings.composition_library + "/" + rotamer_type + ".mol2") 
+            obConversion.ReadFile(frag, settings.composition_library + "/" + rotamer_type + ".mol2")
             
             # print self.composition_residue_indexes[i], rotamer_type + ".mol2"
             mcr.swapsidechain(self.mol, self.composition_residue_indexes[i], frag)
-            
+
+    
+    def get_chi_dihedrals_per_res(self):
+
+        if (self.chi_angles == None or self.chi_angles == []):
+            return
         
-            
+        (sorted_atoms_ID, sorted_atoms_OB) = mi.get_atoms_per_residue(self.mol)
+
+        ss_angles = [[] for _ in xrange(0, len(self.dihedral_residue_indexes))]
+
+        for j in self.dihedral_residue_indexes:
+
+            for k in xrange(0, len(self.chi_angles[j])):
+                torsion_atom_ID = self.chi_atoms[j][k]
+                #print(torsion_atom_ID)
+                #print(sorted_atoms_ID[j])
+                
+                torsion_atom_locs = []
+                torsion_ob_atoms = []
+
+                for l in xrange(0, 4):
+                    torsion_atom_locs.append(sorted_atoms_ID[j].index(torsion_atom_ID[l]))
+                    torsion_ob_atoms.append(sorted_atoms_OB[j][torsion_atom_locs[l]])
+
+                ss_angles[j].append(self.mol.GetTorsion(torsion_ob_atoms[0], torsion_ob_atoms[1], torsion_ob_atoms[2], torsion_ob_atoms[3]))
+
+        return ss_angles
+         
+
+    def apply_chi_dihedrals(self):
+
+        if (self.chi_angles is None or []):
+            return
+        
+        (sorted_atoms_ID, sorted_atoms_OB) = mi.get_atoms_per_residue(self.mol)
+
+        for j in self.dihedral_residue_indexes:
+
+            for k in xrange(0, len(self.chi_angles[j])):
+                torsion_atom_ID = self.chi_atoms[j][k]
+                #print(torsion_atom_ID)
+                #print(sorted_atoms_ID[j])
+                
+                torsion_atom_locs = []
+                torsion_ob_atoms = []
+
+                for l in xrange(0, 4):
+                    torsion_atom_locs.append(sorted_atoms_ID[j].index(torsion_atom_ID[l]))
+                    torsion_ob_atoms.append(sorted_atoms_OB[j][torsion_atom_locs[l]])
+
+                self.mol.SetTorsion(torsion_ob_atoms[0], torsion_ob_atoms[1], torsion_ob_atoms[2], torsion_ob_atoms[3], np.radians(self.chi_angles[j][k]))
+                
+                
     def dominates(self, individual):
         if (len(self.fitnesses) > 1) :
             # TODO
             pass
         else:
             return (self.fitnesses[0] < individual.fitnesses[0])
-      
+        
     def setFitness(self, index, fitness):
         self.fitnesses[index] = fitness
-      
+        
     def __lt__(self, other):
         return self.dominates(other)
     
     def __gt__(self, other):
         return other.dominates(self)
-            
-    
-    
-    

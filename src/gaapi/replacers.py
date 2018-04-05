@@ -1,5 +1,5 @@
 '''
-crossovers.py
+replacers.py
 
 @author: Nicholas Browning
 '''
@@ -9,21 +9,20 @@ import Individual
 def replace(settings, parents, children, replace_op, **args):
     return replace_op(settings, parents, children, **args)
     
-
 def swap_replace(settings, parents, children, **args):
     return children
 
 def elitist_replace(settings, parents, children, **args):
-    
+
     elitist_factor = settings.elitist_factor
-    
     num_elites = int(elitist_factor * settings.population_size)
+
+    print("ELITIST REPLACER with {} elite parents".format(num_elites))
     
     parent_indexes = np.arange(settings.population_size)
     child_indexes = np.arange(settings.population_size)
     
     sorted_parent_indexes = np.argsort(parents)
-
     sorted_child_indexes = np.argsort(children)
     
     if (settings.verbose):

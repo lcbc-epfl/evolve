@@ -1,0 +1,230 @@
+
+          -------------------------------------------------------
+          Amber 16 SANDER                              2016
+          -------------------------------------------------------
+
+| Run on 03/12/2018 at 19:33:38
+
+|   Executable path: sander.MPI
+| Working directory: /scratch-store/scratch/jvillard/GAcode
+|          Hostname: Unknown
+  [-O]verwriting output
+
+File Assignments:
+|  MDIN: tests/Trpcage_amber_6/amber_minimization.in                           
+| MDOUT: tests/Trpcage_amber_6/amber_run/amber.out                             
+|INPCRD: tests/Trpcage_amber_6/amber_run/leap_temp_mol.inpcrd                  
+|  PARM: tests/Trpcage_amber_6/amber_run/leap_temp_mol.prmtop                  
+|RESTRT: tests/Trpcage_amber_6/amber_run/amber.rst                             
+|  REFC: refc                                                                  
+| MDVEL: mdvel                                                                 
+| MDFRC: mdfrc                                                                 
+|  MDEN: mden                                                                  
+| MDCRD: mdcrd                                                                 
+|MDINFO: mdinfo                                                                
+|  MTMD: mtmd                                                                  
+|INPDIP: inpdip                                                                
+|RSTDIP: rstdip                                                                
+|INPTRA: inptraj                                                               
+
+|    REMLOG: rem.log
+|   REMTYPE: rem.type
+|  REMSTRIP: 
+|   SAVEENE: saveene
+|CLUSTERINF: cluster.info
+| RESERVOIR: reserv/frame
+|   REMDDIM: 
+
+
+ Here is the input file:
+
+Minimize with implicit solvent, standard Born solvation model igb=1            
+ &cntrl                                                                        
+  imin = 1,                                                                    
+  irest = 0,                                                                   
+  ntmin = 1,                                                                   
+  maxcyc = 200,                                                                
+  ncyc = 100,                                                                  
+  ntpr = 50,                                                                   
+  ntr = 0,                                                                     
+  igb = 1,                                                                     
+  ntb = 0,                                                                     
+  cut = 999.                                                                   
+  rgbmax = 999.                                                                
+ /                                                                             
+
+--------------------------------------------------------------------------------
+   1.  RESOURCE   USE: 
+--------------------------------------------------------------------------------
+
+| Flags: MPI                                                                    
+| New format PARM file being parsed.
+| Version =    1.000 Date = 03/12/18 Time = 19:33:38
+ NATOM  =     304 NTYPES =      12 NBONH =     150 MBONA  =     160
+ NTHETH =     346 MTHETA =     219 NPHIH =     700 MPHIA  =     654
+ NHPARM =       0 NPARM  =       0 NNB   =    1701 NRES   =      20
+ NBONA  =     160 NTHETA =     219 NPHIA =     654 NUMBND =      53
+ NUMANG =     124 NPTRA  =     137 NATYP =      26 NPHB   =       0
+ IFBOX  =       0 NMXRS  =      24 IFCAP =       0 NEXTRA =       0
+ NCOPY  =       0
+
+ Implicit solvent radii are modified Bondi radii (mbondi)                                                   
+
+|     Memory Use     Allocated
+|     Real               30130
+|     Hollerith            934
+|     Integer            37211
+|     Max Pairs              1
+|     nblistReal             0
+|     nblist Int             0
+|       Total              384 kbytes
+
+| Note: 1-4 EEL scale factors are being read from the topology file.
+
+| Note: 1-4 VDW scale factors are being read from the topology file.
+| Duplicated    0 dihedrals
+| Duplicated    0 dihedrals
+
+--------------------------------------------------------------------------------
+   2.  CONTROL  DATA  FOR  THE  RUN
+--------------------------------------------------------------------------------
+
+default_name                                                                    
+
+General flags:
+     imin    =       1, nmropt  =       0
+
+Nature and format of input:
+     ntx     =       1, irest   =       0, ntrx    =       1
+
+Nature and format of output:
+     ntxo    =       2, ntpr    =      50, ntrx    =       1, ntwr    =       1
+     iwrap   =       0, ntwx    =       0, ntwv    =       0, ntwe    =       0
+     ioutfm  =       1, ntwprt  =       0, idecomp =       0, rbornstat=      0
+
+Potential function:
+     ntf     =       1, ntb     =       0, igb     =       1, nsnb    =      25
+     ipol    =       0, gbsa    =       0, iesp    =       0
+     dielc   =   1.00000, cut     = 999.00000, intdiel =   1.00000
+     saltcon =   0.00000, offset  =   0.09000, gbalpha=    1.00000
+     gbbeta  =   0.00000, gbgamma =   0.00000, surften =   0.00500
+     rdt     =   0.00000, rgbmax  = 999.00000  extdiel =  78.50000
+     alpb  =        0
+
+Frozen or restrained atoms:
+     ibelly  =       0, ntr     =       0
+
+Energy minimization:
+     maxcyc  =     200, ncyc    =     100, ntmin   =       1
+     dx0     =   0.01000, drms    =   0.00010
+
+| MPI Timing options:
+|      profile_mpi =        0
+|  INFO: Old style inpcrd file read
+
+
+--------------------------------------------------------------------------------
+   3.  ATOMIC COORDINATES AND VELOCITIES
+--------------------------------------------------------------------------------
+
+default_name                                                                    
+ begin time read from input coords =     0.000 ps
+
+ Number of triangulated 3-point waters found:        0
+|  Atom division among processors:
+|         0      16      35      56      75      75      92     116
+|       135     135     157     169     183     197     219     226
+|       250     264     278     292     304
+|  Running AMBER/MPI version on   20 nodes
+
+|  WARNING: The number of processors is not a power of 2
+|           this may be inefficient on some systems.
+
+--------------------------------------------------------------------------------
+   4.  RESULTS
+--------------------------------------------------------------------------------
+
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+      1      -6.1790E+02     4.0808E-01     2.1983E+00     C         175
+
+ BOND    =       13.8412  ANGLE   =       46.9869  DIHED      =      198.8750
+ VDWAALS =      -81.0592  EEL     =    -1355.1827  EGB        =     -375.1094
+ 1-4 VDW =       55.9909  1-4 EEL =      877.7617  RESTRAINT  =        0.0000
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+     50      -6.1794E+02     4.0929E-03     7.8405E-02     C         302
+
+ BOND    =       13.9038  ANGLE   =       46.9500  DIHED      =      198.8825
+ VDWAALS =      -81.0731  EEL     =    -1355.2481  EGB        =     -375.0595
+ 1-4 VDW =       55.9721  1-4 EEL =      877.7363  RESTRAINT  =        0.0000
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+    100      -6.1794E+02     1.2535E-03     5.8799E-03     OXT       304
+
+ BOND    =       13.9034  ANGLE   =       46.9510  DIHED      =      198.8820
+ VDWAALS =      -81.0740  EEL     =    -1355.2457  EGB        =     -375.0592
+ 1-4 VDW =       55.9715  1-4 EEL =      877.7349  RESTRAINT  =        0.0000
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+    150      -6.1794E+02     8.1327E-03     6.2288E-02     OG        300
+
+ BOND    =       13.9000  ANGLE   =       46.9505  DIHED      =      198.8734
+ VDWAALS =      -81.0698  EEL     =    -1355.2700  EGB        =     -375.0344
+ 1-4 VDW =       55.9737  1-4 EEL =      877.7395  RESTRAINT  =        0.0000
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+    200      -6.1794E+02     6.1613E-03     4.8544E-02     CD2       114
+
+ BOND    =       13.9026  ANGLE   =       46.9500  DIHED      =      198.8761
+ VDWAALS =      -81.0707  EEL     =    -1355.2733  EGB        =     -375.0302
+ 1-4 VDW =       55.9722  1-4 EEL =      877.7359  RESTRAINT  =        0.0000
+
+
+  Maximum number of minimization cycles reached.
+
+
+                    FINAL RESULTS
+
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+    200      -6.1794E+02     6.1613E-03     4.8544E-02     CD2       114
+
+ BOND    =       13.9026  ANGLE   =       46.9500  DIHED      =      198.8761
+ VDWAALS =      -81.0707  EEL     =    -1355.2733  EGB        =     -375.0302
+ 1-4 VDW =       55.9722  1-4 EEL =      877.7359  RESTRAINT  =        0.0000
+
+--------------------------------------------------------------------------------
+   5.  TIMINGS
+--------------------------------------------------------------------------------
+
+|    Read coords time           0.00 ( 0.56% of Total)
+|    Fast Water setup           0.00 ( 0.01% of Total)
+|                Calc gb radii              0.01 (17.26% of Gen B)
+|                Communicate gb radii       0.01 (15.62% of Gen B)
+|                Calc gb diag               0.02 (34.10% of Gen B)
+|                Calc gb off-diag           0.02 (32.80% of Gen B)
+|                Other                      0.00 ( 0.21% of Gen B)
+|             Gen Born time              0.07 (100.0% of Nonbo)
+|             IPS excludes               0.00 ( 0.02% of Nonbo)
+|          Nonbond force              0.07 (78.26% of Force)
+|          Bond/Angle/Dihedral        0.01 ( 6.38% of Force)
+|          FRC Collect time           0.01 ( 8.91% of Force)
+|          Other                      0.01 ( 6.45% of Force)
+|       Force time                 0.09 (100.0% of Runmd)
+|    Runmd Time                 0.09 (72.17% of Total)
+|    Other                      0.03 (27.26% of Total)
+| Total time                 0.12 (100.0% of ALL  )
+
+| Highest rstack allocated:          0
+| Highest istack allocated:          0
+|           Job began  at 19:33:38.848  on 03/12/2018
+|           Setup done at 19:33:38.863  on 03/12/2018
+|           Run   done at 19:33:38.971  on 03/12/2018
+|     wallclock() was called    4834 times

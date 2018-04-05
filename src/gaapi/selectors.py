@@ -1,5 +1,5 @@
 '''
-crossovers.py
+selectrors.py
 
 @author: Nicholas Browning
 '''
@@ -7,6 +7,7 @@ crossovers.py
 import numpy as np
 
 def selector(settings, individuals, selector_op, **args):
+    print("SELECTORS {}".format(settings.selector))
     return selector_op(settings, individuals, **args)
 
 
@@ -19,7 +20,10 @@ def tournamentSelectionWOR(settings, individuals, **kargs):
     
     for _ in xrange(0, settings.population_size):
         np.random.shuffle(indexes)
-        min_idx = np.argmin([individuals[i] for i in indexes[:tournament_size]])
+        min_idx = np.argmin([individuals[i] for i in indexes[:tournament_size]]) #J: NOT individuals[i].fitness? random selection?
         result.append(indexes[:tournament_size][min_idx])
         
     return np.asarray(result)
+
+def roulette_wheel(settings, individuals, **kargs):
+    pass

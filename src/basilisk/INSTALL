@@ -1,0 +1,62 @@
+Quick 
+=====
+
+BASILISK uses the standard python install routine, so the follwing command will install 
+BASILISK into your standard python modules location.
+
+$> tar -xzf basilisk-0.1.tar.gz
+$> cd basilisk-0.1
+$> python setup.py install
+
+
+Prerequisites
+=============
+The BASILISK software package is written in Python. It was developed and tested under 
+Python 2.5.2 on a Linux system, but probably works fine under most 2.x versions (not 
+tested though). There a couple non-standard libraries required to be able to run 
+BASILISK, namely Numpy, BioPython and Mocapy.
+
+# 	Numpy
+ 	Numpy is a package that implements fast numerical operations for large arrays and 
+	is also required for the installation of BioPython. For detailed information and 
+	downloads please visit :[http://numpy.scipy.org/]
+
+#	BioPython
+ 	BioPython is a large collection of bioinformatics tools for sequence analysis, 
+	database queries, structural bioinformatic and much more. We use the Bio.PDB 
+	package to handle PDB files. For more informations and installation advise please 
+	visit :
+	http://www.biopython.org
+
+#	Mocapy (bundled)
+ 	Mocapy is a framework that allows dealing with DBNs and is used for the actual
+	implementation of the network. However we only require a small portion of the 
+	Mocapy package for our model, which is why we decided to bundle a strip-down 
+	version of Mocapy with BASILISK. For more information and downloads please visit :
+	http://sourceforge.net/projects/mocapy
+	Note: Mocapy is bundeled with this release of BASILISK. If you already have Mocapy installed or want the full Mocapy package for other reasons, be advised that BASILISK per default will try to use the bundled version of Mocapy. 
+
+Install 
+=======
+Before you install the package you may want to think about wether you actually need to
+install the package. The example scripts will work fine if you just unpack the package. 
+An installation however is usefull if you plan on developing your own scripts 
+incorporation BASILISK. 
+
+BASILISK uses the standard Python install routine using the distutils package. Download 
+the source version of the package. Then expand the package and descent into the source
+directory by 
+
+$> tar -xzf basilisk-0.1.tar.gz
+$> cd basilisk-0.1
+
+Once you entered the directory you can install the package into the standard folder for
+Python modules using 
+
+$> python setup.py install
+
+If you want to specify a different directory to install the package to use
+
+$> python setup.py install --prefix MYDIR
+
+For more options and informations please use the setup.py help command.

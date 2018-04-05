@@ -8,6 +8,8 @@ import ConfigParser
 from gaapi import operator_types 
 import sys
 import openbabel
+import collections
+
 
 class Settings(object):
     '''
@@ -48,8 +50,9 @@ class Settings(object):
         self.dihedral_optimization = self.config.getboolean('OPTIMIZATION', 'dihedral_optimization')
         if (self.dihedral_optimization):
             self.dihedral_residue_indexes = [int(v) for v in self.config.get('OPTIMIZATION', 'dihedral_residue_indexes').split()]
-        
-        
+            
+        self.basilisk_and_sidechains = self.config.getboolean('OPTIMIZATION', 'basilisk_and_sidechains')
+          
         # PARSE [GA GLOBAL]
         if (self.config.has_option('GA_GLOBAL', 'seed_population')):
             self.seed_population = self.config.getboolean('GA_GLOBAL', 'seed_population')
@@ -60,7 +63,7 @@ class Settings(object):
         
         # PARSE [GA_SELECTION]
         self.selector = self.config.get('GA_SELECTION', 'selector')
-        print self.selector, operator_types.TOURNAMENT_WOR
+        #print self.selector, operator_types.TOURNAMENT_WOR
         if (self.selector == operator_types.TOURNAMENT_WOR):
             self.tournament_size = int(self.config.get('GA_SELECTION', 'tournament_size'))
             
@@ -98,19 +101,26 @@ class Settings(object):
             # parse turbomole specifics
             self.turbomole_template = self.config.get('EVALUATOR', 'turbomole_template')
         if "amber" in self.evaluators:
-            pass
+            # parse amber computation parameters
+            #self.amber_path = self.config.get('EVALUATOR', 'amber_path')
+            #self.mpi_path = self.config.get('EVALUATOR', 'mpi_path')
+            self.use_gaussian = self.config.getboolean('EVALUATOR', 'use_gaussian')
+            self.tleap_template = self.config.get('EVALUATOR', 'tleap_template')
+            self.amber_params = self.config.get('EVALUATOR', 'amber_params')
+            self.mpi_procs = int(self.config.get('EVALUATOR', 'mpi_processors'))
     
         # PARSE [IO]
+        self.output_path = self.config.get('IO', 'output_path')
         self.output_file = self.config.get('IO', 'output_file')
+        self.store_intermediate_mol = self.config.getboolean('IO', 'store_intermediate_mol')
+
         
         # PARSE [DEBUG]
         self.verbose = self.config.getboolean('DEBUG', 'verbose')
-        
-        
-        
     
 
     def printSettings(self):
-        for attribute, value in self.__dict__.items():
+        ordered_dict = collections.OrderedDict(self.__dict__) # No change since self.__dict__ already disordered..., could be removed
+        for attribute, value in ordered_dict.items():
             print('{} : {}'.format(attribute, value))
             

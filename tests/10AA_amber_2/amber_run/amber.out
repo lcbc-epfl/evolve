@@ -1,0 +1,184 @@
+
+          -------------------------------------------------------
+          Amber 16 SANDER                              2016
+          -------------------------------------------------------
+
+| Run on 02/26/2018 at 17:46:48
+
+|   Executable path: sander.MPI
+| Working directory: /scratch-store/scratch/jvillard/GAcode
+|          Hostname: Unknown
+  [-O]verwriting output
+
+File Assignments:
+|  MDIN: tests/10AA_amber_2/amber_minimization.in                              
+| MDOUT: tests/10AA_amber_2/amber_run/amber.out                                
+|INPCRD: tests/10AA_amber_2/amber_run/leap_temp_mol.inpcrd                     
+|  PARM: tests/10AA_amber_2/amber_run/leap_temp_mol.prmtop                     
+|RESTRT: tests/10AA_amber_2/amber_run/amber.rst                                
+|  REFC: refc                                                                  
+| MDVEL: mdvel                                                                 
+| MDFRC: mdfrc                                                                 
+|  MDEN: mden                                                                  
+| MDCRD: mdcrd                                                                 
+|MDINFO: mdinfo                                                                
+|  MTMD: mtmd                                                                  
+|INPDIP: inpdip                                                                
+|RSTDIP: rstdip                                                                
+|INPTRA: inptraj                                                               
+
+|    REMLOG: rem.log
+|   REMTYPE: rem.type
+|  REMSTRIP: 
+|   SAVEENE: saveene
+|CLUSTERINF: cluster.info
+| RESERVOIR: reserv/frame
+|   REMDDIM: 
+
+
+ Here is the input file:
+
+Minimize                                                                       
+ &cntrl                                                                        
+  imin = 1,                                                                    
+  ntmin = 1,                                                                   
+  maxcyc = 2000,                                                               
+  ncyc = 1000,                                                                 
+  ntpr = 500,                                                                  
+  ntr = 0,                                                                     
+  igb = 0,                                                                     
+  ntb = 0,                                                                     
+  cut = 99.0                                                                   
+ /                                                                             
+
+--------------------------------------------------------------------------------
+   1.  RESOURCE   USE: 
+--------------------------------------------------------------------------------
+
+| Flags: MPI                                                                    
+|    NONPERIODIC   ntb=0 and igb=0: Setting up nonperiodic simulation
+|  *** cutoff > system size, list only builds once
+|Largest sphere to fit in unit cell has radius =    35.907
+| New format PARM file being parsed.
+| Version =    1.000 Date = 02/26/18 Time = 17:46:47
+ NATOM  =     166 NTYPES =      13 NBONH =      85 MBONA  =      83
+ NTHETH =     192 MTHETA =     111 NPHIH =     364 MPHIA  =     321
+ NHPARM =       0 NPARM  =       0 NNB   =     910 NRES   =      10
+ NBONA  =      83 NTHETA =     111 NPHIA =     321 NUMBND =      43
+ NUMANG =      92 NPTRA  =      89 NATYP =      26 NPHB   =       0
+ IFBOX  =       0 NMXRS  =      24 IFCAP =       0 NEXTRA =       0
+ NCOPY  =       0
+
+
+|     Memory Use     Allocated
+|     Real               17997
+|     Hollerith            510
+|     Integer            57285
+|     Max Pairs          13695
+|     nblistReal          1992
+|     nblist Int        834878
+|       Total             3696 kbytes
+
+| Note: 1-4 EEL scale factors are being read from the topology file.
+
+| Note: 1-4 VDW scale factors are being read from the topology file.
+| Duplicated    0 dihedrals
+| Duplicated    0 dihedrals
+
+--------------------------------------------------------------------------------
+   2.  CONTROL  DATA  FOR  THE  RUN
+--------------------------------------------------------------------------------
+
+default_name                                                                    
+
+General flags:
+     imin    =       1, nmropt  =       0
+
+Nature and format of input:
+     ntx     =       1, irest   =       0, ntrx    =       1
+
+Nature and format of output:
+     ntxo    =       2, ntpr    =     500, ntrx    =       1, ntwr    =       1
+     iwrap   =       0, ntwx    =       0, ntwv    =       0, ntwe    =       0
+     ioutfm  =       1, ntwprt  =       0, idecomp =       0, rbornstat=      0
+
+Potential function:
+     ntf     =       1, ntb     =       0, igb     =       0, nsnb    =      25
+     ipol    =       0, gbsa    =       0, iesp    =       0
+     dielc   =   1.00000, cut     =  99.00000, intdiel =   1.00000
+
+Frozen or restrained atoms:
+     ibelly  =       0, ntr     =       0
+
+Energy minimization:
+     maxcyc  =    2000, ncyc    =    1000, ntmin   =       1
+     dx0     =   0.01000, drms    =   0.00010
+
+| MPI Timing options:
+|      profile_mpi =        0
+|  INFO: Old style inpcrd file read
+
+
+--------------------------------------------------------------------------------
+   3.  ATOMIC COORDINATES AND VELOCITIES
+--------------------------------------------------------------------------------
+
+default_name                                                                    
+ begin time read from input coords =     0.000 ps
+
+ Number of triangulated 3-point waters found:        0
+|  Atom division among processors:
+|         0      34      34      58      74      85     107     126
+|       137     144     166
+
+     Sum of charges from parm topology file =   1.99999999
+|  Running AMBER/MPI version on   10 nodes
+
+|  WARNING: The number of processors is not a power of 2
+|           this may be inefficient on some systems.
+
+--------------------------------------------------------------------------------
+   4.  RESULTS
+--------------------------------------------------------------------------------
+
+ ---------------------------------------------------
+
+     eedmeth=4: Setting switch to one everywhere
+
+ ---------------------------------------------------
+| Local SIZE OF NONBOND LIST =       1981
+| TOTAL SIZE OF NONBOND LIST =      12794
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+      1      -6.8646E+01     3.3913E-01     1.3739E+00     N         138
+
+ BOND    =        4.8613  ANGLE   =       21.0924  DIHED      =       98.8216
+ VDWAALS =      -41.7792  EEL     =     -924.9180  HBOND      =        0.0000
+ 1-4 VDW =       31.3254  1-4 EEL =      741.9507  RESTRAINT  =        0.0000
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+    500      -6.8661E+01     6.4756E-04     6.7877E-03     C         164
+
+ BOND    =        4.8335  ANGLE   =       21.0691  DIHED      =       98.8217
+ VDWAALS =      -41.8263  EEL     =     -924.8617  HBOND      =        0.0000
+ 1-4 VDW =       31.3267  1-4 EEL =      741.9757  RESTRAINT  =        0.0000
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+   1000      -6.8661E+01     2.0744E-04     1.0446E-03     CE1       155
+
+ BOND    =        4.8335  ANGLE   =       21.0692  DIHED      =       98.8213
+ VDWAALS =      -41.8260  EEL     =     -924.8616  HBOND      =        0.0000
+ 1-4 VDW =       31.3267  1-4 EEL =      741.9756  RESTRAINT  =        0.0000
+ Frac coord min, max:    2.8955232793710668E-002   1.0625894717851152     
+ The system has extended beyond 
+     the extent of the virtual box.
+ Restarting sander will recalculate
+    a new virtual box with 30 Angstroms
+    extra on each side, if there is a
+    restart file for this configuration.
+ SANDER BOMB in subroutine Routine: map_coords (ew_force.f)
+ Atom out of bounds. If a restart has been written,
+ restarting should resolve the error
