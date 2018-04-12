@@ -33,12 +33,13 @@ def UniformDihedralGenerator(settings, individuals):
     
     num_phipsi = len(settings.dihedral_residue_indexes)
     
-    initial_solution = np.random.uniform(low=-180, high=180, size=(num_phipsi, 2))
-    
+   
     for i in xrange (0, settings.population_size):
         indiv = individuals[i]
-        for j in xrange (0, len(indiv.phi_psi_dihedrals)):
-            indiv.phi_psi_dihedrals[j] = (dihedrals[j][0], dihedrals[j][1])
+        initial_solution = np.random.uniform(low=-180, high=180, size=(num_phipsi, 2))
+        for j in xrange (0, len(indiv.phi_dihedrals)):
+            indiv.phi_dihedrals[j] = initial_solution[j][0]
+            indiv.psi_dihedrals[j] = initial_solution[j][1]
         indiv.applyPhiPsiDihedrals()
     
 
@@ -135,7 +136,8 @@ def BasiliskSideChainDihedralsGenerator(settings, individuals):
         res = mol_in.GetResidue(settings.dihedral_residue_indexes[i])
         res_name.append(res.GetName())
         res_index.append(basilisk_utils.three_to_index(res_name[i]))
-    
+        
+    # print (res_index)
     # Load the DBN and compute chis and backbone angles depending on the aa
     for i in xrange(0, len(individuals)):
         indiv = individuals[i]
@@ -148,7 +150,9 @@ def BasiliskSideChainDihedralsGenerator(settings, individuals):
             # for that sample 
             # with log probability in ll:
             dbn = basilisk_dbn()
-            chis, bb, ll = dbn.get_sample(res_index[j], radians(indiv.phi_dihedrals[j]), radians(indiv.psi_dihedrals[j]))
+            # chis, bb, ll = dbn.get_sample(res_index[j], radians(indiv.phi_dihedrals[j]), radians(indiv.psi_dihedrals[j]))
+            
+            chis, bb, ll = dbn.get_sample(res_index[j])  # Nick fix - call above doesn't provide independant BB samples!
             
             # without log probability
             # chis, bb, ll = dbn.get_sample(res_index[j], math.radians(indiv.phi_dihedrals[j]), math.radians(indiv.psi_dihedrals[j]), no_ll=True)
@@ -159,14 +163,19 @@ def BasiliskSideChainDihedralsGenerator(settings, individuals):
             for k in xrange(0, len(chis)):
                 chis_degrees.append(degrees(chis[k]))
 
-            indiv.chi_angles.append(chis_degrees) #list of lists containing the chi angles of each residue
+            indiv.chi_angles.append(chis_degrees)  # list of lists containing the chi angles of each residue
             if (settings.verbose):
                 print("{0}, {1}, {2}, {3}, {4}, {5}".format(i, settings.dihedral_residue_indexes[j], indiv.phi_dihedrals[j], indiv.psi_dihedrals[j], indiv.chi_angles[j], ll))
 
-            side_chain_atoms_dict = CalcAngles.get_chi(res_name[j]) #returns a dictionary of arrays, describing the atoms for all the angles in the side chain of the current residue
-            #indiv.chi_atoms.append(side_chain_atoms) #list of dictionaries
+            side_chain_atoms_dict = CalcAngles.get_chi(res_name[j])  # returns a dictionary of arrays, describing the atoms for all the angles in the side chain of the current residue
+            # indiv.chi_atoms.append(side_chain_atoms) #list of dictionaries
+            
+            # print (side_chain_atoms_dict)
             side_chain_atoms = []
             for k in xrange(0, len(side_chain_atoms_dict)):
-                side_chain_atoms.append(map(lambda x:x.upper(), side_chain_atoms_dict['x'+str(k+1)]))
+                side_chain_atoms.append(map(lambda x:x.upper(), side_chain_atoms_dict['x' + str(k + 1)]))
                 
-            indiv.chi_atoms.append(side_chain_atoms) #list of 4 atoms defining each chi dihedral
+            indiv.chi_atoms.append(side_chain_atoms)  # list of 4 atoms defining each chi dihedral
+            
+            indiv.applyPhiPsiDihedrals()
+            # indiv.apply_chi_dihedrals()

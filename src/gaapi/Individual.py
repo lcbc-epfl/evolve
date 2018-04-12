@@ -12,7 +12,7 @@ import numpy as np
 class Individual(object):
     
     def __init__(self, settings, orig=None):
-        self.init = False # True if indiv is the initial structure of GA
+        self.init = False  # True if indiv is the initial structure of GA
         if orig is None:
             self.initialise_constructor(settings)
         else:
@@ -53,8 +53,8 @@ class Individual(object):
 
         if (settings.basilisk_and_sidechains):
 
-            self.chi_angles = [] #Sidechain chi dihedrals
-            self.chi_atoms = [] #Sidechain atoms defining chi dihedrals, name not OBAtom
+            self.chi_angles = []  # Sidechain chi dihedrals
+            self.chi_atoms = []  # Sidechain atoms defining chi dihedrals, name not OBAtom
 
             
         self.fitnesses = np.zeros(len(settings.evaluators))
@@ -142,8 +142,8 @@ class Individual(object):
 
             for k in xrange(0, len(self.chi_angles[j])):
                 torsion_atom_ID = self.chi_atoms[j][k]
-                #print(torsion_atom_ID)
-                #print(sorted_atoms_ID[j])
+                # print(torsion_atom_ID)
+                # print(sorted_atoms_ID[j])
                 
                 torsion_atom_locs = []
                 torsion_ob_atoms = []
@@ -159,7 +159,7 @@ class Individual(object):
 
     def apply_chi_dihedrals(self):
 
-        if (self.chi_angles is None or []):
+        if (self.chi_angles is None or len(self.chi_angles) == 0):
             return
         
         (sorted_atoms_ID, sorted_atoms_OB) = mi.get_atoms_per_residue(self.mol)
@@ -168,8 +168,8 @@ class Individual(object):
 
             for k in xrange(0, len(self.chi_angles[j])):
                 torsion_atom_ID = self.chi_atoms[j][k]
-                #print(torsion_atom_ID)
-                #print(sorted_atoms_ID[j])
+                # print(torsion_atom_ID)
+                # print(sorted_atoms_ID[j])
                 
                 torsion_atom_locs = []
                 torsion_ob_atoms = []
@@ -196,3 +196,87 @@ class Individual(object):
     
     def __gt__(self, other):
         return other.dominates(self)
+    
+class PSOIndividual(Individual):
+    
+    def __init__(self, settings, orig=None):
+        if orig is None:
+            self.initialise_constructor(settings)
+            
+            self.phi_velocity_vector = np.zeros(len(self.dihedral_residue_indexes))
+            self.psi_velocity_vector = np.zeros(len(self.dihedral_residue_indexes))
+            
+            self.topological_neighbours = None
+            self.topological_best_neighbour = None
+            
+            self.personal_best_phi = np.zeros(len(self.dihedral_residue_indexes))
+            self.personal_best_psi = np.zeros(len(self.dihedral_residue_indexes))
+            self.personal_best_fitness = None
+            
+        else:
+            self.copy_constructor(settings, orig)
+            self.phi_velocity_vector = orig.phi_velocity_vector
+            self.psi_velocity_vector = orig.psi_velocity_vector
+            
+            self.topological_neighbours = orig.topological_neighbours
+            self.topological_best_neighbour = orig.topological_best_neighbour
+            
+            self.personal_best_phi = orig.personal_best_phi
+            self.personal_best_psi = orig.personal_best_psi
+            
+            
+    def updateVelocity(self, population, weight, c1, c2):
+        
+        r1 = np.random.rand((len(self.phi_dihedrals)))
+        r2 = np.random.rand((len(self.phi_dihedrals)))
+        
+        self.phi_velocity_vector = (weight * self.phi_velocity_vector) + (c1 * np.multiply(self.personal_best_phi - self.phi_dihedrals, r1)) + \
+        (c2 * np.multiply(population[self.topological_best_neighbour].phi_dihedrals - self.phi_dihedrals, r2))
+        
+        r1 = np.random.rand((len(self.psi_dihedrals)))
+        r2 = np.random.rand((len(self.psi_dihedrals)))
+
+        self.psi_velocity_vector = (weight * self.psi_velocity_vector) + (c1 * np.multiply(self.personal_best_psi - self.psi_dihedrals, r1)) + \
+        (c2 * np.multiply(population[self.topological_best_neighbour].psi_dihedrals - self.psi_dihedrals, r2))
+        
+        for i in range(0, len(self.phi_dihedrals)):
+            
+            if (self.phi_velocity_vector[i] < -45):
+                self.phi_velocity_vector[i] = -45
+            if (self.phi_velocity_vector[i] > 45):
+                self.phi_velocity_vector[i] = 45
+                
+            if (self.psi_velocity_vector[i] < -45):
+                self.psi_velocity_vector[i] = -45
+            if (self.psi_velocity_vector[i] > 45):
+                self.psi_velocity_vector[i] = 45
+    
+    
+    def updatePosition(self):
+        self.phi_dihedrals = self.phi_dihedrals + self.phi_velocity_vector
+        self.psi_dihedrals = self.psi_dihedrals + self.psi_velocity_vector
+        
+        for i in range(0, len(self.phi_dihedrals)):
+            if (self.phi_dihedrals[i] < -180):
+                self.phi_dihedrals[i] = self.phi_dihedrals[i] + 360
+            if (self.phi_dihedrals[i] > 180):
+                self.phi_dihedrals[i] = self.phi_dihedrals[i] - 360
+                
+            if (self.psi_dihedrals[i] < -180):
+                self.psi_dihedrals[i] = self.psi_dihedrals[i] + 360
+            if (self.psi_dihedrals[i] > 180):
+                self.psi_dihedrals[i] = self.psi_dihedrals[i] - 360
+        
+    def updatePersonalBest(self):
+        if self.fitnesses[0] < self.personal_best_fitness:
+            self.personal_best_fitness = self.fitnesses[0]
+            self.personal_best_phi = phi_dihedrals
+            self.personal_best_psi = psi_dihedrals
+        
+    
+    def updateTopologicalBestNeighbour(self, population):
+        for i in range(len(self.topological_neighbours)):
+            if (population[self.topological_neighbours[i]].dominates(population[self.topological_best_neighbour])):
+                self.topological_best_neighbour = self.topological_neighbours[i]
+    
+    

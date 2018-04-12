@@ -1,0 +1,216 @@
+
+          -------------------------------------------------------
+          Amber 16 SANDER                              2016
+          -------------------------------------------------------
+
+| Run on 04/11/2018 at 13:22:34
+
+|   Executable path: sander
+| Working directory: /share/lcbcpc35/home/nbrownin/git/GABio/tests/nick_tests/pso_tests
+|          Hostname: Unknown
+  [-O]verwriting output
+
+File Assignments:
+|  MDIN: amber_minimization.in                                                 
+| MDOUT: lowest_energy_struct.out                                              
+|INPCRD: lowest_energy_struct.inpcrd                                           
+|  PARM: lowest_energy_struct.prmtop                                           
+|RESTRT: lowest_energy_struct.rst                                              
+|  REFC: refc                                                                  
+| MDVEL: mdvel                                                                 
+| MDFRC: mdfrc                                                                 
+|  MDEN: mden                                                                  
+| MDCRD: mdcrd                                                                 
+|MDINFO: mdinfo                                                                
+|  MTMD: mtmd                                                                  
+|INPDIP: inpdip                                                                
+|RSTDIP: rstdip                                                                
+|INPTRA: inptraj                                                               
+
+
+ Here is the input file:
+
+Minimize with implicit solvent, standard Born solvation model igb=1            
+ &cntrl                                                                        
+  imin = 1,                                                                    
+  irest = 0,                                                                   
+  ntmin = 1,                                                                   
+  maxcyc = 1000,                                                               
+  ncyc = 500,                                                                  
+  ntpr = 200,                                                                  
+  ntr = 0,                                                                     
+  igb = 5,                                                                     
+  ntb = 0,                                                                     
+  cut = 999                                                                    
+ /                                                                             
+
+--------------------------------------------------------------------------------
+   1.  RESOURCE   USE: 
+--------------------------------------------------------------------------------
+
+| Flags:                                                                        
+| New format PARM file being parsed.
+| Version =    1.000 Date = 04/11/18 Time = 13:06:48
+ NATOM  =     304 NTYPES =      12 NBONH =     150 MBONA  =     160
+ NTHETH =     346 MTHETA =     219 NPHIH =     678 MPHIA  =     552
+ NHPARM =       0 NPARM  =       0 NNB   =    1701 NRES   =      20
+ NBONA  =     160 NTHETA =     219 NPHIA =     552 NUMBND =      32
+ NUMANG =      70 NPTRA  =      37 NATYP =      21 NPHB   =       0
+ IFBOX  =       0 NMXRS  =      24 IFCAP =       0 NEXTRA =       0
+ NCOPY  =       0
+
+ Implicit solvent radii are modified Bondi radii (mbondi)                                                   
+
+|     Memory Use     Allocated
+|     Real               29178
+|     Hollerith            934
+|     Integer            36591
+|     Max Pairs              1
+|     nblistReal             0
+|     nblist Int             0
+|       Total              374 kbytes
+
+| Note: 1-4 EEL scale factors are being read from the topology file.
+
+| Note: 1-4 VDW scale factors are being read from the topology file.
+| Duplicated    0 dihedrals
+| Duplicated    0 dihedrals
+
+--------------------------------------------------------------------------------
+   2.  CONTROL  DATA  FOR  THE  RUN
+--------------------------------------------------------------------------------
+
+default_name                                                                    
+
+General flags:
+     imin    =       1, nmropt  =       0
+
+Nature and format of input:
+     ntx     =       1, irest   =       0, ntrx    =       1
+
+Nature and format of output:
+     ntxo    =       2, ntpr    =     200, ntrx    =       1, ntwr    =       1
+     iwrap   =       0, ntwx    =       0, ntwv    =       0, ntwe    =       0
+     ioutfm  =       1, ntwprt  =       0, idecomp =       0, rbornstat=      0
+
+Potential function:
+     ntf     =       1, ntb     =       0, igb     =       5, nsnb    =      25
+     ipol    =       0, gbsa    =       0, iesp    =       0
+     dielc   =   1.00000, cut     = 999.00000, intdiel =   1.00000
+     saltcon =   0.00000, offset  =   0.09000, gbalpha=    1.00000
+     gbbeta  =   0.80000, gbgamma =   4.85000, surften =   0.00500
+     rdt     =   0.00000, rgbmax  =  25.00000  extdiel =  78.50000
+     alpb  =        0
+
+Frozen or restrained atoms:
+     ibelly  =       0, ntr     =       0
+
+Energy minimization:
+     maxcyc  =    1000, ncyc    =     500, ntmin   =       1
+     dx0     =   0.01000, drms    =   0.00010
+|  INFO: Old style inpcrd file read
+
+
+--------------------------------------------------------------------------------
+   3.  ATOMIC COORDINATES AND VELOCITIES
+--------------------------------------------------------------------------------
+
+default_name                                                                    
+ begin time read from input coords =     0.000 ps
+
+ Number of triangulated 3-point waters found:        0
+
+--------------------------------------------------------------------------------
+   4.  RESULTS
+--------------------------------------------------------------------------------
+
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+      1      -4.5701E+02     1.7984E+01     1.0062E+02     CG         83
+
+ BOND    =       62.9275  ANGLE   =      153.7226  DIHED      =      219.7399
+ VDWAALS =     -106.9139  EEL     =    -1518.2950  EGB        =     -230.0776
+ 1-4 VDW =       65.1161  1-4 EEL =      896.7703  RESTRAINT  =        0.0000
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+    200      -6.7004E+02     7.9478E-01     7.1342E+00     CD2        53
+
+ BOND    =       14.5038  ANGLE   =       42.4222  DIHED      =      192.2232
+ VDWAALS =     -117.4320  EEL     =    -1523.6016  EGB        =     -231.6976
+ 1-4 VDW =       55.6698  1-4 EEL =      897.8732  RESTRAINT  =        0.0000
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+    400      -6.7545E+02     6.5600E-01     1.1524E+01     CG        165
+
+ BOND    =       14.0573  ANGLE   =       40.8517  DIHED      =      190.5882
+ VDWAALS =     -118.3474  EEL     =    -1525.0329  EGB        =     -231.4410
+ 1-4 VDW =       55.5343  1-4 EEL =      898.3443  RESTRAINT  =        0.0000
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+    600      -6.8380E+02     2.8020E-01     1.8811E+00     HD12       72
+
+ BOND    =       13.2001  ANGLE   =       39.5416  DIHED      =      186.6444
+ VDWAALS =     -119.2498  EEL     =    -1532.4432  EGB        =     -227.6042
+ 1-4 VDW =       56.1451  1-4 EEL =      899.9634  RESTRAINT  =        0.0000
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+    800      -6.8611E+02     1.8808E-01     1.2519E+00     C         302
+
+ BOND    =       13.3642  ANGLE   =       39.7358  DIHED      =      186.0677
+ VDWAALS =     -120.5934  EEL     =    -1538.1366  EGB        =     -223.8510
+ 1-4 VDW =       56.0433  1-4 EEL =      901.2607  RESTRAINT  =        0.0000
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+   1000      -6.8699E+02     1.8541E-01     1.6189E+00     C         302
+
+ BOND    =       13.2973  ANGLE   =       39.9203  DIHED      =      185.9789
+ VDWAALS =     -121.2476  EEL     =    -1540.5404  EGB        =     -222.0603
+ 1-4 VDW =       55.9183  1-4 EEL =      901.7425  RESTRAINT  =        0.0000
+
+
+  Maximum number of minimization cycles reached.
+
+
+                    FINAL RESULTS
+
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+   1000      -6.8699E+02     1.8541E-01     1.6189E+00     C         302
+
+ BOND    =       13.2973  ANGLE   =       39.9203  DIHED      =      185.9789
+ VDWAALS =     -121.2476  EEL     =    -1540.5404  EGB        =     -222.0603
+ 1-4 VDW =       55.9183  1-4 EEL =      901.7425  RESTRAINT  =        0.0000
+
+--------------------------------------------------------------------------------
+   5.  TIMINGS
+--------------------------------------------------------------------------------
+
+|    Read coords time           0.00 ( 0.04% of Total)
+|                Calc gb radii              1.21 (20.44% of Gen B)
+|                Calc gb diag               2.47 (41.67% of Gen B)
+|                Calc gb off-diag           2.24 (37.87% of Gen B)
+|                Other                      0.00 ( 0.01% of Gen B)
+|             Gen Born time              5.92 (100.0% of Nonbo)
+|          Nonbond force              5.92 (92.75% of Force)
+|          Bond/Angle/Dihedral        0.46 ( 7.21% of Force)
+|          Other                      0.00 ( 0.03% of Force)
+|       Force time                 6.38 (100.0% of Runmd)
+|    Runmd Time                 6.38 (74.81% of Total)
+|    Other                      2.14 (25.15% of Total)
+| Total time                 8.53 (100.0% of ALL  )
+
+| Number of list builds   :          0
+
+| Highest rstack allocated:          0
+| Highest istack allocated:          0
+|           Job began  at 13:22:34.606  on 04/11/2018
+|           Setup done at 13:22:34.625  on 04/11/2018
+|           Run   done at 13:22:43.132  on 04/11/2018
+|     wallclock() was called   18028 times

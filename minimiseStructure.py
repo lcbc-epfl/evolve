@@ -39,7 +39,7 @@ def printResidueInfo(mol):
         print "Could not setup forcefield"
 
 
-    ff.SteepestDescent(50000)
+    ff.SteepestDescent(10000)
 
     ff.GetCoordinates(mol)
         

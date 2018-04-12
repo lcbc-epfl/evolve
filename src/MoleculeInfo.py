@@ -149,36 +149,39 @@ def getBBCarboxyl(obres):
 def getPhiPsiDihedrals(mol, residue_indexes):
     result = []
     
+    print mol.NumResidues()
+    
     for i in xrange (0, len(residue_indexes)):
         
         obres = mol.GetResidue(residue_indexes[i])
         
         alpha_carbon = getAlphaCarbon(obres)
-        #if alpha_carbon != None:
-            #print('CA: {}'.format(alpha_carbon.GetId()))
+        # if alpha_carbon != None:
+            # print('CA: {}'.format(alpha_carbon.GetId()))
         
         bb_nitrogen = getBBNitrogen(obres)
-        #if bb_nitrogen != None:
-            #print('N: {}'.format(bb_nitrogen.GetId()))
+        # if bb_nitrogen != None:
+            # print('N: {}'.format(bb_nitrogen.GetId()))
         
         neg1_carboxl = getNeg1BBCarboxyl(obres)
-        #if neg1_carboxl != None:
-            #print('C-1: {}'.format(neg1_carboxl.GetId()))
+        # if neg1_carboxl != None:
+            # print('C-1: {}'.format(neg1_carboxl.GetId()))
 
         carboxl = getBBCarboxyl(obres)
-        #if carboxl != None:
-            #print('C: {}'.format(carboxl.GetId()))
+        # if carboxl != None:
+            # print('C: {}'.format(carboxl.GetId()))
         
         plus1_nitrogen = getPlus1BBNitrogen(obres)
-        #if plus1_nitrogen != None:
-            #print('N+1: {}'.format(plus1_nitrogen.GetId()))
+        # if plus1_nitrogen != None:
+            # print('N+1: {}'.format(plus1_nitrogen.GetId()))
+        
         
         phi = 999
         psi = 999
         
-        if (neg1_carboxl != None and carboxl != None):
+        if (neg1_carboxl is not None and carboxl is not None):
             phi = mol.GetTorsion(neg1_carboxl, bb_nitrogen, alpha_carbon, carboxl)
-        if (bb_nitrogen != None and plus1_nitrogen != None):
+        if (bb_nitrogen is not  None and plus1_nitrogen is not None):
             psi = mol.GetTorsion(bb_nitrogen, alpha_carbon, carboxl, plus1_nitrogen)
         
         result.append((phi, psi))
@@ -194,7 +197,7 @@ def setChi1DihedralAngle(mol, residue_index, angle_deg):
     
     gamma_atom = getChi1DihedralAtom(obres)
     
-    if (gamma_atom == None):
+    if (gamma_atom is None):
         return False
     
     mol.SetTorsion(bb_nitrogen, alpha_carbon, beta_atom, gamma_atom, angle_deg * (np.pi / 180.0))
@@ -217,7 +220,7 @@ def getChi1DihedralAngle(mol, obres):
     # print debugAtom(beta_atom)
     # print debugAtom(gamma_atom)
     
-    if (gamma_atom == None):
+    if (gamma_atom is None):
         return None
     
     return mol.GetTorsion(bb_nitrogen, alpha_carbon, beta_atom, gamma_atom)
@@ -276,10 +279,12 @@ def SetPhiPsi(mol, obres, phi, psi):
     carboxl = getBBCarboxyl(obres)
     plus1_nitrogen = getPlus1BBNitrogen(obres)
     
-    if (neg1_carboxl and carboxl and phi != 999):
+    if (neg1_carboxl is not None and carboxl and phi != 999):
+
         mol.SetTorsion(neg1_carboxl, bb_nitrogen, alpha_carbon, carboxl, phi * (np.pi / 180.0))
     
-    if (bb_nitrogen and plus1_nitrogen and psi != 999):
+    if (bb_nitrogen is not None and plus1_nitrogen and psi != 999):
+    
         mol.SetTorsion(bb_nitrogen, alpha_carbon, carboxl, plus1_nitrogen, psi * (np.pi / 180.0))
 
      
@@ -301,13 +306,13 @@ def get_atoms_per_residue(mol):
     sorted_atoms_OB = [[] for _ in xrange(mol.NumResidues())]
 
     for i, ob_res in enumerate(openbabel.OBResidueIter(mol)):
-        #print "Res", i, ob_res.GetName()
+        # print "Res", i, ob_res.GetName()
         
         for ob_atom in openbabel.OBResidueAtomIter(ob_res):
             sorted_atoms_OB[i].append(ob_atom)
             sorted_atoms_ID[i].append(ob_res.GetAtomID(ob_atom).strip())
 
-        #print(sorted_atoms_ID[i])
+        # print(sorted_atoms_ID[i])
 
     return (sorted_atoms_ID, sorted_atoms_OB)
 

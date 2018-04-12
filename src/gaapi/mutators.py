@@ -19,6 +19,46 @@ def mutate(settings, individuals, mutator_op, **args):
             mutated_pop.append(individuals[i])
             
     return mutated_pop
+
+def uniform_mutation(settings, individual):
+
+    mut_rate = settings.genewise_mutation_probability
+
+    mutant = Individual.Individual(settings, individual)
+    
+    if (settings.dihedral_optimization):
+        
+        lower_bound = -180
+        upper_bound = 180
+    
+        for i in xrange (0, len(settings.dihedral_residue_indexes)):
+        
+            if np.random.random() <= mut_rate:
+            
+                psi_m = np.random.rand() * 360 + lower_bound
+                phi_m = np.random.rand() * 360 + lower_bound
+
+                if (settings.verbose):
+                    print "DHDRL: Mutating!", mutant.psi_dihedrals[i], psi_m, mutant.phi_dihedrals[i], phi_m
+                mutant.psi_dihedrals[i] = psi_m
+                mutant.phi_dihedrals[i] = phi_m
+                
+    if (settings.composition_optimization):
+        
+        lower_comp_bound = settings.composition_lower_bounds
+        upper_comp_bound = settings.composition_upper_bounds
+    
+        for i in xrange (0, len(settings.composition_residue_indexes)):
+        
+            if np.random.random() <= mut_rate:
+            
+                comp_m = np.random.randint(low=lower_comp_bound, high=upper_comp_bound)
+
+                if (settings.verbose):
+                    print "CMPSTN: Mutating!", mutant.composition[i], comp_m
+                mutant.composition[i] = comp_m
+
+    return mutant
     
 
 def poly(indiv_i, xl, xu, eta):
@@ -41,7 +81,7 @@ def poly(indiv_i, xl, xu, eta):
     x = min(max(x, xl), xu)
     return x
     
-def polynomial_dihedral(settings, individual, **args):
+def polynomial_mutation(settings, individual, **args):
  
     eta = settings.poly_eta
     mut_rate = settings.genewise_mutation_probability
@@ -62,9 +102,9 @@ def polynomial_dihedral(settings, individual, **args):
 
                 if (settings.verbose):
                     print "DHDRL: Mutating!", individual.psi_dihedrals[i], psi_m, individual.phi_dihedrals[i], phi_m
-                individual.psi_dihedrals[i] = psi_m
+                mutant.psi_dihedrals[i] = psi_m
 
-                individual.phi_dihedrals[i] = phi_m
+                mutant.phi_dihedrals[i] = phi_m
                 
     if (settings.composition_optimization):
         
@@ -79,6 +119,6 @@ def polynomial_dihedral(settings, individual, **args):
 
                 if (settings.verbose):
                     print "CMPSTN: Mutating!", individual.composition[i], comp_m
-                individual.composition[i] = comp_m
+                mutant.composition[i] = comp_m
 
     return mutant

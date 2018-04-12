@@ -23,7 +23,7 @@ def crossover(settings, individuals, crossover_op, **args):
         
     return new_population
         
-def uniform_dihedral(settings, mom, dad, **kargs):
+def uniform_crossover(settings, mom, dad, **kargs):
         
     bro = Individual.Individual(settings, dad)
     sis = Individual.Individual(settings, mom)
@@ -91,7 +91,7 @@ def sim_b(m, d, di, lb, ub):
         bro_val, sis_val = sis_val, bro_val
     return sis_val, bro_val
 
-def simulated_binary_dihedral(settings, mom, dad, **kargs):
+def simulated_binary_crossover(settings, mom, dad, **kargs):
     from src import constants
     di = settings.sbx_distribution_index
 

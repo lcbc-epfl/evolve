@@ -1,0 +1,175 @@
+
+          -------------------------------------------------------
+          Amber 16 SANDER                              2016
+          -------------------------------------------------------
+
+| Run on 04/10/2018 at 18:24:48
+
+|   Executable path: sander.MPI
+| Working directory: /share/lcbcpc35/home/nbrownin/git/GABio/tests/nick_tests/pso_tests
+|          Hostname: Unknown
+  [-O]verwriting output
+
+File Assignments:
+|  MDIN: amber_minimization.in                                                 
+| MDOUT: ./amber_run/amber.out                                                 
+|INPCRD: ./amber_run/mol.inpcrd                                                
+|  PARM: ./amber_run/mol.prmtop                                                
+|RESTRT: ./amber_run/amber.rst                                                 
+|  REFC: refc                                                                  
+| MDVEL: mdvel                                                                 
+| MDFRC: mdfrc                                                                 
+|  MDEN: mden                                                                  
+| MDCRD: mdcrd                                                                 
+|MDINFO: mdinfo                                                                
+|  MTMD: mtmd                                                                  
+|INPDIP: inpdip                                                                
+|RSTDIP: rstdip                                                                
+|INPTRA: inptraj                                                               
+
+|    REMLOG: rem.log
+|   REMTYPE: rem.type
+|  REMSTRIP: 
+|   SAVEENE: saveene
+|CLUSTERINF: cluster.info
+| RESERVOIR: reserv/frame
+|   REMDDIM: 
+
+
+ Here is the input file:
+
+Minimize with implicit solvent, standard Born solvation model igb=1            
+ &cntrl                                                                        
+  imin = 1,                                                                    
+  irest = 0,                                                                   
+  ntmin = 1,                                                                   
+  maxcyc = 1000,                                                               
+  ncyc = 500,                                                                  
+  ntpr = 200,                                                                  
+  ntr = 0,                                                                     
+  igb = 1,                                                                     
+  ntb = 0,                                                                     
+  cut = 999                                                                    
+ /                                                                             
+
+--------------------------------------------------------------------------------
+   1.  RESOURCE   USE: 
+--------------------------------------------------------------------------------
+
+| Flags: MPI                                                                    
+| New format PARM file being parsed.
+| Version =    1.000 Date = 04/10/18 Time = 18:24:48
+ NATOM  =     304 NTYPES =      12 NBONH =     150 MBONA  =     160
+ NTHETH =     346 MTHETA =     219 NPHIH =     678 MPHIA  =     552
+ NHPARM =       0 NPARM  =       0 NNB   =    1701 NRES   =      20
+ NBONA  =     160 NTHETA =     219 NPHIA =     552 NUMBND =      32
+ NUMANG =      70 NPTRA  =      37 NATYP =      21 NPHB   =       0
+ IFBOX  =       0 NMXRS  =      24 IFCAP =       0 NEXTRA =       0
+ NCOPY  =       0
+
+ Implicit solvent radii are modified Bondi radii (mbondi)                                                   
+
+|     Memory Use     Allocated
+|     Real               30130
+|     Hollerith            934
+|     Integer            36591
+|     Max Pairs              1
+|     nblistReal             0
+|     nblist Int             0
+|       Total              381 kbytes
+
+| Note: 1-4 EEL scale factors are being read from the topology file.
+
+| Note: 1-4 VDW scale factors are being read from the topology file.
+| Duplicated    0 dihedrals
+| Duplicated    0 dihedrals
+
+--------------------------------------------------------------------------------
+   2.  CONTROL  DATA  FOR  THE  RUN
+--------------------------------------------------------------------------------
+
+default_name                                                                    
+
+General flags:
+     imin    =       1, nmropt  =       0
+
+Nature and format of input:
+     ntx     =       1, irest   =       0, ntrx    =       1
+
+Nature and format of output:
+     ntxo    =       2, ntpr    =     200, ntrx    =       1, ntwr    =       1
+     iwrap   =       0, ntwx    =       0, ntwv    =       0, ntwe    =       0
+     ioutfm  =       1, ntwprt  =       0, idecomp =       0, rbornstat=      0
+
+Potential function:
+     ntf     =       1, ntb     =       0, igb     =       1, nsnb    =      25
+     ipol    =       0, gbsa    =       0, iesp    =       0
+     dielc   =   1.00000, cut     = 999.00000, intdiel =   1.00000
+     saltcon =   0.00000, offset  =   0.09000, gbalpha=    1.00000
+     gbbeta  =   0.00000, gbgamma =   0.00000, surften =   0.00500
+     rdt     =   0.00000, rgbmax  =  25.00000  extdiel =  78.50000
+     alpb  =        0
+
+Frozen or restrained atoms:
+     ibelly  =       0, ntr     =       0
+
+Energy minimization:
+     maxcyc  =    1000, ncyc    =     500, ntmin   =       1
+     dx0     =   0.01000, drms    =   0.00010
+
+| MPI Timing options:
+|      profile_mpi =        0
+|  INFO: Old style inpcrd file read
+
+
+--------------------------------------------------------------------------------
+   3.  ATOMIC COORDINATES AND VELOCITIES
+--------------------------------------------------------------------------------
+
+default_name                                                                    
+ begin time read from input coords =     0.000 ps
+
+ Number of triangulated 3-point waters found:        0
+|  Atom division among processors:
+|         0      35      56      75      92     116     116     135
+|       157     176     197     219     250     250     278     292
+|       304
+|  Running AMBER/MPI version on   16 nodes
+
+
+--------------------------------------------------------------------------------
+   4.  RESULTS
+--------------------------------------------------------------------------------
+
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+      1       1.9512E+05     5.5533E+04     7.4304E+05     CZ2       106
+
+ BOND    =       13.0629  ANGLE   =       47.5843  DIHED      =      213.9852
+ VDWAALS =   195717.9084  EEL     =    -1434.4522  EGB        =     -439.3859
+ 1-4 VDW =       69.0232  1-4 EEL =      927.9074  RESTRAINT  =        0.0000
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+    200      -5.2166E+02     2.1558E+00     3.2813E+01     CG        165
+
+ BOND    =       12.1269  ANGLE   =       66.2983  DIHED      =      213.7946
+ VDWAALS =      -39.0921  EEL     =    -1317.8972  EGB        =     -450.6840
+ 1-4 VDW =       62.4758  1-4 EEL =      931.3180  RESTRAINT  =        0.0000
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+    400      -5.5581E+02     1.3857E+00     1.4896E+01     CD1       101
+
+ BOND    =       11.2510  ANGLE   =       56.4499  DIHED      =      212.8623
+ VDWAALS =      -55.7163  EEL     =    -1315.7893  EGB        =     -450.9322
+ 1-4 VDW =       59.4565  1-4 EEL =      926.6062  RESTRAINT  =        0.0000
+
+
+   NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
+    600      -5.9676E+02     4.2655E-01     2.8095E+00     H         178
+
+ BOND    =       11.7627  ANGLE   =       46.8362  DIHED      =      205.4397
+ VDWAALS =      -70.3566  EEL     =    -1302.7422  EGB        =     -448.1252
+ 1-4 VDW =       53.7466  1-4 EEL =      906.6811  RESTRAINT  =        0.0000
