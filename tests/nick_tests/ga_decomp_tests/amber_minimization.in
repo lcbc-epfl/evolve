@@ -7,7 +7,6 @@ Minimize with implicit solvent, standard Born solvation model igb=1
   ncyc = 250,
   ntpr = 50, 
   ntr = 0,
-  igb = 5,
+  igb = 1,
   ntb = 0,
-  cut = 999
  /

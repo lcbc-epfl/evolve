@@ -59,11 +59,11 @@ def loadold():
     
     return [general_probability, gly_probability, prepro_probability, pro_probability]
 
-def loadDefaultProbabilityDistributions(distribution_paths='/psiphi/rama500-general-nosec.data /psiphi/rama500-gly-sym-nosec.data /psiphi/rama500-prepro.data /psiphi/rama500-pro.data'):
+def loadDefaultProbabilityDistributions(distribution_paths='/share/lcbcpc35/home/nbrownin/git/GABio/psiphi/rama500-general-nosec.data /share/lcbcpc35/home/nbrownin/git/GABio/psiphi/rama500-gly-sym-nosec.data /share/lcbcpc35/home/nbrownin/git/GABio/psiphi/rama500-prepro.data /share/lcbcpc35/home/nbrownin/git/GABio/psiphi/rama500-pro.data'):
     script_path = get_script_path()
     distributions = []
     for distribution_data in distribution_paths.split():
-        data = np.fromfile(script_path + distribution_data, sep=' ')
+        data = np.fromfile(distribution_data, sep=' ')
         data = data.reshape(len(data) / 3, 3)
         data_probability = data[:, 2]
         N = int(len(data_probability) ** .5)
@@ -114,7 +114,7 @@ def plotProbabilityDistributionAndSolution(probabilityDistributions, probability
     plt.tight_layout()
     plt.show()
            
-def optimisePsiPhi(probabilityDistributions, probabilityDistributionPointers, solution, numIterations, move_lows, move_highs):
+def optimisePhiPsi(probabilityDistributions, probabilityDistributionPointers, solution, numIterations, move_lows, move_highs):
     solution_copy = np.copy(solution)
     # probs are in fortan order, psi, phi and not phi, psi
     for i in xrange (0, numIterations):

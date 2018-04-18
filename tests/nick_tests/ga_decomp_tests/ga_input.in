@@ -15,8 +15,8 @@ store_intermediate_mol = True
 [GA_GLOBAL]
 seed_population = False
 population_file_path = None
-population_size = 40 
-max_iteration = 50
+population_size = 50 
+max_iteration = 150
 
 [EVALUATOR]
 evaluators = amber
@@ -31,19 +31,19 @@ tournament_size = 2
 
 [GA_CROSSOVER]
 crossover = uniform_crossover
-mating_probability = 0.8
-genewise_crossover_probability = 0.4
+mating_probability = 0.7
+genewise_crossover_probability = 0.5
 sbx_distribution_index = 5.0
 
 [GA_MUTATION]
 mutator = uniform_mutation
-mutation_probability = 0.1
+mutation_probability = 0.2
 genewise__mutation_probability = 0.1
 poly_eta = 5.0
 
 [GA_REPLACER]
 replacer = elitism
-elitist_factor = 0.4
+elitist_factor = 0.2
 
 [DEBUG]
 verbose = True

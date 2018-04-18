@@ -11,6 +11,114 @@ import numpy as np
 import constants
 from Cython.Compiler.Nodes import ContinueStatNode
 
+# defines the expect sidechain atoms for the aminoacids (copy&paste form Basilisk CalcAngles)
+sidechain = {
+         "ALA": ['cb'],
+         "ARG": ['cb', 'cg', 'cd', 'ne', 'cz', 'nh1', 'nh2'],
+         "ASN": ['cb', 'cg', 'od1', 'nd2'],
+         "ASP": ['cb', 'cg', 'od1', 'od2'],
+         "CYS": ['cb', 'sg'],
+         "GLU": ['cb', 'cg', 'cd', 'oe1', 'oe2'],
+         "GLN": ['cb', 'cg', 'cd', 'oe1', 'ne2'],
+         "GLY": [],
+         "HIS": ['cb', 'cg', 'nd1', 'cd2', 'ce1', 'ne2'],
+         "ILE": ['cb', 'cg1', 'cg2', 'cd1'],
+         "LEU": ['cb', 'cg', 'cd1', 'cd2'],
+         "LYS": ['cb', 'cg', 'cd', 'ce', 'nz'],
+         "MET": ['cb', 'cg', 'sd', 'ce'],
+         "PHE": ['cb', 'cg', 'cd1', 'cd2', 'ce1', 'ce2', 'cz'],
+         "PRO": ['cb', 'cg', 'cd'],
+         "SER": ['cb', 'og'],
+         "THR": ['cb', 'og1', 'cg2'],
+         "TRP": ['cb', 'cg', 'cd1', 'cd2', 'ne1', 'ce2', 'ce3', 'cz2', 'cz3', 'ch2'],
+         "TYR": ['cb', 'cg', 'cd1', 'cd2', 'ce1', 'ce2', 'cz', 'oh'],
+         "VAL": ['cb', 'cg1', 'cg2']
+         }
+
+# defines the different atoms needed to calculate the chi angles
+# for all the different residue types ... well at least the common 
+# 20 ones (copy&paste form Basilisk CalcAngles)
+chi_atoms = {  
+         "ALA": {},
+         "ARG": {"x1": ["n", "ca", "cb", "cg"], "x2": ["ca", "cb", "cg", "cd"],
+                 "x3": ["cb", "cg", "cd", "ne"], "x4": ["cg", "cd", "ne", "cz"]},
+         "ASN": {"x1": ["n", "ca", "cb", "cg"], "x2": ["ca", "cb", "cg", "od1"]},
+         "ASP": {"x1": ["n", "ca", "cb", "cg"], "x2": ["ca", "cb", "cg", "od1"]},
+         "CYS": {"x1": ["n", "ca", "cb", "sg"]},
+         "GLU": {"x1": ["n", "ca", "cb", "cg"], "x2": ["ca", "cb", "cg", "cd"],
+                 "x3": ["cb", "cg", "cd", "oe1"]},
+         "GLN": {"x1": ["n", "ca", "cb", "cg"], "x2": ["ca", "cb", "cg", "cd"],
+                 "x3": ["cb", "cg", "cd", "oe1"]},
+         "GLY": {},
+         "HIS": {"x1": ["n", "ca", "cb", "cg"], "x2": ["ca", "cb", "cg", "cd2"]},
+         "ILE": {"x1": ["n", "ca", "cb", "cg1"], "x2": ["ca", "cb", "cg1", "cd1"]},
+         "LEU": {"x1": ["n", "ca", "cb", "cg"], "x2": ["ca", "cb", "cg", "cd1"]},
+         "LYS": {"x1": ["n", "ca", "cb", "cg"], "x2": ["ca", "cb", "cg", "cd"],
+                 "x3": ["cb", "cg", "cd", "ce"], "x4": ["cg", "cd", "ce", "nz"]},
+         "MET": {"x1": ["n", "ca", "cb", "cg"], "x2": ["ca", "cb", "cg", "sd"],
+                 "x3": ["cb", "cg", "sd", "ce"]},
+         "PHE": {"x1": ["n", "ca", "cb", "cg"], "x2": ["ca", "cb", "cg", "cd1"]},
+         "PRO": {"x1": ["n", "ca", "cb", "cg"], "x2": ["ca", "cb", "cg", "cd"],
+                 "x3": ["cb", "cg", "cd", "n"], "x4": ["cg", "cd", "n", "ca"]},
+         "SER": {"x1": ["n", "ca", "cb", "og"]},
+         "THR": {"x1": ["n", "ca", "cb", "og1"]},
+         "TRP": {"x1": ["n", "ca", "cb", "cg"], "x2": ["ca", "cb", "cg", "cd1"]},
+         "TYR": {"x1": ["n", "ca", "cb", "cg"], "x2": ["ca", "cb", "cg", "cd1"]},
+         "VAL": {"x1": ["n", "ca", "cb", "cg1"]}
+         }
+
+def get_chi_atoms(obres):
+    """
+    For each residuetype there is a certain set of dihedral angles in the sidechain 
+    which again are defined by a certain set of atoms each.
+    
+    @return: returns a dictionary of arrays, describing the atoms for all the angles 
+    @rtype: dictionary
+    """
+    residuetype = obres.GetName()
+    if residuetype.upper() not in chi_atoms:
+        sys.stderr.write("Warning: Unknown residuetype " + residuetype + " in residue list in MoleculeInfo.py\n")
+        return {}
+    #
+    out = chi_atoms[residuetype.upper()]
+    for k in range(0, len(out)):
+        out[k] = out[k].upper()
+    
+    return out
+
+def get_sidechain_atoms_names(obres):
+    residuetype = obres.GetName()
+    if residuetype.upper() not in sidechain:
+        sys.stderr.write("Warning: Unknown residuetype " + residuetype + " in residue list in MoleculeInfo.py\n")
+        return {}
+    #
+    out = sidechain[residuetype.upper()]
+    for k in range(0, len(out)):
+        out[k] = out[k].upper()
+    
+    return out
+
+def get_sidechain_atoms(obres):
+    # return a list of three lists, 
+    # first list is the atoms' names, second is the corresponding OBatoms, 
+    # third is the corresponding (idx) indices in the overall molecule (OBmol)
+    OBatoms_in_res = []
+    IDatoms_in_res = []
+    for obatom in openbabel.OBResidueAtomIter(obres):
+        OBatoms_in_res.append(obatom)
+        IDatoms_in_res.append(obres.GetAtomID(obatom).strip())
+
+    sidechain_IDatoms = get_sidechain_atoms_names(obres)
+    sidechain_OBatoms = []
+    sidechain_NUMatoms = []
+    for k in range(0, len(sidechain_IDatoms)):
+        atomID = sidechain_IDatoms[k]
+        loc = IDatoms_in_res.index(atomID)
+        sidechain_OBatoms.append(OBatoms_in_res[loc])
+        sidechain_NUMatoms.append(OBatoms_in_res[loc].GetIdx())
+
+    return (sidechain_IDatoms, sidechain_OBatoms, sidechain_NUMatoms)
+
 def getResType(obres):
     '''get 3 letter code of OBRes - needed to parse richardson library'''
     res = obres.GetName()
@@ -148,8 +256,6 @@ def getBBCarboxyl(obres):
 
 def getPhiPsiDihedrals(mol, residue_indexes):
     result = []
-    
-    print mol.NumResidues()
     
     for i in xrange (0, len(residue_indexes)):
         
@@ -319,45 +425,24 @@ def get_atoms_per_residue(mol):
 
 
 if __name__ == '__main__':
+    import sys
     print "Starting"
 
     obConversion = openbabel.OBConversion()
     obConversion.SetInAndOutFormats("pdb", "pdb")
 
     mol = openbabel.OBMol()
-    obConversion.ReadFile(mol, "gpgg.pdb") 
+    obConversion.ReadFile(mol, sys.argv[1]) 
     
-    print mol.NumAtoms()
-    print mol.NumBonds()
-    print mol.NumResidues()
     
-    # getAllPhiPsiDihedrals(mol)
+    for j in xrange(1, mol.NumAtoms() + 1): 
+        print debugAtom(mol.GetAtom(j))
+        
         
     for j in xrange(0, mol.NumResidues()): 
         
         obres = mol.GetResidue(j)
         
-        print "-----"
-        for obatom in openbabel.OBResidueAtomIter(obres):
-            print obatom.GetIdx(), obatom.GetAtomicNum()
-        print "-----"   
-        alpha_carbon = getAlphaCarbon(obres)
+        print "--", obres.GetName(), "--"
         
-        print "ALpha:", alpha_carbon
-        
-        bb_nitrogen = getBBNitrogen(obres)
-        neg1_carboxl = getNeg1BBCarboxyl(obres)
-        carboxl = getBBCarboxyl(obres)
-        plus1_nitrogen = getPlus1BBNitrogen(obres)
-        
-        if (not neg1_carboxl):
-            continue
-        
-        print j, obres.GetName(), "::" , neg1_carboxl, "---", bb_nitrogen, "---", alpha_carbon, "---", carboxl, "---", plus1_nitrogen
-        
-        mol.SetTorsion(neg1_carboxl, bb_nitrogen, alpha_carbon, carboxl, -60 * (np.pi / 180.0))
-        
-    print "Writing to file"
-    angles = getAllPhiPsiDihedrals(mol)
-    print angles
-    obConversion.WriteFile(mol, "test.pdb")
+        print get_sidechain_atoms(obres)
