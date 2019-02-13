@@ -1,4 +1,4 @@
 source /software/amber/16/gcc-6.3.0-mkl-openmpi/dat/leap/cmd/oldff/leaprc.ff99SB
-mol = load mol.pdb
+mol = loadpdb mol.pdb
 saveamberparm mol mol.prmtop mol.inpcrd 
 quit

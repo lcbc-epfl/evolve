@@ -9,6 +9,7 @@ All functions used to run softwares out of the GA code
 
 import os
 import subprocess
+import numpy as np
 
 def runtleap(work_dir="", mol_file="mol.pdb", tleaptemp="tleap_template.in", tleapin="leap.in", inpcrd_out="mol.inpcrd", prmtop_out="mol.prmtop"):
     # TODO
@@ -102,7 +103,68 @@ def runMMPBSA(work_dir="", mmpbsa_in="mmpbsa.in", prmtop="mol.prmtop", inpcrd="m
     except OSError as e:
         sys.exit("failed to execute MMPBSA.py: %s" % (str(e)))
 
+
+# -------------------------------------------------------------------------------
+# 
+# GENERALIZED BORN:
+# 
+# Complex:
+# Energy Component            Average              Std. Dev.   Std. Err. of Mean
+# -------------------------------------------------------------------------------
+# BOND                        12.3480                0.0000              0.0000
+# ANGLE                       39.5931                0.0000              0.0000
+# DIHED                      184.2557                0.0000              0.0000
+# VDWAALS                   -120.7903                0.0000              0.0000
+# EEL                      -1541.5075                0.0000              0.0000
+# 1-4 VDW                     56.7335                0.0000              0.0000
+# 1-4 EEL                    901.9711                0.0000              0.0000
+# EGB                       -216.9531                0.0000              0.0000
+# ESURF                       10.8546                0.0000              0.0000
+# 
+# G gas                     -467.3964                0.0000              0.0000
+# G solv                    -206.0985                0.0000              0.0000
+# 
+# TOTAL                     -673.4949                0.0000              0.0000
+# 
+# 
+# -------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
+
+
+def parseMMPBSA(mmpbsa_file_path):
+    import os
+    
+    if not os.path.isfile(mmpbsa_file_path):
+        return 999.0
+    
+    mmpbsa_file = open(mmpbsa_file_path, 'r')
+    
+    lines = mmpbsa_file.readlines()
+    
+    mmpbsa_file.close()
+    
+    start = -1
+    
+    for i in range(len(lines)):
+        
+        if ("Energy Component" in lines[i]):
+            start = i
+            break
+        
+    if (start == -1):
+        return
+    
+    
+    return float(lines[start + 15].split()[1])
+    
+
+    
 def parseMMBPSA_total_decomp(mmpbsa_file_path, num_res):
+    import os
+    
+    if not os.path.isfile(mmpbsa_file_path):
+        return None
+    
     mmpbsa_file = open(mmpbsa_file_path, 'r')
     
     lines = mmpbsa_file.readlines()
@@ -149,6 +211,12 @@ def parseMMBPSA_total_decomp(mmpbsa_file_path, num_res):
     return return_dict
 
 def parseMMBPSA_backbone_decomp(mmpbsa_file_path, num_res):
+    
+    import os
+    
+    if not os.path.isfile(mmpbsa_file_path):
+        return None
+    
     mmpbsa_file = open(mmpbsa_file_path, 'r')
     
     lines = mmpbsa_file.readlines()
@@ -194,6 +262,12 @@ def parseMMBPSA_backbone_decomp(mmpbsa_file_path, num_res):
     return return_dict
 
 def parseMMBPSA_sidechain_decomp(mmpbsa_file_path, num_res):
+    
+    import os
+    
+    if not os.path.isfile(mmpbsa_file_path):
+        return None
+    
     mmpbsa_file = open(mmpbsa_file_path, 'r')
     
     lines = mmpbsa_file.readlines()
@@ -238,6 +312,64 @@ def parseMMBPSA_sidechain_decomp(mmpbsa_file_path, num_res):
     
     return return_dict
 
+def parseMMPBSA_pairwise_total(mmpbsa_file_path, num_res):
+    
+    import os
+    
+    if not os.path.isfile(mmpbsa_file_path):
+        return None, None
+    
+    pair_decomp = np.zeros((num_res, num_res), dtype=np.float)
+    
+    mmpbsa_file = open(mmpbsa_file_path, 'r')
+    
+    lines = mmpbsa_file.readlines()
+    
+    mmpbsa_file.close()
+    
+    start = -1
+    
+    for i in range(len(lines)):
+        
+        if ("Total Energy Decomposition" in lines[i]):
+            start = i
+            break
+    
+    if (start == -1):
+        return None, None
+    
+    curr = i + 3
+    end = i + 3 + (num_res * num_res)
+    
+    # res name = 0
+    # internal_energy = 1
+    # VdW = 4
+    # electrostatics = 7
+    # polar solvation = 10
+    # non-polar solvation = 13
+    # total energy = 16
+    
+    
+    count = 0
+    return_dict = {}
+    while (curr < end):
+        data = lines[curr].split(',')
+        # print (data[0], data[1], data[4], data[7], data[10], data[13], data[16])
+
+        return_dict[count] = (float(data[2]), float(data[5]), float(data[8]), float(data[11]), float(data[14]), float(data[17]))
+        pair_decomp[np.int(count / num_res)][count % num_res] = float(data[17])
+
+        curr += 1
+        count += 1
+    # print (pair_decomp)
+    return pair_decomp, return_dict
+
+def parseMMPBSA_pairwise_backbone(mmpbsa_file_path, num_res):
+    pass
+
+def parseMMPBSA_pairwise_sidechain(mmpbsa_file_path, num_res):
+    pass
+
 def parseAmberEnergy(amber_file):
     #        FINAL RESULTS
     # 
@@ -266,16 +398,19 @@ def parseAmberEnergy(amber_file):
             data = lines[i + 5].split()
 
     if 'data' in locals():
-        return float(data[1])
+        if ('NaN' in data[1]):
+            return 999
+        else:
+            return float(data[1])
     else:
         print("Not able to find Amber energy in output file") 
-        raise EOFError
+    return 999
     
 if __name__ == "__main__":
     import sys
     runtleap(mol_file=sys.argv[1])
     runAmberMPI()
-    
+     
     fout = open('min_struct.pdb', 'w')
     ferr = open('min_struct.log', 'w')
     try:

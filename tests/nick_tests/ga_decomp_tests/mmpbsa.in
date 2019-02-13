@@ -1,11 +1,12 @@
 sample
+
 &general
     startframe=0, endframe=1, interval=1, verbose=1, keep_files=0,
 /
 &gb
-    igb=5, saltcon=0.10,
+    igb=1, saltcon=0.0,
 /
 
 &decomp
-    idecomp=1, dec_verbose=1,
+    idecomp=4, dec_verbose=1,
 /

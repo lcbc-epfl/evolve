@@ -1,0 +1,4 @@
+source /software/amber/16/gcc-6.3.0-mkl-openmpi/dat/leap/cmd/oldff/leaprc.ff99SB
+mol = loadpdb .lowest_energy_struct.pdb
+saveamberparm mol .mol.prmtop .mol.inpcrd
+quit

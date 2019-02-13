@@ -69,8 +69,7 @@ def add_fragment(mol, fragment, id_start):
     prevAtoms = mol.NumAtoms()
     
     id = id_start
-    
-    # copy atomic data
+
     for i in xrange (1, fragment.NumAtoms() + 1):
         frag_atom = fragment.GetAtom(i)
         frag_atom.SetId(id)
@@ -90,12 +89,9 @@ def add_fragment(mol, fragment, id_start):
         
         for data in frag_atom.GetData():
             new_atom.SetData(data)
-            
-        # print "Added atom:", debugAtom(new_atom)
-        
+  
         id += 1
         
-    # copy bond data    
     for obbond in openbabel.OBMolBondIter(fragment):
         begin_atom = obbond.GetBeginAtom()
         end_atom = obbond.GetEndAtom()
@@ -120,37 +116,28 @@ def swapsidechain (mol, res_index, aa_mol):
     mol.BeginModify()
     
     curr = mol.GetResidue(res_index)
-    
-    # print curr.GetName()
-    
+  
     new = aa_mol.GetResidue(0)
     
     mol_CA = mi.getAlphaCarbon(curr)
     mol_CB = mi.getBetaAtom(curr)
     mol_N = mi.getBBNitrogen(curr)
 
-    # print "MOL_CA", debugAtom(mol_CA)
-    # print "MOL_CB", debugAtom(mol_CB)
    
     aa_CA = mi.getAlphaCarbon(new)
-    # print "a"
+  
     aa_CB = mi.getBetaAtom(new)
-    # print "b"
+   
     aa_bb_nitrogen = mi.getBBNitrogen(new)
-    # print "c"
+ 
     aa_gamma_atom = mi.getChi1DihedralAtom(new)
 
-    # print "wat"
+
     frag_res = aa_CB.GetResidue()
     frag_name = frag_res.GetName()
     
-    # print "hm"
+
     aa_tor = aa_mol.GetTorsion(aa_gamma_atom, aa_CA, aa_CB, aa_bb_nitrogen)
-    
-    # print aa_tor
-    
-    # print "FRAG_CA", debugAtom(aa_CA)
-    # print "FRAG_CB", debugAtom(aa_CB)
     
     
     mol_cb_vec = np.asarray([mol_CB.GetX(), mol_CB.GetY(), mol_CB.GetZ()])
@@ -166,7 +153,6 @@ def swapsidechain (mol, res_index, aa_mol):
     frag_atoms_del = openbabel.vectorInt()
     
     orig_num_atoms = mol.NumAtoms()
-    # print orig_num_atoms, aa_mol.NumAtoms()
     
     mol.FindChildren(mol_atoms_del, mol_CA.GetIdx(), mol_CB.GetIdx())
     aa_mol.FindChildren(frag_atoms_del, aa_CB.GetIdx(), aa_CA.GetIdx())
@@ -217,18 +203,6 @@ def swapsidechain (mol, res_index, aa_mol):
         
     prev_atoms = mol.NumAtoms()
     
-
-    # print mol.NumAtoms(), aa_mol.NumAtoms()
-    
-    # print "DEBUGGING MOL BONDS:"
-    # for i in xrange (0, mol.NumBonds()):
-    #    print debugBond(mol.GetBond(i))
-        
-    # print "DEBUGGING FRAG BONDS:"
-    # for i in xrange (0, aa_mol.NumBonds()):
-    #    print debugBond(aa_mol.GetBond(i))
-    
-    # print "Adding Fragment"
     add_fragment(mol, aa_mol, orig_num_atoms)
     mol.EndModify()
     renum_atoms = openbabel.vectorInt(prev_atoms + aa_mol.NumAtoms())
@@ -244,19 +218,6 @@ def swapsidechain (mol, res_index, aa_mol):
     for i in xrange (0, prev_atoms - mol_CA.GetIdx()):
         renum_atoms[mol_CA.GetIdx() + mol.NumAtoms() - prev_atoms + i] = mol_CA.GetIdx() + i + 1
     
-    # print mol.NumAtoms()
-    
-    # print "DEBUGGING MOL BONDS:"
-    # for i in xrange (0, mol.NumBonds()):
-        # print debugBond(mol.GetBond(i))
-    
-    # print "DEBUG MOL ATOMS:"
-    # for i in xrange(1, mol.NumAtoms() + 1):
-       # atom = mol.GetAtom(i)
-        # print debugAtom(atom)
-        
-    # print mol_CA, mol_CA.GetId() 
-    # print aa_CB, aa_CB.GetId()
     
     corr_frag_cb = None
     
@@ -265,58 +226,21 @@ def swapsidechain (mol, res_index, aa_mol):
         
         if (atom.GetId() == aa_CB.GetId()):
             corr_frag_cb = atom
-                
-    # print corr_frag_cb
-    
-    # print "corresponding frag cb:", debugAtom(corr_frag_cb)
-    # print "mol ca: ", debugAtom(mol_CA)
-    # print "Adding new bond"
-    
+            
 
     mol.AddBond(mol_CA.GetIdx(), corr_frag_cb.GetIdx(), 1)
-    
-    
-    
-    # print "DEBUGGING MOL BONDS:"
-    # for i in xrange (0, mol.NumBonds()):
-        # print debugBond(mol.GetBond(i))
-    
-    # print "Debug Frag Res:"
-    # for obatom in openbabel.OBResidueAtomIter(frag_res):
-        # print debugAtom(obatom)
-        
-     
-    # print "DEBUG FRAG ATOMS:"
-    # for i in xrange(1, aa_mol.NumAtoms() + 1):
-        # atom = aa_mol.GetAtom(i)
-        # print debugAtom(atom)
-        
-           
-    # print "DEBUG MOL ATOMS:"
-    # for i in xrange(1, mol.NumAtoms() + 1):
-        # atom = mol.GetAtom(i)
-        # print debugAtom(atom)
-        
-    # for data in frag_res.GetData():
-        # print data
-    
-    
+ 
     frag_res_type = mi.getResType(frag_res)
     
     curr.SetName(frag_res_type)
-
-    # print frag_res.GetNumAtoms()
         
     for obatom in openbabel.OBResidueAtomIter(frag_res):
-        # print obatom.GetId(), obatom.GetType()
         frag_atom = getAtomByID(mol, obatom.GetId())
-        # print frag_atom.GetId(), frag_atom.GetType()
         curr.AddAtom(frag_atom)
-        # print curr.GetAtomID(frag_atom), frag_res.GetAtomID(obatom)
+    
         curr.SetAtomID(frag_atom, frag_res.GetAtomID(obatom))
-        # print curr.GetAtomID(frag_atom), frag_res.GetAtomID(obatom)
-        
-    # print curr.GetNumAtoms()
+   
+    
         
     alpha_carbon = mi.getAlphaCarbon(curr)
     bb_nitrogen = mi.getBBNitrogen(curr)
@@ -325,22 +249,12 @@ def swapsidechain (mol, res_index, aa_mol):
     
     if (chi_atom is not None):
         mol.SetTorsion(bb_nitrogen, alpha_carbon, beta_atom, chi_atom, aa_tor * (np.pi / 180.0))
-    # print "tor", alpha_carbon, bb_nitrogen, beta_atom, chi_atom
-    # print debugAtom(alpha_carbon)
-    # print debugAtom(bb_nitrogen)
-    # print debugAtom(beta_atom)
-    # print debugAtom(chi_atom)
-    
-    # print "torsion update"
-    
-    # print "Renumbering Atoms"
-    # print "renumber"
+  
     mol.RenumberAtoms(renum_atoms)
-    # print "renumbered"
+    
     for i in xrange (1, mol.NumAtoms() + 1) :
         mol.GetAtom(i).SetId(i - 1)
         
-    
     
 if __name__ == '__main__':
     print "Starting"

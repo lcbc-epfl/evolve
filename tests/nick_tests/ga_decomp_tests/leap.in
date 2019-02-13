@@ -1,0 +1,4 @@
+source /software/amber/16/gcc-6.3.0-mkl-openmpi/dat/leap/cmd/oldff/leaprc.ff99SB
+mol = loadmol2 min_mol_iter_3.mol2
+saveamberparm mol mol.prmtop mol.inpcrd
+quit

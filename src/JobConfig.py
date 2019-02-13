@@ -40,19 +40,30 @@ class Settings(object):
     
     
         # PARSE [OPTIMIZATION]
-        self.composition_optimization = self.config.getboolean('OPTIMIZATION', 'composition_optimization')
+        if self.config.has_option('OPTIMIZATION', 'composition_optimization'):
+            self.composition_optimization = self.config.getboolean('OPTIMIZATION', 'composition_optimization')
+        else:
+            self.composition_optimization = False
+        
         if (self.composition_optimization):
             self.composition_residue_indexes = [int(v) for v in self.config.get('OPTIMIZATION', 'composition_residue_indexes').split()]
             self.composition_lower_bounds = [int(v) for v in self.config.get('OPTIMIZATION', 'composition_lower_bounds').split()]
             self.composition_upper_bounds = [int(v) for v in self.config.get('OPTIMIZATION', 'composition_upper_bounds').split()]
             self.composition_library = self.config.get('OPTIMIZATION', 'composition_library')
-            
-        self.dihedral_optimization = self.config.getboolean('OPTIMIZATION', 'dihedral_optimization')
-        if (self.dihedral_optimization):
+        
+        if self.config.has_option('OPTIMIZATION', 'backbone_dihedral_optimization'):
+            self.backbone_dihedral_optimization = self.config.getboolean('OPTIMIZATION', 'backbone_dihedral_optimization')
+        else:
+            self.backbone_dihedral_optimization = False
+    
+        if (self.backbone_dihedral_optimization):
             self.dihedral_residue_indexes = [int(v) for v in self.config.get('OPTIMIZATION', 'dihedral_residue_indexes').split()]
             
-        self.basilisk_and_sidechains = self.config.getboolean('OPTIMIZATION', 'basilisk_and_sidechains')
-          
+            
+        if self.config.has_option('OPTIMIZATION', 'sidechain_dihedral_optimisation'):
+            self.sidechain_dihedral_optimisation = self.config.getboolean('OPTIMIZATION', 'sidechain_dihedral_optimisation')
+        else:
+            self.sidechain_dihedral_optimisation = False
         # PARSE [GA GLOBAL]
         if (self.config.has_option('GA_GLOBAL', 'seed_population')):
             self.seed_population = self.config.getboolean('GA_GLOBAL', 'seed_population')

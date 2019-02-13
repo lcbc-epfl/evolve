@@ -1,8 +1,7 @@
 [OPTIMIZATION]
-composition_optimization = False
-dihedral_optimization = True
+backbone_dihedral_optimization = True
 dihedral_residue_indexes = 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
-basilisk_and_sidechains = True
+sidechain_dihedral_optimisation = True
 
 [MOLECULE]
 initial_molecule = lowest_energy_struct.pdb
@@ -15,7 +14,7 @@ store_intermediate_mol = True
 [GA_GLOBAL]
 seed_population = False
 population_file_path = None
-population_size = 50 
+population_size = 50
 max_iteration = 150
 
 [EVALUATOR]

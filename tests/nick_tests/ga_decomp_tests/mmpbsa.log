@@ -1,0 +1,25 @@
+Loading and checking parameter files for compatibility...
+sander found! Using /software/amber/16/gcc-6.3.0-mkl-openmpi/bin/sander
+cpptraj found! Using /software/amber/16/gcc-6.3.0-mkl-openmpi/bin/cpptraj
+Preparing trajectories for simulation...
+2 frames were processed by cpptraj for use in calculation.
+
+Running calculations on normal system...
+
+Beginning GB calculations with /software/amber/16/gcc-6.3.0-mkl-openmpi/bin/sander
+  calculating complex contribution...
+
+Timing:
+Total setup time:                           0.066 sec.
+Creating trajectories with cpptraj:         0.087 sec.
+Total calculation time:                     0.707 sec.
+
+Total GB calculation time:                  0.707 sec.
+
+Statistics calculation & output writing:    0.073 sec.
+Total time taken:                           0.943 sec.
+
+
+MMPBSA.py Finished! Thank you for using. Please cite us if you publish this work with this paper:
+   Miller III, B. R., McGee Jr., T. D., Swails, J. M. Homeyer, N. Gohlke, H. and Roitberg, A. E.
+   J. Chem. Theory Comput., 2012, 8 (9) pp 3314--3321

@@ -311,8 +311,8 @@ def turbomol_scf_energy(settings, individuals, fitness_index):
 def amber_energy_simplified(settings, individuals, fitness_index, pop_start=0):
     for i in xrange(pop_start, len(individuals)):
         
-        individuals[i].applyPhiPsiDihedrals()
-
+        print "Minimising: ", i
+  
         directory = settings.output_path + "/amber_run"
         
         if not os.path.exists(directory):
@@ -343,66 +343,25 @@ def amber_energy_simplified(settings, individuals, fitness_index, pop_start=0):
         except OSError as e:
             sys.exit("failed to convert rst to pdb: %s" % (str(e)))
 
-        error_detected = False
         
         f = open(directory + "/amber.out", "r")
-        filelines = f.readlines()
-        
-        for line in filelines:
-            if ('SANDER BOMB') in line:
-                error_detected = True
-                
-            elif ('NaN') in line:
-                error_detected = True
-                
-        f.close()
         
         finalEnergy = op.parseAmberEnergy(directory + "/amber.out")
+        
+        individuals[i].setFitness(fitness_index, finalEnergy)
+        
+        if (finalEnergy == 999):
+            continue
+        
+        obConversion = openbabel.OBConversion() 
+        obConversion.SetInFormat("pdb")
 
-        if (error_detected or finalEnergy > 500):
-            '''
-            from random import randint
-            new_index = randint(0, settings.population_size-1)
-            if new_index == i:
-                new_index = new_index - 1
+        molec = openbabel.OBMol()
+        obConversion.ReadFile(molec, directory + '/min_struct.pdb')
+        individuals[i].mol = molec
+    
 
-            print('ILL INDIVIDUAL, re-seeding indiv {} randomly replaced by current indiv {}'.format(i, new_index))
-
-            individuals[i].mol = individuals[new_index].mol
-            individuals[i].setFitness(fitness_index, individuals[new_index].fitnesses)
-            '''
-            # print('ILL INDIVIDUAL, re-seeding indiv {} according to initilization settings'.format(i))
-
-            # generators.BasiliskSideChainDihedralsGenerator(settings, [individuals[i]])
-            
-            # amber_energy_simplified(settings, individuals, fitness_index, pop_start=i)
-            # break
-            individuals[i].setFitness(fitness_index, 999)
-        else:
-            obConversion = openbabel.OBConversion() 
-            obConversion.SetInFormat("pdb")
-    
-            molec = openbabel.OBMol()
-            
-            obConversion.ReadFile(molec, directory + '/min_struct.pdb')
-           
-            individuals[i].mol = molec
-            individuals[i].setFitness(fitness_index, finalEnergy)
-    
-            print('ind {}, fitness {}'.format(i, individuals[i].fitnesses))
-            
-            # Update torsion angles values of the individual
-            phi_psi_dihedrals = individuals[i].getPhiPsiDihedrals()
-            
-    
-            for j in xrange (0, len(phi_psi_dihedrals)):
-                individuals[i].phi_dihedrals[j] = phi_psi_dihedrals[j][0]
-                individuals[i].psi_dihedrals[j] = phi_psi_dihedrals[j][1]
-    
-            if (settings.basilisk_and_sidechains):
-                chi_dihedrals = individuals[i].get_chi_dihedrals_per_res()
-                individuals[i].chi_angles = chi_dihedrals
-                    
+        print('ind {}, fitness {}'.format(i, individuals[i].fitnesses))
         
 def amber_energy(settings, individuals, fitness_index, pop_start=0):
 

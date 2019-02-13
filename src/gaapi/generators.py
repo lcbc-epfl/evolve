@@ -112,7 +112,6 @@ def MonteCarloDihedralGenerator(settings, individuals, prob_pointers=None):
         for j in xrange (0, len(indiv.phi_dihedrals)):
             indiv.phi_dihedrals[j] = dihedrals[i * num_phipsi + j][0]
             indiv.psi_dihedrals[j] = dihedrals[i * num_phipsi + j][1]
-            indiv.applyPhiPsiDihedrals()
 
 
 # Generate dihedrals with BASILISK by trained DBN that interpolates continuous distribution and gives side-chain angles chis
@@ -155,44 +154,20 @@ def BasiliskSideChainDihedralsGenerator(settings, individuals):
         indiv = individuals[i]
         
         for j in xrange(0, len(indiv.phi_dihedrals)):
-            # sample a new set of angles
-            # what we get back from the dbn is a tuple consisting of a
-            # list of chi angles, a list with the sampled or given 
-            # backbone angles and the log likelihood that was calculated 
-            # for that sample 
-            # with log probability in ll:
-            dbn = basilisk_dbn()
-            # chis, bb, ll = dbn.get_sample(res_index[j], radians(indiv.phi_dihedrals[j]), radians(indiv.psi_dihedrals[j]))
+           
+            if len(indiv.chi_angles[j]) == 0:
+               continue
             
+            dbn = basilisk_dbn()
+ 
             chis, bb, ll = dbn.get_sample(res_index[j])  # Nick fix - call above doesn't provide independant BB samples!
             
-            # without log probability
-            # chis, bb, ll = dbn.get_sample(res_index[j], math.radians(indiv.phi_dihedrals[j]), math.radians(indiv.psi_dihedrals[j]), no_ll=True)
-            indiv.phi_dihedrals[j] = degrees(bb[0]) - 180  # range is from 0 - 360 by default
-            indiv.psi_dihedrals[j] = degrees(bb[1]) - 180
+            indiv.phi_dihedrals[j] = degrees(bb[0]) - 180.0  # range is from 0 - 360 by default
+            indiv.psi_dihedrals[j] = degrees(bb[1]) - 180.0
 
-            chis_degrees = []
             for k in xrange(0, len(chis)):
-                chis_degrees.append(degrees(chis[k]))
-
-            indiv.chi_angles.append(chis_degrees)  # list of lists containing the chi angles of each residue
-            if (settings.verbose):
-                print("{0}, {1}, {2}, {3}, {4}, {5}".format(i, settings.dihedral_residue_indexes[j], indiv.phi_dihedrals[j], indiv.psi_dihedrals[j], indiv.chi_angles[j], ll))
-
-            side_chain_atoms_dict = CalcAngles.get_chi(res_name[j])  # returns a dictionary of arrays, describing the atoms for all the angles in the side chain of the current residue
-            # indiv.chi_atoms.append(side_chain_atoms) #list of dictionaries
-            
-            # print (side_chain_atoms_dict)
-            side_chain_atoms = []
-            for k in xrange(0, len(side_chain_atoms_dict)):
-                side_chain_atoms.append(map(lambda x:x.upper(), side_chain_atoms_dict['x' + str(k + 1)]))
-                
-            indiv.chi_atoms.append(side_chain_atoms)  # list of 4 atoms defining each chi dihedral
-            
-            indiv.applyPhiPsiDihedrals()
-            # indiv.apply_chi_dihedrals()
-         
-         
+                indiv.chi_angles[j][k] = degrees(chis[k]) - 180.0
+        
 def getBasiliskSample(obmol):
     from src.basilisk.basilisk_lib import basilisk_dbn
     
