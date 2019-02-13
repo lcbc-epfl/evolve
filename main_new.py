@@ -22,6 +22,7 @@ import printResidueInfo as pri
 
 
 def mainLoop(settings):
+    
     curr_iteration = -1
     parent_population = []
 
