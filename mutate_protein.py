@@ -5,7 +5,7 @@
 # module load anaconda/4.3.1
 # module load openbabel/2.3.2/gcc-4.9.2
 # export PYTHONPATH=$PYTHONPATH:/path/to/GABio/src
-# CALL ME LIKE THIS: python guido.py -molecule gpgg.pdb -rotamer_path /lcbcdata/nbrownin/Rotamers_mol2/LYS/K14.mol2 -out_molecule test.pdb -res_index 1
+# CALL ME LIKE THIS: python mutate_protein.py -molecule gpgg.pdb -rotamer_path /lcbcdata/nbrownin/Rotamers_mol2/LYS/K14.mol2 -out_molecule test.pdb -res_index 1
 
 
 import argparse
