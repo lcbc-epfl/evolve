@@ -26,7 +26,7 @@ def uniform_mutation(settings, individual):
 
     mutant = Individual.Individual(settings, individual)
     
-    if (settings.dihedral_optimization):
+    if (settings.backbone_dihedral_optimization):
         
         lower_bound = -180
         upper_bound = 180
@@ -52,7 +52,7 @@ def uniform_mutation(settings, individual):
         
             if np.random.random() <= mut_rate:
             
-                comp_m = np.random.randint(low=lower_comp_bound, high=upper_comp_bound)
+                comp_m = np.random.randint(low=lower_comp_bound[i], high=upper_comp_bound[i])
 
                 if (settings.verbose):
                     print "CMPSTN: Mutating!", mutant.composition[i], comp_m

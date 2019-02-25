@@ -28,13 +28,13 @@ def uniform_crossover(settings, mom, dad, **kargs):
     bro = Individual.Individual(settings, dad)
     sis = Individual.Individual(settings, mom)
             
-            
-    bro_phi, bro_psi = bro.phi_dihedrals, bro.psi_dihedrals
-    sis_phi, sis_psi = sis.phi_dihedrals, sis.psi_dihedrals
-    
+        
         # swap dihedrals
         
-    if (settings.dihedral_optimization):
+    if (settings.backbone_dihedral_optimization):
+        bro_phi, bro_psi = bro.phi_dihedrals, bro.psi_dihedrals
+        sis_phi, sis_psi = sis.phi_dihedrals, sis.psi_dihedrals
+        
         for i in xrange (0, len(settings.dihedral_residue_indexes)):
                 
             if (np.random.random() < settings.genewise_crossover_probability):

@@ -6,6 +6,7 @@ Created on Jan 10, 2018
 All functions used to run softwares out of the GA code
 '''
 
+import sys
 
 import os
 import subprocess
@@ -404,6 +405,7 @@ def parseAmberEnergy(amber_file):
             return float(data[1])
     else:
         print("Not able to find Amber energy in output file") 
+        sys.exit()
     return 999
     
 if __name__ == "__main__":

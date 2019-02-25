@@ -10,8 +10,8 @@
 
 import argparse
 import openbabel
-import MoleculeCreator as mc
-import MoleculeInfo as mi
+from src import MoleculeCreator as mc
+from src import MoleculeInfo as mi
 import sys
 
 if __name__ == '__main__':

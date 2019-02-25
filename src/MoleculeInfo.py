@@ -31,6 +31,9 @@ def getResType(obres):
     return None
 
 def getAlphaCarbon(obres):
+    res = obres.GetName()
+    print res
+
     for obatom in openbabel.OBResidueAtomIter(obres):
         # atomID = obres.GetAtomID(obatom)
         
@@ -95,14 +98,14 @@ def getBetaAtom(obres):
             if (obatom.GetType() == 'H'):
                 return obatom
         else:
-            if (obatom.IsCarbon() and obatom.GetIdx() != bbcarboxl.GetIdx()):
+            if (bbcarboxl is not None and obatom.IsCarbon() and obatom.GetIdx() != bbcarboxl.GetIdx()):
                 return obatom
     return None
         
 def getBBNitrogen(obres):
     alpha_carbon = getAlphaCarbon(obres)
     
-    if alpha_carbon is None:
+    if (alpha_carbon is None):
         return None
     
     for obatom in openbabel.OBAtomAtomIter(alpha_carbon):
@@ -113,6 +116,9 @@ def getBBNitrogen(obres):
 def getNeg1BBCarboxyl(obres):
     ca = getAlphaCarbon(obres)
     bb_n = getBBNitrogen(obres)
+    
+    if (ca is None and bb_n is None):
+        return None
     
     for obatom in openbabel.OBAtomAtomIter(bb_n):
         if (obatom == ca):
@@ -128,6 +134,9 @@ def getNeg1BBCarboxyl(obres):
             
 def getBBCarboxyl(obres):
     ca_atom = getAlphaCarbon(obres)
+    
+    if (ca_atom is None):
+        return None
     
     # print debugAtom(ca_atom)
     for obatom in openbabel.OBAtomAtomIter(ca_atom):
@@ -145,6 +154,18 @@ def getBBCarboxyl(obres):
                 return obatom
     return None
 
+def getPlus1BBNitrogen(obres):
+    
+    bb_n = getBBCarboxyl(obres)
+    
+    if (bb_n is None):
+        return None
+    
+    for obatom in openbabel.OBAtomAtomIter(bb_n):
+
+        if (obatom.IsNitrogen()):
+            return obatom
+    return None
 
 def getChiDihedralsByAtomIndex(mol, chi_dihedral_atom_indexes):
         '''To be called after a minimisation procedure - updates chi_angles and atoms with that currently contained in self.mol'''
@@ -271,30 +292,32 @@ def getPhiPsiDihedralAtomIndexes(mol, residue_indexes):
 
 def getPhiPsiDihedrals(mol, residue_indexes):
     result = []
-    
-    for i in xrange (0, len(residue_indexes)):
-        
-        obres = mol.GetResidue(residue_indexes[i])
-        
-        alpha_carbon = getAlphaCarbon(obres)
-        # if alpha_carbon != None:
-            # print('CA: {}'.format(alpha_carbon.GetId()))
-        
-        bb_nitrogen = getBBNitrogen(obres)
-        # if bb_nitrogen != None:
-            # print('N: {}'.format(bb_nitrogen.GetId()))
-        
-        neg1_carboxl = getNeg1BBCarboxyl(obres)
-        # if neg1_carboxl != None:
-            # print('C-1: {}'.format(neg1_carboxl.GetId()))
 
+    for i in xrange (0, len(residue_indexes)):
+      
+        obres = mol.GetResidue(residue_indexes[i])
+      
+        #print obres.GetName()
+        alpha_carbon = getAlphaCarbon(obres)
+        bb_nitrogen = getBBNitrogen(obres)
+        neg1_carboxl = getNeg1BBCarboxyl(obres)
         carboxl = getBBCarboxyl(obres)
-        # if carboxl != None:
-            # print('C: {}'.format(carboxl.GetId()))
-        
         plus1_nitrogen = getPlus1BBNitrogen(obres)
-        # if plus1_nitrogen != None:
-            # print('N+1: {}'.format(plus1_nitrogen.GetId()))
+        
+        #if alpha_carbon != None:
+            #print('CA Id: {}'.format(alpha_carbon.GetId()))
+        
+        #if bb_nitrogen != None:
+        #    print('N Id: {}'.format(bb_nitrogen.GetId()))
+         
+        #if neg1_carboxl != None:
+        #    print('C-1 Id: {}'.format(neg1_carboxl.GetId()))
+  
+        #if carboxl != None:
+        #    print('C Id: {}'.format(carboxl.GetId()))
+        
+        #if plus1_nitrogen != None:
+        #    print('N+1 Id: {}'.format(plus1_nitrogen.GetId()))
         
         
         phi = 999
@@ -380,7 +403,7 @@ def getChi1DihedralAtom(obres):
         
         if ((res == "SER" or res == "THR") and obatom.IsOxygen()):
             return obatom
-        elif (res == "CYS" and obatom.IsSulphur()):
+        elif (res == "CYS" and obatom.IsSulfur()):
             return obatom
         elif (res == "ALA" and obatom.IsHydrogen()):
             return obatom
@@ -409,14 +432,7 @@ def SetPhiPsi(mol, obres, phi, psi):
         mol.SetTorsion(bb_nitrogen, alpha_carbon, carboxl, plus1_nitrogen, psi * (np.pi / 180.0))
 
      
-def getPlus1BBNitrogen(obres):
-    
-    bb_n = getBBCarboxyl(obres)
-    
-    for obatom in openbabel.OBAtomAtomIter(bb_n):
 
-        if (obatom.IsNitrogen()):
-            return obatom
 
 
 def get_atoms_per_residue(mol):

@@ -376,7 +376,7 @@ def amber_energy(settings, individuals, fitness_index, pop_start=0):
         if (settings.composition_optimization and not individuals[i].init):
             individuals[i].applyComposition(settings)
 
-        if (settings.dihedral_optimization and not individuals[i].init):
+        if (settings.backbone_dihedral_optimization and not individuals[i].init):
             individuals[i].applyPhiPsiDihedrals()
 
         if (settings.basilisk_and_sidechains and not individuals[i].init):

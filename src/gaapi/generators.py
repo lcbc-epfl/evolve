@@ -40,7 +40,7 @@ def UniformDihedralGenerator(settings, individuals):
         for j in xrange (0, len(indiv.phi_dihedrals)):
             indiv.phi_dihedrals[j] = initial_solution[j][0]
             indiv.psi_dihedrals[j] = initial_solution[j][1]
-        indiv.applyPhiPsiDihedrals()
+        indiv.applyPhiPsiDihedrals(settings)
     
 
 def UniformCompositionGenerator(settings, individuals):
@@ -49,7 +49,7 @@ def UniformCompositionGenerator(settings, individuals):
         indiv = individuals[i]
         for j in xrange (0, len(settings.composition_residue_indexes)):
             indiv.composition[j] = np.random.randint(low=settings.composition_lower_bounds[j], high=settings.composition_upper_bounds[j])
-
+        indiv.applyComposition(settings)
             
 # Generate dihedrals by Monte Carlo
 def MonteCarloDihedralGenerator(settings, individuals, prob_pointers=None):

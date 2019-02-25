@@ -120,6 +120,8 @@ def swapsidechain (mol, res_index, aa_mol):
     new = aa_mol.GetResidue(0)
     
     mol_CA = mi.getAlphaCarbon(curr)
+    
+    
     mol_CB = mi.getBetaAtom(curr)
     mol_N = mi.getBBNitrogen(curr)
 
@@ -157,6 +159,7 @@ def swapsidechain (mol, res_index, aa_mol):
     mol.FindChildren(mol_atoms_del, mol_CA.GetIdx(), mol_CB.GetIdx())
     aa_mol.FindChildren(frag_atoms_del, aa_CB.GetIdx(), aa_CA.GetIdx())
     
+    
     if (not np.allclose(molbondvec, fragbondvec)):
         rotate_axis = np.cross(molbondvec, fragbondvec)
         rotate_axis = rotate_axis / np.linalg.norm(rotate_axis)
@@ -177,6 +180,7 @@ def swapsidechain (mol, res_index, aa_mol):
     
     
     frag_atom_ids_del = [aa_mol.GetAtom(i).GetId() for i in frag_atoms_del]
+
     frag_atom_ids_del.append(aa_CA.GetId())
     
     
@@ -232,7 +236,8 @@ def swapsidechain (mol, res_index, aa_mol):
  
     frag_res_type = mi.getResType(frag_res)
     
-    curr.SetName(frag_res_type)
+    #curr.SetName(frag_res_type)
+    curr.SetName(frag_name)
         
     for obatom in openbabel.OBResidueAtomIter(frag_res):
         frag_atom = getAtomByID(mol, obatom.GetId())

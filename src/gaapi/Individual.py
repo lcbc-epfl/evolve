@@ -167,6 +167,9 @@ class Individual(object):
             
             
     def applyComposition(self, settings):
+        print "applying composition"
+        print self.composition
+        
         from src import constants
         
         if (self.composition_residue_indexes == None):
@@ -180,8 +183,7 @@ class Individual(object):
             rotamer_type = constants.rotamers[self.composition[i]]
             
             obConversion.ReadFile(frag, settings.composition_library + "/" + rotamer_type + ".mol2")
-            
-            # print self.composition_residue_indexes[i], rotamer_type + ".mol2"
+        
             mcr.swapsidechain(self.mol, self.composition_residue_indexes[i], frag)
 
 

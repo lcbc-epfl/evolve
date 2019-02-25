@@ -39,13 +39,13 @@ charge2element = {1: 'H', 6: 'C', 7: 'N', 8: 'O', 9:'F', 32:'S'}
 bohr2angstrom = 0.5291772083
 angstrom2bohr = 1.88972613386246
 
-rotamers = ['A01', 'R01', 'R02', 'R03', 'R04', 'R05', 'R06', 'R07', 'R08', 'R09', \
+rotamers = ['G01', 'A01', 'R01', 'R02', 'R03', 'R04', 'R05', 'R06', 'R07', 'R08', 'R09', \
             'R10', 'R11', 'R12', 'R13', 'R14', 'R15', 'R16', 'R17', 'R18', 'R19', \
             'R20', 'R21', 'R22', 'R23', 'R24', 'R25', 'R26', 'R27', 'R28', 'D01', \
             'D02', 'D03', 'D04', 'D05', 'D06', 'D07', 'D08', 'D09', 'D10', 'N01', \
             'N02', 'N03', 'N04', 'N05', 'N06', 'N07', 'C01', 'C02', 'C03', 'E01', \
             'E02', 'E03', 'E04', 'E05', 'E06', 'E07', 'E08', 'E09', 'E10', 'E11', \
-            'E12', 'E13', 'E14', 'Q01', 'Q02', 'Q03', 'Q04', 'Q05', 'G01', 'HD1', \
+            'E12', 'E13', 'E14', 'Q01', 'Q02', 'Q03', 'Q04', 'Q05', 'HD1', \
             'HD2', 'HD3', 'HD4', 'HD5', 'HD6', 'HD7', 'HD8', 'HE1', 'HE2', 'HE3', \
             'HE4', 'HE5', 'HE6', 'HE7', 'HE8', 'HP1', 'HP2', 'HP3', 'HP4', 'HP5', \
             'HP6', 'HP7', 'HP8', 'I01', 'I02', 'I03', 'I04', 'I05', 'L01', 'L02', \
@@ -59,13 +59,13 @@ rotamers = ['A01', 'R01', 'R02', 'R03', 'R04', 'R05', 'R06', 'R07', 'R08', 'R09'
             'Y01', 'Y02', 'Y03', 'Y04', 'V01', 'V02', 'V03'
             ]
 
-rotamer_types = ['ALA', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', \
+rotamer_types = [ 'GLY', 'ALA', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', \
             'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', \
             'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ASP', \
             'ASP', 'ASP', 'ASP', 'ASP', 'ASH', 'ASH', 'ASH', 'ASH', 'ASH', 'ASN', \
             'ASN', 'ASN', 'ASN', 'ASN', 'ASN', 'ASN', 'CYS', 'CYS', 'CYS', 'GLU', \
             'GLU', 'GLU', 'GLU', 'GLU', 'GLU', 'GLU', 'GLH', 'GLH', 'GLH', 'GLH', \
-            'GLH', 'GLH', 'GLH', 'GLN', 'GLN', 'GLN', 'GLN', 'GLN', 'GLY', 'HID', \
+            'GLH', 'GLH', 'GLH', 'GLN', 'GLN', 'GLN', 'GLN', 'GLN', 'HID', \
             'HID', 'HID', 'HID', 'HID', 'HID', 'HID', 'HID', 'HIE', 'HIE', 'HIE', \
             'HIE', 'HIE', 'HIE', 'HIE', 'HIE', 'HIP', 'HIP', 'HIP', 'HIP', 'HIP', \
             'HIP', 'HIP', 'HIP', 'ILE', 'ILE', 'ILE', 'ILE', 'ILE', 'LEU', 'LEU', \

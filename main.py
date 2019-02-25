@@ -53,7 +53,7 @@ def mainLoop(settings):
             generators.UniformCompositionGenerator(settings, parent_population)
             pass
         
-        if (settings.dihedral_optimization):
+        if (settings.backbone_dihedral_optimization):
             if (settings.mc_generate_dihedrals):
                 print "Generating Initial Population dihedrals via MC"
                 generators.MonteCarloDihedralGenerator(settings, parent_population)
@@ -127,11 +127,11 @@ def initialise_ga(settings):
     if (settings.selector=="tournament_wor"):
         chosenSelector = selectors.tournamentSelectionWOR
 
-    if (settings.mutator=="poly_dihedral"):
-        chosenMutator = mutators.polynomial_dihedral
+    if (settings.mutator=="uniform_mutation"):
+        chosenMutator = mutators.uniform_mutation
 
-    if (settings.crossover=="sbx"):
-        chosenCrossover = crossovers.simulated_binary_dihedral
+    if (settings.crossover=="uniform_crossover"):
+        chosenCrossover = crossovers.uniform_crossover
 
     if (settings.replacer=="elitism"):
         chosenReplacer = replacers.elitist_replace
@@ -141,8 +141,8 @@ def initialise_ga(settings):
         if ("openbabel_ff94" in settings.evaluators):
             evaluators.append(evals.testEnergyByMinimisation)
         elif ("amber" in settings.evaluators):
-            evaluators.append(evals.amber_energy)
-        else:
+            evaluators.append(evals.amber_energy_simplified)
+        elif ("pmemd" in settings.evaluators):
             pass #could add other choices in evaluators.py
 
     return {'chosenSelector': chosenSelector, 'chosenMutator': chosenMutator, 'chosenCrossover': chosenCrossover, 'chosenReplacer': chosenReplacer, 'evaluators': evaluators}
@@ -153,18 +153,20 @@ def initialise_ga(settings):
 def printIterationInfo(settings, curr_iteration, pop, ending):
 
     print("CURRENT POPULATION")
-    if (settings.basilisk_and_sidechains and settings.verbose):
-        
-        print("ind, ind fitness(es), res, phi, psi, chi angles")
-        for i in xrange (settings.population_size):
-            for j in xrange(0, len(pop[i].dihedral_residue_indexes)):
-                print("{0}, {5}, {1}, {2}, {3}, {4}".format(i, pop[i].dihedral_residue_indexes[j], pop[i].phi_dihedrals[j], pop[i].psi_dihedrals[j], pop[i].chi_angles[j], pop[i].fitnesses))
 
-    if (settings.verbose and not settings.basilisk_and_sidechains):
-        print("ind, ind fitness(es), res, phi, psi")
-        for i in xrange (settings.population_size):
-            for j in xrange(0, len(pop[i].dihedral_residue_indexes)):
-                print("{0}, {4}, {1}, {2}, {3}".format(i, pop[i].dihedral_residue_indexes[j], pop[i].phi_dihedrals[j], pop[i].psi_dihedrals[j], pop[i].fitnesses))
+    if (settings.backbone_dihedral_optimization or settings.sidechain_dihedral_optimisation):
+        if (settings.basilisk_and_sidechains and settings.verbose):
+            
+            print("ind, ind fitness(es), res, phi, psi, chi angles")
+            for i in xrange (settings.population_size):
+                for j in xrange(0, len(pop[i].dihedral_residue_indexes)):
+                    print("{0}, {5}, {1}, {2}, {3}, {4}".format(i, pop[i].dihedral_residue_indexes[j], pop[i].phi_dihedrals[j], pop[i].psi_dihedrals[j], pop[i].chi_angles[j], pop[i].fitnesses))
+    
+        if (settings.verbose and not settings.basilisk_and_sidechains):
+            print("ind, ind fitness(es), res, phi, psi")
+            for i in xrange (settings.population_size):
+                for j in xrange(0, len(pop[i].dihedral_residue_indexes)):
+                    print("{0}, {4}, {1}, {2}, {3}".format(i, pop[i].dihedral_residue_indexes[j], pop[i].phi_dihedrals[j], pop[i].psi_dihedrals[j], pop[i].fitnesses))
 
     print "Current Iteration: ", curr_iteration
     min_indiv = np.argmin([p.fitnesses[0] for p in pop])

@@ -15,6 +15,27 @@ class Settings(object):
     '''
     classdocs
     '''
+    
+    composition_optimization = False
+    composition_residue_indexes = None
+    composition_lower_bounds = None
+    composition_upper_bounds = None
+    composition_library = None
+    
+    
+    backbone_dihedral_optimization = False
+    dihedral_residue_indexes = None
+    
+    sidechain_dihedral_optimisation = False
+    basilisk_and_sidechains = False
+    
+
+    seed_population = False
+    population_file_path = None
+    
+    population_size = 0
+    max_iteration = 0
+    
     def __init__(self, configFilePath):
         
         self.configFilePath = configFilePath
@@ -120,7 +141,7 @@ class Settings(object):
                 # parse amber computation parameters
                 # self.amber_path = self.config.get('EVALUATOR', 'amber_path')
                 # self.mpi_path = self.config.get('EVALUATOR', 'mpi_path')
-                self.use_gaussian = self.config.getboolean('EVALUATOR', 'use_gaussian')
+                #self.use_gaussian = self.config.getboolean('EVALUATOR', 'use_gaussian')
                 self.tleap_template = self.config.get('EVALUATOR', 'tleap_template')
                 self.amber_params = self.config.get('EVALUATOR', 'amber_params')
                 self.mpi_procs = int(self.config.get('EVALUATOR', 'mpi_processors'))
