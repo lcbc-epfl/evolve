@@ -40,12 +40,14 @@ if __name__ == '__main__':
         sys.exit()
     print "Succesfully Read Molecule:", args.molecule
     
+    print args.rotamer_path.split(".")[1]
     frag = openbabel.OBMol()
     obConversion.SetInFormat(args.rotamer_path.split(".")[1])
     if (not obConversion.ReadFile(frag, args.rotamer_path)):
         sys.exit()
         print "Couldn't read:", args.rotamer_path
     
+    print "WAT"
     curr = mol.GetResidue(args.res_index)
     
     mol_CA = mi.getAlphaCarbon(curr)

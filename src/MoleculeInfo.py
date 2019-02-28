@@ -32,7 +32,6 @@ def getResType(obres):
 
 def getAlphaCarbon(obres):
     res = obres.GetName()
-    print res
 
     for obatom in openbabel.OBResidueAtomIter(obres):
         # atomID = obres.GetAtomID(obatom)

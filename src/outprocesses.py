@@ -14,6 +14,7 @@ import numpy as np
 
 def runtleap(work_dir="", mol_file="mol.pdb", tleaptemp="tleap_template.in", tleapin="leap.in", inpcrd_out="mol.inpcrd", prmtop_out="mol.prmtop"):
     # TODO
+    
     if (os.path.exists(work_dir + inpcrd_out)):
         os.remove(work_dir + inpcrd_out)
     if (os.path.exists(work_dir + prmtop_out)):
@@ -33,10 +34,10 @@ def runtleap(work_dir="", mol_file="mol.pdb", tleaptemp="tleap_template.in", tle
         elif "saveamberparm" in line:
             g[i] = "saveamberparm mol " + work_dir + prmtop_out + " " + work_dir + inpcrd_out + "\n"
     
-    i = open(work_dir + tleapin, 'w')
+    ff = open(work_dir + tleapin, 'w')
     for line in g:
-        i.write(line)
-    i.close()
+        ff.write(line)
+    ff.close()
 
     # proc = subprocess.Popen([tleap_path+"/bin/tleap", "-f", work_dir+tleapin], stdout=subprocess.PIPE)
     # out, err = proc.communicate()
@@ -84,6 +85,28 @@ def runAmberMPI(work_dir="", np=16, amberin="amber_minimization.in", prmtop="mol
         sys.exit("sander failed, returned code %d (check '" + work_dir + "/amber.log')" % (e.returncode))
     except OSError as e:
         sys.exit("failed to execute sander.MPI: %s" % (str(e)))
+    
+def runPMEMD(work_dir="", np=20, amberin="amber_minimization.in", prmtop="mol.prmtop", inpcrd="mol.inpcrd", amberout="amber.out", restart="amber.rst", use_cuda=False):
+    
+    if (work_dir == ""):
+        foutanderr = open('pmemd.log', 'w')
+    else:
+        foutanderr = open(work_dir + '/amber.log', 'w')
+
+    try:
+        if use_cuda:
+            proc = subprocess.Popen(["pmemd.cuda", "-O", "-i", amberin, "-o", work_dir + amberout, "-c", work_dir + inpcrd, "-p", work_dir + prmtop, "-r", work_dir + restart], stdout=foutanderr, stderr=subprocess.STDOUT)
+        else:
+            proc = subprocess.Popen(["mpirun", "-np", str(np), "pmemd.MPI", "-O", "-i", amberin, "-o", work_dir + amberout, "-c", work_dir + inpcrd, "-p", work_dir + prmtop, "-r", work_dir + restart], stdout=foutanderr, stderr=subprocess.STDOUT)
+        proc.wait()
+        foutanderr.close()
+    
+    except IOError as e:
+        sys.exit("I/O error on '%s': %s" % (e.filename, e.strerror))
+    except subprocess.CalledProcessError as e:
+        sys.exit("sander failed, returned code %d (check '" + work_dir + "/amber.log')" % (e.returncode))
+    except OSError as e:
+        sys.exit("failed to execute PMEMD.MPI: %s" % (str(e)))
     
 
 def runMMPBSA(work_dir="", mmpbsa_in="mmpbsa.in", prmtop="mol.prmtop", inpcrd="mol.inpcrd", final_results="mmpbsa.dat", decomp_results="mmpbsa_decomp.dat"):

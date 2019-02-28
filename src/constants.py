@@ -3,7 +3,7 @@ main.py
 
 @author: Nicholas Browning
 '''
-
+import numpy as np
 
 element2mass = {'Ru': 101.904348, 'Re': 186.955744, 'Rf': 261.10869, 'Ra': 226.025403,
                 'Rb': 84.9118, 'Rn': 222.017571, 'Rh': 102.905503, 'Be': 9.012183,
@@ -79,11 +79,34 @@ rotamer_types = [ 'GLY', 'ALA', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG',
             'TYR', 'TYR', 'TYR', 'TYR', 'VAL', 'VAL', 'VAL'
             ]
   
-  
+  # 10, 50, 80
 energies = {'ALA': (13.03, 12.14 , 12.06), 'ARG': (-170.77, -176.22 , -176.73), 'ASH': (-43.74, -45.64, -45.82), 'ASP': (-52.27, -58.92, -59.55), 'ASN': (-72.72, -74.29, -74.44), \
             'CYS': (13.55, 12.58, 12.49), 'GLH': (-36.86, -38.93, -39.13), 'GLU': (-47.00, -53.61, -54.30), 'GLN': (-56.93, -58.79, -58.97), 'GLY':(7.11, 6.15, 6.06), \
             'HID': (12.43, 10.83, 10.68), 'HIE':(8.74, 7.22, 7.08), 'HIP': (22.66, 17.17, 16.62), 'ILE': (10.74, 9.93, 9.85), 'LEU': (-10.04, -10.88, -10.96), \
             'LYN': (-4.36, -5.73, -5.85), 'LYS': (-9.60, -15.72, -16.29), 'MET': (8.36, 7.47, 7.29), 'PHE': (11.05, 10.04, 9.95), 'SER': (-0.71, -2.32, -2.47), \
             'THR': (-19.37, -20.45, -20.59), 'TRP':(14.43, 13.07, 12.94), 'TYR': (-13.28, -14.89, -15.05), 'VAL':(-7.58, -8.41, -8.49), 'PRO': (0, 0, 0) }
 
+def subselect_rotamers(type_list):
+    indices = [i for i, x in enumerate(rotamer_types) if (x in type_list)]
+    return [rotamers[i] for i in indices]
 
+def subselect_rotamer_types(type_list):
+    indices = [i for i, x in enumerate(rotamer_types) if (x in type_list)]
+    return [rotamer_types[i] for i in indices]
+
+def subselect_rotamer_energy_dict(type_list):
+    new_dict = {}
+    
+    for i in type_list:
+        new_dict[i] = energies[i]
+        
+    return new_dict
+
+if __name__ == '__main__':
+    
+    # ALA ASH ASN CYS GLH GLN ILE LEU LYN MET PHE SER THR TRP TYR VAL
+    target_list = ['ALA', 'ASH', 'ASN', 'CYS', 'GLH', 'GLN', 'ILE', 'LEU', 'LYN', 'MET', 'PHE', 'SER', 'THR', 'TRP', 'TYR', 'VAL' ]
+    
+    print subselect_rotamer_types(target_list)
+    print subselect_rotamer_energy_dict(target_list), len(subselect_rotamer_types(target_list))
+    

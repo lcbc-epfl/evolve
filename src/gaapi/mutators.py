@@ -14,6 +14,7 @@ def mutate(settings, individuals, mutator_op, **args):
     
     for i in xrange (0, settings.population_size):
         if (np.random.random() < settings.mutation_probability):
+            print "MUTATE Individual: ", i
             mutated_pop.append(mutator_op(settings, individuals[i], **args))
         else:
             mutated_pop.append(individuals[i])
@@ -55,7 +56,7 @@ def uniform_mutation(settings, individual):
                 comp_m = np.random.randint(low=lower_comp_bound[i], high=upper_comp_bound[i])
 
                 if (settings.verbose):
-                    print "CMPSTN: Mutating!", mutant.composition[i], comp_m
+                    print "Position (", i, " ): " , mutant.composition[i],"->", comp_m
                 mutant.composition[i] = comp_m
 
     return mutant

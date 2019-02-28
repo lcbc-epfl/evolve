@@ -9,7 +9,9 @@ import argparse
 import openbabel
 import time
 import json
+import sys
 
+from src import constants as cnts
 from src import JobConfig
 from src.gaapi import Individual
 from src.gaapi import selectors
@@ -17,11 +19,9 @@ from src.gaapi import mutators
 from src.gaapi import crossovers
 from src.gaapi import generators
 from src.gaapi import replacers
+from src import MoleculeInfo as mi
 import evaluators as evals
 import printResidueInfo as pri
-
-
-
 
 
 def mainLoop(settings):
@@ -32,14 +32,30 @@ def mainLoop(settings):
 
     # Compute fitness of initial structure given to GA and store in file
     print('Fitness of {}:'.format(settings.initial_molecule_path))
+    
+    
     initial_indiv = Individual.Individual(settings)
     initial_indiv.init = True
     for k, eval in enumerate(ga["evaluators"]):
         print("EVALUATORS {}".format(ga["evaluators"][k].__name__))
         eval(settings, [initial_indiv], k)
+    
     with open(settings.output_path + '/initial_fitness.dat', 'w') as outfile:  
         json.dump(initial_indiv.fitnesses[0], outfile)
     
+    settings.initial_energy = initial_indiv.fitnesses[0]
+    
+    print "INITIAL_ENERGY", settings.initial_energy
+    
+    directory = settings.output_path + "/amber_run"
+    
+    obConversion = openbabel.OBConversion() 
+    obConversion.SetInFormat("pdb")
+
+    molec = openbabel.OBMol()
+    obConversion.ReadFile(molec, directory + '/min_struct.pdb')
+    initial_indiv.mol = molec
+        
     if settings.seed_population:
         # TODO - IMPLEMENT
         pass
@@ -93,6 +109,11 @@ def mainLoop(settings):
         child_population = mutators.mutate(settings, child_population, ga["chosenMutator"])
         
         # evaluate - build new mol files, run amber minimisation/whatever else, update individuals with resulting dihedrals
+       
+        for j in xrange(0, len(child_population)):
+            child_population[j].mol = openbabel.OBMol(initial_indiv.mol)
+            child_population[j].applyComposition(settings)
+      
         for i, eval in enumerate(ga["evaluators"]):
             print("EVALUATORS {}".format(ga["evaluators"][i].__name__))
             eval(settings, child_population, i)
@@ -105,9 +126,8 @@ def mainLoop(settings):
         print("Convergence relative error: {}".format(curr_conv_relative_error))
 
         curr_iteration += 1
-
-        with open(settings.output_path + '/fitnesses.dat', 'w') as outfile:  
-            json.dump(best_fitnesses, outfile)
+    
+        np.savetxt(settings.output_path + '/fitnesses.dat', best_fitnesses, delimiter='\n')
         
     printIterationInfo(settings, curr_iteration, parent_population, True)
     print('Best GA fitnesses written in fitnesses.dat')
@@ -140,10 +160,13 @@ def initialise_ga(settings):
     for k in settings.evaluators:
         if ("openbabel_ff94" in settings.evaluators):
             evaluators.append(evals.testEnergyByMinimisation)
-        elif ("amber" in settings.evaluators):
-            evaluators.append(evals.amber_energy_simplified)
+        elif ("helical_stability" in settings.evaluators):
+            evaluators.append(evals.helical_stability)
         elif ("pmemd" in settings.evaluators):
-            pass #could add other choices in evaluators.py
+            evaluators.append(evals.amber_energy_simplified)
+        else:
+            print "Could not parse evaluator from setting file"
+            sys.exit()
 
     return {'chosenSelector': chosenSelector, 'chosenMutator': chosenMutator, 'chosenCrossover': chosenCrossover, 'chosenReplacer': chosenReplacer, 'evaluators': evaluators}
 
@@ -174,6 +197,9 @@ def printIterationInfo(settings, curr_iteration, pop, ending):
     print "Population Average Fitness(es):", np.mean([p.fitnesses for p in pop])
     print "Population STD(s):", np.std([p.fitnesses for p in pop])
     print "Best individual:", min_indiv
+    
+    if (pop[min_indiv].composition_residue_indexes != None):
+        print "Best Individual Composition: ", [mi.getResType(pop[min_indiv].mol.GetResidue(j)) for j in settings.composition_residue_indexes]
     
     if (pop[min_indiv].dihedral_residue_indexes != None):
         print('Best ind - PHIs, PSIs')
@@ -206,7 +232,7 @@ if __name__ == '__main__':
     print("\n-- START SETTINGS PRINT --")
     settings.printSettings()
     print( "-- END SETTINGS PRINT -- ")
-    
+   
     print("\n--- START MOLECULE PRINT --")
     pri.printResidueInfo(settings.initial_molecule)
     print("--- END MOLECULE PRINT --")

@@ -3,13 +3,14 @@ Created on Oct 5, 2016
 
 @author: nbrownin
 '''
+import argparse
 import numpy as np
 import ConfigParser 
 from gaapi import operator_types 
 import sys
 import openbabel
 import collections
-
+from src import constants as cnts
 
 class Settings(object):
     '''
@@ -21,6 +22,7 @@ class Settings(object):
     composition_lower_bounds = None
     composition_upper_bounds = None
     composition_library = None
+    allowed_residue_types = None
     
     
     backbone_dihedral_optimization = False
@@ -28,13 +30,17 @@ class Settings(object):
     
     sidechain_dihedral_optimisation = False
     basilisk_and_sidechains = False
-    
+
+    solution_min_fitness = None
 
     seed_population = False
     population_file_path = None
     
     population_size = 0
     max_iteration = 0
+    initial_energy = 0.0
+    
+    helical_dielectric = 0
     
     def __init__(self, configFilePath):
         
@@ -63,14 +69,26 @@ class Settings(object):
         # PARSE [OPTIMIZATION]
         if self.config.has_option('OPTIMIZATION', 'composition_optimization'):
             self.composition_optimization = self.config.getboolean('OPTIMIZATION', 'composition_optimization')
-        else:
-            self.composition_optimization = False
-        
+
+    
         if (self.composition_optimization):
             self.composition_residue_indexes = [int(v) for v in self.config.get('OPTIMIZATION', 'composition_residue_indexes').split()]
             self.composition_lower_bounds = [int(v) for v in self.config.get('OPTIMIZATION', 'composition_lower_bounds').split()]
             self.composition_upper_bounds = [int(v) for v in self.config.get('OPTIMIZATION', 'composition_upper_bounds').split()]
             self.composition_library = self.config.get('OPTIMIZATION', 'composition_library')
+           
+            #Restrict energy/rotamer/types list to only those specified in input
+            if (self.config.has_option('OPTIMIZATION', 'allowed_residue_types')):
+                self.allowed_residue_types = [v.strip() for v in self.config.get('OPTIMIZATION', 'allowed_residue_types').split(' ')]
+                cnts.energy = cnts.subselect_rotamer_energy_dict(self.allowed_residue_types)
+                cnts.rotamers = cnts.subselect_rotamers(self.allowed_residue_types)
+                cnts.rotamer_types = cnts.subselect_rotamer_types(self.allowed_residue_types)
+                
+            if (self.config.has_option('OPTIMIZATION', 'min_fitness')):
+                self.solution_min_fitness = data = float(self.config.get('OPTIMIZATION', 'min_fitness'))
+        
+            
+
         
         if self.config.has_option('OPTIMIZATION', 'backbone_dihedral_optimization'):
             self.backbone_dihedral_optimization = self.config.getboolean('OPTIMIZATION', 'backbone_dihedral_optimization')
@@ -138,14 +156,22 @@ class Settings(object):
                 # parse turbomole specifics
                 self.turbomole_template = self.config.get('EVALUATOR', 'turbomole_template')
             if "amber" in self.evaluators:
-                # parse amber computation parameters
-                # self.amber_path = self.config.get('EVALUATOR', 'amber_path')
-                # self.mpi_path = self.config.get('EVALUATOR', 'mpi_path')
-                #self.use_gaussian = self.config.getboolean('EVALUATOR', 'use_gaussian')
                 self.tleap_template = self.config.get('EVALUATOR', 'tleap_template')
                 self.amber_params = self.config.get('EVALUATOR', 'amber_params')
                 self.mpi_procs = int(self.config.get('EVALUATOR', 'mpi_processors'))
-    
+            if "helical_stability" in self.evaluators:
+                self.tleap_template = self.config.get('EVALUATOR', 'tleap_template')
+                self.amber_params = self.config.get('EVALUATOR', 'amber_params')
+                self.mpi_procs = int(self.config.get('EVALUATOR', 'mpi_processors'))
+                self.helical_dielectric = int(float(self.config.get('EVALUATOR', 'dielectric')))
+                if (self.helical_dielectric == 80):
+                    self.helical_dielectric = 2
+                elif (self.helical_dielectric == 50):
+                    self.helical_dielectric = 1
+                elif (self.helical_dielectric == 10):
+                    self.helical_dielectric = 0
+                    
+                
         # PARSE [IO]
         self.output_path = self.config.get('IO', 'output_path')
         self.output_file = self.config.get('IO', 'output_file')
@@ -161,3 +187,12 @@ class Settings(object):
         for attribute, value in ordered_dict.items():
             print('{} : {}'.format(attribute, value))
             
+
+    
+if __name__ == '__main__':
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-input_file', type=str)
+    args = parser.parse_args()
+    settings = Settings(args.input_file)
+

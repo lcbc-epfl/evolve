@@ -91,11 +91,6 @@ def testEnergyByMinimisation(settings, individuals, fitness_index):
         # if (settings.verbose):2>&1 | tee -i
            # print i, individuals[i].fitnesses
         print('ind {}, fitness {}'.format(i, individuals[i].fitnesses))
-        
-        
-def AmberBackboneStability(settings, individuals):
-    import src.RotamerCreator as rc
-    
 
 def minimise_sidechain_ff(settings, individual):
     from src import MoleculeInfo as mi
@@ -308,399 +303,113 @@ def turbomol_scf_energy(settings, individuals, fitness_index):
         print i, individuals[i].fitnesses
 
 
+def amber_energy_minimize(settings, individual):
+     
+    directory = settings.output_path + "/amber_run"
+    
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    
+    if (os.path.exists(directory + "/mol.pdb")):
+        os.remove(directory + "/mol.pdb")
+
+    obconv = openbabel.OBConversion()
+    obconv.SetOutFormat("pdb")
+    obconv.WriteFile(individual.mol, directory + "/mol.pdb")
+
+    op.runtleap(work_dir=directory + "/", mol_file='mol.pdb', tleaptemp=settings.tleap_template, tleapin="leap.in")
+
+    op.runPMEMD(work_dir=directory + "/", np=settings.mpi_procs, amberin=settings.amber_params)
+    
+    print "finished energy min"
+    
+    fout = open(directory + '/min_struct.pdb', 'w')
+    ferr = open(directory + '/min_struct.log', 'w')
+    try:
+        proc = subprocess.Popen(["ambpdb","-p", directory + "/mol.prmtop", "-c", directory + "/amber.rst"], stdout=fout, stderr=ferr)
+        proc.wait()
+        fout.close()
+        ferr.close()
+    except IOError as e:
+        sys.exit("I/O error on '%s': %s" % (e.filename, e.strerror))
+    except subprocess.CalledProcessError as e:
+        sys.exit("convert rst to pdb failed, returned code %d (check '" + directory + "/min_struct.log')" % (e.returncode))
+    except OSError as e:
+        sys.exit("failed to convert rst to pdb: %s" % (str(e)))
+    
+    f = open(directory + "/amber.out", "r")
+    
+    obConversion = openbabel.OBConversion() 
+    obConversion.SetInFormat("pdb")
+
+    molec = openbabel.OBMol()
+    obConversion.ReadFile(molec, directory + '/min_struct.pdb')
+    individual.mol = molec
+    
+    finalEnergy = op.parseAmberEnergy(directory + "/amber.out")
+    
+    return finalEnergy
+
 def amber_energy_simplified(settings, individuals, fitness_index, pop_start=0):
+    
+     
     for i in xrange(pop_start, len(individuals)):
         
-        print "Minimising: ", i
-  
-        directory = settings.output_path + "/amber_run"
+        print "Minimising: ", i,
         
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-        
-        if (os.path.exists(directory + "/mol.pdb")):
-            os.remove(directory + "/mol.pdb")
-
-        obconv = openbabel.OBConversion()
-        obconv.SetOutFormat("pdb")
-        obconv.WriteFile(individuals[i].mol, directory + "/mol.pdb")
-    
-        op.runtleap(work_dir=directory + "/", mol_file='mol.pdb', tleaptemp=settings.tleap_template, tleapin="leap.in")
-
-        op.runAmberMPI(work_dir=directory + "/", np=settings.mpi_procs, amberin=settings.amber_params)
-        
-        fout = open(directory + '/min_struct.pdb', 'w')
-        ferr = open(directory + '/min_struct.log', 'w')
-        try:
-            proc = subprocess.Popen(["ambpdb", "-p", directory + "/mol.prmtop", "-c", directory + "/amber.rst"], stdout=fout, stderr=ferr)
-            proc.wait()
-            fout.close()
-            ferr.close()
-        except IOError as e:
-            sys.exit("I/O error on '%s': %s" % (e.filename, e.strerror))
-        except subprocess.CalledProcessError as e:
-            sys.exit("convert rst to pdb failed, returned code %d (check '" + directory + "/min_struct.log')" % (e.returncode))
-        except OSError as e:
-            sys.exit("failed to convert rst to pdb: %s" % (str(e)))
-
-        
-        f = open(directory + "/amber.out", "r")
-        
-        finalEnergy = op.parseAmberEnergy(directory + "/amber.out")
+        finalEnergy = amber_energy_minimize(settings, individuals[i])
         
         individuals[i].setFitness(fitness_index, finalEnergy)
         
-        if (finalEnergy == 999):
-            continue
+        if (settings.solution_min_fitness is not None):
+            if (individuals[i].getFitness(fitness_index) < setings.solution_min_fitness):
+                individuals[i].setFitness(fitness_index, 999999999.0)
         
-        obConversion = openbabel.OBConversion() 
-        obConversion.SetInFormat("pdb")
-
-        molec = openbabel.OBMol()
-        obConversion.ReadFile(molec, directory + '/min_struct.pdb')
-        individuals[i].mol = molec
     
-
         print('ind {}, fitness {}'.format(i, individuals[i].fitnesses))
         
-def amber_energy(settings, individuals, fitness_index, pop_start=0):
-
-    # os.environ["AMBERHOME"]="/"+settings.amber_path
-
-    # if (settings.verbose):
-        # print("IND NUM, IND FITNESS")
-        
+def helical_stability(settings, individuals, fitness_index, pop_start=0):
+    from src import constants
+    from src import MoleculeInfo as mi
+    directory = settings.output_path + "/amber_run"
+     
     for i in xrange(pop_start, len(individuals)):
-    
-        # Updating the OBmol of each individual with current dihedrals
-        if (settings.composition_optimization and not individuals[i].init):
-            individuals[i].applyComposition(settings)
-
-        if (settings.backbone_dihedral_optimization and not individuals[i].init):
-            individuals[i].applyPhiPsiDihedrals()
-
-        if (settings.basilisk_and_sidechains and not individuals[i].init):
-            individuals[i].apply_chi_dihedrals()
-
-            
-        # Writing the molecule for further Amber input in a dedicated folder
-        # directory = settings.output_path + "/amber_run/ind_"+str(i)
-        directory = settings.output_path + "/amber_run"
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-
-        # Seperate if non-standard residues are involved
-        if (not settings.use_gaussian):
         
-            if (os.path.exists(directory + "/in_temp_mol.pdb")):
-                os.remove(directory + "/in_temp_mol.pdb")
-
-            obconv = openbabel.OBConversion()
-            obconv.SetOutFormat("pdb")
-            obconv.WriteFile(individuals[i].mol, directory + "/in_temp_mol.pdb")
-
-            '''
-            # Preprocessing pdb file if needed
-            # Creating a more suitable pdb file for tleap to avoid further issues
-            # pdb4amber analyses PDB files and cleans them for further usage, especially with the LeaP programs of Amber
-            if (os.path.exists(directory+"/pdb4amber_temp_mol.pdb")):
-                os.remove(directory+"/pdb4amber_temp_mol.pdb")
-
-            foutanderr = open(directory+'/pdb4amber_temp_mol.log','w')
-            try:
-                proc = subprocess.Popen(["pdb4amber", "-i", directory+"/in_temp_mol.pdb", "-o", directory+"/pdb4amber_temp_mol.pdb", "--dry", "--nohyd"], stdout=foutanderr, stderr=subprocess.STDOUT) #"--nohyd", 
-                proc.wait()
-                foutanderr.close()
-            except IOError as e:
-                sys.exit("I/O error on '%s': %s" % (e.filename, e.strerror))
-            except subprocess.CalledProcessError as e:
-                sys.exit("pdb4amber failed, returned code %d (check '"+directory+"/pdb4amber_temp_mol.log')" % (e.returncode))
-            except OSError as e:
-                sys.exit("failed to execute pdb4amber: %s" % (str(e)))
-            '''
-            '''    
-            #(Re-)adding the hydrogen atoms if "--nohyd" flag used to remove hydrogens with pdb4amber previously, actually reduce can also be used in pdb4amber with --reduce, this is used as tleap is very strict on hydrogens' names
-            if (os.path.exists(directory+"/reduce_temp_mol.pdb")):
-                os.remove(directory+"/reduce_temp_mol.pdb")
-
-            fout = open(directory+'/reduce_temp_mol.pdb','w')
-            ferr = open(directory+'/reduce_temp_mol.log', 'w')
-            try:
-                proc = subprocess.Popen(["reduce", "-nuclear", "-NOCon", directory+"/in_temp_mol.pdb"], stdout=fout, stderr=ferr)# "-build", "-nuclear"
-                proc.wait()
-                fout.close()
-                ferr.close()
-            except IOError as e:
-                sys.exit("I/O error on '%s': %s" % (e.filename, e.strerror))
-            except subprocess.CalledProcessError as e:
-                sys.exit("reduce failed, returned code %d (check '"+directory+"/reduce_temp_mol.log')" % (e.returncode))
-            except OSError as e:
-                sys.exit("failed to execute reduce: %s" % (str(e)))
-            '''
-
-            # Preprocessing the molecule with antechamber
-            if (os.path.exists(directory + "/antechamber_temp_mol.mol2")):
-                os.remove(directory + "/antechamber_temp_mol.mol2")
-
-            foutanderr = open(directory + '/antechamber_temp_mol.log', 'w')
-            try:
-                proc = subprocess.Popen(["antechamber", "-i", directory + "/in_temp_mol.pdb", "-fi", "pdb", "-o", directory + "/antechamber_temp_mol.mol2", "-fo", "mol2", "-pf", "y"], stdout=foutanderr, stderr=subprocess.STDOUT)  # skips optimization before AM1-BCC charge computation / "-ek", "qm_theory='AM1', grms_tol=0.0005, scfconv=1.d-10, maxcyc=0"/ "-rn", "MOL"/"-nc", "0 / -ek,  ndiis_attempts=700"
-                proc.wait()
-                foutanderr.close()  # "-c", "bcc", "-ek", "qm_theory='AM1', grms_tol=0.0005, scfconv=1.d-10, maxcyc=0"
-            except IOError as e:
-                sys.exit("I/O error on '%s': %s" % (e.filename, e.strerror))
-            except subprocess.CalledProcessError as e:
-                sys.exit("antechamber failed, returned code %d (check '" + directory + "/pdb4amber_temp_mol.log')" % (e.returncode))
-            except OSError as e:
-                sys.exit("failed to execute antechamber: %s" % (str(e)))
-                
-            tleap_input_mol = "in_temp_mol.pdb"
-            
+        already_done = -1
         
-        elif (settings.use_gaussian):
-        
-            if (os.path.exists(directory + "/in_temp_mol.com")):
-                os.remove(directory + "/in_temp_mol.com")
-
-            obconv = openbabel.OBConversion()
-            obconv.SetOutFormat("com")
-            obconv.WriteFile(individuals[i].mol, directory + "/in_temp_mol.com")
-            '''
-            # Converting the pdb molecule to Gaussian input file, often buggy
-            foutanderr = open(directory+'/gaussian_temp_mol.log','w')
-            try:
-            proc = subprocess.Popen(["newzmat", "-ipdb", "-ocart", "-tcart", "-sMMC2", directory+"/in_temp_mol.pdb", directory+"/in_temp_mol.com", settings.output_path + "/gaussian_template.com"], stdout=foutanderr, stderr=subprocess.STDOUT)
+        if (i > 0):
+            for j in xrange(0, i):
+                if (np.array_equal(individuals[j].composition, individuals[i].composition)):
+                    already_done = j
+                    break
+                    
+        if (already_done != -1):
+            print "ALready computed: " , i, " -> member ", already_done 
+            individuals[i].mol = openbabel.OBMol(individuals[already_done].mol)
+            individuals[i].fitnesses = individuals[already_done].fitnesses
+            continue     
                
-            '''
-
-            # For non-standard residues or use of Gaussian for charge computation
+        add = 0.0
+        negate = settings.initial_energy
+    
+        print "Minimising: ", i, [mi.getResType(individuals[i].mol.GetResidue(j)) for j in settings.composition_residue_indexes]
+        
+        finalEnergy = amber_energy_minimize(settings, individuals[i])
+        
+        for j in xrange (0, len(settings.composition_residue_indexes)):
+            res = mi.getResType(individuals[i].mol.GetResidue(settings.composition_residue_indexes[j]))
+            add += constants.energies['ALA'][settings.helical_dielectric]
+            negate += constants.energies[res][settings.helical_dielectric]
             
-            # Optimizing the structure first if needed
-            # Preparing Gaussian input file
-            '''
-            proccp = subprocess.Popen(['cp', settings.output_path+"/opt_gaussian_template.gin", directory+"/opt_gaussian_temp_mol.gin"], stdout=subprocess.PIPE)
-            out, err = proccp.communicate()
-
-            f = open(directory+"/in_temp_mol.com")
-            lines = f.readlines()
-            with open(directory+"/opt_gaussian_temp_mol.gin", "a") as myfile:
-                myfile.writelines(lines[5:])
-            f.close()
-            myfile.close()
-
-            # Running Gaussian to optimize geometry
-            proc = subprocess.Popen(["g16",  directory+"/opt_gaussian_temp_mol.gin"], stdout=subprocess.PIPE)
-            out, err = proc.communicate()
-            '''
-
-            # Running single-point Gaussian to compute charges for non-standard residues from optimized geometry 
-            proccp = subprocess.Popen(['cp', settings.output_path + "/sp_gaussian_template.gin", directory + "/sp_gaussian_temp_mol.gin"], stdout=subprocess.PIPE)
-            out, err = proccp.communicate()
-            
-            f = open(directory + "/in_temp_mol.com")
-            lines = f.readlines()
-            with open(directory + "/sp_gaussian_temp_mol.gin", "a") as myfile:
-                myfile.writelines(lines[5:])
-            f.close()
-            myfile.close()
-            
-            proc = subprocess.Popen(["g16", directory + "/sp_gaussian_temp_mol.gin"], stdout=subprocess.PIPE)
-            out, err = proc.communicate()
-
-
-            # Preprocessing the molecule with antechamber, especially for non-standard residues and partial charges
-            if (os.path.exists(directory + "/antechamber_temp_mol.mol2")):
-                os.remove(directory + "/antechamber_temp_mol.mol2")
-
-            foutanderr = open(directory + '/antechamber_temp_mol.log', 'w')
-            try:
-                proc = subprocess.Popen(["antechamber", "-i", directory + "/sp_gaussian_temp_mol.log", "-fi", "gout", "-o", directory + "/antechamber_temp_mol.mol2", "-fo", "mol2", "-c", "resp"], stdout=foutanderr, stderr=subprocess.STDOUT)
-                proc.wait()
-                foutanderr.close()
-            except IOError as e:
-                sys.exit("I/O error on '%s': %s" % (e.filename, e.strerror))
-            except subprocess.CalledProcessError as e:
-                sys.exit("antechamber failed, returned code %d (check '" + directory + "/antechamber_temp_mol.log')" % (e.returncode))
-            except OSError as e:
-                sys.exit("failed to execute antechamber: %s" % (str(e)))
-
-                
-            tleap_input_mol = "antechamber_temp_mol.mol2"
-
-
-        # Checking missing parameters with parmchk and generate the frcmod with missing params (only once since the frcmod file should remain the same for all energy computations)
-        if (os.path.exists(directory + "/parmchk_temp_mol.frcmod")):
-            # os.remove(directory+"/parmchk_temp_mol.frcmod")
-            pass
+        print add, negate
+        finalEnergy += (add - negate)
         
-        else:
-            
-            foutanderr = open(directory + '/parmchk_temp_mol.log', 'w')
-            try:
-                proc = subprocess.Popen(["parmchk2", "-i", directory + "/antechamber_temp_mol.mol2", "-f", "mol2", "-o", directory + "/parmchk_temp_mol.frcmod"], stdout=foutanderr, stderr=subprocess.STDOUT)
-                proc.wait()
-                foutanderr.close()
-            except IOError as e:
-                sys.exit("I/O error on '%s': %s" % (e.filename, e.strerror))
-            except subprocess.CalledProcessError as e:
-                sys.exit("parmchk2 failed, returned code %d (check '" + directory + "/parmchk_temp_mol.log')" % (e.returncode))
-            except OSError as e:
-                sys.exit("failed to execute parmchk2: %s" % (str(e)))
-        '''    
-        procmv = subprocess.Popen(['cp', directory+"/parmchk_temp_mol.frcmod", directory+"/parmchk_{}.frcmod".format(i)], stdout=subprocess.PIPE) # see also 'logfile' if pmemd.MPI is used 
-        out, err = procmv.communicate()
-        '''
-
-          
-        # Preparing input files with tleap, use pdb4amber/reduce/in_temp_mol.pdb depending on the pdb file relevance
-        op.runtleap(work_dir=directory + "/", mol_file=tleap_input_mol, tleaptemp=settings.tleap_template, tleapin="leap.in")
-
+        individuals[i].setFitness(fitness_index, finalEnergy)
         
-        # Computing the energy of the molecule with Amber/Pmemd
-        op.runAmberMPI(work_dir=directory + "/", np=settings.mpi_procs, amberin=settings.amber_params)
+    
+        print('ind {}, fitness {}'.format(i, individuals[i].fitnesses))
         
-
-        # Generate output minimized molecule with amber in a pdb file
-        fout = open(directory + '/amber_out_min_struct.pdb', 'w')
-        ferr = open(directory + '/amber_out_min_struct.log', 'w')
-        try:
-            proc = subprocess.Popen(["ambpdb", "-p", directory + "/leap_temp_mol.prmtop", "-c", directory + "/amber.rst"], stdout=fout, stderr=ferr)
-            # out, err = proc.communicate(input=directory+"/amber.rst")
-            # fout.write(out)
-            # ferr.write(err)
-            proc.wait()
-            fout.close()
-            ferr.close()
-        except IOError as e:
-            sys.exit("I/O error on '%s': %s" % (e.filename, e.strerror))
-        except subprocess.CalledProcessError as e:
-            sys.exit("convert rst to pdb failed, returned code %d (check '" + directory + "/amber_out_min_struct.log')" % (e.returncode))
-        except OSError as e:
-            sys.exit("failed to convert rst to pdb: %s" % (str(e)))
-
-        ''' If simulated in a solvent, to remove the solvent    
-        # use pdb4amber and reduce again to remove water from the output molecule but keep the hydrogens if needed
-        if (os.path.exists(directory+"/out_min_mol.pdb")):
-            os.remove(directory+"/out_min_mol.pdb")
-            
-        foutanderr = open(directory+'/out_min_mol.log','w')
-        try:
-            proc = subprocess.Popen(["pdb4amber", "-i", directory+"/amber_out_min_struct.pdb", "-o", directory+"/out_min_mol.pdb", "--dry"], stdout=foutanderr, stderr=subprocess.STDOUT)
-            proc.wait()
-            foutanderr.close()
-        except IOError as e:
-            sys.exit("I/O error on '%s': %s" % (e.filename, e.strerror))
-        except subprocess.CalledProcessError as e:
-            sys.exit("pdb4amber failed, returned code %d (check '"+directory+"/out_min_mol.log')" % (e.returncode))
-        except OSError as e:
-            sys.exit("failed to execute pdb4amber: %s" % (str(e)))
-        '''    
-
-        # Moving some output files generated by amber until now
-        procmv = subprocess.Popen(['mv', 'leap.log', 'mdinfo', directory], stdout=subprocess.PIPE)  # see also 'logfile' if pmemd.MPI is used 
-        out, err = procmv.communicate()
-
-
-
-        # Random reseeding within population if bad configurations occur in amber (explosion of system during minimization), otherwise normal update of molecule and energy
-        error_detected = False
-        f = open(directory + "/amber.out", "r")
-        filelines = f.readlines()
-        
-        for line in filelines:
-            if ('SANDER BOMB') in line:
-                error_detected = True
-                
-            elif ('NaN') in line:
-                error_detected = True
-                      
-            # elif ('VDWAALS = ******') in line:
-                # error_detected = True
-                
-        f.close()
-
-        if (error_detected):
-            '''
-            from random import randint
-            new_index = randint(0, settings.population_size-1)
-            if new_index == i:
-                new_index = new_index - 1
-
-            print('ILL INDIVIDUAL, re-seeding indiv {} randomly replaced by current indiv {}'.format(i, new_index))
-
-            individuals[i].mol = individuals[new_index].mol
-            individuals[i].setFitness(fitness_index, individuals[new_index].fitnesses)
-            '''
-            print('ILL INDIVIDUAL, re-seeding indiv {} according to initilization settings'.format(i))
-
-            if (settings.mc_generate_dihedrals):
-                # "Generating Initial Population dihedrals via MC"
-                generators.MonteCarloDihedralGenerator(settings, [individuals[i]])
-
-            else:
-                # "Generating Initial Population dihedrals from uniform distribution"
-                generators.UniformDihedralGenerator(settings, [individuals[i]])
-                
-            if (settings.basilisk_and_sidechains):
-                # "Backbone-dependent side chains generated by Basilisk"
-                generators.BasiliskSideChainDihedralsGenerator(settings, [individuals[i]])
-            
-                
-            amber_energy(settings, individuals, fitness_index, pop_start=i)
-            break
-
-        
-        elif (not error_detected):
-
-            # Parse the energy in output file and assign it to the individual's fitness 
-            finalEnergy = op.parseAmberEnergy(directory + "/amber.out")
-
-            # Detection of energy explosion, defined threshold, to allow OpenBabel to load the output file with connectivity based on distances between atoms 
-            if finalEnergy > 500:
-                
-                print('ENERGY EXPLOSION, re-seeding indiv {} according to initilization settings'.format(i))
-
-                if (settings.mc_generate_dihedrals):
-                    # "Generating Initial Population dihedrals via MC"
-                    generators.MonteCarloDihedralGenerator(settings, [individuals[i]])
-
-                else:
-                    # "Generating Initial Population dihedrals from uniform distribution"
-                    generators.UniformDihedralGenerator(settings, [individuals[i]])
-
-                if (settings.basilisk_and_sidechains):
-                    # "Backbone-dependent side chains generated by Basilisk"
-                    generators.BasiliskSideChainDihedralsGenerator(settings, [individuals[i]])
-
-
-                amber_energy(settings, individuals, fitness_index, pop_start=i)
-                break
-        
-            else:
-        
-                # Assign the output molecule to the individual's molecule
-                # Read pdb file
-                path = str((directory + '/amber_out_min_struct.pdb').strip('\''))
-                obConversion = openbabel.OBConversion()  # openbabel parse
-                obConversion.SetInFormat(path.split(".")[1])
-
-                molec = openbabel.OBMol()
-                if (not obConversion.ReadFile(molec, path)):
-                    print("Problem reading " + path)
-                    sys.exit(0)
-
-                individuals[i].mol = molec
-                individuals[i].setFitness(fitness_index, finalEnergy)
-
-                print('ind {}, fitness {}'.format(i, individuals[i].fitnesses))
-
-                # Update torsion angles values of the individual
-                phi_psi_dihedrals = individuals[i].getPhiPsiDihedrals()
-
-                for j in xrange (0, len(phi_psi_dihedrals)):
-                    individuals[i].phi_dihedrals[j] = phi_psi_dihedrals[j][0]
-                    individuals[i].psi_dihedrals[j] = phi_psi_dihedrals[j][1]
-
-                if (settings.basilisk_and_sidechains):
-                    chi_dihedrals = individuals[i].get_chi_dihedrals_per_res()
-                    individuals[i].chi_angles = chi_dihedrals
+    
+    
+    
+    

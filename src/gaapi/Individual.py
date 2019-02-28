@@ -167,9 +167,7 @@ class Individual(object):
             
             
     def applyComposition(self, settings):
-        print "applying composition"
-        print self.composition
-        
+     
         from src import constants
         
         if (self.composition_residue_indexes == None):
@@ -219,6 +217,9 @@ class Individual(object):
         
     def setFitness(self, index, fitness):
         self.fitnesses[index] = fitness
+        
+    def getFitness(self, index, fitness):
+        return self.fitnesses[index]
         
     def __lt__(self, other):
         return self.dominates(other)
