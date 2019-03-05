@@ -9,9 +9,12 @@ crossovers.py
 
 # crossover types
 SBX = 'sbx'
+UNI_X = "uniform_crossover"
 
 # mutator types
-POLY = 'poly_dihedral'
+POLY_M = 'polynomial_mutation'
+UNI_M = 'uniform_mutation'
+
 
 # replacer types
 SWAP = 'swap'

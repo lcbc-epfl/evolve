@@ -14,6 +14,8 @@ def crossover(settings, individuals, crossover_op, **args):
     for i in xrange (0, settings.population_size, 2):
         
         if np.random.random() < settings.mating_probability:
+            if (settings.verbose):
+                print "CROSS Individuals: ", i, i + 1
             sis, bro = crossover_op(settings, individuals[i], individuals[i + 1], **args)
         else:
             sis, bro = individuals[i], individuals[i + 1]
@@ -71,12 +73,20 @@ def uniform_crossover(settings, mom, dad, **kargs):
 
 
 def sim_b(m, d, di, lb, ub):
+    
+    m = float(m)
+    d = float(d)
+    di = float(di)
+    lb = float(lb)
+    ub = float(ub)
+    
     if m > d:
         m, d = d, m
         
     if (m == d):
         return m, m
     beta = 1.0 + 2 * min(m - lb, ub - d) / float(d - m)
+    
     alpha = 2.0 - 1.0 / beta ** (di + 1.0)
     u = np.random.random() 
     if u <= (1.0 / alpha):
@@ -98,7 +108,7 @@ def simulated_binary_crossover(settings, mom, dad, **kargs):
     bro = Individual.Individual(settings, dad)
     sis = Individual.Individual(settings, mom)
     
-    if (settings.dihedral_optimization):
+    if (settings.backbone_dihedral_optimization):
         lower_bound = -180.0
         upper_bound = 180.0
         for i in xrange (0, len(mom.phi_dihedrals)):
@@ -131,23 +141,18 @@ def simulated_binary_crossover(settings, mom, dad, **kargs):
         lower_comp_bound = settings.composition_lower_bounds
         upper_comp_bound = settings.composition_upper_bounds
         
-        print lower_comp_bound, upper_comp_bound
-        print mom.composition, dad.composition
-        print [constants.rotamers[v] for v in mom.composition], [constants.rotamers[v] for v in dad.composition]
-        
         for i in xrange (0, len(mom.composition)):
             
             if (np.random.random() < settings.genewise_crossover_probability):
             
                 sis_comp, bro_comp = sim_b(mom.composition[i], dad.composition[i], di, lower_comp_bound[i], upper_comp_bound[i])
-                sis.composition[i] = sis_comp
-                bro.composition[i] = bro_comp
                 
                 if (settings.verbose):
-                    # TODO
-                    pass
-            
+                    print "Position (", i, " ): " , sis.composition[i], "->", sis_comp, bro.composition[i], "->", bro_comp
     
+                sis.composition[i] = int(sis_comp)
+                bro.composition[i] = int(bro_comp)
+                
     return sis, bro
 
     

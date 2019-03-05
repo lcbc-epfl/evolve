@@ -14,7 +14,8 @@ def mutate(settings, individuals, mutator_op, **args):
     
     for i in xrange (0, settings.population_size):
         if (np.random.random() < settings.mutation_probability):
-            print "MUTATE Individual: ", i
+            if (settings.verbose):
+                print "MUTATE Individual: ", i
             mutated_pop.append(mutator_op(settings, individuals[i], **args))
         else:
             mutated_pop.append(individuals[i])
@@ -56,14 +57,20 @@ def uniform_mutation(settings, individual):
                 comp_m = np.random.randint(low=lower_comp_bound[i], high=upper_comp_bound[i])
 
                 if (settings.verbose):
-                    print "Position (", i, " ): " , mutant.composition[i],"->", comp_m
+                    print "Position (", i, " ): " , mutant.composition[i], "->", comp_m
+                    
                 mutant.composition[i] = comp_m
 
     return mutant
     
 
 def poly(indiv_i, xl, xu, eta):
-    x = indiv_i
+    
+    x = float(indiv_i)
+    xu = float(xu)
+    xl = float(xl)
+    eta = float(eta)
+    
     delta_1 = (x - xl) / (xu - xl)
     delta_2 = (xu - x) / (xu - xl)
     rand = np.random.random()
@@ -89,7 +96,7 @@ def polynomial_mutation(settings, individual, **args):
 
     mutant = Individual.Individual(settings, individual)
     
-    if (settings.dihedral_optimization):
+    if (settings.backbone_dihedral_optimization):
         
         lower_bound = -180
         upper_bound = 180
@@ -117,9 +124,10 @@ def polynomial_mutation(settings, individual, **args):
             if np.random.random() <= mut_rate:
             
                 comp_m = poly(individual.composition[i], lower_comp_bound[i], upper_comp_bound[i], eta)
-
+                
                 if (settings.verbose):
                     print "CMPSTN: Mutating!", individual.composition[i], comp_m
-                mutant.composition[i] = comp_m
+                    
+                mutant.composition[i] = int(comp_m)
 
     return mutant

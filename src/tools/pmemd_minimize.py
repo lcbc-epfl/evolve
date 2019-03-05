@@ -85,7 +85,6 @@ if __name__ == "__main__":
     
     print "Printing Mol"
 
-    print args.cuda
     obConversion = openbabel.OBConversion()
     obConversion.SetInAndOutFormats(args.molecule.split(".")[1], args.out_molecule.split(".")[1])
 

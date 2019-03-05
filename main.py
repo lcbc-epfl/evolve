@@ -54,7 +54,8 @@ def mainLoop(settings):
 
     molec = openbabel.OBMol()
     obConversion.ReadFile(molec, directory + '/min_struct.pdb')
-    initial_indiv.mol = molec
+    
+    settings.initial_molecule = molec
         
     if settings.seed_population:
         # TODO - IMPLEMENT
@@ -111,7 +112,7 @@ def mainLoop(settings):
         # evaluate - build new mol files, run amber minimisation/whatever else, update individuals with resulting dihedrals
        
         for j in xrange(0, len(child_population)):
-            child_population[j].mol = openbabel.OBMol(initial_indiv.mol)
+            child_population[j].mol = openbabel.OBMol(settings.initial_molecule)
             child_population[j].applyComposition(settings)
       
         for i, eval in enumerate(ga["evaluators"]):
@@ -134,6 +135,7 @@ def mainLoop(settings):
 
     
 def initialise_ga(settings):
+    from src.gaapi import operator_types
     '''
     chosenSelector = selectors.tournamentSelectionWOR
     chosenMutator = mutators.polynomial_dihedral
@@ -144,16 +146,20 @@ def initialise_ga(settings):
 
     chosenSelector, chosenMutator, chosenCrossover, chosenReplacer, evaluators = None, None, None, None, None
     
-    if (settings.selector=="tournament_wor"):
+    if (settings.selector == operator_types.TOURNAMENT_WOR):
         chosenSelector = selectors.tournamentSelectionWOR
 
-    if (settings.mutator=="uniform_mutation"):
+    if (settings.mutator == operator_types.UNI_M):
         chosenMutator = mutators.uniform_mutation
+    elif (settings.mutator == operator_types.POLY_M):
+        chosenMutator = mutators.polynomial_mutation
 
-    if (settings.crossover=="uniform_crossover"):
+    if (settings.crossover == operator_types.UNI_X):
         chosenCrossover = crossovers.uniform_crossover
+    elif(settings.crossover == operator_types.SBX):
+        chosenCrossover = crossovers.simulated_binary_crossover
 
-    if (settings.replacer=="elitism"):
+    if (settings.replacer== operator_types.ELITIST):
         chosenReplacer = replacers.elitist_replace
     
     evaluators = []

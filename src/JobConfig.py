@@ -42,6 +42,8 @@ class Settings(object):
     
     helical_dielectric = 0
     
+    initial_molecule = None
+    
     def __init__(self, configFilePath):
         
         self.configFilePath = configFilePath
@@ -121,16 +123,20 @@ class Settings(object):
         # PARSE [GA_CROSSOVER]  
         if (self.config.has_section('GA_CROSSOVER')):
             self.crossover = self.config.get('GA_CROSSOVER', 'crossover')
+            
             if (self.crossover == operator_types.SBX):
                 self.sbx_distribution_index = float(self.config.get('GA_CROSSOVER', 'sbx_distribution_index'))
+                
             self.mating_probability = float(self.config.get('GA_CROSSOVER', 'mating_probability'))
             self.genewise_crossover_probability = float(self.config.get('GA_CROSSOVER', 'genewise_crossover_probability'))
         
         # PARSE [GA MUTATION]
         if (self.config.has_section('GA_MUTATION')):
             self.mutator = self.config.get('GA_MUTATION', 'mutator')
-            if (self.mutator == operator_types.POLY):
+            
+            if (self.mutator == operator_types.POLY_M):
                 self.poly_eta = float(self.config.get('GA_MUTATION', 'poly_eta'))
+            
             self.mutation_probability = float(self.config.get('GA_MUTATION', 'mutation_probability'))
             self.genewise_mutation_probability = float(self.config.get('GA_MUTATION', 'genewise__mutation_probability'))
         
