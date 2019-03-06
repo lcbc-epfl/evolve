@@ -404,9 +404,13 @@ def helical_stability(settings, individuals, fitness_index, pop_start=0):
         print add, negate
         finalEnergy += (add - negate)
         
+        
         individuals[i].setFitness(fitness_index, finalEnergy)
         
-    
+        if (settings.solution_min_fitness is not None):
+            if (individuals[i].getFitness(fitness_index) < setings.solution_min_fitness):
+                individuals[i].setFitness(fitness_index, 999999999.0)
+                
         print('ind {}, fitness {}'.format(i, individuals[i].fitnesses))
         
     

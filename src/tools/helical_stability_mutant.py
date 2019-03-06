@@ -20,7 +20,7 @@ def pmemd_minimize(mol):
     obconv.WriteFile(mol, "mol.pdb")
     op.runtleap(work_dir="", mol_file='mol.pdb', tleaptemp="tleap_template.in", tleapin="leap.in")
      
-    op.runPMEMD(np=20)
+    op.runPMEMD(np=16)
   
     fout = open('tmp.pdb', 'w')
     ferr = open('err', 'w')

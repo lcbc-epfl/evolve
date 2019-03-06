@@ -218,7 +218,7 @@ class Individual(object):
     def setFitness(self, index, fitness):
         self.fitnesses[index] = fitness
         
-    def getFitness(self, index, fitness):
+    def getFitness(self, index):
         return self.fitnesses[index]
         
     def __lt__(self, other):
