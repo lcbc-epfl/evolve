@@ -3,7 +3,7 @@ main.py
 
 @author: Nicholas Browning
 '''
-import os
+
 import sys
 import argparse 
 import openbabel
@@ -12,22 +12,15 @@ import subprocess
 from src import MoleculeInfo as mi
 from src import MoleculeCreator as mc
 
-def pmemd_minimize(mol):
-
+def pmemd_minimize(mol, num_procs):
+    
     obconv = openbabel.OBConversion()
     
-    delete_files = ['mol.pdb', 'leap.in', 'amber.out', 'mol.prmtop', 'mol.inpcrd', 'mol.rst', 'mdinfo', 'amber.log', 'err', 'leap.log', 'logfile', 'amber.rst' ]
-    for v in delete_files:
-        if (os.path.exists(v)):
-            os.remove(v)
-    
     obconv.SetInAndOutFormats("pdb", "pdb")
-    
     obconv.WriteFile(mol, "mol.pdb")
-
     op.runtleap(work_dir="", mol_file='mol.pdb', tleaptemp="tleap_template.in", tleapin="leap.in")
      
-    op.runPMEMD(np=16)
+    op.runPMEMD(np=num_procs)
   
     fout = open('tmp.pdb', 'w')
     ferr = open('err', 'w')
@@ -49,6 +42,35 @@ def pmemd_minimize(mol):
     
     return finalEnergy
 
+def sander_minimize(mol, num_procs):
+     
+    obconv = openbabel.OBConversion()
+    
+    obconv.SetInAndOutFormats("pdb", "pdb")
+    obconv.WriteFile(mol, "mol.pdb")
+    op.runtleap(work_dir="", mol_file='mol.pdb', tleaptemp="tleap_template.in", tleapin="leap.in")
+     
+    op.runAmberMPI(np=num_procs)
+  
+    fout = open('tmp.pdb', 'w')
+    ferr = open('err', 'w')
+    try:
+        proc = subprocess.Popen(["ambpdb", "-p", "mol.prmtop", "-c", "amber.rst"], stdout=fout, stderr=ferr)
+        proc.wait()
+        fout.close()
+        ferr.close()
+    except IOError as e:
+        sys.exit("I/O error on '%s': %s" % (e.filename, e.strerror))
+    except subprocess.CalledProcessError as e:
+        sys.exit("convert rst to pdb failed, returned code %d (check '" + "/min_struct.log')" % (e.returncode))
+    except OSError as e:
+        sys.exit("failed to convert rst to pdb: %s" % (str(e)))
+
+    finalEnergy = op.parseAmberEnergy("amber.out")    
+    
+    return finalEnergy
+    
+
 def helical_stability(initial_mol, mol, mutated_indexes, DIE):
     from src import constants
     from src import MoleculeInfo as mi
@@ -61,7 +83,6 @@ def helical_stability(initial_mol, mol, mutated_indexes, DIE):
         add += constants.energies['ALA'][DIE]
         negate += constants.energies[res][DIE]
    
-    print add, negate
     return (add - negate)
         
 
@@ -97,9 +118,10 @@ if __name__ == '__main__':
     parser.add_argument('-om', '--out_molecule', type=str)
     parser.add_argument('-mr', '--mutate_residues', nargs="*")
     parser.add_argument('-mi', '--mutate_indexes', nargs="*")
-    parser.add_argument('-d', '--dielectric', type=int)
+    parser.add_argument('-np', '--num_procs')
     args = parser.parse_args()
     
+    print args.mutate_residues
 
     obConversion = openbabel.OBConversion()
     
@@ -109,20 +131,14 @@ if __name__ == '__main__':
     
     if (not obConversion.ReadFile(mol, args.molecule)) :
         print "Couldn't read:", args.molecule
-        sys.exit()    
+        sys.exit()
+    print "Succesfully Read Molecule:", args.molecule
+    
     
     initial_mol = openbabel.OBMol(mol)
-    initial_e = pmemd_minimize(initial_mol)
-    
-    obConversion.WriteFile(initial_mol, 'initial_mol.pdb')
     
     mutate(mol, args.mutate_indexes, args.mutate_residues, rotamer_path='/share/lcbcsrv5/lcbcdata/nbrownin/Rotamer_Library_Flat')
     
+    initial_e = sander_minimize(mol, args.num_procs)
     
-    opt_e = pmemd_minimize(mol)
-    
-    diff = helical_stability(initial_mol, mol, args.mutate_indexes, args.dielectric)
-    
-    obConversion.WriteFile(mol, args.out_molecule)
-
-    print opt_e - initial_e + diff, initial_e, opt_e, diff
+    print initial_e

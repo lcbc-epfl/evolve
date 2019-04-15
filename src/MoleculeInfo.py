@@ -84,20 +84,41 @@ def getConnectedCarboxylCarbon(atom):
         
 def getBetaAtom(obres):
     alpha_carbon = getAlphaCarbon(obres)
-
-    bbcarboxl = getBBCarboxyl(obres)
+    
+    bbcarboxyl = getBBCarboxyl(obres)
+    
+    bbnitrogen = getBBNitrogen(obres)
  
     if alpha_carbon is None:
         return None
     
-    # need to do additional tests for Glycine
+    if bbcarboxyl is None:
+        return None
+    
+    if bbnitrogen is None:
+        return None
+    
+    alpha_vec = np.asarray([alpha_carbon.GetX(), alpha_carbon.GetY(), alpha_carbon.GetZ()])
+    nitro_vec = np.asarray([bbnitrogen.GetX(), bbnitrogen.GetY(), bbnitrogen.GetZ()])
+    carboxyl_vec = np.asarray([bbcarboxyl.GetX(), bbcarboxyl.GetY(), bbcarboxyl.GetZ()])
+    
     res = getResType(obres)
+
     for obatom in openbabel.OBAtomAtomIter(alpha_carbon):
         if (res == "GLY"):
             if (obatom.GetType() == 'H'):
-                return obatom
+                ob_vec = np.asarray([obatom.GetX(), obatom.GetY(), obatom.GetZ()])
+
+                RH = ob_vec - alpha_vec
+                RC = carboxyl_vec - alpha_vec
+                RN = nitro_vec - alpha_vec
+                perp_vec = np.cross(RN, RC)
+     
+                if (np.dot(RH, perp_vec) > 0.0):
+                    return obatom
+
         else:
-            if (bbcarboxl is not None and obatom.IsCarbon() and obatom.GetIdx() != bbcarboxl.GetIdx()):
+            if (bbcarboxyl is not None and obatom.IsCarbon() and obatom.GetIdx() != bbcarboxyl.GetIdx()):
                 return obatom
     return None
         
@@ -296,26 +317,26 @@ def getPhiPsiDihedrals(mol, residue_indexes):
       
         obres = mol.GetResidue(residue_indexes[i])
       
-        #print obres.GetName()
+        # print obres.GetName()
         alpha_carbon = getAlphaCarbon(obres)
         bb_nitrogen = getBBNitrogen(obres)
         neg1_carboxl = getNeg1BBCarboxyl(obres)
         carboxl = getBBCarboxyl(obres)
         plus1_nitrogen = getPlus1BBNitrogen(obres)
         
-        #if alpha_carbon != None:
-            #print('CA Id: {}'.format(alpha_carbon.GetId()))
+        # if alpha_carbon != None:
+            # print('CA Id: {}'.format(alpha_carbon.GetId()))
         
-        #if bb_nitrogen != None:
+        # if bb_nitrogen != None:
         #    print('N Id: {}'.format(bb_nitrogen.GetId()))
          
-        #if neg1_carboxl != None:
+        # if neg1_carboxl != None:
         #    print('C-1 Id: {}'.format(neg1_carboxl.GetId()))
   
-        #if carboxl != None:
+        # if carboxl != None:
         #    print('C Id: {}'.format(carboxl.GetId()))
         
-        #if plus1_nitrogen != None:
+        # if plus1_nitrogen != None:
         #    print('N+1 Id: {}'.format(plus1_nitrogen.GetId()))
         
         
@@ -608,29 +629,12 @@ if __name__ == '__main__':
     obConversion.SetInAndOutFormats("pdb", "pdb")
 
     mol = openbabel.OBMol()
-    obConversion.ReadFile(mol, "lowest_energy_struct.pdb")  
+    obConversion.ReadFile(mol, "mol2.pdb")  
     
-    print(mol.NumAtoms())
-    print(mol.NumBonds())
-    print(mol.NumResidues())
-    
-    obres_list = []
     for j in range(0, mol.NumResidues()): 
         obres = mol.GetResidue(j)
-        obres_list.append(obres)
-        print("Res {}: {}".format(obres.GetName(), sidechain[obres.GetName()]))
-        print('side chain atoms:')
-        (sidechain_IDatoms, sidechain_OBatoms, sidechain_NUMatoms) = get_sidechain_atoms(obres)
-        for i in range(0, len(sidechain_IDatoms)):
-            print('ID: ', sidechain_IDatoms[i], 'OBatomID: ', sidechain_OBatoms[i].GetIdx(), 'NumInMol:', sidechain_NUMatoms[i])
-
-    for j in range (20):
-        nside = 1
-        anglea = 90
-        print('New angle:', anglea)
-        set_chi_dihedral(mol, obres_list[j], nside, anglea)
-    
-        print("Writing to file")
-        # angles = getAllPhiPsiDihedrals(mol)
-        # print(angles)
-    obConversion.WriteFile(mol, "MoleculeInfo_test.pdb")
+        print obres.GetName()
+        if (getResType(obres) == 'GLY'):
+            beta_atom = getBetaAtom(obres)
+            print beta_atom.GetIdx()
+        

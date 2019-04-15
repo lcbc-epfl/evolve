@@ -59,6 +59,9 @@ rotamers = ['G01', 'A01', 'R01', 'R02', 'R03', 'R04', 'R05', 'R06', 'R07', 'R08'
             'Y01', 'Y02', 'Y03', 'Y04', 'V01', 'V02', 'V03'
             ]
 
+selected_rotamers = rotamers
+
+# ARG, GLU, TRP, HID, HIP
 rotamer_types = [ 'GLY', 'ALA', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', \
             'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', \
             'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ASP', \
@@ -78,13 +81,16 @@ rotamer_types = [ 'GLY', 'ALA', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG', 'ARG',
             'THR', 'THR', 'THR', 'TRP', 'TRP', 'TRP', 'TRP', 'TRP', 'TRP', 'TRP', \
             'TYR', 'TYR', 'TYR', 'TYR', 'VAL', 'VAL', 'VAL'
             ]
-  
-  # 10, 50, 80
+selected_rotamer_types = rotamer_types
+
+allowed_residue_types = ['GLY', 'ALA', 'ARG', 'ASP', 'ASH', 'ASN', 'CYS', 'GLU', 'GLH', 'GLN', 'HID', 'HIE', 'HIP', 'ILE', 'LEU', 'LYS', 'LYN', 'MET', 'PHE', 'SER', 'THR', 'TRP', 'TYR', 'VAL']
+
+# 10, 50, 80
 energies = {'ALA': (13.03, 12.14 , 12.06), 'ARG': (-170.77, -176.22 , -176.73), 'ASH': (-43.74, -45.64, -45.82), 'ASP': (-52.27, -58.92, -59.55), 'ASN': (-72.72, -74.29, -74.44), \
             'CYS': (13.55, 12.58, 12.49), 'GLH': (-36.86, -38.93, -39.13), 'GLU': (-47.00, -53.61, -54.30), 'GLN': (-56.93, -58.79, -58.97), 'GLY':(7.11, 6.15, 6.06), \
             'HID': (12.43, 10.83, 10.68), 'HIE':(8.74, 7.22, 7.08), 'HIP': (22.66, 17.17, 16.62), 'ILE': (10.74, 9.93, 9.85), 'LEU': (-10.04, -10.88, -10.96), \
             'LYN': (-4.36, -5.73, -5.85), 'LYS': (-9.60, -15.72, -16.29), 'MET': (8.36, 7.47, 7.29), 'PHE': (11.05, 10.04, 9.95), 'SER': (-0.71, -2.32, -2.47), \
-            'THR': (-19.37, -20.45, -20.59), 'TRP':(14.43, 13.07, 12.94), 'TYR': (-13.28, -14.89, -15.05), 'VAL':(-7.58, -8.41, -8.49), 'PRO': (0, 0, 0) }
+            'THR': (-19.37, -20.45, -20.59), 'TRP':(14.43, 13.07, 12.94), 'TYR': (-13.28, -14.89, -15.05), 'VAL':(-7.58, -8.41, -8.49) }
 
 def subselect_rotamers(type_list):
     indices = [i for i, x in enumerate(rotamer_types) if (x in type_list)]
@@ -104,9 +110,115 @@ def subselect_rotamer_energy_dict(type_list):
 
 if __name__ == '__main__':
     
-    # ALA ASH ASN CYS GLH GLN ILE LEU LYN MET PHE SER THR TRP TYR VAL
-    target_list = ['ALA', 'ASH', 'ASN', 'CYS', 'GLH', 'GLN', 'ILE', 'LEU', 'LYN', 'MET', 'PHE', 'SER', 'THR', 'TRP', 'TYR', 'VAL' ]
+    # 
+    target_list = ['GLY', 'ALA', 'ARG', 'ASP', 'ASH', 'ASN', 'CYS', 'GLU', 'GLH', 'GLN', 'HID', 'HIE', 'HIP', 'ILE', 'LEU', 'LYS', 'LYN', 'MET', 'PHE', 'SER', 'THR', 'TYR', 'VAL']
+    # target_list = allowed_residue_types
     
-    print subselect_rotamer_types(target_list)
-    print subselect_rotamer_energy_dict(target_list), len(subselect_rotamer_types(target_list))
+    selected_rotamers = subselect_rotamer_types(target_list)
+    selected_rotamer_types = subselect_rotamer_types(target_list)
     
+    def get_ubia_index2(min, max, selected_rotamers, selected_rotamer_types):
+        rot_count_dict = {}
+    
+        for v in target_list:
+            rot_count_dict[v] = 0
+        
+        for i in xrange(min, max):
+            rot_type = selected_rotamer_types[i]
+            rot_count_dict[rot_type] = rot_count_dict[rot_type] + 1
+    
+        rotamer_counts = rot_count_dict.values()
+        
+        rot_types = rot_count_dict.keys()
+        
+        which_type = np.random.randint(low=0, high=len(rot_types))
+        
+        chosen_rot = rot_types[which_type]
+        
+        allowed_indexes = []
+        
+        for i in xrange(min, max):
+            rot_type = selected_rotamer_types[i]
+
+            if (rot_type == chosen_rot):
+                allowed_indexes.append(i)
+                
+        allowed_indexes = np.asarray(allowed_indexes)
+                
+        rel_index = np.random.randint(0, len(allowed_indexes))
+        
+        return allowed_indexes[rel_index]
+     
+        
+        
+    def get_ubia_index(min, max, selected_rotamers, selected_rotamer_types):
+        rot_count_dict = {}
+    
+        for v in target_list:
+            rot_count_dict[v] = 0
+        
+        for i in xrange(min, max):
+            rot_type = selected_rotamer_types[i]
+            rot_count_dict[rot_type] = rot_count_dict[rot_type] + 1
+    
+        rotamer_counts = rot_count_dict.values()
+        
+        rot_types = rot_count_dict.keys()
+ 
+        total_num_rotamers = np.sum(rotamer_counts)
+        total_num_rotamers_csum = np.cumsum(rotamer_counts)
+    
+        biased_probs = np.zeros(len(rotamer_counts))
+    
+    
+        for i, v in enumerate(rotamer_counts):
+            if (v != 0):
+                biased_probs[i] = np.float(v) / total_num_rotamers
+       
+        unbiased_total_counts = np.zeros(len(rotamer_counts))
+        for i in xrange(0, len(rotamer_counts)):
+            if (biased_probs[i] != 0):
+                unbiased_total_counts[i] = rotamer_counts[i] * (1 / biased_probs[i])
+    
+        print unbiased_total_counts
+        rnd = np.random.rand() * np.sum(unbiased_total_counts)
+    
+        cumsum_unbiased = np.cumsum(unbiased_total_counts)
+ 
+        index = 0
+        val = 0
+        for i in xrange(0, len(cumsum_unbiased)):
+            if rnd > cumsum_unbiased[i]:
+                index += 1
+                val += unbiased_total_counts[i]
+    
+        new_index = (rnd - val) / unbiased_total_counts[index] * rotamer_counts[index]
+
+    
+        start = min
+    
+        for i in xrange(0, len(total_num_rotamers_csum)):
+            if rnd > cumsum_unbiased[i]:
+             start += rotamer_counts[i]
+        
+        rel_index = start + int(new_index)
+        return rel_index
+    
+#     samples = []
+#     for i in range(0, 2000):
+#        s = get_ubia_index2(0, len(selected_rotamers), selected_rotamers, selected_rotamer_types)
+#        samples.append(selected_rotamer_types[s])
+#        
+#     samples = np.asarray(samples)
+#     
+#     
+#     import matplotlib.pyplot as plt
+#     
+#     plt.hist(samples)
+#     
+#     plt.show()
+
+    #targets = ['GLY', 'ALA', 'ARG', 'ASP', 'ASH', 'ASN', 'CYS', 'GLU', 'GLH', 'GLN', 'HID', 'HIE', 'HIP', 'ILE', 'LEU', 'LYS', 'LYN', 'MET', 'PHE', 'SER', 'THR', 'TYR', 'VAL']
+    #targets = ['ALA', 'ASH' , 'ASN', 'CYS', 'GLH', 'GLN', 'ILE', 'LEU', 'LYN', 'MET', 'PHE', 'SER', 'THR', 'TRP', 'TYR', 'VAL', 'GLY']
+    targets=['GLU', 'ASP', 'HID', 'TRP', 'ARG']
+    print len(subselect_rotamer_types(targets))

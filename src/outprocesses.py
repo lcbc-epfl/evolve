@@ -76,7 +76,10 @@ def runAmberMPI(work_dir="", np=16, amberin="amber_minimization.in", prmtop="mol
         foutanderr = open(work_dir + '/amber.log', 'w')
 
     try:
-        proc = subprocess.Popen(["mpirun", "-np", str(np), "sander.MPI", "-O", "-i", amberin, "-o", work_dir + amberout, "-c", work_dir + inpcrd, "-p", work_dir + prmtop, "-r", work_dir + restart], stdout=foutanderr, stderr=subprocess.STDOUT)
+        if int(np) > 1:
+            proc = subprocess.Popen(["mpirun", "-np", str(np), "sander.MPI", "-O", "-i", amberin, "-o", work_dir + amberout, "-c", work_dir + inpcrd, "-p", work_dir + prmtop, "-r", work_dir + restart], stdout=foutanderr, stderr=subprocess.STDOUT)
+        else:
+            proc = subprocess.Popen(["sander", "-O", "-i", amberin, "-o", work_dir + amberout, "-c", work_dir + inpcrd, "-p", work_dir + prmtop, "-r", work_dir + restart], stdout=foutanderr, stderr=subprocess.STDOUT)
         proc.wait()
         foutanderr.close()
     except IOError as e:
@@ -88,16 +91,19 @@ def runAmberMPI(work_dir="", np=16, amberin="amber_minimization.in", prmtop="mol
     
 def runPMEMD(work_dir="", np=20, amberin="amber_minimization.in", prmtop="mol.prmtop", inpcrd="mol.inpcrd", amberout="amber.out", restart="amber.rst", use_cuda=False):
     
+    
     if (work_dir == ""):
-        foutanderr = open('pmemd.log', 'w')
+        foutanderr = open('amber.log', 'w')
     else:
         foutanderr = open(work_dir + '/amber.log', 'w')
 
     try:
         if use_cuda:
             proc = subprocess.Popen(["pmemd.cuda", "-O", "-i", amberin, "-o", work_dir + amberout, "-c", work_dir + inpcrd, "-p", work_dir + prmtop, "-r", work_dir + restart], stdout=foutanderr, stderr=subprocess.STDOUT)
-        else:
+        elif int(np) > 1:
             proc = subprocess.Popen(["mpirun", "-np", str(np), "pmemd.MPI", "-O", "-i", amberin, "-o", work_dir + amberout, "-c", work_dir + inpcrd, "-p", work_dir + prmtop, "-r", work_dir + restart], stdout=foutanderr, stderr=subprocess.STDOUT)
+        else:
+            proc = subprocess.Popen(["pmemd", "-O", "-i", amberin, "-o", work_dir + amberout, "-c", work_dir + inpcrd, "-p", work_dir + prmtop, "-r", work_dir + restart], stdout=foutanderr, stderr=subprocess.STDOUT)
         proc.wait()
         foutanderr.close()
     

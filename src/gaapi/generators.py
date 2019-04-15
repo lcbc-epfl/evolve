@@ -6,7 +6,7 @@ generators.py
 
 # Import modules
 import Individual
-import constants
+from src import constants as cnts
 import numpy as np
 
 from src import MoleculeInfo as mi
@@ -49,7 +49,51 @@ def UniformCompositionGenerator(settings, individuals):
         indiv = individuals[i]
         for j in xrange (0, len(settings.composition_residue_indexes)):
             indiv.composition[j] = np.random.randint(low=settings.composition_lower_bounds[j], high=settings.composition_upper_bounds[j])
+        print indiv.composition
         indiv.applyComposition(settings)
+        
+def unbiased_protein_composition_generator(settings, individuals):
+    
+    # Generates an unbiased sample across all rotamers (ie weights each rotamer equally for initial sampling)
+    def get_ubia_index(min, max, selected_rotamers, selected_rotamer_types):
+        rot_count_dict = {}
+
+        for i in xrange(min, max):
+            rot_type = selected_rotamer_types[i]
+            if rot_type in rot_count_dict.keys():
+                rot_count_dict[rot_type] = rot_count_dict[rot_type] + 1
+            else:
+                rot_count_dict[rot_type] = 0
+    
+        rotamer_counts = rot_count_dict.values()
+        rot_types = rot_count_dict.keys()
+        
+        which_type = np.random.randint(low=0, high=len(rot_types))
+        
+        chosen_rot = rot_types[which_type]
+        
+        allowed_indexes = []
+        
+        for i in xrange(min, max):
+            rot_type = selected_rotamer_types[i]
+
+            if (rot_type == chosen_rot):
+                allowed_indexes.append(i)
+        
+        allowed_indexes = np.asarray(allowed_indexes)
+                
+        rel_index = np.random.randint(0, len(allowed_indexes))
+        
+        return allowed_indexes[rel_index]
+    
+    for i in xrange (0, settings.population_size):
+        indiv = individuals[i]
+        
+        for j in xrange (0, len(settings.composition_residue_indexes)):
+            indiv.composition[j] = get_ubia_index(settings.composition_lower_bounds[j], settings.composition_upper_bounds[j], cnts.selected_rotamers, cnts.selected_rotamer_types)
+        
+        print indiv.composition
+        indiv.applyComposition(settings)  
             
 # Generate dihedrals by Monte Carlo
 def MonteCarloDihedralGenerator(settings, individuals, prob_pointers=None):

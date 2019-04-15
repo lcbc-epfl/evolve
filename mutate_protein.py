@@ -47,7 +47,6 @@ if __name__ == '__main__':
         sys.exit()
         print "Couldn't read:", args.rotamer_path
     
-    print "WAT"
     curr = mol.GetResidue(args.res_index)
     
     mol_CA = mi.getAlphaCarbon(curr)

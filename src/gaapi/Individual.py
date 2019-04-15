@@ -11,7 +11,7 @@ import numpy as np
 
 class Individual(object):
     
-    def __init__(self, settings, orig=None):
+    def __init__(self, settings, orig=None, initial_mol=False):
         if orig is None:
             self.initialise_constructor(settings)
         else:
@@ -173,16 +173,18 @@ class Individual(object):
         if (self.composition_residue_indexes == None):
             return
 
+        cmp = []
         for i in xrange(0, len(self.composition_residue_indexes)):
             frag = openbabel.OBMol()
             obConversion = openbabel.OBConversion()
             obConversion.SetInFormat("mol2")
             
-            rotamer_type = constants.rotamers[self.composition[i]]
-            
+            rotamer_type = constants.selected_rotamers[self.composition[i]]
+            cmp.append(rotamer_type)
             obConversion.ReadFile(frag, settings.composition_library + "/" + rotamer_type + ".mol2")
-        
             mcr.swapsidechain(self.mol, self.composition_residue_indexes[i], frag)
+        print "Created Individual:", cmp
+    
 
 
     def applyChiDihedrals(self, settings):

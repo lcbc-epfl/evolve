@@ -36,6 +36,8 @@ class Settings(object):
     seed_population = False
     population_file_path = None
     
+    unbiased_protein_composition_generator = False
+    
     population_size = 0
     max_iteration = 0
     initial_energy = 0.0
@@ -79,19 +81,19 @@ class Settings(object):
             self.composition_upper_bounds = [int(v) for v in self.config.get('OPTIMIZATION', 'composition_upper_bounds').split()]
             self.composition_library = self.config.get('OPTIMIZATION', 'composition_library')
            
-            #Restrict energy/rotamer/types list to only those specified in input
-            if (self.config.has_option('OPTIMIZATION', 'allowed_residue_types')):
-                self.allowed_residue_types = [v.strip() for v in self.config.get('OPTIMIZATION', 'allowed_residue_types').split(' ')]
-                cnts.energy = cnts.subselect_rotamer_energy_dict(self.allowed_residue_types)
-                cnts.rotamers = cnts.subselect_rotamers(self.allowed_residue_types)
-                cnts.rotamer_types = cnts.subselect_rotamer_types(self.allowed_residue_types)
+            # Restrict energy/rotamer/types list to only those specified in input
+            
+        if (self.config.has_option('OPTIMIZATION', 'allowed_residue_types')):
+            cnts.allowed_residue_types = [v.strip() for v in self.config.get('OPTIMIZATION', 'allowed_residue_types').split(' ')]
+            cnts.selected_rotamers = cnts.subselect_rotamers(cnts.allowed_residue_types)
+            cnts.selected_rotamer_types = cnts.subselect_rotamer_types(cnts.allowed_residue_types)
+            print cnts.selected_rotamers, cnts.selected_rotamer_types
                 
-            if (self.config.has_option('OPTIMIZATION', 'min_fitness')):
-                self.solution_min_fitness = data = float(self.config.get('OPTIMIZATION', 'min_fitness'))
+        if (self.config.has_option('OPTIMIZATION', 'min_fitness')):
+            self.solution_min_fitness = data = float(self.config.get('OPTIMIZATION', 'min_fitness'))
         
             
 
-        
         if self.config.has_option('OPTIMIZATION', 'backbone_dihedral_optimization'):
             self.backbone_dihedral_optimization = self.config.getboolean('OPTIMIZATION', 'backbone_dihedral_optimization')
         else:
@@ -154,7 +156,10 @@ class Settings(object):
             self.mcmove_lbound = float(self.config.get('MC_GENERATE', 'mcmove_lbound'))
             self.mcmove_ubound = float(self.config.get('MC_GENERATE', 'mcmove_ubound'))
             self.num_mc_steps = int(self.config.get('MC_GENERATE', 'num_mc_steps'))
-            
+    
+        if (self.config.has_section('GENERATOR')):
+            self.unbiased_protein_composition_generator = self.config.getboolean('GENERATOR', 'unbiased_protein_composition_generator')
+        
         # PARSE EVALUATORS
         if (self.config.has_section('EVALUATOR')):
             self.evaluators = [str(v) for v in self.config.get('EVALUATOR', 'evaluators').split()]

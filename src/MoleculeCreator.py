@@ -85,8 +85,6 @@ def add_fragment(mol, fragment, id_start):
         new_atom.SetImplicitValence(frag_atom.GetImplicitValence())
         new_atom.SetPartialCharge(frag_atom.GetPartialCharge())
     
-        
-        
         for data in frag_atom.GetData():
             new_atom.SetData(data)
   
@@ -95,7 +93,6 @@ def add_fragment(mol, fragment, id_start):
     for obbond in openbabel.OBMolBondIter(fragment):
         begin_atom = obbond.GetBeginAtom()
         end_atom = obbond.GetEndAtom()
-        
         mol.AddBond(obbond.GetBeginAtomIdx() + prevAtoms, obbond.GetEndAtomIdx() + prevAtoms, obbond.GetBO(), obbond.GetFlags())
     
     
@@ -114,7 +111,7 @@ def getAtomByID(mol, atom_id):
 def swapsidechain (mol, res_index, aa_mol):
     
     mol.BeginModify()
-    
+   
     curr = mol.GetResidue(res_index)
   
     new = aa_mol.GetResidue(0)
@@ -124,23 +121,22 @@ def swapsidechain (mol, res_index, aa_mol):
     
     mol_CB = mi.getBetaAtom(curr)
     mol_N = mi.getBBNitrogen(curr)
-
    
     aa_CA = mi.getAlphaCarbon(new)
   
     aa_CB = mi.getBetaAtom(new)
-   
+
     aa_bb_nitrogen = mi.getBBNitrogen(new)
  
     aa_gamma_atom = mi.getChi1DihedralAtom(new)
 
-
     frag_res = aa_CB.GetResidue()
     frag_name = frag_res.GetName()
     
+    aa_tor = 0
+    if (aa_gamma_atom is not None):
+        aa_tor = aa_mol.GetTorsion(aa_gamma_atom, aa_CA, aa_CB, aa_bb_nitrogen)
 
-    aa_tor = aa_mol.GetTorsion(aa_gamma_atom, aa_CA, aa_CB, aa_bb_nitrogen)
-    
     
     mol_cb_vec = np.asarray([mol_CB.GetX(), mol_CB.GetY(), mol_CB.GetZ()])
     mol_ca_vec = np.asarray([mol_CA.GetX(), mol_CA.GetY(), mol_CA.GetZ()])
@@ -155,6 +151,7 @@ def swapsidechain (mol, res_index, aa_mol):
     frag_atoms_del = openbabel.vectorInt()
     
     orig_num_atoms = mol.NumAtoms()
+    
     
     mol.FindChildren(mol_atoms_del, mol_CA.GetIdx(), mol_CB.GetIdx())
     aa_mol.FindChildren(frag_atoms_del, aa_CB.GetIdx(), aa_CA.GetIdx())
@@ -236,7 +233,7 @@ def swapsidechain (mol, res_index, aa_mol):
  
     frag_res_type = mi.getResType(frag_res)
     
-    #curr.SetName(frag_res_type)
+    # curr.SetName(frag_res_type)
     curr.SetName(frag_name)
         
     for obatom in openbabel.OBResidueAtomIter(frag_res):
@@ -252,7 +249,7 @@ def swapsidechain (mol, res_index, aa_mol):
     beta_atom = mi.getBetaAtom(curr)
     chi_atom = mi.getChi1DihedralAtom(curr)
     
-    if (chi_atom is not None):
+    if (chi_atom is not None and aa_gamma_atom is not None):
         mol.SetTorsion(bb_nitrogen, alpha_carbon, beta_atom, chi_atom, aa_tor * (np.pi / 180.0))
   
     mol.RenumberAtoms(renum_atoms)

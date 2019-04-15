@@ -29,33 +29,33 @@ def mainLoop(settings):
     parent_population = []
 
     ga = initialise_ga(settings)
-
-    # Compute fitness of initial structure given to GA and store in file
-    print('Fitness of {}:'.format(settings.initial_molecule_path))
     
+    if ("helical_stability" in settings.evaluators):
+        print('Fitness of {}:'.format(settings.initial_molecule_path))
+        initial_indiv = Individual.Individual(settings)
+        initial_indiv.init = True
+       
+        print "MINIMISING INITIAL STRUCTURE"
+        for k, eval in enumerate(ga["evaluators"]):
+            print("EVALUATORS {}".format(ga["evaluators"][k].__name__))
+            eval(settings, [initial_indiv], k)
+        
+        with open(settings.output_path + '/initial_fitness.dat', 'w') as outfile:  
+            json.dump(initial_indiv.fitnesses[0], outfile)
+        
+        settings.initial_energy = initial_indiv.fitnesses[0]
+        
+        print "INITIAL_ENERGY", settings.initial_energy
+        
+        directory = settings.output_path + "/amber_run"
+        
+        obConversion = openbabel.OBConversion() 
+        obConversion.SetInFormat("pdb")
     
-    initial_indiv = Individual.Individual(settings)
-    initial_indiv.init = True
-    for k, eval in enumerate(ga["evaluators"]):
-        print("EVALUATORS {}".format(ga["evaluators"][k].__name__))
-        eval(settings, [initial_indiv], k)
-    
-    with open(settings.output_path + '/initial_fitness.dat', 'w') as outfile:  
-        json.dump(initial_indiv.fitnesses[0], outfile)
-    
-    settings.initial_energy = initial_indiv.fitnesses[0]
-    
-    print "INITIAL_ENERGY", settings.initial_energy
-    
-    directory = settings.output_path + "/amber_run"
-    
-    obConversion = openbabel.OBConversion() 
-    obConversion.SetInFormat("pdb")
-
-    molec = openbabel.OBMol()
-    obConversion.ReadFile(molec, directory + '/min_struct.pdb')
-    
-    settings.initial_molecule = molec
+        molec = openbabel.OBMol()
+        obConversion.ReadFile(molec, directory + '/min_struct.pdb')
+        
+        settings.initial_molecule = molec
         
     if settings.seed_population:
         # TODO - IMPLEMENT
@@ -66,10 +66,13 @@ def mainLoop(settings):
         parent_population = generators.initialisePopulation(settings)
     
         if (settings.composition_optimization):
-            print "Generating initial population composition from uniform distribution"
-            generators.UniformCompositionGenerator(settings, parent_population)
-            pass
-        
+            if (settings.unbiased_protein_composition_generator):
+                 print "Generating initial population composition from unbiased distribution"
+                 generators.unbiased_protein_composition_generator(settings, parent_population)
+            else:
+                print "Generating initial population composition from uniform distribution"
+                generators.UniformCompositionGenerator(settings, parent_population)
+
         if (settings.backbone_dihedral_optimization):
             if (settings.mc_generate_dihedrals):
                 print "Generating Initial Population dihedrals via MC"
@@ -123,7 +126,7 @@ def mainLoop(settings):
         parent_population = replacers.replace(settings, parent_population, child_population, ga["chosenReplacer"])
 
         best_fitnesses.append(min([p.fitnesses[0] for p in parent_population]))
-        curr_conv_relative_error = abs((best_fitnesses[curr_iteration+1]-best_fitnesses[curr_iteration])/best_fitnesses[curr_iteration+1])
+        curr_conv_relative_error = abs((best_fitnesses[curr_iteration + 1] - best_fitnesses[curr_iteration]) / best_fitnesses[curr_iteration + 1])
         print("Convergence relative error: {}".format(curr_conv_relative_error))
 
         curr_iteration += 1
@@ -159,16 +162,16 @@ def initialise_ga(settings):
     elif(settings.crossover == operator_types.SBX):
         chosenCrossover = crossovers.simulated_binary_crossover
 
-    if (settings.replacer== operator_types.ELITIST):
+    if (settings.replacer == operator_types.ELITIST):
         chosenReplacer = replacers.elitist_replace
     
     evaluators = []
     for k in settings.evaluators:
-        if ("openbabel_ff94" in settings.evaluators):
+        if ("openbabel_ff94" in  k):
             evaluators.append(evals.testEnergyByMinimisation)
-        elif ("helical_stability" in settings.evaluators):
+        elif ("helical_stability" in  k):
             evaluators.append(evals.helical_stability)
-        elif ("pmemd" in settings.evaluators):
+        elif ("pmemd" in  k):
             evaluators.append(evals.amber_energy_simplified)
         else:
             print "Could not parse evaluator from setting file"
@@ -206,6 +209,7 @@ def printIterationInfo(settings, curr_iteration, pop, ending):
     
     if (pop[min_indiv].composition_residue_indexes != None):
         print "Best Individual Composition: ", [mi.getResType(pop[min_indiv].mol.GetResidue(j)) for j in settings.composition_residue_indexes]
+        print "Best Individual Rotamers: ", [cnts.selected_rotamers[v] for v in pop[min_indiv].composition]
     
     if (pop[min_indiv].dihedral_residue_indexes != None):
         print('Best ind - PHIs, PSIs')
@@ -221,12 +225,10 @@ def printIterationInfo(settings, curr_iteration, pop, ending):
         obConversion.WriteFile(pop[min_indiv].mol, settings.output_path + '/' + settings.output_file)
 
     elif (settings.store_intermediate_mol):
-        print("OUT: INTERMEDIATE MOLECULE in {}".format(settings.output_path + '/'+ "min_mol_iter_" + str(curr_iteration) + ".pdb"))
-        obConversion.WriteFile(pop[min_indiv].mol, settings.output_path + '/'+ "min_mol_iter_" + str(curr_iteration) + ".pdb")
+        print("OUT: INTERMEDIATE MOLECULE in {}".format(settings.output_path + '/' + "min_mol_iter_" + str(curr_iteration) + ".pdb"))
+        obConversion.WriteFile(pop[min_indiv].mol, settings.output_path + '/' + "min_mol_iter_" + str(curr_iteration) + ".pdb")
 
 
-
-    
 if __name__ == '__main__':
     start_time = time.time()
     
@@ -237,7 +239,7 @@ if __name__ == '__main__':
     settings = JobConfig.Settings(args.input_file)
     print("\n-- START SETTINGS PRINT --")
     settings.printSettings()
-    print( "-- END SETTINGS PRINT -- ")
+    print("-- END SETTINGS PRINT -- ")
    
     print("\n--- START MOLECULE PRINT --")
     pri.printResidueInfo(settings.initial_molecule)

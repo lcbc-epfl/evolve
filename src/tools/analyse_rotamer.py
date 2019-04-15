@@ -95,7 +95,7 @@ if __name__ == '__main__':
     
     parser.add_argument('-m', '--molecule', type=str)
     parser.add_argument('-om', '--out_molecule', type=str)
-    parser.add_argument('-mr', '--mutate_residues', nargs="*")
+    parser.add_argument('-mr', '--rotamer')
     parser.add_argument('-mi', '--mutate_indexes', nargs="*")
     parser.add_argument('-d', '--dielectric', type=int)
     args = parser.parse_args()
@@ -116,8 +116,12 @@ if __name__ == '__main__':
     
     obConversion.WriteFile(initial_mol, 'initial_mol.pdb')
     
-    mutate(mol, args.mutate_indexes, args.mutate_residues, rotamer_path='/share/lcbcsrv5/lcbcdata/nbrownin/Rotamer_Library_Flat')
+    rotamers = [None] * len(args.mutate_indexes)
     
+    for i in xrange(0, len(args.mutate_indexes)):
+        rotamers[i] = args.rotamer
+    print rotamers
+    mutate(mol, args.mutate_indexes, rotamers, rotamer_path='/share/lcbcsrv5/lcbcdata/nbrownin/Rotamer_Library_Flat')
     
     opt_e = pmemd_minimize(mol)
     

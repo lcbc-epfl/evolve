@@ -6,6 +6,7 @@ main.py
 
 from src.gaapi import Individual
 from src.gaapi import generators
+from src import constants as cnts
 import numpy as np
 import openbabel
 import src.outprocesses as op
@@ -149,11 +150,6 @@ def getSidechainAngleAtoms(mol, sidechain_atoms):
     for obangle in openbabel.OBMolAngleIter(mol):
         
         vertexidx, atom1idx, atom2idx = obangle
-        
-        # vertexidx = vertex.GetIdx()
-        # atom1idx = atom1.GetIdx()
-        # atom2idx = atom2.GetIdx()
-        
         if (vertexidx in sidechain_atoms or atom1idx in sidechain_atoms or atom2idx in sidechain_atoms):
             angle = mol.GetAngle(mol.GetAtom(atom1idx), mol.GetAtom(vertexidx), mol.GetAtom(atom2idx))
             angle_atom_dx.append([atom1idx, vertexidx, atom2idx, angle])
@@ -304,9 +300,13 @@ def turbomol_scf_energy(settings, individuals, fitness_index):
 
 
 def amber_energy_minimize(settings, individual):
+    import shutil
      
     directory = settings.output_path + "/amber_run"
     
+    if (os.path.exists(directory)):
+        shutil.rmtree(directory, ignore_errors=True) 
+        
     if not os.path.exists(directory):
         os.makedirs(directory)
     
@@ -321,12 +321,10 @@ def amber_energy_minimize(settings, individual):
 
     op.runPMEMD(work_dir=directory + "/", np=settings.mpi_procs, amberin=settings.amber_params)
     
-    print "finished energy min"
-    
     fout = open(directory + '/min_struct.pdb', 'w')
     ferr = open(directory + '/min_struct.log', 'w')
     try:
-        proc = subprocess.Popen(["ambpdb","-p", directory + "/mol.prmtop", "-c", directory + "/amber.rst"], stdout=fout, stderr=ferr)
+        proc = subprocess.Popen(["ambpdb", "-p", directory + "/mol.prmtop", "-c", directory + "/amber.rst"], stdout=fout, stderr=ferr)
         proc.wait()
         fout.close()
         ferr.close()
@@ -358,11 +356,12 @@ def amber_energy_simplified(settings, individuals, fitness_index, pop_start=0):
         print "Minimising: ", i,
         
         finalEnergy = amber_energy_minimize(settings, individuals[i])
+        print "min_energy:", finalEnergy
         
         individuals[i].setFitness(fitness_index, finalEnergy)
         
         if (settings.solution_min_fitness is not None):
-            if (individuals[i].getFitness(fitness_index) < setings.solution_min_fitness):
+            if (individuals[i].getFitness(fitness_index) < settings.solution_min_fitness):
                 individuals[i].setFitness(fitness_index, 999999999.0)
         
     
@@ -393,22 +392,24 @@ def helical_stability(settings, individuals, fitness_index, pop_start=0):
         negate = settings.initial_energy
     
         print "Minimising: ", i, [mi.getResType(individuals[i].mol.GetResidue(j)) for j in settings.composition_residue_indexes]
+        print "Rotamers: ", [cnts.selected_rotamers[v] for v in individuals[i].composition]
         
         finalEnergy = amber_energy_minimize(settings, individuals[i])
         
+        
         for j in xrange (0, len(settings.composition_residue_indexes)):
             res = mi.getResType(individuals[i].mol.GetResidue(settings.composition_residue_indexes[j]))
-            add += constants.energies['ALA'][settings.helical_dielectric]
+
+            add += constants.energies['ALA'][settings.helical_dielectric]  # TODO this won't work for a non poly ala protein!!
             negate += constants.energies[res][settings.helical_dielectric]
             
-        print add, negate
+        print "min_energy:", finalEnergy, add, negate
         finalEnergy += (add - negate)
-        
         
         individuals[i].setFitness(fitness_index, finalEnergy)
         
         if (settings.solution_min_fitness is not None):
-            if (individuals[i].getFitness(fitness_index) < setings.solution_min_fitness):
+            if (individuals[i].getFitness(fitness_index) < settings.solution_min_fitness):
                 individuals[i].setFitness(fitness_index, 999999999.0)
                 
         print('ind {}, fitness {}'.format(i, individuals[i].fitnesses))
