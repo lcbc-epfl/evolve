@@ -1,9 +1,0 @@
-source leaprc.protein.ff14SB #Source leaprc file for ff14SB protein force field
-source leaprc.gaff #Source leaprc file for gaff
-loadamberparams tests/10AA_amber_6/amber_run/parmchk_temp_mol.frcmod
-mol = load #Load mol2 or pdb file:
-#set mol box 50
-saveoff mol XXX.lib
-check mol
-saveamberparm mol XXX.prmtop XXX.inpcrd #Save AMBER topology and coordinate files
-quit #Quit tleap program

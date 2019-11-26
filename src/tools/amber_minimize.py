@@ -1,6 +1,4 @@
 '''
-main.py
-
 @author: Nicholas Browning
 '''
 import os
@@ -9,6 +7,7 @@ import argparse
 import openbabel
 from src import outprocesses as op
 import subprocess
+
 
 def sander_minimize(mol, out_mol, num_procs):
     delete_files = ["mol.pdb", "mol.prmtop", "mol.inpcrd", "mol.rst", "leap.log", "amber.out", "amber.log", "err", "mdinfo", "mdout"]
@@ -38,11 +37,11 @@ def sander_minimize(mol, out_mol, num_procs):
         sys.exit("convert rst to pdb failed, returned code %d (check '" + "/min_struct.log')" % (e.returncode))
     except OSError as e:
         sys.exit("failed to convert rst to pdb: %s" % (str(e)))
-    
    
     finalEnergy = op.parseAmberEnergy("amber.out")
     
     return finalEnergy
+
 
 def pmemd_minimize(mol, out_mol, cuda, num_procs):
 
@@ -52,7 +51,6 @@ def pmemd_minimize(mol, out_mol, cuda, num_procs):
             os.remove(v)
     
     obconv = openbabel.OBConversion()
-  
   
     obconv.SetOutFormat("pdb")
     obconv.WriteFile(mol, "mol.pdb")
@@ -74,17 +72,14 @@ def pmemd_minimize(mol, out_mol, cuda, num_procs):
         sys.exit("convert rst to pdb failed, returned code %d (check '" + "/min_struct.log')" % (e.returncode))
     except OSError as e:
         sys.exit("failed to convert rst to pdb: %s" % (str(e)))
-
     
     finalEnergy = op.parseAmberEnergy("amber.out")    
-    
     
     obConversion = openbabel.OBConversion()
     obConversion.SetInAndOutFormats(out_mol.split(".")[1], out_mol.split(".")[1])
 
     obConversion.ReadFile(mol, args.molecule) 
     return finalEnergy
-    
     
 
 if __name__ == "__main__":
@@ -96,7 +91,6 @@ if __name__ == "__main__":
     parser.add_argument('-num_procs', type=str)
     parser.add_argument('-code', type=str)
     args = parser.parse_args()
-    
 
     obConversion = openbabel.OBConversion()
     obConversion.SetInAndOutFormats(args.molecule.split(".")[1], args.out_molecule.split(".")[1])
@@ -112,9 +106,4 @@ if __name__ == "__main__":
     
     obConversion.WriteFile(mol, args.out_molecule) 
     print e
- 
-
-    
-
-    
     

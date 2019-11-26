@@ -12,8 +12,19 @@ import os
 import subprocess
 import numpy as np
 
+
 def runtleap(work_dir="", mol_file="mol.pdb", tleaptemp="tleap_template.in", tleapin="leap.in", inpcrd_out="mol.inpcrd", prmtop_out="mol.prmtop"):
     # TODO
+    """
+    Parameters
+    ----------
+    work_dir : string
+        working directory
+    mol_file : string
+        
+    tleaptemp
+    
+    """
     
     if (os.path.exists(work_dir + inpcrd_out)):
         os.remove(work_dir + inpcrd_out)
@@ -88,9 +99,9 @@ def runAmberMPI(work_dir="", np=16, amberin="amber_minimization.in", prmtop="mol
         sys.exit("sander failed, returned code %d (check '" + work_dir + "/amber.log')" % (e.returncode))
     except OSError as e:
         sys.exit("failed to execute sander.MPI: %s" % (str(e)))
+
     
 def runPMEMD(work_dir="", np=20, amberin="amber_minimization.in", prmtop="mol.prmtop", inpcrd="mol.inpcrd", amberout="amber.out", restart="amber.rst", use_cuda=False):
-    
     
     if (work_dir == ""):
         foutanderr = open('amber.log', 'w')
@@ -134,33 +145,6 @@ def runMMPBSA(work_dir="", mmpbsa_in="mmpbsa.in", prmtop="mol.prmtop", inpcrd="m
         sys.exit("failed to execute MMPBSA.py: %s" % (str(e)))
 
 
-# -------------------------------------------------------------------------------
-# 
-# GENERALIZED BORN:
-# 
-# Complex:
-# Energy Component            Average              Std. Dev.   Std. Err. of Mean
-# -------------------------------------------------------------------------------
-# BOND                        12.3480                0.0000              0.0000
-# ANGLE                       39.5931                0.0000              0.0000
-# DIHED                      184.2557                0.0000              0.0000
-# VDWAALS                   -120.7903                0.0000              0.0000
-# EEL                      -1541.5075                0.0000              0.0000
-# 1-4 VDW                     56.7335                0.0000              0.0000
-# 1-4 EEL                    901.9711                0.0000              0.0000
-# EGB                       -216.9531                0.0000              0.0000
-# ESURF                       10.8546                0.0000              0.0000
-# 
-# G gas                     -467.3964                0.0000              0.0000
-# G solv                    -206.0985                0.0000              0.0000
-# 
-# TOTAL                     -673.4949                0.0000              0.0000
-# 
-# 
-# -------------------------------------------------------------------------------
-# -------------------------------------------------------------------------------
-
-
 def parseMMPBSA(mmpbsa_file_path):
     import os
     
@@ -184,9 +168,7 @@ def parseMMPBSA(mmpbsa_file_path):
     if (start == -1):
         return
     
-    
     return float(lines[start + 15].split()[1])
-    
 
     
 def parseMMBPSA_total_decomp(mmpbsa_file_path, num_res):
@@ -212,11 +194,9 @@ def parseMMBPSA_total_decomp(mmpbsa_file_path, num_res):
     if (start == -1):
         return
     
-    
     curr = i + 3
     end = i + 3 + (num_res)
     # print curr, end
-    
     
     # res name = 0
     # internal_energy = 1
@@ -226,12 +206,10 @@ def parseMMBPSA_total_decomp(mmpbsa_file_path, num_res):
     # non-polar solvation = 13
     # total energy = 16
     
-    
     count = 0
     return_dict = {}
     while (curr < end):
         data = lines[curr].split(',')
-        # print (data[0], data[1], data[4], data[7], data[10], data[13], data[16])
         
         return_dict[count] = (data[1], data[4], data[7], data[10], data[13], data[16])
 
@@ -239,6 +217,7 @@ def parseMMBPSA_total_decomp(mmpbsa_file_path, num_res):
         count += 1
     
     return return_dict
+
 
 def parseMMBPSA_backbone_decomp(mmpbsa_file_path, num_res):
     
@@ -268,7 +247,6 @@ def parseMMBPSA_backbone_decomp(mmpbsa_file_path, num_res):
     end = i + 3 + (num_res)
     print curr, end
     
-    
     # res name = 0
     # internal_energy = 1
     # VdW = 4
@@ -276,7 +254,6 @@ def parseMMBPSA_backbone_decomp(mmpbsa_file_path, num_res):
     # polar solvation = 10
     # non-polar solvation = 13
     # total energy = 16
-    
     
     count = 0
     return_dict = {}
@@ -290,6 +267,7 @@ def parseMMBPSA_backbone_decomp(mmpbsa_file_path, num_res):
         count += 1
     
     return return_dict
+
 
 def parseMMBPSA_sidechain_decomp(mmpbsa_file_path, num_res):
     
@@ -319,7 +297,6 @@ def parseMMBPSA_sidechain_decomp(mmpbsa_file_path, num_res):
     end = i + 3 + (num_res)
     print curr, end
     
-    
     # res name = 0
     # internal_energy = 1
     # VdW = 4
@@ -327,7 +304,6 @@ def parseMMBPSA_sidechain_decomp(mmpbsa_file_path, num_res):
     # polar solvation = 10
     # non-polar solvation = 13
     # total energy = 16
-    
     
     count = 0
     return_dict = {}
@@ -341,6 +317,7 @@ def parseMMBPSA_sidechain_decomp(mmpbsa_file_path, num_res):
         count += 1
     
     return return_dict
+
 
 def parseMMPBSA_pairwise_total(mmpbsa_file_path, num_res):
     
@@ -379,7 +356,6 @@ def parseMMPBSA_pairwise_total(mmpbsa_file_path, num_res):
     # non-polar solvation = 13
     # total energy = 16
     
-    
     count = 0
     return_dict = {}
     while (curr < end):
@@ -394,11 +370,6 @@ def parseMMPBSA_pairwise_total(mmpbsa_file_path, num_res):
     # print (pair_decomp)
     return pair_decomp, return_dict
 
-def parseMMPBSA_pairwise_backbone(mmpbsa_file_path, num_res):
-    pass
-
-def parseMMPBSA_pairwise_sidechain(mmpbsa_file_path, num_res):
-    pass
 
 def parseAmberEnergy(amber_file):
     #        FINAL RESULTS
@@ -436,6 +407,7 @@ def parseAmberEnergy(amber_file):
         print("Not able to find Amber energy in output file") 
         sys.exit()
     return 999
+
     
 if __name__ == "__main__":
     import sys

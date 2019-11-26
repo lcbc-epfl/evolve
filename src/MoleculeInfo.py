@@ -1,5 +1,7 @@
 '''
-main.py
+MoleculeInfo.py
+
+Contains a helper functions for identifying certain atom types in proteins.
 
 @author: Nicholas Browning
 '''
@@ -316,29 +318,12 @@ def getPhiPsiDihedrals(mol, residue_indexes):
     for i in xrange (0, len(residue_indexes)):
       
         obres = mol.GetResidue(residue_indexes[i])
-      
-        # print obres.GetName()
+
         alpha_carbon = getAlphaCarbon(obres)
         bb_nitrogen = getBBNitrogen(obres)
         neg1_carboxl = getNeg1BBCarboxyl(obres)
         carboxl = getBBCarboxyl(obres)
         plus1_nitrogen = getPlus1BBNitrogen(obres)
-        
-        # if alpha_carbon != None:
-            # print('CA Id: {}'.format(alpha_carbon.GetId()))
-        
-        # if bb_nitrogen != None:
-        #    print('N Id: {}'.format(bb_nitrogen.GetId()))
-         
-        # if neg1_carboxl != None:
-        #    print('C-1 Id: {}'.format(neg1_carboxl.GetId()))
-  
-        # if carboxl != None:
-        #    print('C Id: {}'.format(carboxl.GetId()))
-        
-        # if plus1_nitrogen != None:
-        #    print('N+1 Id: {}'.format(plus1_nitrogen.GetId()))
-        
         
         phi = 999
         psi = 999

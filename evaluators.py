@@ -15,84 +15,6 @@ import subprocess
 import sys
 
 
-def testDihedralFitness(settings, individuals, fitness_index):
-    # test with optimal being 180, -180 for phi, psi
-    
-    for i in xrange (0, len(individuals)):
-        individuals[i].applyPhiPsiDihedrals()
-        fitness = 0.0
-        phi, psi = individuals[i].phi_dihedrals, individuals[i].psi_dihedrals
-        
-        for j in xrange (0, len(settings.dihedral_residue_indexes)):
-            
-            if (phi[j] != 999):
-                fitness += np.sqrt((180 - phi[j]) ** 2)
-            if (psi[j] != 999):
-                fitness += np.sqrt((180 - psi[j]) ** 2)
-                
-        individuals[i].setFitness(fitness_index, fitness)
-
-
-def testEnergyByMinimisation(settings, individuals, fitness_index):
-
-    # if (settings.verbose):
-        # print("IND NUM, IND FITNESS")
-
-    for i in xrange(0, len(individuals)):
-        
-        if (settings.composition_optimization and not individuals[i].init):
-            individuals[i].applyComposition(settings)
-
-        if (settings.dihedral_optimization and not individuals[i].init):
-            individuals[i].applyPhiPsiDihedrals()
-
-        if (settings.basilisk_and_sidechains and not individuals[i].init):
-            individuals[i].apply_chi_dihedrals()
-
-            
-        # Minimize the structure in individuals[i].mol
-        ff = openbabel.OBForceField.FindForceField("MMFF94")
-        
-        if ff == 0:
-            print "Could not find forcefield"
-
-        ff.SetLogLevel(openbabel.OBFF_LOGLVL_NONE) 
-        ff.SetLogToStdErr()
-        
-#        # // Set the constraints
-      # OBFFConstraints constraints;
-      # constraints.AddAtomConstraint(1);
-
-      # // We pass the constraints as argument for Setup()
-      # if (!pFF->Setup(mol, constraints)) {
-      # cerr << "ERROR: could not setup force field." << endl;
-      # }
-         #
-        if ff.Setup(individuals[i].mol) == 0:
-            print "Could not setup forcefield"
-
-
-        ff.SteepestDescent(500)  # Perform the actual minimization, maximum 500 steps
-        # ff.ConjugateGradients(500) #If using minimizing using conjugate gradient method (symmetric, positive definite matrix or quadratic functions)
-
-        ff.GetCoordinates(individuals[i].mol)
-        
-        phi_psi_dihedrals = individuals[i].getPhiPsiDihedrals()
-            
-        for j in xrange (0, len(phi_psi_dihedrals)):
-            individuals[i].phi_dihedrals[j] = phi_psi_dihedrals[j][0]
-            individuals[i].psi_dihedrals[j] = phi_psi_dihedrals[j][1]
-
-        if (settings.basilisk_and_sidechains):
-            chi_dihedrals = individuals[i].get_chi_dihedrals_per_res()
-            individuals[i].chi_angles = chi_dihedrals
-            
-        individuals[i].setFitness(fitness_index, ff.Energy(False))
-
-        # if (settings.verbose):2>&1 | tee -i
-           # print i, individuals[i].fitnesses
-        print('ind {}, fitness {}'.format(i, individuals[i].fitnesses))
-
 def minimise_sidechain_ff(settings, individual):
     from src import MoleculeInfo as mi
     
@@ -178,7 +100,6 @@ def getSidechainDihedralAtoms(mol, sidechain_atoms):
     for obtorsion in openbabel.OBMolTorsionIter(mol):
         
         atom1idx, atom2idx, atom3idx, atom4idx = obtorsion
-        
 
         if (atom1idx in sidechain_atoms or atom2idx in sidechain_atoms or atom3idx in sidechain_atoms or atom4idx in sidechain_atoms):
             torsion = mol.GetTorsion(atom1idx, atom2idx, atom3idx, atom4idx)
@@ -253,7 +174,6 @@ def minimise_backbone_ff(settings, individual):
         
     if ff.Setup(individual.mol, constraints) == 0:
         print "Could not setup forcefield"
-
 
     ff.SteepestDescent(300)
 
@@ -348,8 +268,8 @@ def amber_energy_minimize(settings, individual):
     
     return finalEnergy
 
+
 def amber_energy_simplified(settings, individuals, fitness_index, pop_start=0):
-    
      
     for i in xrange(pop_start, len(individuals)):
         
@@ -363,9 +283,9 @@ def amber_energy_simplified(settings, individuals, fitness_index, pop_start=0):
         if (settings.solution_min_fitness is not None):
             if (individuals[i].getFitness(fitness_index) < settings.solution_min_fitness):
                 individuals[i].setFitness(fitness_index, 999999999.0)
-        
     
         print('ind {}, fitness {}'.format(i, individuals[i].fitnesses))
+
         
 def helical_stability(settings, individuals, fitness_index, pop_start=0):
     from src import constants
@@ -396,7 +316,6 @@ def helical_stability(settings, individuals, fitness_index, pop_start=0):
         
         finalEnergy = amber_energy_minimize(settings, individuals[i])
         
-        
         for j in xrange (0, len(settings.composition_residue_indexes)):
             res = mi.getResType(individuals[i].mol.GetResidue(settings.composition_residue_indexes[j]))
 
@@ -413,8 +332,4 @@ def helical_stability(settings, individuals, fitness_index, pop_start=0):
                 individuals[i].setFitness(fitness_index, 999999999.0)
                 
         print('ind {}, fitness {}'.format(i, individuals[i].fitnesses))
-        
-    
-    
-    
     

@@ -206,4 +206,5 @@ if __name__ == '__main__':
     parser.add_argument('-input_file', type=str)
     args = parser.parse_args()
     settings = Settings(args.input_file)
+    settings.printSettings()
 
