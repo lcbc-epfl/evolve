@@ -17,7 +17,6 @@ import MoleculeInfo as mi
 
 def rotate_atoms(mol, atom_indexes, origin, rotation_axis, angle):
     """
-
     Applies a rotation matrix to a collection of atoms
     
     Parameters
@@ -78,14 +77,12 @@ def rotate_atoms(mol, atom_indexes, origin, rotation_axis, angle):
         ytemp += origin[1]
         ztemp += origin[2]
 
-
         atom.SetVector(xtemp, ytemp, ztemp)
-
 
 
 def add_fragment(mol, fragment, id_start):
     """
-    adds a fragment OBMol to a base mol, also renumbers new atoms such that atomIDs are consecutive
+    adds a fragment OBMol to a base mol.
     
     Parameters
     ----------
@@ -130,6 +127,7 @@ def add_fragment(mol, fragment, id_start):
 def debugAtom(obatom):
     return "AN:", obatom.GetAtomicNum(), "T:", obatom.GetType(), "idx:", obatom.GetIdx(), "id:", obatom.GetId(), "BO(1):", obatom.CountBondsOfOrder(1)
 
+
 def debugBond(obbond):
     return "begin_idx:", obbond.GetBeginAtomIdx(), "end_idx:", obbond.GetEndAtomIdx(), "norm:", obbond.GetLength(), "BO:", obbond.GetBO()
 
@@ -138,6 +136,7 @@ def getAtomByID(mol, atom_id):
     for i in xrange (1, mol.NumAtoms() + 1):
         if (mol.GetAtom(i).GetId() == atom_id):
             return mol.GetAtom(i)
+
         
 def swapsidechain (mol, res_index, aa_mol):
     """
@@ -145,7 +144,8 @@ def swapsidechain (mol, res_index, aa_mol):
     
     This method first finds the CA-CB bonds for both the protein and the fragment residue. It then performs a breadth-first-search of all atoms connected to CB in the protein,
     and CA in the fragment, inclusively. These atoms are deleted, the atoms in the fragment are rotated into the correct orientation, and a new bond is made between CA of the protein and
-    CB of the mutant residue. If relevant, it also updates the N-CA-CB-CG dihedral of the now mutated protein residue such that it corresponds to that of the fragment.
+    CB of the mutant residue. If relevant, it also updates the N-CA-CB-CG dihedral of the now mutated protein residue such that it corresponds to that of the fragment. Finally, all atom IDs
+    are then modified such that they are consecutive.
     
     Parameters
     ----------
@@ -178,7 +178,6 @@ def swapsidechain (mol, res_index, aa_mol):
     aa_tor = 0
     if (aa_gamma_atom is not None):
         aa_tor = aa_mol.GetTorsion(aa_gamma_atom, aa_CA, aa_CB, aa_bb_nitrogen)
-
     
     mol_cb_vec = np.asarray([mol_CB.GetX(), mol_CB.GetY(), mol_CB.GetZ()])
     mol_ca_vec = np.asarray([mol_CA.GetX(), mol_CA.GetY(), mol_CA.GetZ()])
@@ -194,11 +193,11 @@ def swapsidechain (mol, res_index, aa_mol):
     
     orig_num_atoms = mol.NumAtoms()
     
-    #BFS for all atoms which need to be deleted
+    # BFS for all atoms which need to be deleted
     mol.FindChildren(mol_atoms_del, mol_CA.GetIdx(), mol_CB.GetIdx())
     aa_mol.FindChildren(frag_atoms_del, aa_CB.GetIdx(), aa_CA.GetIdx())
     
-    #rotate fragment atoms such that they have the correct alignment upon adding to the protein
+    # rotate fragment atoms such that they have the correct alignment upon adding to the protein
     if (not np.allclose(molbondvec, fragbondvec)):
         rotate_axis = np.cross(molbondvec, fragbondvec)
         rotate_axis = rotate_axis / np.linalg.norm(rotate_axis)
@@ -217,11 +216,10 @@ def swapsidechain (mol, res_index, aa_mol):
     mol_atom_ids_del = [mol.GetAtom(i).GetId() for i in mol_atoms_del]
     mol_atom_ids_del.append(mol_CB.GetId())
     
-    
     frag_atom_ids_del = [aa_mol.GetAtom(i).GetId() for i in frag_atoms_del]
     frag_atom_ids_del.append(aa_CA.GetId())
     
-    #delete unnecessary atoms
+    # delete unnecessary atoms
     for i in xrange (0, len(frag_atom_ids_del)):
         
         atom = getAtomByID(aa_mol, frag_atom_ids_del[i])
@@ -245,7 +243,7 @@ def swapsidechain (mol, res_index, aa_mol):
         
     prev_atoms = mol.NumAtoms()
     
-    #add fragment to the protein
+    # add fragment to the protein
     add_fragment(mol, aa_mol, orig_num_atoms)
     
     mol.EndModify()
@@ -263,7 +261,6 @@ def swapsidechain (mol, res_index, aa_mol):
     for i in xrange (0, prev_atoms - mol_CA.GetIdx()):
         renum_atoms[mol_CA.GetIdx() + mol.NumAtoms() - prev_atoms + i] = mol_CA.GetIdx() + i + 1
     
-    
     corr_frag_cb = None
     
     for i in xrange(1, mol.NumAtoms() + 1):
@@ -271,7 +268,6 @@ def swapsidechain (mol, res_index, aa_mol):
         
         if (atom.GetId() == aa_CB.GetId()):
             corr_frag_cb = atom
-            
 
     mol.AddBond(mol_CA.GetIdx(), corr_frag_cb.GetIdx(), 1)
  
@@ -293,7 +289,7 @@ def swapsidechain (mol, res_index, aa_mol):
     if (chi_atom is not None and aa_gamma_atom is not None):
         mol.SetTorsion(bb_nitrogen, alpha_carbon, beta_atom, chi_atom, aa_tor * (np.pi / 180.0))
   
-    #need to renumber IDs now to be consecutive
+    # need to renumber IDs now to be consecutive
     mol.RenumberAtoms(renum_atoms)
     
     for i in xrange (1, mol.NumAtoms() + 1) :
@@ -323,5 +319,4 @@ if __name__ == '__main__':
     swapsidechain(mol, 3, frag2)
     print "WRITING OUT"                                                                                                                                                                                                                                                                                       
     obConversion.WriteFile(mol, "test2.pdb")
-    
     

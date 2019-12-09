@@ -12,6 +12,7 @@ import numpy as np
 from src import MoleculeInfo as mi
 import openbabel
 
+
 # Initialisation of the first population
 def initialisePopulation(settings):
     
@@ -24,15 +25,11 @@ def initialisePopulation(settings):
         
     return individuals
 
-# TO DO
-def defaultGenerator(settings):
-    pass
 
 # Generate dihedrals with uniform distribution
 def UniformDihedralGenerator(settings, individuals):
     
     num_phipsi = len(settings.dihedral_residue_indexes)
-    
    
     for i in xrange (0, settings.population_size):
         indiv = individuals[i]
@@ -51,10 +48,11 @@ def UniformCompositionGenerator(settings, individuals):
             indiv.composition[j] = np.random.randint(low=settings.composition_lower_bounds[j], high=settings.composition_upper_bounds[j])
         print indiv.composition
         indiv.applyComposition(settings)
+
         
 def unbiased_protein_composition_generator(settings, individuals):
     
-    # Generates an unbiased sample across all rotamers (ie weights each rotamer equally for initial sampling)
+    # Generates an unbiased sample across all rotamers (ie weights each rotamer type equally for initial sampling)
     def get_ubia_index(min, max, selected_rotamers, selected_rotamer_types):
         rot_count_dict = {}
 
@@ -94,6 +92,7 @@ def unbiased_protein_composition_generator(settings, individuals):
         
         print indiv.composition
         indiv.applyComposition(settings)  
+
             
 # Generate dihedrals by Monte Carlo
 def MonteCarloDihedralGenerator(settings, individuals, prob_pointers=None):
@@ -105,9 +104,8 @@ def MonteCarloDihedralGenerator(settings, individuals, prob_pointers=None):
 # mcmove_ubound = 45.0
 # num_mc_steps = 1000
 # dihedral_probability_pointers = 1 2 3 1
-
     
-    from src.montecarlo import dihedral_opt as mcopt
+    from deprecated.montecarlo import dihedral_opt as mcopt
  
     probs = mcopt.loadDefaultProbabilityDistributions()
     
@@ -117,18 +115,9 @@ def MonteCarloDihedralGenerator(settings, individuals, prob_pointers=None):
     initial_solution = np.random.uniform(low=-180, high=180, size=(num_phipsi * len(individuals), 2))
     
     print "INITIAL DIHEDRALS UNIFORMLY AND RANDOMLY GENERATED"
-
-    if (settings.verbose):
-        for i in xrange(0, len(individuals)):
-            pass
-            # print initial_solution[i * num_phipsi: (i + 1) * num_phipsi]
             
     move_lows = [-30] * num_phipsi * settings.population_size
     move_highs = [30] * num_phipsi * settings.population_size
-    
-    # TODO do this once with N*M array or per individual? 
-    # Can pack intial solution as an N*M array without problems...probably easiest - need to also create temp prob_pointer array of same size
-    
     
     prob_idxs = []
     
@@ -138,18 +127,9 @@ def MonteCarloDihedralGenerator(settings, individuals, prob_pointers=None):
                 prob_idxs.append(v)
     else:
         prob_idxs = prob_pointers
-       
-
-    # WOULD NEED TO CHANGE THIS FUNCTION IN ORDER NOT TO SPECIFY THE POINTERS IN THE SETTING FILE, WOULD HAVE AN AUTOMATICE PROCESS COMING FROM guessResidueDIHProbPointers.py
-   
     
     dihedrals = mcopt.optimisePhiPsi(probs, prob_idxs, initial_solution, 1000, move_lows, move_highs)
     print "MC_OPTIMIZED DIHEDRALS GENERATED"
-
-    if (settings.verbose):
-        for i in xrange (0, len(individuals)):
-            pass
-            # print dihedrals[i * num_phipsi: (i + 1) * num_phipsi]
         
     for i in xrange (0, len(individuals)):
         indiv = individuals[i]
@@ -169,9 +149,9 @@ def BasiliskSideChainDihedralsGenerator(settings, individuals):
     if (settings.verbose):
         print("ind, res, phi, psi, chi angles, ind fitnesses")
 
-    from src.basilisk.basilisk_lib import basilisk_dbn
-    from src.basilisk.basilisk_lib import basilisk_utils
-    from src.basilisk.basilisk_lib import CalcAngles
+    from deprecated.basilisk.basilisk_lib import basilisk_dbn
+    from deprecated.basilisk.basilisk_lib import basilisk_utils
+    from deprecated.basilisk.basilisk_lib import CalcAngles
     from math import degrees, radians
     
     '''
@@ -211,14 +191,14 @@ def BasiliskSideChainDihedralsGenerator(settings, individuals):
 
             for k in xrange(0, len(chis)):
                 indiv.chi_angles[j][k] = degrees(chis[k]) - 180.0
+
         
 def getBasiliskSample(obmol):
-    from src.basilisk.basilisk_lib import basilisk_dbn
+    from deprecated.basilisk.basilisk_lib import basilisk_dbn
     
     res_name, res_index = getResidueIndexes(obmol)
     
     dbn = basilisk_dbn()
-    
     
     chis = []
     bbs = []
@@ -235,7 +215,7 @@ def getBasiliskSample(obmol):
     
        
 def getResidueIndexes(obmol):
-    from src.basilisk.basilisk_lib import basilisk_utils
+    from deprecated.basilisk.basilisk_lib import basilisk_utils
     from src import MoleculeInfo as mi
     res_index = []
     res_name = []
@@ -245,6 +225,7 @@ def getResidueIndexes(obmol):
         res_index.append(basilisk_utils.three_to_index(res.GetName()))
         
     return res_name, res_index
+
 
 def getMCProbPinters(obmol):
     
@@ -266,11 +247,12 @@ def getMCProbPinters(obmol):
             
     return pointers
 
+
 if __name__ == "__main__":
     import openbabel
     import sys
     from math import degrees, radians
-    from src.montecarlo import dihedral_opt as mcopt
+    from deprecated.montecarlo import dihedral_opt as mcopt
     
     obConversion = openbabel.OBConversion()
     obConversion.SetInAndOutFormats("pdb", "pdb")
@@ -307,9 +289,4 @@ if __name__ == "__main__":
     obConversion.WriteFile(mol, "test2.pdb")
     
     print dihedrals
-    
-    
-        
-    
-    
     
