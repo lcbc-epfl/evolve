@@ -3,7 +3,9 @@ selectrors.py
 
 @author: Nicholas Browning
 '''
+from __future__ import print_function
 
+from builtins import range
 import numpy as np
 
 def selector(settings, individuals, selector_op, **args):
@@ -18,7 +20,7 @@ def tournamentSelectionWOR(settings, individuals, **kargs):
     
     result = []
     
-    for _ in xrange(0, settings.population_size):
+    for _ in range(0, settings.population_size):
         np.random.shuffle(indexes)
         min_idx = np.argmin([individuals[i] for i in indexes[:tournament_size]]) #J: NOT individuals[i].fitness? random selection?
         result.append(indexes[:tournament_size][min_idx])

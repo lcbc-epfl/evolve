@@ -3,7 +3,10 @@ main.py
 
 @author: Nicholas Browning
 '''
+from __future__ import print_function
 
+from builtins import str
+from builtins import range
 from src.gaapi import Individual
 from src.gaapi import generators
 from src import constants as cnts
@@ -22,7 +25,7 @@ def minimise_sidechain_ff(settings, individual):
     
     backbone_atoms = []
     
-    for i in xrange (0, individual.mol.NumResidues()):
+    for i in range (0, individual.mol.NumResidues()):
         
         res = individual.mol.GetResidue(i)
         alpha_carbon = mi.getAlphaCarbon(res)
@@ -43,7 +46,7 @@ def minimise_sidechain_ff(settings, individual):
             
             backbone_atoms.append(curr_atom.GetIdx())
     
-    print "num_backbone_atoms", len(backbone_atoms)
+    print("num_backbone_atoms", len(backbone_atoms))
     
     for atom_idx in backbone_atoms:
         
@@ -52,14 +55,14 @@ def minimise_sidechain_ff(settings, individual):
     ff = openbabel.OBForceField.FindForceField("MMFF94")
         
     if ff == 0:
-        print "Could not find forcefield"
+        print("Could not find forcefield")
 
     ff.SetLogLevel(openbabel.OBFF_LOGLVL_NONE) 
 
     ff.SetLogToStdErr() 
         
     if ff.Setup(individual.mol, constraints) == 0:
-        print "Could not setup forcefield"
+        print("Could not setup forcefield")
 
     ff.SteepestDescent(300)
 
@@ -117,7 +120,7 @@ def minimise_backbone_ff(settings, individual):
     bond_constraints = []
     dihedral_constraints = []
     
-    for i in xrange (0, individual.mol.NumResidues()):
+    for i in range (0, individual.mol.NumResidues()):
         
         res = individual.mol.GetResidue(i)
         alpha_carbon = mi.getAlphaCarbon(res)
@@ -146,8 +149,8 @@ def minimise_backbone_ff(settings, individual):
         for v in torsion_info:
             dihedral_constraints.append(v)
         
-    print individual.mol.NumAtoms(), individual.mol.NumBonds()
-    print "data:", len(bond_constraints), len(angle_constraints), len(dihedral_constraints)
+    print(individual.mol.NumAtoms(), individual.mol.NumBonds())
+    print("data:", len(bond_constraints), len(angle_constraints), len(dihedral_constraints))
     
     # OBMolBondIter, OBMolAngleIter, OBMolTorsionIter, OBMolRingIter -
     # void     AddDistanceConstraint (int a, int b, double length)
@@ -166,14 +169,14 @@ def minimise_backbone_ff(settings, individual):
     ff = openbabel.OBForceField.FindForceField("MMFF94")
         
     if ff == 0:
-        print "Could not find forcefield"
+        print("Could not find forcefield")
 
     ff.SetLogLevel(openbabel.OBFF_LOGLVL_NONE) 
 
     ff.SetLogToStdErr() 
         
     if ff.Setup(individual.mol, constraints) == 0:
-        print "Could not setup forcefield"
+        print("Could not setup forcefield")
 
     ff.SteepestDescent(300)
 
@@ -183,7 +186,7 @@ def minimise_backbone_ff(settings, individual):
 def turbomol_scf_energy(settings, individuals, fitness_index): 
     import subprocess
     
-    for i in xrange (0, len(individuals)):
+    for i in range (0, len(individuals)):
         
         ind = individuals[i]
         
@@ -199,12 +202,12 @@ def turbomol_scf_energy(settings, individuals, fitness_index):
         
         p = subprocess.Popen('define < ' + settings.turbomole_template, shell=True)
         
-        print "Starting SCF"
+        print("Starting SCF")
         
         with open('dscf.out', "w") as outfile:
             subprocess.call('dscf', stdout=outfile)
             
-        print "Finished SCF"
+        print("Finished SCF")
         
         enfile = open('energy', 'r')
         
@@ -216,7 +219,7 @@ def turbomol_scf_energy(settings, individuals, fitness_index):
         
         ind.setFitness(fitness_index, float(data[1]))
         
-        print i, individuals[i].fitnesses
+        print(i, individuals[i].fitnesses)
 
 
 def amber_energy_minimize(settings, individual):
@@ -271,12 +274,12 @@ def amber_energy_minimize(settings, individual):
 
 def amber_energy_simplified(settings, individuals, fitness_index, pop_start=0):
      
-    for i in xrange(pop_start, len(individuals)):
+    for i in range(pop_start, len(individuals)):
         
-        print "Minimising: ", i,
+        print("Minimising: ", i, end=' ')
         
         finalEnergy = amber_energy_minimize(settings, individuals[i])
-        print "min_energy:", finalEnergy
+        print("min_energy:", finalEnergy)
         
         individuals[i].setFitness(fitness_index, finalEnergy)
         
@@ -292,18 +295,18 @@ def helical_stability(settings, individuals, fitness_index, pop_start=0):
     from src import MoleculeInfo as mi
     directory = settings.output_path + "/amber_run"
      
-    for i in xrange(pop_start, len(individuals)):
+    for i in range(pop_start, len(individuals)):
         
         already_done = -1
         
         if (i > 0):
-            for j in xrange(0, i):
+            for j in range(0, i):
                 if (np.array_equal(individuals[j].composition, individuals[i].composition)):
                     already_done = j
                     break
                     
         if (already_done != -1):
-            print "ALready computed: " , i, " -> member ", already_done 
+            print("ALready computed: " , i, " -> member ", already_done) 
             individuals[i].mol = openbabel.OBMol(individuals[already_done].mol)
             individuals[i].fitnesses = individuals[already_done].fitnesses
             continue     
@@ -311,18 +314,18 @@ def helical_stability(settings, individuals, fitness_index, pop_start=0):
         add = 0.0
         negate = settings.initial_energy
     
-        print "Minimising: ", i, [mi.getResType(individuals[i].mol.GetResidue(j)) for j in settings.composition_residue_indexes]
-        print "Rotamers: ", [cnts.selected_rotamers[v] for v in individuals[i].composition]
+        print("Minimising: ", i, [mi.getResType(individuals[i].mol.GetResidue(j)) for j in settings.composition_residue_indexes])
+        print("Rotamers: ", [cnts.selected_rotamers[v] for v in individuals[i].composition])
         
         finalEnergy = amber_energy_minimize(settings, individuals[i])
         
-        for j in xrange (0, len(settings.composition_residue_indexes)):
+        for j in range (0, len(settings.composition_residue_indexes)):
             res = mi.getResType(individuals[i].mol.GetResidue(settings.composition_residue_indexes[j]))
 
             add += constants.energies['ALA'][settings.helical_dielectric]  # TODO this won't work for a non poly ala protein!!
             negate += constants.energies[res][settings.helical_dielectric]
             
-        print "min_energy:", finalEnergy, add, negate
+        print("min_energy:", finalEnergy, add, negate)
         finalEnergy += (add - negate)
         
         individuals[i].setFitness(fitness_index, finalEnergy)

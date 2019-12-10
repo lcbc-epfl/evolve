@@ -3,10 +3,19 @@ Created on Oct 5, 2016
 
 @author: nbrownin
 '''
+from __future__ import print_function
+from __future__ import absolute_import
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from builtins import object
 import argparse
 import numpy as np
-import ConfigParser 
-from gaapi import operator_types 
+try:
+    import ConfigParser
+except: 
+    import configparser
+from .gaapi import operator_types 
 import sys
 import openbabel
 import collections
@@ -49,8 +58,12 @@ class Settings(object):
     def __init__(self, configFilePath):
         
         self.configFilePath = configFilePath
-        
-        self.config = ConfigParser.ConfigParser()
+	# config parser module is small caps in Py3 and capitals in Py2        
+        if sys.version_info[0] < 3:
+            self.config = ConfigParser.ConfigParser()
+        else:
+            self.config = configparser.ConfigParser()
+
         self.config.read(configFilePath)
         
         # PARSE [MOLECULE]
@@ -58,16 +71,16 @@ class Settings(object):
         # openbabel parse
         obConversion = openbabel.OBConversion()
         if (not obConversion.SetInFormat(self.initial_molecule_path.split(".")[1])):
-            print "Problem reading ", self.initial_molecule_path, " filetype: ", self.initial_molecule_path.split(".")[1]
+            print("Problem reading ", self.initial_molecule_path, " filetype: ", self.initial_molecule_path.split(".")[1])
             sys.exit(0)
-        print "Succesfully set molecule filetype:", self.initial_molecule_path.split(".")[1]
+        print("Succesfully set molecule filetype:", self.initial_molecule_path.split(".")[1])
         
         self.initial_molecule = openbabel.OBMol()
         
         if (not obConversion.ReadFile(self.initial_molecule, self.initial_molecule_path)):
-            print "Problem reading ", self.initial_molecule_path
+            print("Problem reading ", self.initial_molecule_path)
             sys.exit(0)
-        print "Succesfully read molecule:", self.initial_molecule_path
+        print("Succesfully read molecule:", self.initial_molecule_path)
     
     
         # PARSE [OPTIMIZATION]
@@ -87,7 +100,7 @@ class Settings(object):
             cnts.allowed_residue_types = [v.strip() for v in self.config.get('OPTIMIZATION', 'allowed_residue_types').split(' ')]
             cnts.selected_rotamers = cnts.subselect_rotamers(cnts.allowed_residue_types)
             cnts.selected_rotamer_types = cnts.subselect_rotamer_types(cnts.allowed_residue_types)
-            print cnts.selected_rotamers, cnts.selected_rotamer_types
+            print(cnts.selected_rotamers, cnts.selected_rotamer_types)
                 
         if (self.config.has_option('OPTIMIZATION', 'min_fitness')):
             self.solution_min_fitness = data = float(self.config.get('OPTIMIZATION', 'min_fitness'))
@@ -195,7 +208,7 @@ class Settings(object):
 
     def printSettings(self):
         ordered_dict = collections.OrderedDict(self.__dict__)  # No change since self.__dict__ already disordered..., could be removed
-        for attribute, value in ordered_dict.items():
+        for attribute, value in list(ordered_dict.items()):
             print('{} : {}'.format(attribute, value))
             
 

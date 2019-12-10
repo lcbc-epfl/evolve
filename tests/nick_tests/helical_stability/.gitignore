@@ -2,4 +2,5 @@ leap.log
 logfile 
 mdinfo
 amber_run/*
-
+*.dat
+min*pdb

@@ -5,7 +5,12 @@ Created on Jan 10, 2018
 
 All functions used to run softwares out of the GA code
 '''
+from __future__ import division
+from __future__ import print_function
 
+from builtins import str
+from builtins import range
+from past.utils import old_div
 import sys
 
 import os
@@ -245,7 +250,7 @@ def parseMMBPSA_backbone_decomp(mmpbsa_file_path, num_res):
     
     curr = i + 3
     end = i + 3 + (num_res)
-    print curr, end
+    print(curr, end)
     
     # res name = 0
     # internal_energy = 1
@@ -259,7 +264,7 @@ def parseMMBPSA_backbone_decomp(mmpbsa_file_path, num_res):
     return_dict = {}
     while (curr < end):
         data = lines[curr].split(',')
-        print (data[0], data[1], data[4], data[7], data[10], data[13], data[16])
+        print((data[0], data[1], data[4], data[7], data[10], data[13], data[16]))
         
         return_dict[count] = (data[1], data[4], data[7], data[10], data[13], data[16])
 
@@ -295,7 +300,7 @@ def parseMMBPSA_sidechain_decomp(mmpbsa_file_path, num_res):
     
     curr = i + 3
     end = i + 3 + (num_res)
-    print curr, end
+    print(curr, end)
     
     # res name = 0
     # internal_energy = 1
@@ -309,7 +314,7 @@ def parseMMBPSA_sidechain_decomp(mmpbsa_file_path, num_res):
     return_dict = {}
     while (curr < end):
         data = lines[curr].split(',')
-        print (data[0], data[1], data[4], data[7], data[10], data[13], data[16])
+        print((data[0], data[1], data[4], data[7], data[10], data[13], data[16]))
         
         return_dict[count] = (data[1], data[4], data[7], data[10], data[13], data[16])
 
@@ -363,7 +368,7 @@ def parseMMPBSA_pairwise_total(mmpbsa_file_path, num_res):
         # print (data[0], data[1], data[4], data[7], data[10], data[13], data[16])
 
         return_dict[count] = (float(data[2]), float(data[5]), float(data[8]), float(data[11]), float(data[14]), float(data[17]))
-        pair_decomp[np.int(count / num_res)][count % num_res] = float(data[17])
+        pair_decomp[np.int(old_div(count, num_res))][count % num_res] = float(data[17])
 
         curr += 1
         count += 1

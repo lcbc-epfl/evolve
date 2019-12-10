@@ -3,19 +3,24 @@ crossovers.py
 
 @author: Nicholas Browning
 '''
+from __future__ import division
+from __future__ import print_function
+from __future__ import absolute_import
+from builtins import range
+from past.utils import old_div
 import copy
 import numpy as np
-import Individual
+from . import Individual
 def crossover(settings, individuals, crossover_op, **args):
     
     print("CROSSOVER {}".format(settings.crossover))
     new_population = []
     
-    for i in xrange (0, settings.population_size, 2):
+    for i in range (0, settings.population_size, 2):
         
         if np.random.random() < settings.mating_probability:
             if (settings.verbose):
-                print "CROSS Individuals: ", i, i + 1
+                print("CROSS Individuals: ", i, i + 1)
             sis, bro = crossover_op(settings, individuals[i], individuals[i + 1], **args)
         else:
             sis, bro = individuals[i], individuals[i + 1]
@@ -37,7 +42,7 @@ def uniform_crossover(settings, mom, dad, **kargs):
         bro_phi, bro_psi = bro.phi_dihedrals, bro.psi_dihedrals
         sis_phi, sis_psi = sis.phi_dihedrals, sis.psi_dihedrals
         
-        for i in xrange (0, len(settings.dihedral_residue_indexes)):
+        for i in range (0, len(settings.dihedral_residue_indexes)):
                 
             if (np.random.random() < settings.genewise_crossover_probability):
                 bro.phi_dihedrals[i] = sis_phi[i]
@@ -59,7 +64,7 @@ def uniform_crossover(settings, mom, dad, **kargs):
         
         bro_comp, sis_comp = dad.composition, mom.composition
         
-        for i in xrange (0, len(mom.composition)):
+        for i in range (0, len(mom.composition)):
             
               if (np.random.random() < settings.genewise_crossover_probability):
                 bro.composition[i] = sis_comp[i]
@@ -87,12 +92,12 @@ def sim_b(m, d, di, lb, ub):
         return m, m
     beta = 1.0 + 2 * min(m - lb, ub - d) / float(d - m)
     
-    alpha = 2.0 - 1.0 / beta ** (di + 1.0)
+    alpha = 2.0 - old_div(1.0, beta ** (di + 1.0))
     u = np.random.random() 
-    if u <= (1.0 / alpha):
-        beta_q = (u * alpha) ** (1.0 / float(di + 1.0))
+    if u <= (old_div(1.0, alpha)):
+        beta_q = (u * alpha) ** (old_div(1.0, float(di + 1.0)))
     else:
-        beta_q = (1.0 / (2.0 - u * alpha)) ** (1.0 / float(di + 1.0))
+        beta_q = (old_div(1.0, (2.0 - u * alpha))) ** (old_div(1.0, float(di + 1.0)))
     bro_val = 0.5 * ((m + d) - beta_q * (d - m))
     bro_val = max(min(bro_val, ub), lb)        
     sis_val = 0.5 * ((m + d) + beta_q * (d - m))
@@ -111,7 +116,7 @@ def simulated_binary_crossover(settings, mom, dad, **kargs):
     if (settings.backbone_dihedral_optimization):
         lower_bound = -180.0
         upper_bound = 180.0
-        for i in xrange (0, len(mom.phi_dihedrals)):
+        for i in range (0, len(mom.phi_dihedrals)):
         
             m_phi, m_psi = mom.phi_dihedrals[i], mom.psi_dihedrals[i]
             d_phi, d_psi = dad.phi_dihedrals[i], dad.psi_dihedrals[i]
@@ -141,14 +146,14 @@ def simulated_binary_crossover(settings, mom, dad, **kargs):
         lower_comp_bound = settings.composition_lower_bounds
         upper_comp_bound = settings.composition_upper_bounds
         
-        for i in xrange (0, len(mom.composition)):
+        for i in range (0, len(mom.composition)):
             
             if (np.random.random() < settings.genewise_crossover_probability):
             
                 sis_comp, bro_comp = sim_b(mom.composition[i], dad.composition[i], di, lower_comp_bound[i], upper_comp_bound[i])
                 
                 if (settings.verbose):
-                    print "Position (", i, " ): " , sis.composition[i], "->", sis_comp, bro.composition[i], "->", bro_comp
+                    print("Position (", i, " ): " , sis.composition[i], "->", sis_comp, bro.composition[i], "->", bro_comp)
     
                 sis.composition[i] = int(sis_comp)
                 bro.composition[i] = int(bro_comp)

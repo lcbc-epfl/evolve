@@ -3,8 +3,11 @@ replacers.py
 
 @author: Nicholas Browning
 '''
+from __future__ import print_function
+from __future__ import absolute_import
+from builtins import range
 import numpy as np
-import Individual
+from . import Individual
 
 def replace(settings, parents, children, replace_op, **args):
     return replace_op(settings, parents, children, **args)
@@ -26,17 +29,17 @@ def elitist_replace(settings, parents, children, **args):
     sorted_child_indexes = np.argsort(children)
     
     if (settings.verbose):
-        print "elite parent indexes:", sorted_parent_indexes[:num_elites]
-        print "elite children indexes:", sorted_child_indexes[:settings.population_size - num_elites]
+        print("elite parent indexes:", sorted_parent_indexes[:num_elites])
+        print("elite children indexes:", sorted_child_indexes[:settings.population_size - num_elites])
     
     
     elitist_population = []
     
-    for i in xrange (num_elites):
+    for i in range (num_elites):
         indiv = Individual.Individual(settings, parents[sorted_parent_indexes[i]])
         elitist_population.append(indiv)
     
-    for i in xrange (settings.population_size - num_elites):
+    for i in range (settings.population_size - num_elites):
         indiv = Individual.Individual(settings, children[sorted_child_indexes[i]])
         elitist_population.append(indiv)
         

@@ -5,14 +5,19 @@ Contains a few key functions for performing mutations specifically on proteins. 
 
 @author: Nicholas Browning
 '''
+from __future__ import division
+from __future__ import print_function
+from __future__ import absolute_import
 
+from builtins import range
+from past.utils import old_div
 import openbabel
 from openbabel import OBResidue
 from openbabel import OBAtom
 from openbabel import OBMol
 from openbabel import OBAtomTyper
 import numpy as np
-import MoleculeInfo as mi
+from . import MoleculeInfo as mi
 
 
 def rotate_atoms(mol, atom_indexes, origin, rotation_axis, angle):
@@ -53,7 +58,7 @@ def rotate_atoms(mol, atom_indexes, origin, rotation_axis, angle):
     rotMatrix[7] = t * y * z - sn * x
     rotMatrix[8] = t * z * z + cs
     
-    for i in xrange (0, len(atom_indexes)):
+    for i in range (0, len(atom_indexes)):
 
         atom = mol.GetAtom(atom_indexes[i])
         
@@ -98,7 +103,7 @@ def add_fragment(mol, fragment, id_start):
     
     id = id_start
 
-    for i in xrange (1, fragment.NumAtoms() + 1):
+    for i in range (1, fragment.NumAtoms() + 1):
         frag_atom = fragment.GetAtom(i)
         frag_atom.SetId(id)
     
@@ -133,7 +138,7 @@ def debugBond(obbond):
 
 
 def getAtomByID(mol, atom_id):
-    for i in xrange (1, mol.NumAtoms() + 1):
+    for i in range (1, mol.NumAtoms() + 1):
         if (mol.GetAtom(i).GetId() == atom_id):
             return mol.GetAtom(i)
 
@@ -200,15 +205,15 @@ def swapsidechain (mol, res_index, aa_mol):
     # rotate fragment atoms such that they have the correct alignment upon adding to the protein
     if (not np.allclose(molbondvec, fragbondvec)):
         rotate_axis = np.cross(molbondvec, fragbondvec)
-        rotate_axis = rotate_axis / np.linalg.norm(rotate_axis)
+        rotate_axis = old_div(rotate_axis, np.linalg.norm(rotate_axis))
 
-        dp = np.dot(molbondvec, fragbondvec) / (np.linalg.norm(molbondvec) * np.linalg.norm(fragbondvec))
+        dp = old_div(np.dot(molbondvec, fragbondvec), (np.linalg.norm(molbondvec) * np.linalg.norm(fragbondvec)))
         angle = np.arccos(dp)
         diffAng = -angle
         
-        rotate_atoms(aa_mol, [i for i in xrange(1, aa_mol.NumAtoms() + 1)], frag_ca_vec, rotate_axis, diffAng)
+        rotate_atoms(aa_mol, [i for i in range(1, aa_mol.NumAtoms() + 1)], frag_ca_vec, rotate_axis, diffAng)
         
-        for i in xrange (1, aa_mol.NumAtoms() + 1):
+        for i in range (1, aa_mol.NumAtoms() + 1):
             
             frag_atom = aa_mol.GetAtom(i)
             frag_atom.SetVector(frag_atom.GetX() - frag_ca_vec[0] + mol_ca_vec[0], frag_atom.GetY() - frag_ca_vec[1] + mol_ca_vec[1], frag_atom.GetZ() - frag_ca_vec[2] + mol_ca_vec[2])
@@ -220,7 +225,7 @@ def swapsidechain (mol, res_index, aa_mol):
     frag_atom_ids_del.append(aa_CA.GetId())
     
     # delete unnecessary atoms
-    for i in xrange (0, len(frag_atom_ids_del)):
+    for i in range (0, len(frag_atom_ids_del)):
         
         atom = getAtomByID(aa_mol, frag_atom_ids_del[i])
         
@@ -231,7 +236,7 @@ def swapsidechain (mol, res_index, aa_mol):
         
         aa_mol.DeleteAtom(atom)
         
-    for i in xrange (0, len(mol_atom_ids_del)):
+    for i in range (0, len(mol_atom_ids_del)):
         atom = getAtomByID(mol, mol_atom_ids_del[i])
         
         res = atom.GetResidue()
@@ -252,18 +257,18 @@ def swapsidechain (mol, res_index, aa_mol):
     
     mol_CA_idx = mol_CA.GetIdx()
     
-    for i in xrange (0, mol_CA.GetIdx()):
+    for i in range (0, mol_CA.GetIdx()):
         renum_atoms[i] = i + 1
         
-    for i in xrange (0, mol.NumAtoms() - prev_atoms):
+    for i in range (0, mol.NumAtoms() - prev_atoms):
         renum_atoms[mol_CA.GetIdx() + i] = prev_atoms + i + 1
         
-    for i in xrange (0, prev_atoms - mol_CA.GetIdx()):
+    for i in range (0, prev_atoms - mol_CA.GetIdx()):
         renum_atoms[mol_CA.GetIdx() + mol.NumAtoms() - prev_atoms + i] = mol_CA.GetIdx() + i + 1
     
     corr_frag_cb = None
     
-    for i in xrange(1, mol.NumAtoms() + 1):
+    for i in range(1, mol.NumAtoms() + 1):
         atom = mol.GetAtom(i)
         
         if (atom.GetId() == aa_CB.GetId()):
@@ -287,17 +292,17 @@ def swapsidechain (mol, res_index, aa_mol):
     chi_atom = mi.getChi1DihedralAtom(curr)
     
     if (chi_atom is not None and aa_gamma_atom is not None):
-        mol.SetTorsion(bb_nitrogen, alpha_carbon, beta_atom, chi_atom, aa_tor * (np.pi / 180.0))
+        mol.SetTorsion(bb_nitrogen, alpha_carbon, beta_atom, chi_atom, aa_tor * (old_div(np.pi, 180.0)))
   
     # need to renumber IDs now to be consecutive
     mol.RenumberAtoms(renum_atoms)
     
-    for i in xrange (1, mol.NumAtoms() + 1) :
+    for i in range (1, mol.NumAtoms() + 1) :
         mol.GetAtom(i).SetId(i - 1)
         
     
 if __name__ == '__main__':
-    print "Starting"
+    print("Starting")
 
     obConversion = openbabel.OBConversion()
     obConversion.SetInAndOutFormats("pdb", "pdb")
@@ -311,12 +316,12 @@ if __name__ == '__main__':
     obConversion.SetInAndOutFormats("mol2", "pdb")
     obConversion.ReadFile(frag2, "/lcbcdata/nbrownin/Rotamers_mol2/HID/HD3.mol2") 
     
-    print "first swap"
+    print("first swap")
     
     swapsidechain(mol, 1, frag)
     
-    print "second swap"
+    print("second swap")
     swapsidechain(mol, 3, frag2)
-    print "WRITING OUT"                                                                                                                                                                                                                                                                                       
+    print("WRITING OUT")                                                                                                                                                                                                                                                                                       
     obConversion.WriteFile(mol, "test2.pdb")
     

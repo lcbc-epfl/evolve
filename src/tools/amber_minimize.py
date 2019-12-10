@@ -1,6 +1,8 @@
 '''
 @author: Nicholas Browning
 '''
+from __future__ import print_function
+from builtins import str
 import os
 import sys
 import argparse 
@@ -105,5 +107,5 @@ if __name__ == "__main__":
         e = sander_minimize(mol, args.out_molecule, args.num_procs)
     
     obConversion.WriteFile(mol, args.out_molecule) 
-    print e
+    print(e)
     

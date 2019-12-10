@@ -3,6 +3,10 @@ main.py
 
 @author: Nicholas Browning
 '''
+from __future__ import print_function
+from builtins import str
+from builtins import range
+from builtins import object
 from src import MoleculeInfo as mi
 from src import MoleculeCreator as mcr
 import copy
@@ -65,7 +69,7 @@ class Individual(object):
             self.phi_dihedrals = np.zeros(len(self.dihedral_residue_indexes))
             self.psi_dihedrals = np.zeros(len(self.dihedral_residue_indexes))
             
-            for i in xrange (0, len(self.dihedral_residue_indexes)):
+            for i in range (0, len(self.dihedral_residue_indexes)):
                 self.phi_dihedrals[i] = orig.phi_dihedrals[i]
                 self.psi_dihedrals[i] = orig.psi_dihedrals[i]
         
@@ -74,7 +78,7 @@ class Individual(object):
         
         if (self.composition_residue_indexes != None):
             self.composition = np.zeros(len(self.composition_residue_indexes), dtype=np.int)
-            for i in xrange (0, len(self.composition_residue_indexes)):
+            for i in range (0, len(self.composition_residue_indexes)):
                 self.composition[i] = orig.composition[i]
 
         if (settings.sidechain_dihedral_optimisation):
@@ -126,7 +130,7 @@ class Individual(object):
     def updatePhiPsiDihedrals(self, settings):
         phi_psi_dihedrals = self.getPhiPsiDihedrals(settings)
         
-        for j in xrange (0, len(self.dihedral_residue_indexes)):
+        for j in range (0, len(self.dihedral_residue_indexes)):
             self.phi_dihedrals[j] = phi_psi_dihedrals[j][0]
             self.psi_dihedrals[j] = phi_psi_dihedrals[j][1]
                 
@@ -174,7 +178,7 @@ class Individual(object):
             return
 
         cmp = []
-        for i in xrange(0, len(self.composition_residue_indexes)):
+        for i in range(0, len(self.composition_residue_indexes)):
             frag = openbabel.OBMol()
             obConversion = openbabel.OBConversion()
             obConversion.SetInFormat("mol2")
@@ -183,7 +187,7 @@ class Individual(object):
             cmp.append(rotamer_type)
             obConversion.ReadFile(frag, settings.composition_library + "/" + rotamer_type + ".mol2")
             mcr.swapsidechain(self.mol, self.composition_residue_indexes[i], frag)
-        print "Created Individual:", cmp
+        print("Created Individual:", cmp)
     
 
 
@@ -200,7 +204,7 @@ class Individual(object):
                 # residue has no chi atoms, or needs to be ignored (PRO)
                 continue
 
-            for k in xrange(0, len(settings.chi_dihedral_atom_idxs[j])):
+            for k in range(0, len(settings.chi_dihedral_atom_idxs[j])):
                 
                 chi_angle_atoms = settings.chi_dihedral_atom_idxs[j][k]
         

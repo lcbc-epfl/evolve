@@ -5,12 +5,18 @@ Contains helper functions for finding + identifying certain atoms in proteins.
 
 @author: Nicholas Browning
 '''
+from __future__ import division
+from __future__ import print_function
+from __future__ import absolute_import
 
+from builtins import str
+from builtins import range
+from past.utils import old_div
 import openbabel
 from openbabel import OBResidue
 from openbabel import OBAtom
 import numpy as np
-import constants
+from . import constants
 
 sidechain = {
          "ALA": ['cb'],
@@ -79,12 +85,12 @@ def getResType(obres):
     res = obres.GetName()
     
     # check richardson rotamers and return rotamer_type
-    for i in xrange (0, len(constants.rotamers)):
+    for i in range (0, len(constants.rotamers)):
         if (constants.rotamers[i] == res):
             return constants.rotamer_types[i]
         
     # seems to be a standard AA, search 3-letter code list
-    for i in xrange (0, len(constants.rotamer_types)):
+    for i in range (0, len(constants.rotamer_types)):
         if (constants.rotamer_types[i] == res):
             return constants.rotamer_types[i]
     
@@ -342,7 +348,7 @@ def getChiDihedralsByAtomIndex(mol, chi_dihedral_atom_indexes):
             chis.append(res_chis)
             continue
 
-        for k in xrange(0, len(chi_dihedral_atom_indexes[j])):
+        for k in range(0, len(chi_dihedral_atom_indexes[j])):
         
             chi_angle_atoms = chi_dihedral_atom_indexes[j][k]
             res_chis.append(mol.GetTorsion(chi_angle_atoms[0], chi_angle_atoms[1], chi_angle_atoms[2], chi_angle_atoms[3]))
@@ -367,7 +373,7 @@ def getChiDihedralAtomIndexes(mol, residue_indexes):
 
     chi_atoms = []
     
-    for i in xrange (0, len(residue_indexes)):
+    for i in range (0, len(residue_indexes)):
         
         obres = mol.GetResidue(residue_indexes[i])
             
@@ -443,7 +449,7 @@ def getPhiPsiDihedralAtomIndexes(mol, residue_indexes):
     
     result = []
     
-    for i in xrange (0, len(residue_indexes)):
+    for i in range (0, len(residue_indexes)):
         
         dihedrals = []
         
@@ -488,7 +494,7 @@ def getPhiPsiDihedrals(mol, residue_indexes):
     
     result = []
 
-    for i in xrange (0, len(residue_indexes)):
+    for i in range (0, len(residue_indexes)):
       
         obres = mol.GetResidue(residue_indexes[i])
 
@@ -534,7 +540,7 @@ def setChi1DihedralAngle(mol, residue_index, angle_deg):
     if (gamma_atom is None):
         return False
     
-    mol.SetTorsion(bb_nitrogen, alpha_carbon, beta_atom, gamma_atom, angle_deg * (np.pi / 180.0))
+    mol.SetTorsion(bb_nitrogen, alpha_carbon, beta_atom, gamma_atom, angle_deg * (old_div(np.pi, 180.0)))
 
     return True
 
@@ -567,7 +573,7 @@ def getChi1DihedralAngle(mol, obres):
 
 def countBonds(obatom):
     count = 0
-    for i in xrange(1, 4):
+    for i in range(1, 4):
         count += obatom.CountBondsOfOrder(i)
     return count
 
@@ -654,11 +660,11 @@ def SetPhiPsi(mol, obres, phi, psi):
     
     if (neg1_carboxl is not None and carboxl and phi != 999):
 
-        mol.SetTorsion(neg1_carboxl, bb_nitrogen, alpha_carbon, carboxl, phi * (np.pi / 180.0))
+        mol.SetTorsion(neg1_carboxl, bb_nitrogen, alpha_carbon, carboxl, phi * (old_div(np.pi, 180.0)))
     
     if (bb_nitrogen is not None and plus1_nitrogen and psi != 999):
     
-        mol.SetTorsion(bb_nitrogen, alpha_carbon, carboxl, plus1_nitrogen, psi * (np.pi / 180.0))
+        mol.SetTorsion(bb_nitrogen, alpha_carbon, carboxl, plus1_nitrogen, psi * (old_div(np.pi, 180.0)))
 
 
 def get_atoms_per_residue(mol):
@@ -671,8 +677,8 @@ def get_atoms_per_residue(mol):
         protein
     """
     
-    sorted_atoms_ID = [[] for _ in xrange(mol.NumResidues())]
-    sorted_atoms_OB = [[] for _ in xrange(mol.NumResidues())]
+    sorted_atoms_ID = [[] for _ in range(mol.NumResidues())]
+    sorted_atoms_OB = [[] for _ in range(mol.NumResidues())]
 
     for i, ob_res in enumerate(openbabel.OBResidueIter(mol)):
 
@@ -823,8 +829,8 @@ if __name__ == '__main__':
     
     for j in range(0, mol.NumResidues()): 
         obres = mol.GetResidue(j)
-        print obres.GetName()
+        print(obres.GetName())
         if (getResType(obres) == 'GLY'):
             beta_atom = getBetaAtom(obres)
-            print beta_atom.GetIdx()
+            print(beta_atom.GetIdx())
         

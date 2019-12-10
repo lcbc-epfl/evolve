@@ -3,7 +3,12 @@ main.py
 
 @author: Nicholas Browning
 '''
+from __future__ import division
+from __future__ import print_function
 
+from builtins import str
+from builtins import range
+from past.utils import old_div
 import numpy as np
 import argparse
 import openbabel
@@ -37,24 +42,24 @@ def replace(settings, parents, children, **args):
     
     sorted_parent_indexes = np.argsort(parent_fitnesses)
     
-    print parent_fitnesses[sorted_parent_indexes]
+    print(parent_fitnesses[sorted_parent_indexes])
     
     sorted_child_indexes = np.argsort(child_fitnesses)
     
-    print child_fitnesses[sorted_child_indexes]
+    print(child_fitnesses[sorted_child_indexes])
     
     if (settings.verbose):
-        print "elite parent indexes:", sorted_parent_indexes[:num_elites]
-        print "elite children indexes:", sorted_child_indexes[:settings.population_size - num_elites]
+        print("elite parent indexes:", sorted_parent_indexes[:num_elites])
+        print("elite children indexes:", sorted_child_indexes[:settings.population_size - num_elites])
     
     elitist_population = []
     
-    for i in xrange (num_elites):
+    for i in range (num_elites):
        # indiv = Individual.Individual(settings, parents[sorted_parent_indexes[i]])
         # indiv.total_decomp_fitness = parents[sorted_parent_indexes[i]].total_decomp_fitness
         elitist_population.append(parents[sorted_parent_indexes[i]])
     
-    for i in xrange (settings.population_size - num_elites):
+    for i in range (settings.population_size - num_elites):
         # indiv = Individual.Individual(settings, children[sorted_child_indexes[i]])
         # indiv.total_decomp_fitness = children[sorted_child_indexes[i]].total_decomp_fitness
         elitist_population.append(children[sorted_child_indexes[i]])
@@ -65,7 +70,7 @@ def replace(settings, parents, children, **args):
 def mutate (settings, population):
     mutated_pop = []
     
-    for i in xrange (0, settings.population_size):
+    for i in range (0, settings.population_size):
         if (np.random.random() < settings.mutation_probability):
             mutated_pop.append(uniform_point_mutation(settings, population[i]))
 #             if (np.random.random() < 0.5):
@@ -87,7 +92,7 @@ def uniform_point_mutation(settings, individual):
     lower_bound = -180
     upper_bound = 180
     
-    for i in xrange (0, len(settings.dihedral_residue_indexes)):
+    for i in range (0, len(settings.dihedral_residue_indexes)):
         
         if np.random.random() <= mut_rate:
             
@@ -102,7 +107,7 @@ def uniform_point_mutation(settings, individual):
         
         if np.random.random() < mut_rate:
             for j in range (len(mutant.chi_angles[i])):
-                mut_rate_chi = 0.5 / len(mutant.chi_angles[i])
+                mut_rate_chi = old_div(0.5, len(mutant.chi_angles[i]))
                 if np.random.random() < mut_rate_chi:
                     mutant.chi_angles[i][j] = lower_bound + np.random.rand() * 360
 
@@ -117,7 +122,7 @@ def helix_unit_mutation(settings, individual):
     chis, bbs, lls = generators.getBasiliskSample(mutant.mol)
     
     middle = np.random.randint(low=1, high=len(settings.dihedral_residue_indexes) - 1)
-    print "3-point helix mutation at: ", middle
+    print("3-point helix mutation at: ", middle)
     for i in range (middle - 1, middle + 2):
         mutant.phi_dihedrals[i] = degrees(bbs[i][0]) - 180
         mutant.psi_dihedrals[i] = degrees(bbs[i][1]) - 180
@@ -142,12 +147,12 @@ def crossover(settings, population, mating_pools):
             return mom_ang, dad_ang
         
         beta = 1.0 + 2 * min(mom_ang - lb, ub - dad_ang) / (dad_ang - mom_ang)
-        alpha = 2.0 - 1.0 / beta ** (di + 1.0)
+        alpha = 2.0 - old_div(1.0, beta ** (di + 1.0))
         u = np.random.random() 
-        if u <= (1.0 / alpha):
-            beta_q = (u * alpha) ** (1.0 / float(di + 1.0))
+        if u <= (old_div(1.0, alpha)):
+            beta_q = (u * alpha) ** (old_div(1.0, float(di + 1.0)))
         else:
-            beta_q = (1.0 / (2.0 - u * alpha)) ** (1.0 / (di + 1.0))
+            beta_q = (old_div(1.0, (2.0 - u * alpha))) ** (old_div(1.0, (di + 1.0)))
         bro_val = 0.5 * ((mom_ang + dad_ang) - beta_q * (dad_ang - mom_ang))
         bro_val = max(min(bro_val, ub), lb)        
         sis_val = 0.5 * ((mom_ang + dad_ang) + beta_q * (dad_ang - mom_ang))
@@ -236,8 +241,8 @@ def evaluate(settings, individuals):
     
     directory = settings.output_path + "/amber_run"
     
-    for i in xrange(0, len(individuals)):
-        print "Computing MMPBSA", i
+    for i in range(0, len(individuals)):
+        print("Computing MMPBSA", i)
         obconv = openbabel.OBConversion()
         obconv.SetOutFormat("pdb")
         obconv.WriteFile(individuals[i].mol, directory + "/min_struct.pdb")
@@ -258,8 +263,8 @@ def evaluate(settings, individuals):
         
         individuals[i].setFitness(0, total_e)
         
-        print individuals[i].fitnesses
-        print individuals[i].total_decomp_fitness
+        print(individuals[i].fitnesses)
+        print(individuals[i].total_decomp_fitness)
         
         if os.path.isfile(directory + "/mmpbsa_decomp.dat"):
             os.remove(directory + "/mmpbsa_decomp.dat")
@@ -296,11 +301,11 @@ def tournament_select (settings, population, residue_index):
 
 def printPop(settings, population, curr_iter):
     for i in range (0, len(population)):
-        print i, population[i].fitnesses, "DECOMP:" , population[i].total_decomp_fitness
+        print(i, population[i].fitnesses, "DECOMP:" , population[i].total_decomp_fitness)
         
     best_idx = np.argmin([indiv.fitnesses[0] for indiv in population])
-    print "Iteration", curr_iter
-    print "BEST:", population[best_idx].fitnesses[0], "DECOMP:", population[best_idx].total_decomp_fitness
+    print("Iteration", curr_iter)
+    print("BEST:", population[best_idx].fitnesses[0], "DECOMP:", population[best_idx].total_decomp_fitness)
     
     obconv = openbabel.OBConversion()
     obconv.SetOutFormat("pdb")
@@ -312,10 +317,10 @@ def mainLoop(settings):
     settings.chi_dihedral_atom_idxs = mi.getChiDihedralAtomIndexes(settings.initial_molecule, settings.dihedral_residue_indexes)
     settings.backbone_dihedral_atom_idxs = mi.getPhiPsiDihedralAtomIndexes(settings.initial_molecule, settings.dihedral_residue_indexes)
     
-    print "Backbone dihedral atom idxs:"
-    print settings.backbone_dihedral_atom_idxs
-    print "Chi dihedral atom idxs:"
-    print settings.chi_dihedral_atom_idxs
+    print("Backbone dihedral atom idxs:")
+    print(settings.backbone_dihedral_atom_idxs)
+    print("Chi dihedral atom idxs:")
+    print(settings.chi_dihedral_atom_idxs)
     
     initial_indiv = Individual.Individual(settings)
     initial_indiv.total_decomp_fitness = np.zeros(len(settings.dihedral_residue_indexes))
@@ -326,7 +331,7 @@ def mainLoop(settings):
         
     parents = []
     
-    for i in xrange (settings.population_size):
+    for i in range (settings.population_size):
         
        indiv = Individual.Individual(settings)
        
@@ -335,19 +340,19 @@ def mainLoop(settings):
        parents.append(indiv)
     
     # Generate dihedrals by Monte Carlo
-    print "Generating backbone via MC"
+    print("Generating backbone via MC")
     generators.MonteCarloDihedralGenerator(settings, parents)
-    print "Generating sidechain via Basilisk"
+    print("Generating sidechain via Basilisk")
     generators.BasiliskSideChainDihedralsGenerator(settings, parents)
     
     for i in range (settings.population_size):
-        print "setting initial population", i
+        print("setting initial population", i)
         parents[i].applyChiDihedrals(settings)
         parents[i].applyPhiPsiDihedrals(settings)
             
     evaluate(settings, parents)
     
-    print "INITIAL_POPULATION"
+    print("INITIAL_POPULATION")
     printPop(settings, parents, -1)
     
     curr_iteration = 0
@@ -368,7 +373,7 @@ def mainLoop(settings):
         
         evaluate(settings, children)
     
-        print "Updating angles, dihedrals"
+        print("Updating angles, dihedrals")
         for i in range (settings.population_size):
             children[i].updateChiAngles(settings)
             children[i].updatePhiPsiDihedrals(settings)

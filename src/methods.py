@@ -3,8 +3,12 @@ Created on Nov 4, 2015
 
 @author: roethlisbergergroup
 '''
+from __future__ import division
 
 
+from builtins import str
+from builtins import range
+from past.utils import old_div
 import math
 import numpy
 
@@ -59,7 +63,7 @@ def loadXYZ(filename, ang2bohr=True):
         positions = numpy.zeros((numAtoms, 3), dtype=numpy.float64)
         elems = [None] * numAtoms
         comment = lines[1]
-        for x in xrange (2, 2 + numAtoms):
+        for x in range (2, 2 + numAtoms):
             line_split = lines[x].rsplit()
             elems[x - 2] = line_split[0]
             positions[x - 2][0] = float(line_split[1]) 
@@ -77,7 +81,7 @@ def writeXYZ(fileName, elems, positions, bohr2ang):
     with open (fileName, 'w') as f:
         f.write(str(len(elems)) + "\n")
         f.write(" " + "\n")
-        for x in xrange (0, len(elems)):
+        for x in range (0, len(elems)):
             f.write(elems[x] + " " + " ".join(str(v) for v in positions[x]) + "\n")
     f.close()
 
@@ -86,7 +90,7 @@ def generateRandomTrainingSet(size, trainingDat):
     trainingSet = numpy.empty((size), dtype=numpy.int32)
     allowedTrainingMols = numpy.loadtxt(trainingDat, dtype=numpy.int32, delimiter='\n')
     trainingSet.fill(-1)
-    for i in xrange(size):
+    for i in range(size):
         val = allowedTrainingMols[numpy.random.randint(0, len(allowedTrainingMols))]
         while (val in trainingSet):
             val = allowedTrainingMols[numpy.random.randint(0, len(allowedTrainingMols))]
@@ -97,46 +101,46 @@ def generateRandomTrainingSet(size, trainingDat):
 def createCoulombMatrixNaive(elems, positions, cmsize):
     numAtoms = len(elems)
     cm = numpy.zeros((cmsize, cmsize), dtype=numpy.float64)
-    for i in xrange(0, numAtoms):
-        for j in xrange (0, numAtoms):
+    for i in range(0, numAtoms):
+        for j in range (0, numAtoms):
             if (i == j):
                 cm[i][j] = 0.5 * math.pow(element2charge[elems[i]], 2.4)
             else:
                 dR = numpy.subtract(positions[i], positions[j]) 
                 #
                 # print (i, j, dR, numpy.dot(dR, dR), numpy.sqrt(numpy.dot(dR, dR)),   numpy.multiply(element2charge[elems[i]], element2charge[elems[j]]), numpy.divide(numpy.multiply(element2charge[elems[i]], element2charge[elems[j]]), numpy.sqrt(numpy.dot(dR, dR))))
-                cm[i][j] = (element2charge[elems[i]] * element2charge[elems[j]]) / numpy.sqrt(numpy.dot(dR, dR))
+                cm[i][j] = old_div((element2charge[elems[i]] * element2charge[elems[j]]), numpy.sqrt(numpy.dot(dR, dR)))
     return cm
 
 def createCoulombMatrix(elems, positions, cmsize):
     numAtoms = len(elems)
     cm = numpy.zeros((cmsize, cmsize), dtype=np.float32)
-    for i in xrange(0, numAtoms):
+    for i in range(0, numAtoms):
         cm[i][i] = 0.5 * math.pow(element2charge[elems[i]], 2.4)
-        for j in xrange (i + 1, numAtoms):
+        for j in range (i + 1, numAtoms):
             dR = positions[i] - positions[j]
-            cm[i][j] = (element2charge[elems[i]] * element2charge[elems[j]]) / numpy.sqrt(numpy.dot(dR, dR))
+            cm[i][j] = old_div((element2charge[elems[i]] * element2charge[elems[j]]), numpy.sqrt(numpy.dot(dR, dR)))
             cm[j][i] = cm[i][j]
     return cm
 
 def createRIJMatrix(elems, positions, cmsize):
     numAtoms = len(elems)
     cm = numpy.zeros((cmsize, cmsize), dtype=numpy.float32)
-    for i in xrange(0, numAtoms):
+    for i in range(0, numAtoms):
         cm[i][i] = 0
-        for j in xrange (i + 1, numAtoms):
+        for j in range (i + 1, numAtoms):
             dR = positions[i] - positions[j]
-            cm[i][j] = 1 / numpy.linalg.norm(dR)
+            cm[i][j] = old_div(1, numpy.linalg.norm(dR))
             cm[j][i] = cm[i][j]
     return cm
 
 def CoM(elems, xyzs):
     v = numpy.zeros(3)
     M = 0
-    for i in xrange (0, len(elems)):
+    for i in range (0, len(elems)):
         v = v + numpy.multiply(element2mass[elems[i]], xyzs[i])
         M = M + element2mass[elems[i]]
-    v = v / M
+    v = old_div(v, M)
     return v
 
 
@@ -155,29 +159,29 @@ def distance (cm1, cm2):
 def createSortedCoulombMatrix(elems, positions, cmsize):
     numAtoms = len(elems)
     cm = numpy.zeros((cmsize, cmsize))
-    for i in xrange(0, numAtoms):
+    for i in range(0, numAtoms):
         cm[i][i] = 0.5 * math.pow(element2charge[elems[i]], 2.4)
-        for j in xrange (i + 1, numAtoms):
+        for j in range (i + 1, numAtoms):
             dR = (positions[i] - positions[j])
-            cm[i][j] = (element2charge[elems[i]] * element2charge[elems[j]]) / numpy.sqrt(numpy.dot(dR, dR))
+            cm[i][j] = old_div((element2charge[elems[i]] * element2charge[elems[j]]), numpy.sqrt(numpy.dot(dR, dR)))
             cm[j][i] = cm[i][j]
             
     norms = numpy.zeros((cmsize))
     indexes = numpy.zeros((cmsize))
-    for i in xrange (0, cmsize):
+    for i in range (0, cmsize):
         norms[i] = numpy.sqrt(numpy.dot(cm[i], cm[i]))
         indexes[i] = i
         
       
     cm2 = numpy.zeros((cmsize, cmsize))
-    for i in xrange (0, cmsize):
+    for i in range (0, cmsize):
         cm2[i][i] = cm[i][i]
-        for j in xrange (i + 1, cmsize):
+        for j in range (i + 1, cmsize):
             cm2[i][j] = cm[i][j]
             cm2[j][i] = cm2[i][j]
     
-    for i in xrange (0, cmsize):
-        for j in xrange (i + 1, cmsize):
+    for i in range (0, cmsize):
+        for j in range (i + 1, cmsize):
             if (norms[i] < norms [j]):
                 i1 = indexes[i]
                 indexes[i] = indexes[j]
@@ -187,8 +191,8 @@ def createSortedCoulombMatrix(elems, positions, cmsize):
                 norms[i] = norms[j]
                 norms [j] = dp1
 
-    for i in xrange (0, cmsize):
-        for j in xrange (i, cmsize) :
+    for i in range (0, cmsize):
+        for j in range (i, cmsize) :
             cm [i][j] = cm2[indexes[i]][indexes[j]]
             cm[j][i] = cm[i][j]
                                                                                                                                                                                                                   

@@ -1,6 +1,7 @@
 '''
 @author: Nicholas Browning
 '''
+from __future__ import print_function
 
 # module load anaconda/4.3.1
 # module load openbabel/2.3.2/gcc-4.9.2
@@ -24,7 +25,7 @@ if __name__ == '__main__':
     
     args = parser.parse_args()
     
-    print "Printing Mol"
+    print("Printing Mol")
 
     obConversion = openbabel.OBConversion()
 
@@ -33,16 +34,16 @@ if __name__ == '__main__':
     mol = openbabel.OBMol()
     
     if (not obConversion.ReadFile(mol, args.molecule)) :
-        print "Couldn't read:", args.molecule
+        print("Couldn't read:", args.molecule)
         sys.exit()
-    print "Succesfully Read Molecule:", args.molecule
+    print("Succesfully Read Molecule:", args.molecule)
     
-    print args.rotamer_path.split(".")[1]
+    print(args.rotamer_path.split(".")[1])
     frag = openbabel.OBMol()
     obConversion.SetInFormat(args.rotamer_path.split(".")[1])
     if (not obConversion.ReadFile(frag, args.rotamer_path)):
         sys.exit()
-        print "Couldn't read:", args.rotamer_path
+        print("Couldn't read:", args.rotamer_path)
     
     curr = mol.GetResidue(args.res_index)
     
@@ -52,12 +53,12 @@ if __name__ == '__main__':
     mol_CO = mi.getBBCarboxyl(curr)
     
     if (mol_CA is None or mol_CB is None or mol_N is None or mol_CO is None):
-        print "Could not find backbone atoms"
-        print "CA:", mol_CA, "CB:", mol_CB, "N:", mol_N, "C(=O):", mol_CO
+        print("Could not find backbone atoms")
+        print("CA:", mol_CA, "CB:", mol_CB, "N:", mol_N, "C(=O):", mol_CO)
         sys.exit()
     
-    print "Swapping Side Chain"
+    print("Swapping Side Chain")
     mc.swapsidechain(mol, args.res_index, frag)
-    print "Writing File:", args.out_molecule
+    print("Writing File:", args.out_molecule)
     obConversion.WriteFile(mol, args.out_molecule)
 
