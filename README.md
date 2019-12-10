@@ -28,9 +28,10 @@ A step by step series of examples that tell you how to get a development env run
 
 tbc
 
-## Running the tests
+## Documentation 
 
-Explain how to run the automated tests for this system
+Please find detailed instructions on the different functions of the code, how to implement a new
+evaluator and a detailed instructions to run the tests in the [Documentation](http://lcbc.epfl.ch)
 
 ## Built With
 
