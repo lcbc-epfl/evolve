@@ -45,11 +45,11 @@ Please read `CONTRIBUTING.md` for details on our code of conduct, and the proces
 
 ## Authors
 
-* **Nicholas J. Browning** - *Initial code development*
+* **Nicholas J. Browning** - *code development, mutation modules, stability indicator*
 * **Justin Villard** - *amber gpgg* 
 * **Marta Gomez** - *Initial thermostability code* -
 * **Simon L. Duerr** - *Multi-objective optimization routines, tools for enyzme design, code development*
-* **Ursula Roethlisberg** - *Prinicipal investigator*
+* **Ursula Roethlisberger** - *Prinicipal investigator*
 
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.

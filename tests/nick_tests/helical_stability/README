@@ -1,0 +1,15 @@
+How to run this test
+
+
+
+module load openbabel/2.4.1/gcc-6.3.0_python-2.7
+
+export PATH=/software/openbabel/2.4.1/gcc-6.3.0_python-2.7/bin:/home/duerr/.conda/envs/ga-py27/bin:/home/duerr/miniconda3/condabin:/home/duerr/miniconda3/bin:/software/grace-5.1.22-intel/grace/bin:/share/lcbcpc35/home/duerr/apps/Zotero_linux-x86_64:/software/R/3.4.2/gcc-6.3.0/bin:/share/lcbcpc35/home/duerr/apps/usr/bin:/share/lcbcpc35/home/duerr/apps/usr:/share/lcbcpc35/home/duerr/apps/usr/lib:/share/lcbcpc35/home/duerr/thesis/scripts:/share/lcbcpc35/home/duerr/apps/bin:/share/lcbcpc35/home/duerr/apps:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/home/pbaudin/Work/data_management/script:/home/duerr/apps/ucsf-chimera/bin:/home/duerr/apps/pymol/bin:/home/duerr/miniconda3/bin:
+
+
+module load amber/18
+
+export PYTHONPATH=/home/duerr/phd/02_Projects/EVOLVE/Development/evolve/:$PYTHONPATH
+
+python -u /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/main.py -input_file ga_input.in
+

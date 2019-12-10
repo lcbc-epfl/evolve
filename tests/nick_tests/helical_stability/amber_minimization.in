@@ -1,0 +1,12 @@
+Minimize using Amber FF
+  &cntrl
+   imin = 1,
+   drms= 0.0001,
+   maxcyc =9000,
+   ncyc = 1000,
+   ntmin = 1,
+   ntb = 0,
+   igb = 5,   
+   extdiel = 80.0,
+   cut = 16.0
+  /
