@@ -1,10 +1,11 @@
 '''
-Created on Jan 10, 2018
+All processes that operate outside of the EVOLVE main code like simulation codes should be included in this.
 
-@author: Nicholas Browning & Justin Villard
-
-All functions used to run softwares out of the GA code
+.. codeauthor:: Nicholas Browning
+.. codeauthor:: Simon Duerr dev@simonduerr.eu
+.. codeauthor:: Justin Villard
 '''
+
 from __future__ import division
 from __future__ import print_function
 
@@ -19,17 +20,30 @@ import numpy as np
 
 
 def runtleap(work_dir="", mol_file="mol.pdb", tleaptemp="tleap_template.in", tleapin="leap.in", inpcrd_out="mol.inpcrd", prmtop_out="mol.prmtop"):
-    # TODO
-    """
+    '''
+
+    runs tleap to process a pdb file into a valid amber prmtop file.
+
+    This procedure needs to be verified before runinng evolve such that the topology building process does not fail.
+
+    If the setting for the resname is not set the mol files need to be reloaded.
+
     Parameters
     ----------
+
     work_dir : string
         working directory
     mol_file : string
-        
+        path to PDB file
     tleaptemp
-    
-    """
+    tleapin
+    inpcrd_out
+    prmtop_out
+
+    Returns
+    -------
+
+    '''
     
     if (os.path.exists(work_dir + inpcrd_out)):
         os.remove(work_dir + inpcrd_out)
@@ -75,13 +89,31 @@ def runtleap(work_dir="", mol_file="mol.pdb", tleaptemp="tleap_template.in", tle
 
     
 def runAmberMPI(work_dir="", np=16, amberin="amber_minimization.in", prmtop="mol.prmtop", inpcrd="mol.inpcrd", amberout="amber.out", restart="amber.rst"):
+    '''
 
-    ''' Actually already made by amber with flag -O
-    if (os.path.exists(work_dir + amberout)):
-        os.remove(work_dir + amberout)
-    if (os.path.exists(work_dir + restart)):
-        os.remove(work_dir + restart)
-    '''    
+    Amber MPI documentation
+
+    Parameters
+    ----------
+    work_dir
+    np
+    amberin
+    prmtop
+    inpcrd
+    amberout
+    restart
+
+    Returns
+    -------
+
+    '''
+
+    # Actually already made by amber with flag -O
+    #if (os.path.exists(work_dir + amberout)):
+    #    os.remove(work_dir + amberout)
+    #if (os.path.exists(work_dir + restart)):
+    #    os.remove(work_dir + restart)
+    #
     # proc = subprocess.Popen(["mpirun", "-np", str(np), "sander.MPI", "-O", "-i", amberin, "-o", work_dir+amberout, "-c", work_dir+inpcrd, "-p", work_dir+prmtop, "-r", work_dir+restart], stdout=subprocess.PIPE)
     # can use pmemd if not in vaccum, more efficient parallelization but apparently doesn't work in vaccum
     # out, err = proc.communicate()
@@ -132,6 +164,23 @@ def runPMEMD(work_dir="", np=20, amberin="amber_minimization.in", prmtop="mol.pr
     
 
 def runMMPBSA(work_dir="", mmpbsa_in="mmpbsa.in", prmtop="mol.prmtop", inpcrd="mol.inpcrd", final_results="mmpbsa.dat", decomp_results="mmpbsa_decomp.dat"):
+    '''
+
+    runMMPBSA Documentation
+
+    Parameters
+    ----------
+    work_dir
+    mmpbsa_in
+    prmtop
+    inpcrd
+    final_results
+    decomp_results
+
+    Returns
+    -------
+
+    '''
     
     if (work_dir == ""):
         foutanderr = open('mmpbsa.log', 'w')
@@ -151,6 +200,18 @@ def runMMPBSA(work_dir="", mmpbsa_in="mmpbsa.in", prmtop="mol.prmtop", inpcrd="m
 
 
 def parseMMPBSA(mmpbsa_file_path):
+    '''
+
+    parse MMPBSA documentation
+
+    Parameters
+    ----------
+    mmpbsa_file_path
+
+    Returns
+    -------
+
+    '''
     import os
     
     if not os.path.isfile(mmpbsa_file_path):

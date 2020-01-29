@@ -1,7 +1,8 @@
 '''
-Created on Nov 4, 2015
+contains methods used in varipus components
 
-@author: roethlisbergergroup
+.. codeauthor:: Nicholas Browning
+
 '''
 from __future__ import division
 

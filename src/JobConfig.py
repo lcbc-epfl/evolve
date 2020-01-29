@@ -1,7 +1,8 @@
 '''
-Created on Oct 5, 2016
+JobConfig reads the input file and sets up the settings object used for the computation
 
-@author: nbrownin
+.. codeauthor:: Nicholas Browning
+.. codeauthor:: Simon Duerr dev@simonduerr.eu
 '''
 from __future__ import print_function
 from __future__ import absolute_import
@@ -23,7 +24,7 @@ from src import constants as cnts
 
 class Settings(object):
     '''
-    classdocs
+     Holds settings for one EVOLVE job
     '''
     
     composition_optimization = False
@@ -56,9 +57,18 @@ class Settings(object):
     initial_molecule = None
     
     def __init__(self, configFilePath):
+        '''
+
+        uses `ConfigParser` to read input file and input molecule(s)
+
+        Parameters
+        ----------
+        configFilePath : str
+            path to inputfile
+        '''
         
         self.configFilePath = configFilePath
-	# config parser module is small caps in Py3 and capitals in Py2        
+	    # config parser module is small caps in Py3 and capitals in Py2
         if sys.version_info[0] < 3:
             self.config = ConfigParser.ConfigParser()
         else:

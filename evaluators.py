@@ -1,7 +1,11 @@
 '''
-main.py
+Evaluators in EVOLVE are functions that can call outprocesses and that return fitness values.
 
-@author: Nicholas Browning
+
+
+.. codeauthor:: Nicholas Browning
+.. codeauthor:: Simon Duerr dev@simonduerr.eu
+
 '''
 from __future__ import print_function
 
@@ -19,6 +23,19 @@ import sys
 
 
 def minimise_sidechain_ff(settings, individual):
+    '''
+    Nick
+
+    Parameters
+    ----------
+    settings
+    individual
+
+    Returns
+    -------
+
+    '''
+
     from src import MoleculeInfo as mi
     
     constraints = openbabel.OBFFConstraints()
@@ -70,6 +87,17 @@ def minimise_sidechain_ff(settings, individual):
 
 
 def getSidechainAngleAtoms(mol, sidechain_atoms):
+    '''
+
+    Parameters
+    ----------
+    mol
+    sidechain_atoms
+
+    Returns
+    -------
+
+    '''
 
     angle_atom_dx = []
     for obangle in openbabel.OBMolAngleIter(mol):
@@ -223,6 +251,33 @@ def turbomol_scf_energy(settings, individuals, fitness_index):
 
 
 def amber_energy_minimize(settings, individual):
+    '''
+
+    This function performs necessary topology preparation and minimization of a pdb file.
+
+    The following evaluators depend on this:
+    used in :meth:`helical_stability`
+
+    Procedure:
+
+    - write out mutated file from memory to pdb file on disk for amber
+    - :meth:`src.outprocesses.runtleap`
+    - :meth:`src.outprocesses.runPMEMD`
+    - convert rst file to pdb file using `ambpdb`
+    - read in the minimized structure as new pdb file and set as structure for  :data:`individual`
+
+    Parameters
+    ----------
+    settings : object
+        see :class:`src.JobConfig.Settings`
+    individual : object
+        see :class:`src.gaapi.Individual.Individual`
+
+    Returns
+    -------
+    finalEnergy: float
+        amber energy after minimization
+    '''
     import shutil
      
     directory = settings.output_path + "/amber_run"
@@ -273,6 +328,23 @@ def amber_energy_minimize(settings, individual):
 
 
 def amber_energy_simplified(settings, individuals, fitness_index, pop_start=0):
+    '''
+
+
+
+    Parameters
+    ----------
+    settings : object
+        see :class:`src.JobConfig.Settings`
+    individuals : object
+        see :class:`src.gaapi.Individual.Individual`
+    fitness_index
+    pop_start
+
+    Returns
+    -------
+
+    '''
      
     for i in range(pop_start, len(individuals)):
         
@@ -291,6 +363,32 @@ def amber_energy_simplified(settings, individuals, fitness_index, pop_start=0):
 
         
 def helical_stability(settings, individuals, fitness_index, pop_start=0):
+    '''
+    Helical stability function that computes the stability using an implicit solvent minimized structure.
+
+    First the evaluator checks whether the current individual is identical in composition to an already computed individual, if yes computation is skipped and fitness value is copied.
+    If no,  :meth:`amber_energy_minimize`
+
+    Then the add and negate energies and the inital energy will be added to the minimized energy
+
+    Reference: Perez et al., “EVOLVE: A Genetic Algorithm to Predict Protein Thermostability.”
+
+    Parameters
+    ----------
+    settings : object
+        see :class:`src.JobConfig.Settings`
+    individuals : list
+        every item is an :class:`src.gaapi.Individual.Individual`
+    fitness_index : int
+        the index in the fitness list that helical_stability populates
+    pop_start : int
+        Defines with which individual to start
+
+
+    Returns
+    -------
+
+    '''
     from src import constants
     from src import MoleculeInfo as mi
     directory = settings.output_path + "/amber_run"
@@ -306,7 +404,7 @@ def helical_stability(settings, individuals, fitness_index, pop_start=0):
                     break
                     
         if (already_done != -1):
-            print("ALready computed: " , i, " -> member ", already_done) 
+            print("Already computed: " , i, " -> member ", already_done)
             individuals[i].mol = openbabel.OBMol(individuals[already_done].mol)
             individuals[i].fitnesses = individuals[already_done].fitnesses
             continue     

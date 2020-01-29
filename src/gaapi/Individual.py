@@ -1,7 +1,10 @@
 '''
-main.py
+Individual sets up the Invidiuals for EVOLVE computation
 
-@author: Nicholas Browning
+Depending on context the individual is deepcopied or initalised.
+
+.. codeauthor:: Nicholas Browning
+.. codeauthor:: Simon Duerr dev@simonduerr.eu
 '''
 from __future__ import print_function
 from builtins import str
@@ -22,6 +25,19 @@ class Individual(object):
             self.copy_constructor(settings, orig)
         
     def initialise_constructor(self, settings):
+        '''
+
+        Initalises the Inividual from the read in PDB file and initializes all variables.
+
+        Parameters
+        ----------
+        settings : object
+            see :class:`src.JobConfig.Settings`
+
+        Returns
+        -------
+
+        '''
         
         self.mol = openbabel.OBMol(settings.initial_molecule)
         
