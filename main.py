@@ -1,7 +1,11 @@
 '''
-main.py
+This is the main module of EVOLVE.
 
-@author: Nicholas Browning
+It initialises the genetic algorithm search,
+determines initial fitnesses for each evaluator and then loops over the generations
+
+.. codeauthor:: Nicholas Browning
+.. codeauthor:: Simon Duerr dev@simonduerr.eu
 '''
 from __future__ import division
 from __future__ import print_function
@@ -30,6 +34,16 @@ import evaluators as evals
 
 
 def mainLoop(settings):
+    '''
+
+    Parameters
+    ----------
+    settings
+
+    Returns
+    -------
+
+    '''
     curr_iteration = -1
     parent_population = []
 

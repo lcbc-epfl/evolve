@@ -3,7 +3,7 @@ MoleculeCreator.py
 
 Contains a few key functions for performing mutations specifically on proteins. Extensions to more general molecules should be straightforward to implement based on the code here.
 
-@author: Nicholas Browning
+.. codeauthor:: Nicholas Browning
 '''
 from __future__ import division
 from __future__ import print_function

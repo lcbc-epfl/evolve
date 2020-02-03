@@ -38,6 +38,12 @@ def tournamentSelectionWOR(settings, individuals, **kargs):
 
     Tournament selection where two individuals fight a tournament and the stronger one is allowed to mate
 
+    .. code-block:: python
+
+        [GA_SELECTION]
+        selector = tournament_wor
+        tournament_size = 2
+
     Parameters
     ----------
     settings : object

@@ -24,15 +24,15 @@ import sys
 
 def minimise_sidechain_ff(settings, individual):
     '''
-    Nick
+    Use openbabel to minimize the sidechain
 
     Parameters
     ----------
-    settings
-    individual
+    settings : object
+            see :class:`src.JobConfig.Settings`
+    individual: object
+            see :class:`src.gaapi.Inidividual`
 
-    Returns
-    -------
 
     '''
 
@@ -88,6 +88,8 @@ def minimise_sidechain_ff(settings, individual):
 
 def getSidechainAngleAtoms(mol, sidechain_atoms):
     '''
+
+
 
     Parameters
     ----------
@@ -211,7 +213,20 @@ def minimise_backbone_ff(settings, individual):
     ff.GetCoordinates(individual.mol)
 
     
-def turbomol_scf_energy(settings, individuals, fitness_index): 
+def turbomol_scf_energy(settings, individuals, fitness_index):
+    '''
+    Does a turbomole SCF calculation
+
+    Parameters
+    ----------
+    settings
+    individuals
+    fitness_index
+
+    Returns
+    -------
+
+    '''
     import subprocess
     
     for i in range (0, len(individuals)):
@@ -330,7 +345,7 @@ def amber_energy_minimize(settings, individual):
 def amber_energy_simplified(settings, individuals, fitness_index, pop_start=0):
     '''
 
-
+    Remenant of Nick. Should probably be removed.
 
     Parameters
     ----------
@@ -370,6 +385,18 @@ def helical_stability(settings, individuals, fitness_index, pop_start=0):
     If no,  :meth:`amber_energy_minimize`
 
     Then the add and negate energies and the inital energy will be added to the minimized energy
+
+    To use this evaluator in the input file you need to include the following section in your file.
+
+    .. code-block:: python
+
+        [EVALUATOR]
+        evaluators = helical_stability
+        tleap_template = tleap_template.in
+        amber_params =  amber_minimization.in
+        mpi_processors = 20
+        dielectric = 80.0
+
 
     Reference: Perez et al., “EVOLVE: A Genetic Algorithm to Predict Protein Thermostability.”
 

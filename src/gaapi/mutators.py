@@ -95,6 +95,26 @@ def poly(indiv_i, xl, xu, eta):
     return x
     
 def polynomial_mutation(settings, individual, **args):
+    '''
+
+    .. code-block:: python
+
+        [GA_MUTATION]
+        mutator = polynomial_mutation
+        mutation_probability = 0.3
+        genewise__mutation_probability = 0.15
+        poly_eta = 7.0
+
+    Parameters
+    ----------
+    settings
+    individual
+    args
+
+    Returns
+    -------
+
+    '''
  
     eta = settings.poly_eta
     mut_rate = settings.genewise_mutation_probability

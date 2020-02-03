@@ -1,4 +1,8 @@
 '''
+
+what does this do?
+
+
 printMoleculeInfo
 
 @author: Nicholas Browning

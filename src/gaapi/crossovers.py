@@ -1,8 +1,9 @@
 '''
-crossovers.py
+Crossover operatons
 
-@author: Nicholas Browning
+.. codeauthor:: Nicholas Browning
 '''
+
 from __future__ import division
 from __future__ import print_function
 from __future__ import absolute_import
@@ -12,6 +13,26 @@ import copy
 import numpy as np
 from . import Individual
 def crossover(settings, individuals, crossover_op, **args):
+    '''
+
+    General wrapper function for each crossover, that is executed for each crossover and calls crossover_op() as defined by the input file.
+
+
+    If you implement a new type of optimization other than dihedral or composition optimization you need to define the crossver operation here.
+
+    Parameters
+    ----------
+    settings: object
+        see :class:`src.JobConfig.Settings`
+    individuals
+    crossover_op
+    args
+
+    Returns
+    -------
+    new_population : list
+        list of individuals where crossover has occured
+    '''
     
     print("CROSSOVER {}".format(settings.crossover))
     new_population = []
@@ -31,6 +52,28 @@ def crossover(settings, individuals, crossover_op, **args):
     return new_population
         
 def uniform_crossover(settings, mom, dad, **kargs):
+    '''
+
+    this swaps the composition or dihedrals randomly if random number is lower than the genewise_crossover_probability set in the input file
+
+    Parameters
+    ----------
+    settings: object
+        see :class:`src.JobConfig.Settings`
+    mom : object
+        individual 1 from current generation
+    dad : object
+        individual 2 from current generation
+    kargs
+
+    Returns
+    -------
+    sis : object
+        new individual 1 for next generation where crossover has occurred
+    bro : object
+        new individual 2 for next generation where crossover has occurred
+
+    '''
         
     bro = Individual.Individual(settings, dad)
     sis = Individual.Individual(settings, mom)
@@ -78,6 +121,25 @@ def uniform_crossover(settings, mom, dad, **kargs):
 
 
 def sim_b(m, d, di, lb, ub):
+    '''
+
+    helper function for simulated binary crossover
+
+    Parameters
+    ----------
+    m
+    d
+    di
+    lb
+    ub
+
+    Returns
+    -------
+    sis_val : int
+        todo
+    bro_val : int
+        todo
+    '''
     
     m = float(m)
     d = float(d)
@@ -107,6 +169,38 @@ def sim_b(m, d, di, lb, ub):
     return sis_val, bro_val
 
 def simulated_binary_crossover(settings, mom, dad, **kargs):
+    '''
+
+    This performs simulated binary crossover.
+
+    In the input file the following section needs to be set.
+
+    .. code-block:: python
+
+        [GA_CROSSOVER]
+        crossover = sbx
+        sbx_distribution_index = 7.0
+        mating_probability = 0.7
+        genewise_crossover_probability = 0.4
+
+
+    Parameters
+    ----------
+    settings: object
+        see :class:`src.JobConfig.Settings`
+    mom : object
+        individual 1 from current generation
+    dad : object
+        individual 2 from current generation
+    kargs
+
+    Returns
+    -------
+    sis : object
+        new individual 1 for next generation where crossover has occurred
+    bro : object
+        new individual 2 for next generation where crossover has occurred
+    '''
     from src import constants
     di = settings.sbx_distribution_index
 

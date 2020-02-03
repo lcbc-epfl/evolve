@@ -1,8 +1,9 @@
 '''
-replacers.py
+Replacers are used to modify a population after crossover and mutation have occured
 
-@author: Nicholas Browning
+.. codeauthor:: Nicholas Browning
 '''
+
 from __future__ import print_function
 from __future__ import absolute_import
 from builtins import range
@@ -10,12 +11,67 @@ import numpy as np
 from . import Individual
 
 def replace(settings, parents, children, replace_op, **args):
+    '''
+
+    Replace operation that selects the coressponding replacer function from the setting object
+
+    Parameters
+    ----------
+    settings
+    parents
+    children
+    replace_op
+    args
+
+    Returns
+    -------
+    replace_op : function
+        selected replacer
+
+    '''
     return replace_op(settings, parents, children, **args)
     
 def swap_replace(settings, parents, children, **args):
+    '''
+
+    Only returns the children
+
+    Parameters
+    ----------
+    settings
+    parents
+    children
+    args
+
+    Returns
+    -------
+
+    '''
     return children
 
 def elitist_replace(settings, parents, children, **args):
+    '''
+
+    Does an elitist replacement to improve GA convergence.
+    According to the `elitist_factor` set a percentage of the most fit parents is retained.
+
+    Use in the input file like so:
+
+        [GA_REPLACER]
+        replacer = elitism
+        elitist_factor = 0.25
+
+    Parameters
+    ----------
+    settings
+    parents
+    children
+    args
+
+    Returns
+    -------
+
+    '''
 
     elitist_factor = settings.elitist_factor
     num_elites = int(elitist_factor * settings.population_size)

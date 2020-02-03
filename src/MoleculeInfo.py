@@ -3,7 +3,7 @@ MoleculeInfo.py
 
 Contains helper functions for finding + identifying certain atoms in proteins.
 
-@author: Nicholas Browning
+.. codeauthor:: Nicholas Browning
 '''
 from __future__ import division
 from __future__ import print_function

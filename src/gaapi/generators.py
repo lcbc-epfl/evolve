@@ -1,7 +1,8 @@
 '''
-generators.py
+The generator populates the first generation with a set of rotamers based on the selection in the input file
 
-@author: Nicholas Browning
+.. codeauthor:: Nicholas Browning
+.. codeauthor:: Simon Duerr dev@simonduerr.eu
 '''
 from __future__ import print_function
 from __future__ import absolute_import
@@ -16,8 +17,21 @@ from src import MoleculeInfo as mi
 import openbabel
 
 
-# Initialisation of the first population
 def initialisePopulation(settings):
+    '''
+
+    Initialisation of the first population
+
+    Parameters
+    ----------
+    settings: object
+        see :class:`src.JobConfig.Settings`
+
+    Returns
+    -------
+    individuals: list
+        a list containing objects holding each one individual with its properties and the associated molfile
+    '''
     
     individuals = []
     
@@ -29,8 +43,20 @@ def initialisePopulation(settings):
     return individuals
 
 
-# Generate dihedrals with uniform distribution
 def UniformDihedralGenerator(settings, individuals):
+    '''
+
+    Generate dihedrals with uniform distribution.
+    Parameters
+    ----------
+    settings : object
+        see :class:`src.JobConfig`
+    individuals : object
+        see :class:`src.gaapi.Individual`
+
+
+
+    '''
     
     num_phipsi = len(settings.dihedral_residue_indexes)
    
@@ -44,6 +70,22 @@ def UniformDihedralGenerator(settings, individuals):
     
 
 def UniformCompositionGenerator(settings, individuals):
+    '''
+
+    This will randomly sample all the selected rotamers and thus will oversample amino acids with many rotamers (e.g Lys) compared to alanine.
+
+
+    Parameters
+    ----------
+    settings : object
+        see :class:`src.JobConfig`
+    individuals : object
+        see :class:`src.gaapi.Individual`
+
+
+
+
+    '''
     
     for i in range (0, settings.population_size):
         indiv = individuals[i]
@@ -54,9 +96,42 @@ def UniformCompositionGenerator(settings, individuals):
 
         
 def unbiased_protein_composition_generator(settings, individuals):
-    
-    # Generates an unbiased sample across all rotamers (ie weights each rotamer type equally for initial sampling)
+    '''
+
+    Generates an unbiased sample across all rotamers (ie weights each rotamer type equally for initial sampling)
+    All amino acids have probability of :math:`\\frac{ 1 }{n(selected amino acid types}` to be selected.
+
+    Parameters
+    ----------
+    settings : object
+        see :class:`src.JobConfig`
+    individuals : object
+        see :class:`src.gaapi.Individual`
+
+    Returns
+    -------
+
+    '''
+
     def get_ubia_index(min, max, selected_rotamers, selected_rotamer_types):
+        '''
+
+        defines the indexes of allowed rotamers
+
+        Parameters
+        ----------
+        min : int
+            lower bound of allowed rotamers for this site
+        max : int
+            upper bound of allowed rotamers for this site
+        selected_rotamers
+        selected_rotamer_types
+
+        Returns
+        -------
+        allowed_indexes[rel_index]: int
+            random index within bounds of this rotamer
+        '''
         rot_count_dict = {}
 
         for i in range(min, max):
@@ -96,17 +171,35 @@ def unbiased_protein_composition_generator(settings, individuals):
         print(indiv.composition)
         indiv.applyComposition(settings)  
 
-            
-# Generate dihedrals by Monte Carlo
+
 def MonteCarloDihedralGenerator(settings, individuals, prob_pointers=None):
-    
-#     [MC_GENERATE]
-# mc_generate_dihedrals = True
-# distribution_path = 's'
-# mcmove_lbound = -45.0
-# mcmove_ubound = 45.0
-# num_mc_steps = 1000
-# dihedral_probability_pointers = 1 2 3 1
+    '''
+
+    Generate dihedrals by Monte Carlo simulation
+
+    to use this option in the inputfile use
+
+        [MC_GENERATE]
+         mc_generate_dihedrals = True
+         distribution_path = 's'
+         mcmove_lbound = -45.0
+         mcmove_ubound = 45.0
+         num_mc_steps = 1000
+         dihedral_probability_pointers = 1 2 3 1
+
+    Parameters
+    ----------
+    settings : object
+        see :class:`src.JobConfig`
+    individuals : object
+        see :class:`src.gaapi.Individual`
+    prob_pointers
+
+    Returns
+    -------
+
+    '''
+
     
     from deprecated.montecarlo import dihedral_opt as mcopt
  
@@ -141,11 +234,24 @@ def MonteCarloDihedralGenerator(settings, individuals, prob_pointers=None):
             indiv.psi_dihedrals[j] = dihedrals[i * num_phipsi + j][1]
 
 
-# Generate dihedrals with BASILISK by trained DBN that interpolates continuous distribution and gives side-chain angles chis
-def BasiliskSideChainDihedralsGenerator(settings, individuals):
 
-    # MC dihedrals generation like in upper function
-    # MonteCarloDihedralGenerator(settings, individuals)
+def BasiliskSideChainDihedralsGenerator(settings, individuals):
+    '''
+
+    Generate dihedrals with BASILISK by trained DBN that interpolates continuous distribution and gives side-chain angles chis
+    MC dihedrals generation like in upper function
+    MonteCarloDihedralGenerator(settings, individuals)
+
+    Parameters
+    ----------
+    settings
+    individuals
+
+    Returns
+    -------
+
+    '''
+
 
     print("BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED")
 
@@ -197,6 +303,18 @@ def BasiliskSideChainDihedralsGenerator(settings, individuals):
 
         
 def getBasiliskSample(obmol):
+    '''
+
+
+
+    Parameters
+    ----------
+    obmol
+
+    Returns
+    -------
+
+    '''
     from deprecated.basilisk.basilisk_lib import basilisk_dbn
     
     res_name, res_index = getResidueIndexes(obmol)
@@ -218,6 +336,17 @@ def getBasiliskSample(obmol):
     
        
 def getResidueIndexes(obmol):
+    '''
+
+
+    Parameters
+    ----------
+    obmol
+
+    Returns
+    -------
+
+    '''
     from deprecated.basilisk.basilisk_lib import basilisk_utils
     from src import MoleculeInfo as mi
     res_index = []

@@ -1,7 +1,9 @@
 '''
-main.py
+constants file
 
-@author: Nicholas Browning
+.. codeauthor:: Nicholas Browning
+.. codeauthor:: Simon Duerr dev@simonduerr.eu
+
 '''
 import numpy as np
 

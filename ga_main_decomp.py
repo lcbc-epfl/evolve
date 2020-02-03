@@ -1,7 +1,8 @@
 '''
-main.py
 
-@author: Nicholas Browning
+not sure what this dois?
+
+.. codeauthor:: Nicholas Browning
 '''
 from __future__ import division
 from __future__ import print_function
