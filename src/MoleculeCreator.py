@@ -303,7 +303,9 @@ def swapsidechain (mol, res_index, aa_mol):
     
 if __name__ == '__main__':
     print("Starting")
+    # TODO
 
+    # Can be removed, now in the unittests
     obConversion = openbabel.OBConversion()
     obConversion.SetInAndOutFormats("pdb", "pdb")
 

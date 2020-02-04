@@ -90,6 +90,7 @@ def getResType(obres):
             return constants.rotamer_types[i]
         
     # seems to be a standard AA, search 3-letter code list
+    # DUPLICATE
     for i in range (0, len(constants.rotamer_types)):
         if (constants.rotamer_types[i] == res):
             return constants.rotamer_types[i]
@@ -403,8 +404,8 @@ def getChiDihedralAtomIndexes(mol, residue_indexes):
         chi_atoms.append(res_chi_atoms)
             
     return np.asarray(chi_atoms)
-       
-       
+
+
 def getPhiPsiDihedralByAtomIndex(mol, dihedral_atom_indexes):
     """
     Returns a list of [phi, psi] dihedrals for the backbone dihedrals given by dihedral_atom_indexes

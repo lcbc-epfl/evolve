@@ -83,7 +83,10 @@ def mainLoop(settings):
         # generateInitialPopulation
     
         parent_population = generators.initialisePopulation(settings)
-    
+
+
+        # TODO
+        # This should become similar to the way evaluators are chosen
         if (settings.composition_optimization):
             if (settings.unbiased_protein_composition_generator):
                  print("Generating initial population composition from unbiased distribution")
@@ -257,7 +260,7 @@ if __name__ == '__main__':
     print("-- END SETTINGS PRINT -- ")
    
     print("\n--- START MOLECULE PRINT --")
-    #pri.printResidueInfo(settings.initial_molecule)
+    printResidueInfo(settings.initial_molecule)
     print("--- END MOLECULE PRINT --")
     
     print("\nRunning GA")

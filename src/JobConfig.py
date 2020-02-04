@@ -16,7 +16,7 @@ try:
     import ConfigParser
 except: 
     import configparser
-from .gaapi import operator_types 
+from src.gaapi import operator_types
 import sys
 import openbabel
 import collections
@@ -68,7 +68,6 @@ class Settings(object):
         '''
         
         self.configFilePath = configFilePath
-	    # config parser module is small caps in Py3 and capitals in Py2
         if sys.version_info[0] < 3:
             self.config = ConfigParser.ConfigParser()
         else:
