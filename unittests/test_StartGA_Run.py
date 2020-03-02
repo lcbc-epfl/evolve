@@ -3,9 +3,7 @@
 
 '''
 
-Unittests for the Job Config modules
-
-Are setup files correctly parsed?
+Unittests for starting a job
 
 '''
 
@@ -65,8 +63,8 @@ class TestJobConfig(unittest.TestCase):
         self.assertEqual(settings.selector, operator_types.TOURNAMENT_WOR )
         self.assertEqual(settings.replacer, operator_types.ELITIST)
 
-    def test_initPop(self):
-        print('Running tests for initalizing of population')
+    def test_initPop_helicalstability(self):
+        print('Running tests for initalizing of population for evaluator helical stability')
         print("-"*50)
         settings = JobConfig.Settings('example_files/ga_input.in')
         ga =main_program.initialise_ga(settings)

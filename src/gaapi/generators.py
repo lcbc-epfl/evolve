@@ -30,7 +30,7 @@ def initialisePopulation(settings):
     Returns
     -------
     individuals: list
-        a list containing objects holding each one individual with its properties and the associated molfile
+        a list containing objects holding each one individual with its properties and the associated molfile as OBMolec
     '''
     
     individuals = []
@@ -82,9 +82,6 @@ def UniformCompositionGenerator(settings, individuals):
     individuals : object
         see :class:`src.gaapi.Individual`
 
-
-
-
     '''
     
     for i in range (0, settings.population_size):
@@ -113,7 +110,7 @@ def unbiased_protein_composition_generator(settings, individuals):
 
     '''
 
-    def get_ubia_index(min, max, selected_rotamers, selected_rotamer_types):
+    def get_ubia_index(min, max, selected_rotamer_types):
         '''
 
         defines the indexes of allowed rotamers
@@ -124,8 +121,8 @@ def unbiased_protein_composition_generator(settings, individuals):
             lower bound of allowed rotamers for this site
         max : int
             upper bound of allowed rotamers for this site
-        selected_rotamers
-        selected_rotamer_types
+        selected_rotamer_types:
+            list of rotamer types that are alllowed according to input file
 
         Returns
         -------
@@ -166,7 +163,7 @@ def unbiased_protein_composition_generator(settings, individuals):
         indiv = individuals[i]
         
         for j in range (0, len(settings.composition_residue_indexes)):
-            indiv.composition[j] = get_ubia_index(settings.composition_lower_bounds[j], settings.composition_upper_bounds[j], cnts.selected_rotamers, cnts.selected_rotamer_types)
+            indiv.composition[j] = get_ubia_index(settings.composition_lower_bounds[j], settings.composition_upper_bounds[j], cnts.selected_rotamers)
         
         print(indiv.composition)
         indiv.applyComposition(settings)  
@@ -305,7 +302,7 @@ def BasiliskSideChainDihedralsGenerator(settings, individuals):
 def getBasiliskSample(obmol):
     '''
 
-
+    #TODO Nick
 
     Parameters
     ----------
@@ -338,6 +335,7 @@ def getBasiliskSample(obmol):
 def getResidueIndexes(obmol):
     '''
 
+    #TODO Nick
 
     Parameters
     ----------
@@ -360,7 +358,8 @@ def getResidueIndexes(obmol):
 
 
 def getMCProbPinters(obmol):
-    
+
+    # TODO Nick
     pointers = []
     for i in range(obmol.NumResidues()):
         
@@ -381,6 +380,10 @@ def getMCProbPinters(obmol):
 
 
 if __name__ == "__main__":
+    '''
+     Test for standalone run for the basilisk test case. 
+     Should be moved to a test #TODO
+    '''
     import openbabel
     import sys
     from math import degrees, radians

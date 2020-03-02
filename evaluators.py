@@ -398,7 +398,7 @@ def helical_stability(settings, individuals, fitness_index, pop_start=0):
         dielectric = 80.0
 
 
-    Reference: Perez et al., “EVOLVE: A Genetic Algorithm to Predict Protein Thermostability.”
+    Reference: Perez et al., "EVOLVE: A Genetic Algorithm to Predict Protein Thermostability."
 
     Parameters
     ----------

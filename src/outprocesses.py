@@ -93,15 +93,25 @@ def runAmberMPI(work_dir="", np=16, amberin="amber_minimization.in", prmtop="mol
 
     Amber MPI documentation
 
+    %TODO
+    Why is this there? Should go into one block with pmemd
+
     Parameters
     ----------
-    work_dir
-    np
-    amberin
-    prmtop
-    inpcrd
-    amberout
-    restart
+    work_dir: str
+        path to calculations where amber was run
+    np: int
+        number of cores, set in the input file
+    amberin: str
+        file to amber input
+    prmtop: str
+        name of the amber parameter file
+    inpcrd: str
+        name of the input coordinates
+    amberout: str
+        name of amber out put file
+    restart: str
+        name of restart file
 
     Returns
     -------
@@ -139,6 +149,36 @@ def runAmberMPI(work_dir="", np=16, amberin="amber_minimization.in", prmtop="mol
 
     
 def runPMEMD(work_dir="", np=20, amberin="amber_minimization.in", prmtop="mol.prmtop", inpcrd="mol.inpcrd", amberout="amber.out", restart="amber.rst", use_cuda=False):
+    '''
+
+    run PMED using the specified number of cores .
+    use cuda should be set to false for all minimizations/ early heating!
+    Otherwise forces might be truncated
+
+
+    Parameters
+    ----------
+    work_dir: str
+        path to calculations where amber was run
+    np: int
+        number of cores, set in the input file
+    amberin: str
+        file to amber input
+    prmtop: str
+        name of the amber parameter file
+    inpcrd: str
+        name of the input coordinates
+    amberout: str
+        name of amber out put file
+    restart: str
+        name of restart file
+    use_cuda: boolean
+        determine if cuda should be used
+
+    Returns
+    -------
+    nothing, exits if amber has problems
+    '''
     
     if (work_dir == ""):
         foutanderr = open('amber.log', 'w')
@@ -166,20 +206,30 @@ def runPMEMD(work_dir="", np=20, amberin="amber_minimization.in", prmtop="mol.pr
 def runMMPBSA(work_dir="", mmpbsa_in="mmpbsa.in", prmtop="mol.prmtop", inpcrd="mol.inpcrd", final_results="mmpbsa.dat", decomp_results="mmpbsa_decomp.dat"):
     '''
 
-    runMMPBSA Documentation
+    runs a mmpbsa calculation using the files in the workdir.
+    File names are defined in the input file
+    Runs a decomposition analysis too.
+
+    Used with evaluator decomp
 
     Parameters
     ----------
-    work_dir
-    mmpbsa_in
-    prmtop
-    inpcrd
-    final_results
-    decomp_results
+    work_dir: str
+        path to calculations where amber was run
+    mmpbsa_in: str
+        name of the mmpbsa file
+    prmtop: str
+        name of the amber parameter file
+    inpcrd: str
+        name of the input coordinates
+    final_results:str
+        name of the mmpbsa dat file
+    decomp_results: str
+        name of the file for the decompositon output
 
     Returns
     -------
-
+    nothing
     '''
     
     if (work_dir == ""):
@@ -202,7 +252,8 @@ def runMMPBSA(work_dir="", mmpbsa_in="mmpbsa.in", prmtop="mol.prmtop", inpcrd="m
 def parseMMPBSA(mmpbsa_file_path):
     '''
 
-    parse MMPBSA documentation
+    read MMPBSA energy
+
 
     Parameters
     ----------
@@ -238,9 +289,26 @@ def parseMMPBSA(mmpbsa_file_path):
 
     
 def parseMMBPSA_total_decomp(mmpbsa_file_path, num_res):
+    '''
+
+    parse MMPBSA total decompostion
+
+    #TODO
+    Nick
+
+    Parameters
+    ----------
+    mmpbsa_file_path
+    num_res
+
+    Returns
+    -------
+
+    '''
     import os
     
     if not os.path.isfile(mmpbsa_file_path):
+
         return None
     
     mmpbsa_file = open(mmpbsa_file_path, 'r')
@@ -286,6 +354,21 @@ def parseMMBPSA_total_decomp(mmpbsa_file_path, num_res):
 
 
 def parseMMBPSA_backbone_decomp(mmpbsa_file_path, num_res):
+    '''
+
+    parse MMPBSA backbone decomposition
+    #TODO
+    Nick
+
+    Parameters
+    ----------
+    mmpbsa_file_path
+    num_res
+
+    Returns
+    -------
+
+    '''
     
     import os
     
@@ -336,7 +419,22 @@ def parseMMBPSA_backbone_decomp(mmpbsa_file_path, num_res):
 
 
 def parseMMBPSA_sidechain_decomp(mmpbsa_file_path, num_res):
-    
+    '''
+
+    parse MMPBSA energies from sidechain decomposition
+
+    #TODO
+    Nick
+
+    Parameters
+    ----------
+    mmpbsa_file_path
+    num_res
+
+    Returns
+    -------
+
+    '''
     import os
     
     if not os.path.isfile(mmpbsa_file_path):
@@ -386,6 +484,20 @@ def parseMMBPSA_sidechain_decomp(mmpbsa_file_path, num_res):
 
 
 def parseMMPBSA_pairwise_total(mmpbsa_file_path, num_res):
+    '''
+
+    parse MMPBSA pairwise decomposition for all residues
+    TODO
+
+    Parameters
+    ----------
+    mmpbsa_file_path
+    num_res
+
+    Returns
+    -------
+
+    '''
     
     import os
     
@@ -438,21 +550,37 @@ def parseMMPBSA_pairwise_total(mmpbsa_file_path, num_res):
 
 
 def parseAmberEnergy(amber_file):
+    '''
+
+    parses an amber energy file (shown below)
+
     #        FINAL RESULTS
-    # 
-    # 
-    # 
+    #
+    #
+    #
     #    NSTEP       ENERGY          RMS            GMAX         NAME    NUMBER
     #     100      -2.0167E+03     4.7684E-01     4.3950E+00     C         853
-    # 
+    #
     #  BOND    =       30.0701  ANGLE   =       77.6956  DIHED      =      484.1676
     #  VDWAALS =     -404.1386  EEL     =    -4577.1353  EGB        =     -877.2771
     #  1-4 VDW =      169.7472  1-4 EEL =     3080.1239  RESTRAINT  =        0.0000
-    # 
-    # --------------------------------------------------------------------------------
-    #    5.  TIMINGS
-    # --------------------------------------------------------------------------------
     #
+
+
+
+    Parameters
+    ----------
+    amber_file: str
+        path to amber.out file.
+
+    Returns
+    -------
+    final_energy:int
+        999 if file not found and exits programm
+        finaly energy from amber file
+    '''
+
+
     if (not os.path.exists(amber_file)):
         print("Amber output file not found")
         return "Error"
@@ -476,6 +604,9 @@ def parseAmberEnergy(amber_file):
 
     
 if __name__ == "__main__":
+    '''
+     Standalone run with first sys argument as the path to the pdb file and test minimization with amber.
+    '''
     import sys
     runtleap(mol_file=sys.argv[1])
     runAmberMPI()

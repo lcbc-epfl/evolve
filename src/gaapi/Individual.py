@@ -18,7 +18,7 @@ import numpy as np
 
 class Individual(object):
     
-    def __init__(self, settings, orig=None, initial_mol=False):
+    def __init__(self, settings, orig=None):
         if orig is None:
             self.initialise_constructor(settings)
         else:
@@ -27,7 +27,7 @@ class Individual(object):
     def initialise_constructor(self, settings):
         '''
 
-        Initalises the Inividual from the read in PDB file and initializes all variables.
+        Initalises the Individual from the read in PDB file and initializes all variables.
 
         Parameters
         ----------
@@ -104,12 +104,30 @@ class Individual(object):
         self.fitnesses = copy.deepcopy(orig.fitnesses)
     
     def saveMol(self, file_path):
+        '''
+        saves molecule as file specified by the path that was passed
+
+        Parameters
+        ----------
+        file_path: str
+            path to the file including ending to retrieve format. Must be compatible to openbabel output
+
+        '''
         obconv = openbabel.OBConversion()
         obconv.SetOutFormat(file_path.split('.')[1])
         
         obconv.WriteFile(self.mol, file_path)
         
     def collectChiAtomPointers(self):
+        '''
+
+        #TODO
+        Nick
+
+        Returns
+        -------
+
+        '''
         chi_atoms = []
             
          # OBAtom references are now different -need to refind corresponding atoms
@@ -144,6 +162,19 @@ class Individual(object):
         return chi_atoms
         
     def updatePhiPsiDihedrals(self, settings):
+        '''
+
+        #TODO
+        Nick
+
+        Parameters
+        ----------
+        settings
+
+        Returns
+        -------
+
+        '''
         phi_psi_dihedrals = self.getPhiPsiDihedrals(settings)
         
         for j in range (0, len(self.dihedral_residue_indexes)):
@@ -151,6 +182,18 @@ class Individual(object):
             self.psi_dihedrals[j] = phi_psi_dihedrals[j][1]
                 
     def getPhiPsiDihedrals(self, settings):
+        '''
+
+        #TODO Nick
+
+        Parameters
+        ----------
+        settings
+
+        Returns
+        -------
+
+        '''
         '''returns (phi, psi) tuple'''
         if (self.dihedral_residue_indexes == None):
             return None
@@ -158,6 +201,9 @@ class Individual(object):
         return mi.getPhiPsiDihedralByAtomIndex(self.mol, settings.backbone_dihedral_atom_idxs)
 
     def applyPhiPsiDihedrals(self, settings):
+        '''
+        #TODO Nick
+        '''
         if (self.phi_dihedrals is None):
             return 
         
@@ -187,12 +233,26 @@ class Individual(object):
             
             
     def applyComposition(self, settings):
+        '''
+
+        selects rotamer for all positions to mutate based on input file
+        for this takes the mol2 file of the residue to mutate and uses the swapsidechain  method to exchange sidechains
+
+        run for every iteration of the ga after mutate and crossover publications
+
+        Parameters
+        ----------
+        settings:
+
+
+
+        '''
      
         from src import constants
-        
+
         if (self.composition_residue_indexes == None):
             return
-
+        print(self.composition_residue_indexes)
         cmp = []
         for i in range(0, len(self.composition_residue_indexes)):
             frag = openbabel.OBMol()
@@ -208,6 +268,18 @@ class Individual(object):
 
 
     def applyChiDihedrals(self, settings):
+        '''
+
+        set dihedrals for dihedral optimization
+
+        Parameters
+        ----------
+        settings
+
+        Returns
+        -------
+
+        '''
 
         if (self.chi_angles is None or len(self.chi_angles) == 0):
             return
@@ -231,8 +303,23 @@ class Individual(object):
 
      
     def dominates(self, individual):
+        '''
+
+        to compare individuals. For one fitness the minimal value is used.
+        For multiple fitnesses non_domination rank is used.
+
+        Parameters
+        ----------
+       individual : object
+            see :class:`src.gaapi.Individual`
+
+        Returns
+        -------
+
+        '''
         if (len(self.fitnesses) > 1) :
             # TODO
+            # add ndsa here
             pass
         else:
             return (self.fitnesses[0] < individual.fitnesses[0])
@@ -244,13 +331,47 @@ class Individual(object):
         return self.fitnesses[index]
         
     def __lt__(self, other):
+        '''
+        use dominate function for comparisons as the individual can have multiple fitnesses
+        Parameters
+        ----------
+        other: object
+            see :class:`src.gaapi.Individual`
+
+
+        Returns
+        -------
+        dominiation: bool
+            1 if self < other is true, 0 if self <0 false
+
+        '''
         return self.dominates(other)
     
     def __gt__(self, other):
+        '''
+            use dominate function for comparisons as the individual can have multiple fitnesses
+            Parameters
+            ----------
+            other: object
+                see :class:`src.gaapi.Individual`
+
+
+            Returns
+            -------
+            dominiation: bool
+                1 if self > other is true, 0 if self >0 false
+
+            '''
         return other.dominates(self)
     
 class PSOIndividual(Individual):
-    
+    '''
+
+    #TODO
+    NIck, perhaps can be deleted
+
+
+    '''
     def __init__(self, settings, orig=None):
         if orig is None:
             self.initialise_constructor(settings)

@@ -158,6 +158,27 @@ def mainLoop(settings):
 
     
 def initialise_ga(settings):
+    '''
+
+    Initalizes the GA program usign the settings object.
+    Picks the corresponding methods for the text strings in the input file that are stored in the settings object from operator_types
+
+    Parameters
+    ----------
+    settings : object
+        see :class:`src.JobConfig.Settings`
+
+    Returns
+    -------
+    dict
+        dictionary containing keys for chosen operations and the method or a list of methods respectively
+        methods
+            chosenSelector, chosenMutator,  chosenCrossover, chosenReplacer
+        list
+            evaluators
+
+
+    '''
     from src.gaapi import operator_types
     '''
     chosenSelector = selectors.tournamentSelectionWOR
@@ -260,7 +281,7 @@ if __name__ == '__main__':
     print("-- END SETTINGS PRINT -- ")
    
     print("\n--- START MOLECULE PRINT --")
-    printResidueInfo(settings.initial_molecule)
+    #printResidueInfo(settings.initial_molecule)
     print("--- END MOLECULE PRINT --")
     
     print("\nRunning GA")
