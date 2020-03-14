@@ -42,6 +42,35 @@ def initialisePopulation(settings):
         
     return individuals
 
+def generate(settings, population, generator_op, **args):
+    '''
+
+    Generator operation that selects the coressponding generator operation function from the setting object
+
+    Select one of the three options in the input file as follows.
+
+    Only needed if you use composition optimization
+
+    .. code-block:: python
+
+        [GENERATOR]
+       generator=swissprot|uniform|random
+
+
+    Parameters
+    ----------
+    settings: object
+        see :class:`src.JobConfig.Settings`
+    population: list
+        list of :class:`src.gaapi.Individual`
+
+    Returns
+    -------
+    generator_op : function
+        selected replacer
+
+    '''
+    return generator_op(settings, population, **args)
 
 def UniformDihedralGenerator(settings, individuals):
     '''
@@ -67,7 +96,71 @@ def UniformDihedralGenerator(settings, individuals):
             indiv.phi_dihedrals[j] = initial_solution[j][0]
             indiv.psi_dihedrals[j] = initial_solution[j][1]
         indiv.applyPhiPsiDihedrals(settings)
-    
+
+
+def swissprot_composition_generator(settings, individuals):
+    '''
+
+     Generates a composition distribution from the probabilities present in swissprot
+
+    Parameters
+    ----------
+    settings
+    individuals
+
+    Returns
+    -------
+
+    '''
+    def swissprot_to_index(min, max, selected_rotamers, selected_rotamer_types, swissprot):
+        rot_count_dict = {}
+
+        for i in range(min, max):
+            rot_type = selected_rotamer_types[i]
+            if rot_type in rot_count_dict.keys():
+                rot_count_dict[rot_type] = rot_count_dict[rot_type] + 1
+            else:
+                rot_count_dict[rot_type] = 0
+
+        rotamer_counts = rot_count_dict.values()
+
+        rot_types = list(rot_count_dict.keys())
+        # todo potentially both unbiased and swissprot should be unified
+        # same code as below only that we don"t use randint but use a normalized probability
+        probabilities = []
+        for key in rot_types:
+            probabilities.append(swissprot[key])
+            pass
+        # normalize probabilities to 1
+        sum_probabilities = sum(probabilities)
+        norm_probabilities = [float(i) / sum_probabilities for i in probabilities]
+        which_type = np.random.choice(len(rot_types), p=norm_probabilities)
+
+        chosen_rot = rot_types[which_type]
+
+        allowed_indexes = []
+        for i in range(min, max):
+            rot_type = selected_rotamer_types[i]
+
+            if (rot_type == chosen_rot):
+                allowed_indexes.append(i)
+
+        allowed_indexes = np.asarray(allowed_indexes)
+
+        rel_index = np.random.randint(0, len(allowed_indexes))
+
+        return allowed_indexes[rel_index]
+
+    for i in range(0, settings.population_size):
+        indiv = individuals[i]
+
+        for j in range(0, len(settings.composition_residue_indexes)):
+            indiv.composition[j] = swissprot_to_index(settings.composition_lower_bounds[j],
+                                                      settings.composition_upper_bounds[j], cnts.selected_rotamers,
+                                                      cnts.selected_rotamer_types, cnts.swissprot_probabilities)
+
+        print(indiv.composition)
+        indiv.applyComposition(settings)
 
 def UniformCompositionGenerator(settings, individuals):
     '''

@@ -1,0 +1,136 @@
+!!index array str
+ "HD8"
+!entry.HD8.unit.atoms table  str name  str type  int typex  int resx  int flags  int seq  int elmnt  dbl chg
+ "N" "N" 0 1 131075 1 7 -0.415700
+ "H" "H" 0 1 131075 2 1 0.271900
+ "CA" "CX" 0 1 131075 3 6 0.018800
+ "HA" "H1" 0 1 131075 4 1 0.088100
+ "CB" "CT" 0 1 131075 5 6 -0.046200
+ "HB2" "HC" 0 1 131075 6 1 0.040200
+ "HB3" "HC" 0 1 131075 7 1 0.040200
+ "CG" "CC" 0 1 131075 8 6 -0.026600
+ "ND1" "NA" 0 1 131075 9 7 -0.381100
+ "HD8" "H" 0 1 131075 10 1 0.364900
+ "CE1" "CR" 0 1 131075 11 6 0.205700
+ "HE1" "H5" 0 1 131075 12 1 0.139200
+ "NE2" "NB" 0 1 131075 13 7 -0.572700
+ "CD2" "CV" 0 1 131075 14 6 0.129200
+ "HD2" "H4" 0 1 131075 15 1 0.114700
+ "C" "C" 0 1 131075 16 6 0.597300
+ "O" "O" 0 1 131075 17 8 -0.567900
+!entry.HD8.unit.atomspertinfo table  str pname  str ptype  int ptypex  int pelmnt  dbl pchg
+ "N" "N" 0 -1 0.0
+ "H" "H" 0 -1 0.0
+ "CA" "CX" 0 -1 0.0
+ "HA" "H1" 0 -1 0.0
+ "CB" "CT" 0 -1 0.0
+ "HB2" "HC" 0 -1 0.0
+ "HB3" "HC" 0 -1 0.0
+ "CG" "CC" 0 -1 0.0
+ "ND1" "NA" 0 -1 0.0
+ "HD8" "H" 0 -1 0.0
+ "CE1" "CR" 0 -1 0.0
+ "HE1" "H5" 0 -1 0.0
+ "NE2" "NB" 0 -1 0.0
+ "CD2" "CV" 0 -1 0.0
+ "HD2" "H4" 0 -1 0.0
+ "C" "C" 0 -1 0.0
+ "O" "O" 0 -1 0.0
+!entry.HD8.unit.boundbox array dbl
+ -1.000000
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+!entry.HD8.unit.childsequence single int
+ 2
+!entry.HD8.unit.connect array int
+ 1
+ 16
+!entry.HD8.unit.connectivity table  int atom1x  int atom2x  int flags
+ 2 1 17
+ 3 1 17
+ 4 3 17
+ 5 3 17
+ 6 5 17
+ 7 5 17
+ 8 5 17
+ 9 8 17
+ 10 9 17
+ 11 9 17
+ 12 11 17
+ 13 11 17
+ 14 8 17
+ 14 13 17
+ 15 14 17
+ 16 3 17
+ 17 16 17
+!entry.HD8.unit.hierarchy table  str abovetype  int abovex  str belowtype  int belowx
+ "U" 0 "R" 1
+ "R" 1 "A" 1
+ "R" 1 "A" 2
+ "R" 1 "A" 3
+ "R" 1 "A" 4
+ "R" 1 "A" 5
+ "R" 1 "A" 6
+ "R" 1 "A" 7
+ "R" 1 "A" 8
+ "R" 1 "A" 9
+ "R" 1 "A" 10
+ "R" 1 "A" 11
+ "R" 1 "A" 12
+ "R" 1 "A" 13
+ "R" 1 "A" 14
+ "R" 1 "A" 15
+ "R" 1 "A" 16
+ "R" 1 "A" 17
+!entry.HD8.unit.name single str
+ "default_name"
+!entry.HD8.unit.positions table  dbl x  dbl y  dbl z
+ -1.458000 0.0 0.0
+ -1.937000 -0.770000 -0.445000
+ 0.0 0.0 0.0
+ 0.369000 0.890000 -0.510000
+ 0.536000 0.0 1.433000
+ 1.625294 0.030031 1.425633
+ 0.152996 0.864532 1.975435
+ 0.146000 -1.209000 2.224000
+ 0.769000 -2.429000 2.076000
+ 1.528143 -2.612780 1.435728
+ 0.217000 -3.304000 2.898000
+ 0.572866 -4.333340 2.929691
+ -0.739000 -2.698000 3.574000
+ -0.805000 -1.387000 3.171000
+ -1.540328 -0.715970 3.616169
+ 0.551000 -1.198000 -0.766000
+ 0.024000 -2.306000 -0.667000
+!entry.HD8.unit.residueconnect table  int c1x  int c2x  int c3x  int c4x  int c5x  int c6x
+ 0 0 0 0 0 0
+!entry.HD8.unit.residues table  str name  int seq  int childseq  int startatomx  str restype  int imagingx
+ "HD8" 1 18 1 "?" 0
+!entry.HD8.unit.residuesPdbSequenceNumber array int
+ 1
+!entry.HD8.unit.solventcap array dbl
+ -1.000000
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+!entry.HD8.unit.velocities table  dbl x  dbl y  dbl z
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0

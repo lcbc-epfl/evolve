@@ -1,0 +1,68 @@
+[OPTIMIZATION]
+dihedral_optimization = False
+composition_optimization = True
+composition_residue_indexes =  7 10 11 32 36 38 53 54 22 42 44 
+composition_lower_bounds = 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+composition_upper_bounds = 177 177 177 177 177 177 177 177 177 177 177 177 177 177 177 177 177 177 177 177
+composition_library = ../../share/flat
+
+
+[MOLECULE]
+use_res_type=True
+
+[IO]
+store_intermediate_mol = True
+output_path = .
+output_file = final.pdb
+
+[GA_GLOBAL]
+seed_population = False
+population_file_path = None
+population_size = 4 
+max_iteration = 5 
+
+
+[EVALUATOR]
+evaluators = mmpbsa_multi stability_multi
+tleap_template =/home/duerr/phd/02_Projects/EVOLVE/Development/evolve/tests/nsga2/inp/leap.in
+amber_params =/home/duerr/phd/02_Projects/EVOLVE/Development/evolve/tests/nsga2/inp/min.in
+mmpbsa_params=/home/duerr/phd/02_Projects/EVOLVE/Development/evolve/tests/nsga2/inp/mmpbsa.in
+mpi_processors =24 
+dielectric = 80.0
+
+[GA_MULTIMMPBSA]
+multi_individual = True
+no_frames =12
+molecule_dir=./pdbs_rename/
+use_compute_cluster=False
+compute_cluster_nodes=6
+compute_cluster_ntasks=10
+compute_cluster_queuename=nccr-short
+energy_calculator=pb
+
+[GA_SELECTION]
+selector = tournament_wor
+tournament_size = 2
+
+[GA_CROSSOVER]
+crossover = sbx
+sbx_distribution_index = 7.0
+mating_probability = 0.7
+genewise_crossover_probability = 0.4
+
+[GA_MUTATION]
+mutator = polynomial_mutation
+mutation_probability = 0.3
+genewise__mutation_probability = 0.15
+poly_eta = 7.0
+
+[GA_REPLACER]
+replacer = nsga2
+
+[GENERATOR]
+unbiased_protein_composition_generator=False
+swissprot_composition_generator=True
+generator=swissprot
+
+[DEBUG]
+verbose = True

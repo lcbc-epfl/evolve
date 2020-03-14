@@ -12,6 +12,7 @@ from past.utils import old_div
 import copy
 import numpy as np
 from . import Individual
+
 def crossover(settings, individuals, crossover_op, **args):
     '''
 
@@ -38,7 +39,6 @@ def crossover(settings, individuals, crossover_op, **args):
     new_population = []
     
     for i in range (0, settings.population_size, 2):
-        
         if np.random.random() < settings.mating_probability:
             if (settings.verbose):
                 print("CROSS Individuals: ", i, i + 1)

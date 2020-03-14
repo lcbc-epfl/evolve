@@ -15,6 +15,7 @@ from src import MoleculeCreator as mcr
 import copy
 import openbabel
 import numpy as np
+import pygmo as pg
 
 class Individual(object):
     
@@ -39,8 +40,17 @@ class Individual(object):
 
         '''
         
-        self.mol = openbabel.OBMol(settings.initial_molecule)
-        
+        if (settings.multi_individual):
+            self.mol=[None]*settings.no_frames
+            for i,x in enumerate(settings.initial_molecule):
+                self.mol[i]=openbabel.OBMol(x)
+                pass
+            pass
+        else:
+            self.mol = openbabel.OBMol(settings.initial_molecule)
+            pass
+
+        self.stability = 0
         # print self.mol, settings.initial_molecule
         self.dihedral_residue_indexes = None
         self.phi_dihedrals = None
@@ -76,7 +86,16 @@ class Individual(object):
     # doing this to get around PySwigObject's  inability to be deepcopied  
     def copy_constructor(self, settings, orig):
         import copy
-        self.mol = openbabel.OBMol(orig.mol)
+
+        if (settings.multi_individual):
+            self.mol=[None]*settings.no_frames
+            for i,x in enumerate(orig.mol):
+                self.mol[i]=openbabel.OBMol(x)
+                pass
+            pass
+        else:
+            self.mol = openbabel.OBMol(orig.mol)
+            pass
         
         # print self.mol, orig.mol
         self.dihedral_residue_indexes = copy.deepcopy(orig.dihedral_residue_indexes)
@@ -160,7 +179,22 @@ class Individual(object):
             chi_atoms.append(res_chi_atoms)
             
         return chi_atoms
-        
+
+    def setStability(self,value):
+        '''
+
+        Set stability to defined values
+
+        Parameters
+        ----------
+        value
+
+        Returns
+        -------
+
+        '''
+        self.stability=value
+
     def updatePhiPsiDihedrals(self, settings):
         '''
 
@@ -255,15 +289,31 @@ class Individual(object):
         print(self.composition_residue_indexes)
         cmp = []
         for i in range(0, len(self.composition_residue_indexes)):
-            frag = openbabel.OBMol()
-            obConversion = openbabel.OBConversion()
-            obConversion.SetInFormat("mol2")
-            
-            rotamer_type = constants.selected_rotamers[self.composition[i]]
-            cmp.append(rotamer_type)
-            obConversion.ReadFile(frag, settings.composition_library + "/" + rotamer_type + ".mol2")
-            mcr.swapsidechain(self.mol, self.composition_residue_indexes[i], frag)
-        print("Created Individual:", cmp)
+            if (settings.multi_individual):
+                for x in range(0, settings.no_frames):
+                    # Need to include frag inside the loop, because the open babel objects get modified inside swapsidechain
+                    frag = openbabel.OBMol()
+                    obConversion = openbabel.OBConversion()
+                    obConversion.SetInFormat("mol2")
+
+                    rotamer_type = constants.rotamers[self.composition[i]]
+
+                    obConversion.ReadFile(frag, settings.composition_library + "/" + rotamer_type + ".mol2")
+                    mcr.swapsidechain(settings, self.mol[x], self.composition_residue_indexes[i], frag)
+                    pass
+                cmp.append(rotamer_type) # append only after loop because all individuals are identical
+            else:
+                frag = openbabel.OBMol()
+                obConversion = openbabel.OBConversion()
+                obConversion.SetInFormat("mol2")
+
+                rotamer_type = constants.selected_rotamers[self.composition[i]]
+                cmp.append(rotamer_type)
+                obConversion.ReadFile(frag, settings.composition_library + "/" + rotamer_type + ".mol2")
+                mcr.swapsidechain(settings, self.mol, self.composition_residue_indexes[i], frag)
+
+        if (settings.verbose):
+            print("Created Individual:", cmp)
     
 
 
@@ -306,20 +356,21 @@ class Individual(object):
         '''
 
         to compare individuals. For one fitness the minimal value is used.
-        For multiple fitnesses non_domination rank is used.
+        For multiple fitnesses non_domination rank is used as implemented in the pygmo library.
 
         Parameters
         ----------
-       individual : object
+        individual : object
             see :class:`src.gaapi.Individual`
 
         Returns
         -------
-
+        domination : bool
+            individual 1 dominates individual 2
         '''
         if (len(self.fitnesses) > 1) :
-            # TODO
-            # add ndsa here
+            print("Dominance:", self.fitnesses, individual.fitnesses, pg.pareto_dominance(obj1=self.fitnesses, obj2=individual.fitnesses))
+            return pg.pareto_dominance(obj1 = self.fitnesses,obj2=individual.fitnesses)
             pass
         else:
             return (self.fitnesses[0] < individual.fitnesses[0])

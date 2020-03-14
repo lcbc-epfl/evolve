@@ -1,0 +1,16 @@
+@<TRIPOS>MOLECULE
+AZI
+    3     2     1     0     0
+SMALL
+bcc
+
+
+@<TRIPOS>ATOM
+      1 N1           1.3850     5.0030    -0.3580 n1         1 AZI      -0.623000
+      2 N2           1.0620     4.2470     0.4990 n2         1 AZI       0.246000
+      3 N3           1.7020     5.7290    -1.2180 n2         1 AZI      -0.623000
+@<TRIPOS>BOND
+     1     1     2 2   
+     2     2     3 3   
+@<TRIPOS>SUBSTRUCTURE
+     1 AZI         1 TEMP              0 ****  ****    0 ROOT

@@ -88,11 +88,14 @@ class TestGAAPI(unittest.TestCase):
 
         self.assertIs(mi.countBonds(mi.getAlphaCarbon(obres)),4)
 
-    def test_MoleculeCreator(self):
+    def test_MoleculeCreator_rotname(self):
 
         # TODO
         # rotatematrix
-
+        class DemoSettings(object):
+            pass
+        settings=DemoSettings()
+        settings.use_res_type = False
         obConversion = openbabel.OBConversion()
         obConversion.SetInAndOutFormats("pdb", "pdb")
 
@@ -103,13 +106,41 @@ class TestGAAPI(unittest.TestCase):
         obConversion.SetInAndOutFormats("mol2", "pdb")
         obConversion.ReadFile(frag, "../share/HID/HD3.mol2")
 
-        mc.swapsidechain(mol, 1, frag)
+        mc.swapsidechain(settings, mol, 1, frag)
 
         obConversion.WriteFile(mol, "test_swap.pdb")
 
         self.assertTrue(filecmp.cmp('test_swap.pdb', 'example_files/H1A19.pdb', shallow=False), 'MoleculeCreator.swapsidechain has not yielded the same file')
         try:
             os.remove("test_swap.pdb")
+        except:
+            print("test_swap could not be deleted.")
+
+    def test_MoleculeCreator_resname(self):
+
+        # TODO
+        # rotatematrix
+        class DemoSettings(object):
+            pass
+        settings=DemoSettings()
+        settings.use_res_type = True
+        obConversion = openbabel.OBConversion()
+        obConversion.SetInAndOutFormats("pdb", "pdb")
+
+        mol = openbabel.OBMol()
+        obConversion.ReadFile(mol, "example_files/ALA20.pdb")
+
+        frag = openbabel.OBMol()
+        obConversion.SetInAndOutFormats("mol2", "pdb")
+        obConversion.ReadFile(frag, "../share/HID/HD3.mol2")
+
+        mc.swapsidechain(settings, mol, 1, frag)
+
+        obConversion.WriteFile(mol, "test_swap_resname.pdb")
+
+        self.assertTrue(filecmp.cmp('test_swap_resname.pdb', 'example_files/H1A19_resname.pdb', shallow=False), 'MoleculeCreator.swapsidechain has not yielded the same file')
+        try:
+            os.remove("test_swap_resname.pdb")
         except:
             print("test_swap could not be deleted.")
 

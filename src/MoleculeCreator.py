@@ -143,7 +143,7 @@ def getAtomByID(mol, atom_id):
             return mol.GetAtom(i)
 
         
-def swapsidechain (mol, res_index, aa_mol):
+def swapsidechain(settings, mol, res_index, aa_mol):
     """
     Mutates a certain residue in a protein to another amino acid. 
     
@@ -277,8 +277,12 @@ def swapsidechain (mol, res_index, aa_mol):
     mol.AddBond(mol_CA.GetIdx(), corr_frag_cb.GetIdx(), 1)
  
     frag_res_type = mi.getResType(frag_res)
-    
-    curr.SetName(frag_name)
+
+    if settings.use_res_type == True:
+        curr.SetName(frag_res_type)
+        pass
+    else:
+        curr.SetName(frag_name)
         
     for obatom in openbabel.OBResidueAtomIter(frag_res):
         frag_atom = getAtomByID(mol, obatom.GetId())

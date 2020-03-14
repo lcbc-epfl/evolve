@@ -6,6 +6,7 @@ constants file
 
 '''
 import numpy as np
+import pygmo as pg
 
 element2mass = {'Ru': 101.904348, 'Re': 186.955744, 'Rf': 261.10869, 'Ra': 226.025403,
                 'Rb': 84.9118, 'Rn': 222.017571, 'Rh': 102.905503, 'Be': 9.012183,
@@ -87,6 +88,14 @@ selected_rotamer_types = rotamer_types
 
 allowed_residue_types = ['GLY', 'ALA', 'ARG', 'ASP', 'ASH', 'ASN', 'CYS', 'GLU', 'GLH', 'GLN', 'HID', 'HIE', 'HIP', 'ILE', 'LEU', 'LYS', 'LYN', 'MET', 'PHE', 'SER', 'THR', 'TRP', 'TYR', 'VAL']
 
+# Vacic et al, BMC Bioinformatics 211(8), 2007,  https://doi.org/10.1186/1471-2105-8-211
+swissprot_probabilities = {'ALA': 0.0789, 'ARG': 0.054, 'ASH': 0.02675, 'ASP': 0.02675, 'ASN': 0.0413, \
+                           'CYS': 0.015, 'GLH': 0.0335, 'GLU': 0.0335, 'GLN': 0.0395, 'GLY': 0.0696, \
+                           'HID': 0.00763, 'HIE': 0.00763, 'HIP': 0.00763, 'ILE': 0.059, 'LEU': 0.0965, \
+                           'LYN': 0.0296, 'LYS': 0.0296, 'MET': 0.0238, 'PHE': 0.0396, 'SER': 0.0683, \
+                           'THR': 0.0541, 'TRP': 0.0113, 'TYR': 0.0303, 'VAL': 0.0673, 'PRO': 0.0483}
+
+
 # 10, 50, 80
 energies = {'ALA': (13.03, 12.14 , 12.06), 'ARG': (-170.77, -176.22 , -176.73), 'ASH': (-43.74, -45.64, -45.82), 'ASP': (-52.27, -58.92, -59.55), 'ASN': (-72.72, -74.29, -74.44), \
             'CYS': (13.55, 12.58, 12.49), 'GLH': (-36.86, -38.93, -39.13), 'GLU': (-47.00, -53.61, -54.30), 'GLN': (-56.93, -58.79, -58.97), 'GLY':(7.11, 6.15, 6.06), \
@@ -94,6 +103,13 @@ energies = {'ALA': (13.03, 12.14 , 12.06), 'ARG': (-170.77, -176.22 , -176.73), 
             'LYN': (-4.36, -5.73, -5.85), 'LYS': (-9.60, -15.72, -16.29), 'MET': (8.36, 7.47, 7.29), 'PHE': (11.05, 10.04, 9.95), 'SER': (-0.71, -2.32, -2.47), \
             'THR': (-19.37, -20.45, -20.59), 'TRP':(14.43, 13.07, 12.94), 'TYR': (-13.28, -14.89, -15.05), 'VAL':(-7.58, -8.41, -8.49) }
 
+# PicketSternberg, AbagyanTotrov, KoehlDelarue
+entropy_corrections={'ALA':(0,0,0), 'ARG':(-2.03,-2.13,-1.21), 'ASN':(-1.57,-0.81,-0.75), 'ASP':(-1.25,-0.61,-0.65), 'CYS':(-0.55,-1.14,-0.63),\
+                    'GLN':(-2.11,-2.02,-1.29), 'GLU':(-1.81,-1.65,-1.31), 'GLY':(0,0,0), 'HIS':(-0.96,-0.99,-0.92), 'ILE':(-0.89,-0.75,-0.94),\
+                    'LEU':(-0.78,-0.75,-0.94), 'LYS':(-1.94,-2.21,-1.63), 'MET':(-1.61,-1.53,-1.24), 'PHE':(-0.58,-0.58,-0.65), 'PRO':(0,0,-0.3),\
+                    'SER':(-1.71,-1.19,-0.43), 'THR':(-1.63,-1.12,-0.57), 'TRP':(-0.97,-0.97,-1.14), 'TYR':(-0.98,-0.99,-1.07),\
+                    'VAL':(-0.51,-0.5,-0.62),'HID':(-0.96,-0.99,-0.92),'HIP':(-0.96,-0.99,-0.92),'HIE':(-0.96,-0.99,-0.92),\
+                     'ASH':(-1.25,-0.61,-0.65),'LYN':(-1.94,-2.21,-1.63),'GLH':(-1.81,-1.65,-1.31),}
 def subselect_rotamers(type_list):
     indices = [i for i, x in enumerate(rotamer_types) if (x in type_list)]
     return [rotamers[i] for i in indices]
@@ -109,3 +125,18 @@ def subselect_rotamer_energy_dict(type_list):
         new_dict[i] = energies[i]
         
     return new_dict
+
+def sort_population_ndsa(settings,population):
+    #this sorts population according to non dominated sorting and crowding distance for all of the objectives
+    #determine length of fitnesses
+    no_objectives=len(population[0].fitnesses)
+    #sort based on fitness values
+    fitness_values=[]
+    for individual in population:
+        fitness_values.append([individual.fitnesses[i] for i in xrange(0,no_objectives)])
+        pass
+    sorted_population_idx=pg.sort_population_mo(points = fitness_values)
+    sorted_population=[]
+    for i in sorted_population_idx:
+        sorted_population.append(population[i])
+    return sorted_population

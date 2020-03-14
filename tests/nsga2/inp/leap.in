@@ -1,0 +1,254 @@
+source oldff/leaprc.ff14SB
+source leaprc.gaff
+
+
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ALA/A01.off 
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ARG/R01.off  
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ARG/R02.off  
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ARG/R03.off  
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ARG/R04.off  
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ARG/R05.off  
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ARG/R06.off  
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ARG/R07.off  
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ARG/R08.off  
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ARG/R09.off  
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ARG/R10.off  
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ARG/R11.off  
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ARG/R12.off  
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ARG/R13.off  
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ARG/R14.off  
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ARG/R15.off  
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ARG/R16.off  
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ARG/R17.off  
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ARG/R18.off  
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ARG/R19.off  
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ARG/R20.off  
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ARG/R21.off  
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ARG/R22.off  
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ARG/R23.off  
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ARG/R24.off  
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ARG/R25.off  
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ARG/R26.off  
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ARG/R27.off  
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ARG/R28.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ASP/D01.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ASP/D02.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ASP/D03.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ASP/D04.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ASP/D05.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ASH/D06.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ASH/D07.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ASH/D08.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ASH/D09.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ASH/D10.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ASN/N01.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ASN/N02.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ASN/N03.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ASN/N04.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ASN/N05.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ASN/N06.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ASN/N07.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/CYS/C01.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/CYS/C02.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/CYS/C03.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/GLU/E01.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/GLU/E02.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/GLU/E03.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/GLU/E04.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/GLU/E05.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/GLU/E06.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/GLU/E07.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/GLH/E08.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/GLH/E09.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/GLH/E10.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/GLH/E11.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/GLH/E12.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/GLH/E13.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/GLH/E14.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/GLN/Q01.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/GLN/Q02.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/GLN/Q03.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/GLN/Q04.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/GLN/Q05.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/GLY/G01.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/HID/HD1.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/HID/HD2.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/HID/HD3.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/HID/HD4.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/HID/HD5.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/HID/HD6.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/HID/HD7.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/HID/HD8.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/HIE/HE1.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/HIE/HE2.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/HIE/HE3.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/HIE/HE4.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/HIE/HE5.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/HIE/HE6.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/HIE/HE7.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/HIE/HE8.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/HIP/HP1.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/HIP/HP2.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/HIP/HP3.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/HIP/HP4.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/HIP/HP5.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/HIP/HP6.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/HIP/HP7.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/HIP/HP8.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ILE/I01.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ILE/I02.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ILE/I03.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ILE/I04.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/ILE/I05.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LEU/L01.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LEU/L02.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LEU/L03.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LEU/L04.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/MET/M01.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/MET/M02.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/MET/M03.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/MET/M04.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/MET/M05.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/MET/M06.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/MET/M07.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/MET/M08.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/MET/M09.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/MET/M10.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/MET/M11.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/MET/M12.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/MET/M13.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/PHE/P01.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/PHE/P02.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/PHE/P03.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/PHE/P04.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/SER/S01.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/SER/S02.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/SER/S03.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/THR/T01.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/THR/T02.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/THR/T03.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/TRP/W01.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/TRP/W02.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/TRP/W03.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/TRP/W04.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/TRP/W05.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/TRP/W06.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/TRP/W07.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/TYR/Y01.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/TYR/Y02.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/TYR/Y03.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/TYR/Y04.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/VAL/V01.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/VAL/V02.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/VAL/V03.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYS/K01.off 
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYS/K02.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYS/K03.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYS/K04.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYS/K05.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYS/K06.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYS/K07.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYS/K08.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYS/K09.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYS/K10.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYS/K11.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYS/K12.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYS/K13.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYS/K14.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYS/K15.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYS/K16.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYS/K17.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYS/K18.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYS/K19.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYN/K20.off 
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYN/K21.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYN/K22.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYN/K23.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYN/K24.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYN/K25.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYN/K26.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYN/K27.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYN/K28.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYN/K29.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYN/K30.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYN/K31.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYN/K32.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYN/K33.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYN/K34.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYN/K35.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYN/K36.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYN/K37.off
+loadOff /home/duerr/phd/02_Projects/EVOLVE/Development/evolve/share/off/LYN/K38.off
+
+
+#parameters from MCPB.py for Acetonitrile (resname AN1) to Zinc with Zinc Amber Force Field
+addAtomTypes {
+        { "M1"  "Zn" "sp3" }
+        { "Y1"  "N" "sp3" }
+        { "Y2"  "N" "sp3" }
+        { "Y3"  "N" "sp3" }
+        { "Y4"  "N" "sp3" }
+}
+
+#HX episilon protonated his
+#HY delta protonated
+#had to be renamed because of naming conflict with rotamer library
+HX1 = loadmol2 ../../inp/HX1.mol2
+HY1 = loadmol2 ../../inp/HY1.mol2
+HY2 = loadmol2 ../../inp/HY2.mol2
+ZN1 = loadmol2 ../../inp/ZN1.mol2
+AN1 = loadmol2 ../../inp/AN1.mol2
+AZI = loadmol2 ../../inp/AZI.mol2
+loadamberparams ../../inp/AZI.frcmod
+loadamberparams ../../inp/ACN.frcmod
+loadamberparams frcmod.ions1lm_126_tip3p
+loadamberparams ../../inp/GB1AZI_mcpbpy.frcmod
+
+#necessary for igb8
+set default PBRadii mbondi3
+
+# load pdb twice, in one we have to delete the ligand to make the right parameter file for MMPBSA
+mol = loadpdb mutated_ter.pdb
+receptor = loadpdb mutated_ter.pdb
+remove receptor receptor.59
+
+# bond statements as required by ZAFF because of unusual residues
+bond mol.5.ND1 mol.57.ZN
+bond mol.16.NE2 mol.57.ZN
+bond mol.18.NE2 mol.57.ZN
+bond mol.57.ZN mol.58.N
+bond mol.4.C mol.5.N
+bond mol.5.C mol.6.N
+bond mol.15.C mol.16.N
+bond mol.16.C mol.17.N
+bond mol.17.C mol.18.N
+bond mol.18.C mol.19.N
+
+
+bond receptor.5.ND1 receptor.57.ZN
+bond receptor.16.NE2 receptor.57.ZN
+bond receptor.18.NE2 receptor.57.ZN
+bond receptor.57.ZN receptor.58.N
+bond receptor.4.C receptor.5.N
+bond receptor.5.C receptor.6.N
+bond receptor.15.C receptor.16.N
+bond receptor.16.C receptor.17.N
+bond receptor.17.C receptor.18.N
+bond receptor.18.C receptor.19.N
+
+
+#save dry files and dry parameter files for MMPBSA
+savepdb mol GB1AZI_dry.pdb
+saveamberparm mol dry_complex.prmtop dry_complex.inpcrd
+saveAmberParm receptor receptor.prmtop receptor.crd
+saveAmberParm AZI ligand.prmtop ligand.crd
+
+
+# solvate and neutralize for minimization
+solvatebox mol TIP3PBOX 10.0
+addions mol Na+ 0
+addions mol Cl- 0
+savepdb mol GB1AZI_solv.pdb
+saveamberparm mol GB1AZI_solv.prmtop GB1AZI_solv.inpcrd
+quit
+ 
