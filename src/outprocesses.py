@@ -68,6 +68,7 @@ def runtleap(work_dir="", mol_file="mol.pdb", tleaptemp="tleap_template.in", tle
     for line in g:
         ff.write(line)
     ff.close()
+    f.close()
 
     # proc = subprocess.Popen([tleap_path+"/bin/tleap", "-f", work_dir+tleapin], stdout=subprocess.PIPE)
     # out, err = proc.communicate()
@@ -962,11 +963,10 @@ def parseAmberEnergy(amber_file):
     
     amberout = open(amber_file, 'r')
     lines = amberout.readlines()
-
+    amberout.close()
     for i, line in enumerate(lines):
         if ("FINAL RESULTS" in line):
             data = lines[i + 5].split()
-
     if 'data' in locals():
         if ('NaN' in data[1]):
             return 999
@@ -975,6 +975,7 @@ def parseAmberEnergy(amber_file):
     else:
         print("Not able to find Amber energy in output file") 
         sys.exit()
+    
     return 999
 
 

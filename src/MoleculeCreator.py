@@ -179,7 +179,9 @@ def swapsidechain(settings, mol, res_index, aa_mol):
 
     frag_res = aa_CB.GetResidue()
     frag_name = frag_res.GetName()
-    
+
+    res_name =mi.getResType(curr)
+
     aa_tor = 0
     if (aa_gamma_atom is not None):
         aa_tor = aa_mol.GetTorsion(aa_gamma_atom, aa_CA, aa_CB, aa_bb_nitrogen)
@@ -287,8 +289,49 @@ def swapsidechain(settings, mol, res_index, aa_mol):
     for obatom in openbabel.OBResidueAtomIter(frag_res):
         frag_atom = getAtomByID(mol, obatom.GetId())
         curr.AddAtom(frag_atom)
-    
         curr.SetAtomID(frag_atom, frag_res.GetAtomID(obatom))
+    
+
+    # For several residues in order for the amber settings to work, one needs to rename a few hydrogens which is done here.
+    # if old resname = glycine we need to rename the remaining H to HA, the other has been replaced by the sidechain
+    if res_name=="GLY":
+        for obatom in openbabel.OBResidueAtomIter(curr):
+            if curr.GetAtomID(obatom)=="HA2" or curr.GetAtomID(obatom)=="HA3":
+                curr.SetAtomID(obatom, "HA")
+    
+    if frag_res_type=="GLY" and settings.use_res_type:
+        for obatom in openbabel.OBResidueAtomIter(curr):
+            if curr.GetAtomID(obatom)=="HA":
+                curr.SetAtomID(obatom, "HA2")
+    
+    if frag_res_type=="HID" and settings.use_res_type:
+        for obatom in openbabel.OBResidueAtomIter(curr):
+            if curr.GetAtomID(obatom)in ["HD3", "HD4", "HD5", "HD6", "HD7", "HD8"]:
+                curr.SetAtomID(obatom, "HD1")
+
+    if frag_res_type=="HID" and frag_name=="HD2" and settings.use_res_type:
+        for obatom in openbabel.OBResidueAtomIter(curr):
+            if curr.GetAtomID(obatom)=="HD2":
+                curr.SetAtomID(obatom, "HD1")
+            if curr.GetAtomID(obatom)=="H1":
+                curr.SetAtomID(obatom, "HD2")
+    
+    if frag_name=="HE2" and settings.use_res_type:
+        for obatom in openbabel.OBResidueAtomIter(curr):
+            if curr.GetAtomID(obatom)=="HE2":
+                curr.SetAtomID(obatom, "HE1")
+        for obatom in openbabel.OBResidueAtomIter(curr):
+            if curr.GetAtomID(obatom)=="H1":
+                curr.SetAtomID(obatom, "HE2")
+    
+    if frag_res_type=="HIE" and frag_name!="HE2" and settings.use_res_type:
+        for obatom in openbabel.OBResidueAtomIter(curr):
+            if curr.GetAtomID(obatom) in ["HE3", "HE4", "HE5", "HE6", "HE7", "HE8"]:
+                curr.SetAtomID(obatom, "HE1")
+               
+
+
+
 
     alpha_carbon = mi.getAlphaCarbon(curr)
     bb_nitrogen = mi.getBBNitrogen(curr)
@@ -303,31 +346,10 @@ def swapsidechain(settings, mol, res_index, aa_mol):
     
     for i in range (1, mol.NumAtoms() + 1) :
         mol.GetAtom(i).SetId(i - 1)
+
+
         
     
 if __name__ == '__main__':
-    print("Starting")
-    # TODO
-
-    # Can be removed, now in the unittests
-    obConversion = openbabel.OBConversion()
-    obConversion.SetInAndOutFormats("pdb", "pdb")
-
-    mol = openbabel.OBMol()
-    
-    obtype = openbabel.OBAtomTyper()
-    obConversion.ReadFile(mol, "gpgg.pdb") 
-    
-    frag2 = openbabel.OBMol()
-    obConversion.SetInAndOutFormats("mol2", "pdb")
-    obConversion.ReadFile(frag2, "/lcbcdata/nbrownin/Rotamers_mol2/HID/HD3.mol2") 
-    
-    print("first swap")
-    
-    swapsidechain(mol, 1, frag)
-    
-    print("second swap")
-    swapsidechain(mol, 3, frag2)
-    print("WRITING OUT")                                                                                                                                                                                                                                                                                       
-    obConversion.WriteFile(mol, "test2.pdb")
+    pass
     

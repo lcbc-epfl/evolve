@@ -30,6 +30,7 @@ from src.gaapi import generators
 from src.gaapi import replacers
 from src import MoleculeInfo as mi
 
+from collections import Counter 
 import evaluators as evals
 # import  printResidueInfo as pri
 
@@ -113,6 +114,8 @@ def mainLoop(settings):
             initial_indiv.init = True
             if (settings.multi_individual):
                 settings.originalResidues = [mi.getResType(initial_indiv.mol[0].GetResidue(j)) for j in settings.composition_residue_indexes]
+            else:
+                settings.originalResidues = [mi.getResType(initial_indiv.mol.GetResidue(j)) for j in settings.composition_residue_indexes]
 
             print("Original residues:", settings.originalResidues)
             print(ga["evaluators"])
@@ -250,9 +253,13 @@ def mainLoop(settings):
 
         curr_iteration += 1
         settings.curr_iteration = curr_iteration
-
+        
         if settings.no_evaluators == 1:
             np.savetxt(settings.output_path + '/fitnesses.dat', best_fitnesses, delimiter='\n')
+            if list(best_fitnesses).count(best_fitnesses[-1])>settings.convergence_cycles:
+                print(f"Reached convergence. Last {list(best_fitnesses).count(best_fitnesses[-1])} generations were identical.")
+                printIterationInfo(settings, curr_iteration, parent_population, True)
+                sys.exit(0)
         else:
             # in order to correctly write out with np savetext we need to reduce multidimensional fitness arrays to a 1d list
             fitness_list = []
@@ -334,6 +341,17 @@ def initialise_ga(settings):
         settings.no_evaluators = len(evaluators)
         chosenReplacer = replacers.non_dominated_sorting
         pass
+    
+    print(settings.composition_residue_indexes)
+    print(settings.composition_lower_bounds)
+    print(settings.composition_upper_bounds)
+    for i,res in enumerate(settings.composition_residue_indexes):
+        print("Resindex", res)
+        print(i)
+        print("First Rotamer",cnts.rotamers[settings.composition_lower_bounds[i]] )
+        print("Last Rotamer",cnts.rotamers[settings.composition_upper_bounds[i]] )
+        pass
+
     return {'chosenSelector': chosenSelector, 'chosenMutator': chosenMutator, 'chosenCrossover': chosenCrossover, 'chosenReplacer': chosenReplacer, 'chosenGenerator': chosenGenerator, 'evaluators': evaluators}
 
     

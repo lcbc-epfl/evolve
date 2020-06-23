@@ -340,7 +340,153 @@ def amber_energy_minimize(settings, individual):
     individual.mol = molec
     
     finalEnergy = op.parseAmberEnergy(directory + "/amber.out")
+    f.close()
+    ferr.close()
+    fout.close()
+    return finalEnergy
+
+def openmm_energy_minimize(settings, individual):
+    '''
+
+    This function performs necessary topology preparation and minimization of a pdb file.
+
+    The following evaluators depend on this:
+    used in :meth:`helical_stability`
+
+    This uses OpenMM instead of Amber for the minimization. 
+    There are options to either relax the structure using
     
+    - a Steepest Descent Integrator
+    - Simulated Annealing 
+    - using minimization, MD (100ps) and then minimization
+
+    Procedure:
+
+    - write out mutated file from memory to pdb file on disk for amber
+    - :meth:`src.outprocesses.runtleap`
+    - openmm
+    - read in the minimized structure as new pdb file and set as structure for  :data:`individual`
+
+    .. code-block:: none
+
+        [EVALUATOR]
+        evaluators = helical_stability
+        tleap_template = /path/to/tleap_template.in
+        amber_params =  /path/to/amber_minimization.in
+        dielectric = 80.0
+        gpu_openmm = True
+        gpudeviceindex = 0
+        simAnneal = True 
+        md = False
+
+    Parameters
+    ----------
+    settings : object
+        see :class:`src.JobConfig.Settings`
+    individual : object
+        see :class:`src.gaapi.Individual.Individual`
+
+    Returns
+    -------
+    finalEnergy: float
+        amber energy after minimization
+    '''
+    import shutil
+    # OpenMM Imports
+    import simtk.openmm as mm
+    import simtk.openmm.app as app
+    from parmed import load_file, unit as u
+    from parmed.openmm import StateDataReporter, NetCDFReporter
+    import openmmtools
+    
+
+    directory = settings.output_path + "/amber_run"
+    
+    if (os.path.exists(directory)):
+        shutil.rmtree(directory, ignore_errors=True) 
+        
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    
+    # if (os.path.exists(directory + "/mol.pdb")):
+    #     os.remove(directory + "/mol.pdb")
+
+    obconv = openbabel.OBConversion()
+    obconv.SetOutFormat("pdb")
+    obconv.WriteFile(individual.mol, directory + "/mol.pdb")
+
+    op.runtleap(work_dir=directory + "/", mol_file='mol.pdb', tleaptemp=settings.tleap_template, tleapin="leap.in")
+    
+    tleapfiles = load_file(os.getcwd()+"/amber_run/mol.prmtop",os.getcwd()+"/amber_run/mol.inpcrd")
+    system = tleapfiles.createSystem(nonbondedMethod=app.NoCutoff,implicitSolvent=app.OBC2,)
+   
+    platform = mm.Platform.getPlatformByName('CUDA')
+    prop = dict(CudaPrecision='mixed') # Use mixed single/double precision
+    platform.setPropertyDefaultValue("CudaDeviceIndex", str(settings.gpudeviceindex))
+
+    if settings.md:
+        try:
+            # Energy Minimize, then 100ps of NVT, then Gradient Descent Minimization.
+            print("Using MD relaxation")
+            integrator = mm.LangevinIntegrator(300*u.kelvin,1.0/u.picoseconds,2.0*u.femtoseconds,)
+            sim = app.Simulation(tleapfiles.topology, system, integrator, platform, prop)
+            sim.context.setPositions(tleapfiles.positions)
+            sim.minimizeEnergy(maxIterations=2500)
+            sim.reporters.append(StateDataReporter(sys.stdout, 100000, step=True, potentialEnergy=True,kineticEnergy=True, temperature=True))
+            sim.step(50000)
+            state = sim.context.getState(getEnergy=True,getPositions=True)
+            # Gradient Descent to get to potential energy well. 
+            integrator = openmmtools.integrators.GradientDescentMinimizationIntegrator(initial_step_size=0.04 * u.angstroms)  
+            sim = app.Simulation(tleapfiles.topology, system, integrator, platform, prop)
+            sim.context.setPositions(state.getPositions())
+            sim.reporters.append(StateDataReporter(sys.stdout, 1000, step=True, potentialEnergy=True,kineticEnergy=True, temperature=True))
+            sim.reporters.append(app.PDBReporter(directory +'/min.pdb', 10000))
+            sim.step(15000)
+            state = sim.context.getState(getEnergy=True)
+            finalEnergy=state.getPotentialEnergy().value_in_unit(u.kilocalories_per_mole)
+            pass
+        except ValueError:
+            finalEnergy=999999
+            pass
+    else:
+        integrator = openmmtools.integrators.GradientDescentMinimizationIntegrator(initial_step_size=0.04 * u.angstroms)  
+        sim = app.Simulation(tleapfiles.topology, system, integrator, platform, prop)
+        sim.context.setPositions(tleapfiles.positions)
+        
+        sim.reporters.append(StateDataReporter(os.devnull, 15000, step=True, potentialEnergy=True,kineticEnergy=True, temperature=True))
+        sim.reporters.append(app.PDBReporter(directory +'/min.pdb', 15000))
+        sim.step(15000)
+        state = sim.context.getState(getEnergy=True,getPositions=True)
+        finalEnergy=state.getPotentialEnergy().value_in_unit(u.kilocalories_per_mole)
+        
+        obConversion = openbabel.OBConversion() 
+        obConversion.SetInFormat("pdb")
+
+        molec = openbabel.OBMol()
+        obConversion.ReadFile(molec, directory + '/min.pdb')
+        individual.mol = molec
+
+    # ToDo:  
+    # Implement settings for starting temperature and MD 
+    if settings.simAnneal:
+        try:
+            minimized=state.getPositions()
+            integrator = mm.LangevinIntegrator(300.0*u.kelvin,1.0/u.picoseconds,1.0*u.femtoseconds)
+            sim = app.Simulation(tleapfiles.topology, system, integrator, platform, prop)
+            sim.context.setPositions(minimized)
+            sim.reporters.append(StateDataReporter(os.devnull, 2500, step=True, potentialEnergy=True,kineticEnergy=True, temperature=True))
+            #sim.reporters.append(app.DCDReporter(name+'.dcd', 10000))
+            for i in range(121):
+                integrator.setTemperature(3*(120-i)*u.kelvin)
+                sim.step(5000)
+            state = sim.context.getState(getEnergy=True)
+            finalEnergy=state.getPotentialEnergy().value_in_unit(u.kilocalories_per_mole)
+            pass
+        except ValueError:
+            finalEnergy=999999
+            pass
+        
+
     return finalEnergy
 
 
@@ -386,6 +532,8 @@ def helical_stability(settings, individuals, fitness_index, pop_start=0):
     First the evaluator checks whether the current individual is identical in composition to an already computed individual, if yes computation is skipped and fitness value is copied.
     If no,  :meth:`amber_energy_minimize`
 
+    If GPU option is set, openmm_minimize is used. 
+
     Then the add and negate energies and the inital energy will be added to the minimized energy
 
     To use this evaluator in the input file you need to include the following section in your file.
@@ -398,6 +546,7 @@ def helical_stability(settings, individuals, fitness_index, pop_start=0):
         amber_params =  /path/to/amber_minimization.in
         mpi_processors = 20
         dielectric = 80.0
+        gpu_openmm = False
 
 
     Reference: Perez et al., "EVOLVE: A Genetic Algorithm to Predict Protein Thermostability."
@@ -444,13 +593,21 @@ def helical_stability(settings, individuals, fitness_index, pop_start=0):
         print("Minimising: ", i, [mi.getResType(individuals[i].mol.GetResidue(j)) for j in settings.composition_residue_indexes])
         print("Rotamers: ", [cnts.selected_rotamers[v] for v in individuals[i].composition])
         
-        finalEnergy = amber_energy_minimize(settings, individuals[i])
+        if settings.gpu_openmm:
+            finalEnergy = openmm_energy_minimize(settings, individuals[i])
+        else:
+            finalEnergy = amber_energy_minimize(settings, individuals[i])
         
         for j in range (0, len(settings.composition_residue_indexes)):
+            #res = mi.getResType(individuals[i].mol.GetResidue(settings.composition_residue_indexes[j]))
+            #add += constants.energies['ALA'][settings.helical_dielectric]  # TODO this won't work for a non poly ala protein!!
+            #negate += constants.energies[res][settings.helical_dielectric]
             res = mi.getResType(individuals[i].mol.GetResidue(settings.composition_residue_indexes[j]))
-
-            add += constants.energies['ALA'][settings.helical_dielectric]  # TODO this won't work for a non poly ala protein!!
+            
+            add += constants.energies[str(settings.originalResidues[j])][settings.helical_dielectric]
             negate += constants.energies[res][settings.helical_dielectric]
+            print('add',str(settings.originalResidues[j]), constants.energies[str(settings.originalResidues[j])][settings.helical_dielectric])
+            print('negate',res,'-(', settings.initial_energy,'+', constants.energies[res][settings.helical_dielectric],')')
             
         print("min_energy:", finalEnergy, add, negate)
         finalEnergy += (add - negate)
@@ -462,6 +619,8 @@ def helical_stability(settings, individuals, fitness_index, pop_start=0):
                 individuals[i].setFitness(fitness_index, 999999999.0)
                 
         print('ind {}, fitness {}'.format(i, individuals[i].fitnesses))
+
+
 
 
 def stability_multi(settings, individuals, fitness_index, pop_start=0):

@@ -31,6 +31,10 @@ class Settings(object):
      The default options are set below.
     '''
     
+
+    # ToDO Use all these options as default values in the configparser
+    # This is only supported in Python 3
+    
     composition_optimization = False
     composition_residue_indexes = None
     composition_lower_bounds = None
@@ -38,6 +42,7 @@ class Settings(object):
     composition_library = None
     allowed_residue_types = None
     
+    convergence_cycles=15
     
     backbone_dihedral_optimization = False
     dihedral_residue_indexes = None
@@ -58,7 +63,8 @@ class Settings(object):
     initial_energy = 0.0
     
     helical_dielectric = 0
-    
+    gpu_openmm=False
+    simAnneal=False
     initial_molecule = None
 
     multi_individual = False
@@ -73,6 +79,8 @@ class Settings(object):
 
     use_res_type=False
     curr_iteration=0
+
+    generator=""
     
     def __init__(self, configFilePath):
         '''
@@ -152,6 +160,7 @@ class Settings(object):
         if self.config.has_option('OPTIMIZATION', 'composition_optimization'):
             self.composition_optimization = self.config.getboolean('OPTIMIZATION', 'composition_optimization')
 
+        self.convergence_cycles = self.config.getint('OPTIMIZATION', 'convergence_cycles', fallback=15)
     
         if (self.composition_optimization):
             self.composition_residue_indexes = [int(v) for v in self.config.get('OPTIMIZATION', 'composition_residue_indexes').split()]
@@ -268,6 +277,11 @@ class Settings(object):
                 self.amber_params = self.config.get('EVALUATOR', 'amber_params')
                 self.mpi_procs = int(self.config.get('EVALUATOR', 'mpi_processors'))
                 self.helical_dielectric = int(float(self.config.get('EVALUATOR', 'dielectric')))
+                self.gpu_openmm = self.config.getboolean('EVALUATOR', 'gpu_openmm', fallback=False)
+                self.md = self.config.getboolean('EVALUATOR', 'md', fallback=False)
+                self.replicas = self.config.get('EVALUATOR', 'replicas', fallback=1)
+                self.gpudeviceindex = self.config.get('EVALUATOR', 'gpudeviceindex', fallback=0)
+                self.simAnneal = self.config.getboolean('EVALUATOR', 'simAnneal', fallback=False)
                 if (self.helical_dielectric == 80):
                     self.helical_dielectric = 2
                 elif (self.helical_dielectric == 50):

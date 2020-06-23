@@ -211,7 +211,7 @@ def getBetaAtom(obres):
             if (obatom.GetType() == 'H'):
                  # want to find the L-enantiomer of the two GLY hydrogens on CA
                 ob_vec = np.asarray([obatom.GetX(), obatom.GetY(), obatom.GetZ()])
-
+                
                 RH = ob_vec - alpha_vec
                 RC = carboxyl_vec - alpha_vec
                 RN = nitro_vec - alpha_vec
