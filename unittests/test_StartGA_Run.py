@@ -16,12 +16,21 @@ from src.gaapi import Individual
 import main as main_program
 import shutil
 import os
+from pathlib import Path
 
 def setUpModule():
     pass
 
 
 def tearDownModule():
+    try:
+        os.remove("mdinfo")
+        os.remove("logfile")
+        os.remove("leap.log")
+        os.remove("new_mol.pdb")
+        shutil.rmtree("amber_run")
+    except:
+        print("One of temporary files written by AMBER could not be deleted.")
     pass
 
 
@@ -39,6 +48,7 @@ class TestJobConfig(unittest.TestCase):
 
     def addCleanup(self, function, *args, **kwargs):
         """Function called AFTER tearDown() to clean resources used on test."""
+      
         pass
 
     @classmethod
@@ -75,21 +85,23 @@ class TestJobConfig(unittest.TestCase):
         generators.unbiased_protein_composition_generator(settings, parent_population)
 
         for i, indiv in enumerate(parent_population):
-            self.assertEqual(indiv.composition[1], 176)
+            self.assertEqual(indiv.composition[1], 175)
             self.assertEqual(len(indiv.fitnesses), len(settings.evaluators))
             self.assertEqual(len(indiv.composition), 2)
             # TODO
             # Test for length of indiv.mol
-
+        
         # do an example fitness calculation of a defined individual = initial fitness test
         initial_indiv = Individual.Individual(settings)
+        settings.originalResidues=['ALA', 'ALA']
         ga["evaluators"][0](settings, [initial_indiv], 0)
         self.assertAlmostEqual(initial_indiv.fitnesses[0], -64.173)
         f = open("amber_run/amber.out", 'r')
         for lineno, line in enumerate(f):
-            if lineno==1606:
+            if lineno==1604:
                 final_energy=float(line[10:26])
         f.close()
+        
         self.assertEqual(initial_indiv.fitnesses[0], final_energy)
         # check that new molecule file is identical to minimized file
         obConversion = openbabel.OBConversion()
@@ -111,16 +123,32 @@ class TestJobConfig(unittest.TestCase):
         f1.close()
         f2.close()
 
-        os.remove('new_mol.pdb')
-        shutil.rmtree('amber_run')
-######### GA RUN test
-
 
         # set predefined fitnesses and compare individuals to compare whether replacing works
 
+    def test_initPop_helicalstability_openmm(self):
+        print('OpenMM test')
+        print("-"*50)
+        settings = JobConfig.Settings('example_files/openmm.in')
+        ga=main_program.initialise_ga(settings)
+        parent_population= generators.initialisePopulation(settings)
+        self.assertEqual(len(parent_population), 10)
+        self.assertIsInstance(parent_population[0], Individual.Individual )
 
+        generators.unbiased_protein_composition_generator(settings, parent_population)
 
+        for i, indiv in enumerate(parent_population):
+            self.assertEqual(indiv.composition[1], 175)
+            self.assertEqual(len(indiv.fitnesses), len(settings.evaluators))
+            self.assertEqual(len(indiv.composition), 2)
+         
+        # do an example fitness calculation of a defined individual = initial fitness test
+        initial_indiv = Individual.Individual(settings)
+        settings.originalResidues=['ALA', 'ALA'] # need to set this here, otherwise done in evaluator method.
+        settings.gpu_openmm=True
 
+        ga["evaluators"][0](settings, [initial_indiv], 0)
+        print("openMM", initial_indiv.fitnesses[0])
 
 
 
