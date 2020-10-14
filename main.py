@@ -29,7 +29,7 @@ from src.gaapi import crossovers
 from src.gaapi import generators
 from src.gaapi import replacers
 from src import MoleculeInfo as mi
-
+import src.outprocesses as op
 from collections import Counter 
 import evaluators as evals
 # import  printResidueInfo as pri
@@ -416,6 +416,9 @@ def printIterationInfo(settings, curr_iteration, pop, ending):
         print(pop[min_indiv].phi_dihedrals, pop[min_indiv].psi_dihedrals)
         
     print("Best ind - Fitness(es):", pop[min_indiv].fitnesses)
+
+    if settings.write_energies:
+        op.writeEnergyLog(path=settings.output_path, energies=pop[min_indiv].energies, iteration=curr_iteration)
             
     obConversion = openbabel.OBConversion()
     obConversion.SetOutFormat("pdb")

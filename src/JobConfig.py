@@ -282,6 +282,18 @@ class Settings(object):
                 self.replicas = self.config.get('EVALUATOR', 'replicas', fallback=1)
                 self.gpudeviceindex = self.config.get('EVALUATOR', 'gpudeviceindex', fallback=0)
                 self.simAnneal = self.config.getboolean('EVALUATOR', 'simAnneal', fallback=False)
+
+                self.write_energies = self.config.getboolean('EVALUATOR', 'writeEnergies', fallback=False)
+
+                self.entropy_correction = self.config.get('EVALUATOR', 'entropy_correction', fallback=None)
+                
+                if (self.entropy_correction == 'PicketSternberg'):
+                    self.entropy_correction = 0
+                elif (self.entropy_correction == "AbagyanTotrov"):
+                    self.entropy_correction = 1
+                elif (self.entropy_correction == "KoehlDelarue"):
+                    self.entropy_correction = 2
+
                 if (self.helical_dielectric == 80):
                     self.helical_dielectric = 2
                 elif (self.helical_dielectric == 50):

@@ -62,6 +62,8 @@ class Individual(object):
         self.chi_angles = None
         self.chi_atoms = None
         
+        self.energies = {"wt":None, "wt_corr":None, "mut":None, "mut_corr":None}
+        
         
         if (settings.backbone_dihedral_optimization):
             
@@ -121,6 +123,7 @@ class Individual(object):
         
         
         self.fitnesses = copy.deepcopy(orig.fitnesses)
+        self.energies = orig.energies
     
     def saveMol(self, file_path):
         '''
@@ -193,7 +196,23 @@ class Individual(object):
         -------
 
         '''
+        
         self.stability=value
+
+    def setEnergies(self,wt, wt_corr, mut, mut_corr):
+        '''
+
+        Set energies 
+
+        Parameters
+        ----------
+        value
+
+        Returns
+        -------
+
+        '''
+        self.energies.update({"wt":wt, "wt_corr":wt_corr, "mut":mut, "mut_corr":mut_corr})
 
     def updatePhiPsiDihedrals(self, settings):
         '''

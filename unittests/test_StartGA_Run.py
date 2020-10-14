@@ -150,7 +150,24 @@ class TestJobConfig(unittest.TestCase):
         ga["evaluators"][0](settings, [initial_indiv], 0)
         print("openMM", initial_indiv.fitnesses[0])
 
-
+    def test_initPop_helicalstability_openmm_entropy(self):
+        print('OpenMM test with entropy corrections')
+        print("-"*50)
+        settings = JobConfig.Settings('example_files/openmm_entropy.in')
+        ga=main_program.initialise_ga(settings)
+        parent_population= generators.initialisePopulation(settings)
+        generators.unbiased_protein_composition_generator(settings, parent_population)
+      
+        # do an example fitness calculation of a defined individual = initial fitness test
+        initial_indiv = Individual.Individual(settings)
+        settings.originalResidues=['ALA', 'ALA'] # need to set this here, otherwise done in evaluator method.
+        settings.gpu_openmm=True
+        print(settings)
+        ga["evaluators"][0](settings, [initial_indiv], 0)
+        settings.initial_energy=initial_indiv.fitnesses[0]
+        for i, eval in enumerate(ga["evaluators"]):
+            print("EVALUATORS {}".format(ga["evaluators"][i].__name__))
+            eval(settings, parent_population, i)
 
 if __name__.__contains__("__main__"):
     print(__doc__)

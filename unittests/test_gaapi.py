@@ -17,6 +17,7 @@ Tests
 
 import unittest
 import openbabel
+#from openbabel import openbabel
 from  src import JobConfig
 from src.gaapi import operator_types
 from src.gaapi import generators
@@ -56,7 +57,7 @@ class TestGAAPI(unittest.TestCase):
         pass
 
 
-
+    #@unittest.skip("do not execute")
     def test_comparison_onedim(self):
         #test dominiation for one fitness
         self.individualone.fitnesses=[-10]
@@ -64,7 +65,8 @@ class TestGAAPI(unittest.TestCase):
         self.assertLess(self.individualone, self.individualtwo)
         self.assertGreater(self.individualtwo, self.individualone)
 
-    #@unittest.expectedFailure  #multidim not implented yet
+    ##@unittest.expectedFailure  #multidim not implented yet
+    #@unittest.skip("do not execute")
     def test_comparison_multidim(self):
         # test dominiation for multiple fitnesses
         self.individualone.fitnesses = [-10, -10, -10]

@@ -13,6 +13,7 @@ Tests
 
 import unittest
 import openbabel
+#from openbabel import openbabel
 from  src import MoleculeInfo as mi
 from  src import MoleculeCreator as mc
 import filecmp
@@ -64,7 +65,7 @@ class TestGAAPI(unittest.TestCase):
     def test_MoleculeInfo(self):
         obConversion = openbabel.OBConversion()
         obConversion.SetInAndOutFormats("pdb", "pdb")
-
+        
         mol = openbabel.OBMol()
         obConversion.ReadFile(mol, "example_files/ALA20.pdb")
         obres = mol.GetResidue(0)
@@ -74,7 +75,7 @@ class TestGAAPI(unittest.TestCase):
         #beta_atom = getBetaAtom(obres)
         # # TODO
         # test for proline and glycine
-
+        
         # AlphaCarbon
         self.assertIs(mi.getAlphaCarbon(obres).GetIdx(),9)
 
@@ -115,7 +116,7 @@ class TestGAAPI(unittest.TestCase):
         frag = openbabel.OBMol()
         obConversion.SetInAndOutFormats("mol2", "pdb")
         obConversion.ReadFile(frag, "../share/HID/HD3.mol2")
-
+        
         mc.swapsidechain(settings, mol, 1, frag)
 
         obConversion.WriteFile(mol, "output_files/test_swap.pdb")
@@ -139,7 +140,7 @@ class TestGAAPI(unittest.TestCase):
 
         mol = openbabel.OBMol()
         obConversion.ReadFile(mol, "example_files/ALA20.pdb")
-
+ 
         frag = openbabel.OBMol()
         obConversion.SetInAndOutFormats("mol2", "pdb")
         obConversion.ReadFile(frag, "../share/HID/HD3.mol2")
@@ -153,7 +154,8 @@ class TestGAAPI(unittest.TestCase):
             os.remove("output_files/test_swap_resname.pdb")
         except:
             print("test_swap could not be deleted.")
-
+    
+    @unittest.skip("see if this one fails")
     def test_MoleculeCreator_glycine(self):
 
         class DemoSettings(object):
@@ -169,7 +171,7 @@ class TestGAAPI(unittest.TestCase):
         frag = openbabel.OBMol()
         obConversion.SetInAndOutFormats("mol2", "pdb")
         obConversion.ReadFile(frag, "../share/ALA/A01.mol2")
-
+        print('test')
         mc.swapsidechain(settings, mol, 8, frag)
 
         obConversion.WriteFile(mol, "output_files/test_gly_to_K.pdb")

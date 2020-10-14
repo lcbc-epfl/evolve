@@ -433,6 +433,39 @@ def writeFrontLog(path="", front='', iteration=0):
     pass
 
 
+def writeEnergyLog(path="", energies=None, iteration=0):
+    '''
+
+    write log of energies for all min_mols as comma seperated values 
+
+    The format is energy wt, correction wt, energy_mut, correction_mut
+
+    Parameters
+    ----------
+    path: str
+        path to the current working directory, not work_dir/
+    energies: list
+        (energy wt, correction wt, energy_mut, correction_mut)
+    iteration: int
+        iteration counter of the GA
+    '''
+    filename = path + '/energy.log'
+
+    print("Writing energies", filename)
+
+    if iteration > 0:
+        append_write = 'a'  # append if already exists
+    else:
+        append_write = 'w'  # make a new file if not
+    string = ''
+    for item in energies.keys():
+        string += str(energies[item]) + ','
+    frontsfile = open(filename, append_write)
+    frontsfile.write(string + '\n')
+    frontsfile.close()
+    pass
+
+
 def writeFrontFile(path="", file='', fitness='', iteration=0, frontid=0):
     '''
 

@@ -16,6 +16,11 @@ from openbabel import OBResidue
 from openbabel import OBAtom
 from openbabel import OBMol
 from openbabel import OBAtomTyper
+# from openbabel import openbabel
+# from openbabel.openbabel import OBResidue
+# from openbabel.openbabel import OBAtom
+#from openbabel.openbabel import OBMol
+#from openbabel.openbabel import OBAtomTyper
 import numpy as np
 from . import MoleculeInfo as mi
 
@@ -115,9 +120,9 @@ def add_fragment(mol, fragment, id_start):
         new_atom.SetType(frag_atom.GetType())
         new_atom.SetSpinMultiplicity(frag_atom.GetSpinMultiplicity())
         new_atom.SetFormalCharge(frag_atom.GetFormalCharge())
-        new_atom.SetImplicitValence(frag_atom.GetImplicitValence())
+        # new_atom.SetImplicitValence(frag_atom.GetImplicitValence())
         new_atom.SetPartialCharge(frag_atom.GetPartialCharge())
-    
+        
         for data in frag_atom.GetData():
             new_atom.SetData(data)
   
@@ -126,7 +131,7 @@ def add_fragment(mol, fragment, id_start):
     for obbond in openbabel.OBMolBondIter(fragment):
         begin_atom = obbond.GetBeginAtom()
         end_atom = obbond.GetEndAtom()
-        mol.AddBond(obbond.GetBeginAtomIdx() + prevAtoms, obbond.GetEndAtomIdx() + prevAtoms, obbond.GetBO(), obbond.GetFlags())
+        mol.AddBond(obbond.GetBeginAtomIdx() + prevAtoms, obbond.GetEndAtomIdx() + prevAtoms, obbond.GetBondOrder(), obbond.GetFlags())
     
     
 def debugAtom(obatom):
@@ -134,7 +139,7 @@ def debugAtom(obatom):
 
 
 def debugBond(obbond):
-    return "begin_idx:", obbond.GetBeginAtomIdx(), "end_idx:", obbond.GetEndAtomIdx(), "norm:", obbond.GetLength(), "BO:", obbond.GetBO()
+    return "begin_idx:", obbond.GetBeginAtomIdx(), "end_idx:", obbond.GetEndAtomIdx(), "norm:", obbond.GetLength(), "BO:", obbond.GetBondOrder()
 
 
 def getAtomByID(mol, atom_id):
@@ -165,13 +170,14 @@ def swapsidechain(settings, mol, res_index, aa_mol):
     mol.BeginModify()
    
     curr = mol.GetResidue(res_index)
-  
-    new = aa_mol.GetResidue(0)
     
+    new = aa_mol.GetResidue(0)
+    print(mol, mol.NumResidues())
+    print(mol.GetResidue(4))
     mol_CA = mi.getAlphaCarbon(curr)
     mol_CB = mi.getBetaAtom(curr)
     mol_N = mi.getBBNitrogen(curr)
-   
+
     aa_CA = mi.getAlphaCarbon(new)
     aa_CB = mi.getBetaAtom(new)
     aa_bb_nitrogen = mi.getBBNitrogen(new)
@@ -296,12 +302,13 @@ def swapsidechain(settings, mol, res_index, aa_mol):
     # if old resname = glycine we need to rename the remaining H to HA, the other has been replaced by the sidechain
     if res_name=="GLY":
         for obatom in openbabel.OBResidueAtomIter(curr):
-            if curr.GetAtomID(obatom)=="HA2" or curr.GetAtomID(obatom)=="HA3":
+            if curr.GetAtomID(obatom) in ["HA2", "HA3", " HA2", " HA2 "]:
                 curr.SetAtomID(obatom, "HA")
     
     if frag_res_type=="GLY" and settings.use_res_type:
         for obatom in openbabel.OBResidueAtomIter(curr):
-            if curr.GetAtomID(obatom)=="HA":
+            #print("."+curr.GetAtomID(obatom)+".")
+            if curr.GetAtomID(obatom) in ["HA", " HA", " HA "] :
                 curr.SetAtomID(obatom, "HA2")
     
     if frag_res_type=="HID" and settings.use_res_type:

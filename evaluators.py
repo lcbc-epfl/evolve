@@ -376,7 +376,7 @@ def openmm_energy_minimize(settings, individual):
         dielectric = 80.0
         gpu_openmm = True
         gpudeviceindex = 0
-        simAnneal = True 
+        simAnneal = False
         md = False
 
     Parameters
@@ -452,10 +452,10 @@ def openmm_energy_minimize(settings, individual):
         integrator = openmmtools.integrators.GradientDescentMinimizationIntegrator(initial_step_size=0.04 * u.angstroms)  
         sim = app.Simulation(tleapfiles.topology, system, integrator, platform, prop)
         sim.context.setPositions(tleapfiles.positions)
-        
-        sim.reporters.append(StateDataReporter(os.devnull, 15000, step=True, potentialEnergy=True,kineticEnergy=True, temperature=True))
-        sim.reporters.append(app.PDBReporter(directory +'/min.pdb', 15000))
-        sim.step(15000)
+        sim.minimizeEnergy(maxIterations=1000)
+        sim.reporters.append(StateDataReporter(os.devnull, 1000, step=True, potentialEnergy=True,kineticEnergy=True, temperature=True))
+        sim.reporters.append(app.PDBReporter(directory +'/min.pdb', 1000))
+        sim.step(1000)
         state = sim.context.getState(getEnergy=True,getPositions=True)
         finalEnergy=state.getPotentialEnergy().value_in_unit(u.kilocalories_per_mole)
         
@@ -585,10 +585,15 @@ def helical_stability(settings, individuals, fitness_index, pop_start=0):
             print("Already computed: " , i, " -> member ", already_done)
             individuals[i].mol = openbabel.OBMol(individuals[already_done].mol)
             individuals[i].fitnesses = individuals[already_done].fitnesses
+            individuals[i].energies = individuals[already_done].energies
             continue     
                
         add = 0.0
-        negate = settings.initial_energy
+        negate = 0.0
+
+        #Entropy corrections
+        entropy_add=0.0
+        entropy_negate=0.0
     
         print("Minimising: ", i, [mi.getResType(individuals[i].mol.GetResidue(j)) for j in settings.composition_residue_indexes])
         print("Rotamers: ", [cnts.selected_rotamers[v] for v in individuals[i].composition])
@@ -606,12 +611,29 @@ def helical_stability(settings, individuals, fitness_index, pop_start=0):
             
             add += constants.energies[str(settings.originalResidues[j])][settings.helical_dielectric]
             negate += constants.energies[res][settings.helical_dielectric]
-            print('add',str(settings.originalResidues[j]), constants.energies[str(settings.originalResidues[j])][settings.helical_dielectric])
-            print('negate',res,'-(', settings.initial_energy,'+', constants.energies[res][settings.helical_dielectric],')')
-            
+            if settings.entropy_correction:
+                entropy_add+=constants.entropy_corrections[str(settings.originalResidues[j])][settings.entropy_correction]
+                entropy_negate+=constants.entropy_corrections[res][settings.entropy_correction]
+
+            #print('add',str(settings.originalResidues[j]), constants.energies[str(settings.originalResidues[j])][settings.helical_dielectric])
+            #print('negate',res,'-(', settings.initial_energy,'+', constants.energies[res][settings.helical_dielectric],')')
+        
+        if settings.write_energies:
+            individuals[i].setEnergies(settings.initial_energy, add, finalEnergy, negate)
+
+        negate +=settings.initial_energy
+        
         print("min_energy:", finalEnergy, add, negate)
         finalEnergy += (add - negate)
         
+        if settings.entropy_correction:
+            print("Entropy Correction: ", (entropy_add - entropy_negate))
+            finalEnergy+=  (entropy_add - entropy_negate)
+
+
+
+
+
         individuals[i].setFitness(fitness_index, finalEnergy)
         
         if (settings.solution_min_fitness is not None):
