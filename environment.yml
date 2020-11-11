@@ -1,0 +1,27 @@
+name: evolve
+channels:
+  - conda-forge
+  - omnia
+  - defaults
+dependencies:
+  - openbabel=3.1.0
+  - numpy=1.18.4=py37h8960a57_0
+  - openmm=7.4.1=py37_cuda101_rc_1
+  - openmmtools=0.19.0=py37_1
+  - pagmo=2.15.0=hec06268_1
+  - pip=20.1.1=pyh9f0ad1d_0
+  - ambertools=20.9
+  - pygmo=2.15.0=py37h2566bc3_0
+  - python=3.7.6=h8356626_5_cpython
+  - six=1.15.0=pyh9f0ad1d_0
+  - sphinx=3.0.3=py_0
+  - sphinxcontrib-applehelp=1.0.2=py_0
+  - sphinxcontrib-bibtex=1.0.0=py_0
+  - sphinxcontrib-devhelp=1.0.2=py_0
+  - sphinxcontrib-htmlhelp=1.0.3=py_0
+  - sphinxcontrib-jsmath=1.0.1=py_0
+  - sphinxcontrib-napoleon=0.7=py_0
+  - sphinxcontrib-qthelp=1.0.3=py_0
+  - sphinxcontrib-serializinghtml=1.1.4=py_0
+  - future
+  

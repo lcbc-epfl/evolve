@@ -11,17 +11,19 @@ from __future__ import absolute_import
 
 from builtins import range
 from past.utils import old_div
-import openbabel
-from openbabel import OBResidue
-from openbabel import OBAtom
-from openbabel import OBMol
-from openbabel import OBAtomTyper
-# from openbabel import openbabel
-# from openbabel.openbabel import OBResidue
-# from openbabel.openbabel import OBAtom
-#from openbabel.openbabel import OBMol
-#from openbabel.openbabel import OBAtomTyper
+# import openbabel
+# from openbabel import OBResidue
+# from openbabel import OBAtom
+# from openbabel import OBMol
+# from openbabel import OBAtomTyper
+from openbabel import openbabel
+from openbabel.openbabel import OBResidue
+from openbabel.openbabel import OBAtom
+from openbabel.openbabel import OBMol
+from openbabel.openbabel import OBAtomTyper
 import numpy as np
+import os
+
 from . import MoleculeInfo as mi
 
 
@@ -116,17 +118,19 @@ def add_fragment(mol, fragment, id_start):
         new_atom.SetId(id)
         new_atom.SetVector(frag_atom.GetVector())
         new_atom.SetAtomicNum(frag_atom.GetAtomicNum())
-        
         new_atom.SetType(frag_atom.GetType())
         new_atom.SetSpinMultiplicity(frag_atom.GetSpinMultiplicity())
         new_atom.SetFormalCharge(frag_atom.GetFormalCharge())
-        # new_atom.SetImplicitValence(frag_atom.GetImplicitValence())
+        
+        #new_atom.SetImplicitValence(frag_atom.GetImplicitValence())
+        new_atom.SetImplicitHCount(frag_atom.GetImplicitHCount())
         new_atom.SetPartialCharge(frag_atom.GetPartialCharge())
         
         for data in frag_atom.GetData():
             new_atom.SetData(data)
   
         id += 1
+        #print(debugAtom(new_atom))
         
     for obbond in openbabel.OBMolBondIter(fragment):
         begin_atom = obbond.GetBeginAtom()
@@ -135,7 +139,7 @@ def add_fragment(mol, fragment, id_start):
     
     
 def debugAtom(obatom):
-    return "AN:", obatom.GetAtomicNum(), "T:", obatom.GetType(), "idx:", obatom.GetIdx(), "id:", obatom.GetId(), "BO(1):", obatom.CountBondsOfOrder(1)
+    return "AN:", obatom.GetAtomicNum(), "T:", obatom.GetType(), obatom.GetResidue().GetName(), "idx:", obatom.GetIdx(), "id:", obatom.GetId(), "BO(1):", obatom.CountBondsOfOrder(1)
 
 
 def debugBond(obbond):
@@ -168,12 +172,11 @@ def swapsidechain(settings, mol, res_index, aa_mol):
     """
     
     mol.BeginModify()
-   
+    aa_mol.BeginModify()
     curr = mol.GetResidue(res_index)
     
     new = aa_mol.GetResidue(0)
-    print(mol, mol.NumResidues())
-    print(mol.GetResidue(4))
+
     mol_CA = mi.getAlphaCarbon(curr)
     mol_CB = mi.getBetaAtom(curr)
     mol_N = mi.getBBNitrogen(curr)
@@ -183,11 +186,12 @@ def swapsidechain(settings, mol, res_index, aa_mol):
     aa_bb_nitrogen = mi.getBBNitrogen(new)
     aa_gamma_atom = mi.getChi1DihedralAtom(new)
 
-    frag_res = aa_CB.GetResidue()
+    frag_res = new
     frag_name = frag_res.GetName()
 
-    res_name =mi.getResType(curr)
 
+    res_name =mi.getResType(curr)
+    
     aa_tor = 0
     if (aa_gamma_atom is not None):
         aa_tor = aa_mol.GetTorsion(aa_gamma_atom, aa_CA, aa_CB, aa_bb_nitrogen)
@@ -232,6 +236,7 @@ def swapsidechain(settings, mol, res_index, aa_mol):
     frag_atom_ids_del = [aa_mol.GetAtom(i).GetId() for i in frag_atoms_del]
     frag_atom_ids_del.append(aa_CA.GetId())
     
+
     # delete unnecessary atoms
     for i in range (0, len(frag_atom_ids_del)):
         
@@ -243,7 +248,7 @@ def swapsidechain(settings, mol, res_index, aa_mol):
             res.RemoveAtom(atom)
         
         aa_mol.DeleteAtom(atom)
-        
+
     for i in range (0, len(mol_atom_ids_del)):
         atom = getAtomByID(mol, mol_atom_ids_del[i])
         
@@ -258,8 +263,8 @@ def swapsidechain(settings, mol, res_index, aa_mol):
     
     # add fragment to the protein
     add_fragment(mol, aa_mol, orig_num_atoms)
-    
-    mol.EndModify()
+
+    #mol.EndModify()
     
     renum_atoms = openbabel.vectorInt(prev_atoms + aa_mol.NumAtoms())
     
@@ -282,21 +287,30 @@ def swapsidechain(settings, mol, res_index, aa_mol):
         if (atom.GetId() == aa_CB.GetId()):
             corr_frag_cb = atom
 
+
     mol.AddBond(mol_CA.GetIdx(), corr_frag_cb.GetIdx(), 1)
  
     frag_res_type = mi.getResType(frag_res)
-
+    
     if settings.use_res_type == True:
         curr.SetName(frag_res_type)
         pass
     else:
         curr.SetName(frag_name)
-        
+     
     for obatom in openbabel.OBResidueAtomIter(frag_res):
         frag_atom = getAtomByID(mol, obatom.GetId())
         curr.AddAtom(frag_atom)
         curr.SetAtomID(frag_atom, frag_res.GetAtomID(obatom))
+
+    # need to renumber IDs now to be consecutive
+    mol.RenumberAtoms(renum_atoms)
     
+    for i in range (1, mol.NumAtoms() + 1) :
+        mol.GetAtom(i).SetId(i - 1) 
+
+    aa_mol.EndModify()
+
 
     # For several residues in order for the amber settings to work, one needs to rename a few hydrogens which is done here.
     # if old resname = glycine we need to rename the remaining H to HA, the other has been replaced by the sidechain
@@ -335,24 +349,34 @@ def swapsidechain(settings, mol, res_index, aa_mol):
         for obatom in openbabel.OBResidueAtomIter(curr):
             if curr.GetAtomID(obatom) in ["HE3", "HE4", "HE5", "HE6", "HE7", "HE8"]:
                 curr.SetAtomID(obatom, "HE1")
-               
+    
+
+    # Fix to get around openbabel screwing up the structure when calling EndModify()
+    # This is necessary because we need to set the Chi1 dihedral correctly
+    obConversion = openbabel.OBConversion()
+    obConversion.SetInAndOutFormats("pdb", "pdb")            
+    obConversion.WriteFile(mol, "temp.pdb")
+
+    obConversion = openbabel.OBConversion() 
+    obConversion.SetInAndOutFormats("pdb", "pdb") 
+    obConversion.ReadFile(mol, "temp.pdb")    
+    os.remove('temp.pdb')
 
 
 
+    # preparation for setting the chi1 dihedral
+    curr = mol.GetResidue(res_index)
 
     alpha_carbon = mi.getAlphaCarbon(curr)
     bb_nitrogen = mi.getBBNitrogen(curr)
     beta_atom = mi.getBetaAtom(curr)
     chi_atom = mi.getChi1DihedralAtom(curr)
-    
+   
+    ## Here the correct dihedral needs to be set! 
     if (chi_atom is not None and aa_gamma_atom is not None):
         mol.SetTorsion(bb_nitrogen, alpha_carbon, beta_atom, chi_atom, aa_tor * (old_div(np.pi, 180.0)))
-  
-    # need to renumber IDs now to be consecutive
-    mol.RenumberAtoms(renum_atoms)
     
-    for i in range (1, mol.NumAtoms() + 1) :
-        mol.GetAtom(i).SetId(i - 1)
+
 
 
         

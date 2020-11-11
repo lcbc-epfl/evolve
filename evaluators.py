@@ -15,7 +15,7 @@ from src.gaapi import Individual
 from src.gaapi import generators
 from src import constants as cnts
 import numpy as np
-import openbabel
+from openbabel import openbabel
 import src.outprocesses as op
 import os
 import subprocess

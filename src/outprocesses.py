@@ -17,7 +17,7 @@ import sys
 import os
 import subprocess
 import numpy as np
-import openbabel
+from openbabel import openbabel
 import time
 
 

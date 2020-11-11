@@ -14,7 +14,7 @@ from src import constants as cnts
 import numpy as np
 
 from src import MoleculeInfo as mi
-import openbabel
+from openbabel import openbabel
 
 
 def initialisePopulation(settings):

@@ -19,7 +19,7 @@ except:
 from src.gaapi import operator_types
 import sys
 import os
-import openbabel
+from openbabel import openbabel
 import collections
 from src import constants as cnts
 

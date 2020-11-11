@@ -13,7 +13,7 @@ from builtins import object
 from src import MoleculeInfo as mi
 from src import MoleculeCreator as mcr
 import copy
-import openbabel
+from openbabel import openbabel
 import numpy as np
 import pygmo as pg
 

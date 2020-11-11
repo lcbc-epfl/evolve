@@ -15,7 +15,7 @@ from builtins import range
 from past.utils import old_div
 import numpy as np
 import argparse
-import openbabel
+from openbabel import openbabel
 import time
 import json
 import sys

@@ -210,22 +210,22 @@ CONECT    1    2
 CONECT    2    1    3    4    5                                       
 CONECT    3    2                                                      
 CONECT    4    2                                                      
-CONECT    5    2    6    7                                            
-CONECT    6    5                                                      
+CONECT    5    2    6    6    7                                       
+CONECT    6    5    5                                                 
 CONECT    7    5    8    9                                            
 CONECT    8    7                                                      
 CONECT    9    7   11   12   10                                       
 CONECT   10    9                                                      
 CONECT   11    9                                                      
-CONECT   12    9   13   14                                            
-CONECT   13   12                                                      
+CONECT   12    9   13   13   14                                       
+CONECT   13   12   12                                                 
 CONECT   14   12   15   16                                            
 CONECT   15   14                                                      
 CONECT   16   14   18   19   17                                       
 CONECT   17   16                                                      
 CONECT   18   16                                                      
-CONECT   19   16   20   21                                            
-CONECT   20   19                                                      
+CONECT   19   16   20   20   21                                       
+CONECT   20   19   19                                                 
 CONECT   21   19   22   23                                            
 CONECT   22   21                                                      
 CONECT   23   21   24   25   29                                       
@@ -234,8 +234,8 @@ CONECT   25   23   26   27   28
 CONECT   26   25                                                      
 CONECT   27   25                                                      
 CONECT   28   25                                                      
-CONECT   29   23   30   31                                            
-CONECT   30   29                                                      
+CONECT   29   23   30   30   31                                       
+CONECT   30   29   29                                                 
 CONECT   31   29   32   33                                            
 CONECT   32   31                                                      
 CONECT   33   31   34   35   39                                       
@@ -244,8 +244,8 @@ CONECT   35   33   36   37   38
 CONECT   36   35                                                      
 CONECT   37   35                                                      
 CONECT   38   35                                                      
-CONECT   39   33   40   41                                            
-CONECT   40   39                                                      
+CONECT   39   33   40   40   41                                       
+CONECT   40   39   39                                                 
 CONECT   41   39   42   43                                            
 CONECT   42   41                                                      
 CONECT   43   41   44   45   49                                       
@@ -254,8 +254,8 @@ CONECT   45   43   46   47   48
 CONECT   46   45                                                      
 CONECT   47   45                                                      
 CONECT   48   45                                                      
-CONECT   49   43   50   51                                            
-CONECT   50   49                                                      
+CONECT   49   43   50   50   51                                       
+CONECT   50   49   49                                                 
 CONECT   51   49   52   53                                            
 CONECT   52   51                                                      
 CONECT   53   51   54   55   59                                       
@@ -264,8 +264,8 @@ CONECT   55   53   56   57   58
 CONECT   56   55                                                      
 CONECT   57   55                                                      
 CONECT   58   55                                                      
-CONECT   59   53   60   61                                            
-CONECT   60   59                                                      
+CONECT   59   53   60   60   61                                       
+CONECT   60   59   59                                                 
 CONECT   61   59   62   63                                            
 CONECT   62   61                                                      
 CONECT   63   61   64   65   69                                       
@@ -274,8 +274,8 @@ CONECT   65   63   66   67   68
 CONECT   66   65                                                      
 CONECT   67   65                                                      
 CONECT   68   65                                                      
-CONECT   69   63   70   71                                            
-CONECT   70   69                                                      
+CONECT   69   63   70   70   71                                       
+CONECT   70   69   69                                                 
 CONECT   71   69   72   73                                            
 CONECT   72   71                                                      
 CONECT   73   71   74   75   79                                       
@@ -284,8 +284,8 @@ CONECT   75   73   76   77   78
 CONECT   76   75                                                      
 CONECT   77   75                                                      
 CONECT   78   75                                                      
-CONECT   79   73   80   81                                            
-CONECT   80   79                                                      
+CONECT   79   73   80   80   81                                       
+CONECT   80   79   79                                                 
 CONECT   81   79   82   83                                            
 CONECT   82   81                                                      
 CONECT   83   81   84   85   89                                       
@@ -294,8 +294,8 @@ CONECT   85   83   86   87   88
 CONECT   86   85                                                      
 CONECT   87   85                                                      
 CONECT   88   85                                                      
-CONECT   89   83   90   91                                            
-CONECT   90   89                                                      
+CONECT   89   83   90   90   91                                       
+CONECT   90   89   89                                                 
 CONECT   91   89   92   93                                            
 CONECT   92   91                                                      
 CONECT   93   91   94   95   99                                       
@@ -304,8 +304,8 @@ CONECT   95   93   96   97   98
 CONECT   96   95                                                      
 CONECT   97   95                                                      
 CONECT   98   95                                                      
-CONECT   99   93  100  101                                            
-CONECT  100   99                                                      
+CONECT   99   93  100  100  101                                       
+CONECT  100   99   99                                                 
 CONECT  101   99  102  103                                            
 CONECT  102  101                                                      
 CONECT  103  101  104  105  109                                       
@@ -314,8 +314,8 @@ CONECT  105  103  106  107  108
 CONECT  106  105                                                      
 CONECT  107  105                                                      
 CONECT  108  105                                                      
-CONECT  109  103  110  111                                            
-CONECT  110  109                                                      
+CONECT  109  103  110  110  111                                       
+CONECT  110  109  109                                                 
 CONECT  111  109  112  113                                            
 CONECT  112  111                                                      
 CONECT  113  111  114  115  119                                       
@@ -324,8 +324,8 @@ CONECT  115  113  116  117  118
 CONECT  116  115                                                      
 CONECT  117  115                                                      
 CONECT  118  115                                                      
-CONECT  119  113  120  121                                            
-CONECT  120  119                                                      
+CONECT  119  113  120  120  121                                       
+CONECT  120  119  119                                                 
 CONECT  121  119  122  123                                            
 CONECT  122  121                                                      
 CONECT  123  121  124  125  129                                       
@@ -334,8 +334,8 @@ CONECT  125  123  126  127  128
 CONECT  126  125                                                      
 CONECT  127  125                                                      
 CONECT  128  125                                                      
-CONECT  129  123  130  131                                            
-CONECT  130  129                                                      
+CONECT  129  123  130  130  131                                       
+CONECT  130  129  129                                                 
 CONECT  131  129  132  133                                            
 CONECT  132  131                                                      
 CONECT  133  131  134  135  139                                       
@@ -344,8 +344,8 @@ CONECT  135  133  136  137  138
 CONECT  136  135                                                      
 CONECT  137  135                                                      
 CONECT  138  135                                                      
-CONECT  139  133  140  141                                            
-CONECT  140  139                                                      
+CONECT  139  133  140  140  141                                       
+CONECT  140  139  139                                                 
 CONECT  141  139  142  143                                            
 CONECT  142  141                                                      
 CONECT  143  141  144  145  149                                       
@@ -354,8 +354,8 @@ CONECT  145  143  146  147  148
 CONECT  146  145                                                      
 CONECT  147  145                                                      
 CONECT  148  145                                                      
-CONECT  149  143  150  151                                            
-CONECT  150  149                                                      
+CONECT  149  143  150  150  151                                       
+CONECT  150  149  149                                                 
 CONECT  151  149  152  153                                            
 CONECT  152  151                                                      
 CONECT  153  151  154  155  159                                       
@@ -364,8 +364,8 @@ CONECT  155  153  156  157  158
 CONECT  156  155                                                      
 CONECT  157  155                                                      
 CONECT  158  155                                                      
-CONECT  159  153  160  161                                            
-CONECT  160  159                                                      
+CONECT  159  153  160  160  161                                       
+CONECT  160  159  159                                                 
 CONECT  161  159  162  163                                            
 CONECT  162  161                                                      
 CONECT  163  161  164  165  169                                       
@@ -374,8 +374,8 @@ CONECT  165  163  166  167  168
 CONECT  166  165                                                      
 CONECT  167  165                                                      
 CONECT  168  165                                                      
-CONECT  169  163  170  171                                            
-CONECT  170  169                                                      
+CONECT  169  163  170  170  171                                       
+CONECT  170  169  169                                                 
 CONECT  171  169  172  173                                            
 CONECT  172  171                                                      
 CONECT  173  171  174  175  179                                       
@@ -384,8 +384,8 @@ CONECT  175  173  176  177  178
 CONECT  176  175                                                      
 CONECT  177  175                                                      
 CONECT  178  175                                                      
-CONECT  179  173  180  181                                            
-CONECT  180  179                                                      
+CONECT  179  173  180  180  181                                       
+CONECT  180  179  179                                                 
 CONECT  181  179  182  183                                            
 CONECT  182  181                                                      
 CONECT  183  181  184  185  189                                       
@@ -394,8 +394,8 @@ CONECT  185  183  186  187  188
 CONECT  186  185                                                      
 CONECT  187  185                                                      
 CONECT  188  185                                                      
-CONECT  189  183  190  191                                            
-CONECT  190  189                                                      
+CONECT  189  183  190  190  191                                       
+CONECT  190  189  189                                                 
 CONECT  191  189  192  193                                            
 CONECT  192  191                                                      
 CONECT  193  191  194  195  199                                       
@@ -404,8 +404,8 @@ CONECT  195  193  196  197  198
 CONECT  196  195                                                      
 CONECT  197  195                                                      
 CONECT  198  195                                                      
-CONECT  199  193  200  201                                            
-CONECT  200  199                                                      
+CONECT  199  193  200  200  201                                       
+CONECT  200  199  199                                                 
 CONECT  201  199  202  203                                            
 CONECT  202  201                                                      
 CONECT  203  201  204  205  206                                       

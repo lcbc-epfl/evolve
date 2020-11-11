@@ -155,7 +155,7 @@ class TestGAAPI(unittest.TestCase):
         except:
             print("test_swap could not be deleted.")
     
-    @unittest.skip("see if this one fails")
+    #@unittest.skip("see if this one fails")
     def test_MoleculeCreator_glycine(self):
 
         class DemoSettings(object):

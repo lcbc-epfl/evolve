@@ -11,4 +11,6 @@ source /home/duerr/miniconda3/bin/activate openmm
 export PYTHONPATH=/home/duerr/phd/02_Projects/EVOLVE/Development/evolve/:$PYTHONPATH
 
 
-python -m unittest discover .
+python test_openbabel.py
+python test_gaapi.py
+python test_StartGA_Run.py

@@ -8,7 +8,7 @@ Unittests for starting a job
 '''
 
 import unittest
-import openbabel
+from openbabel import openbabel
 from  src import JobConfig
 from src.gaapi import operator_types
 from src.gaapi import generators
@@ -73,6 +73,7 @@ class TestJobConfig(unittest.TestCase):
         self.assertEqual(settings.selector, operator_types.TOURNAMENT_WOR )
         self.assertEqual(settings.replacer, operator_types.ELITIST)
 
+    @unittest.skipIf(os.environ["EVOLVE_CPU"]=='FALSE', "no gpu/mpi environment available")
     def test_initPop_helicalstability(self):
         print('Running tests for initalizing of population for evaluator helical stability')
         print("-"*50)
@@ -97,8 +98,10 @@ class TestJobConfig(unittest.TestCase):
         ga["evaluators"][0](settings, [initial_indiv], 0)
         self.assertAlmostEqual(initial_indiv.fitnesses[0], -64.173)
         f = open("amber_run/amber.out", 'r')
+        print('AMBER outputfile')
         for lineno, line in enumerate(f):
-            if lineno==1604:
+            if lineno==1606:
+                
                 final_energy=float(line[10:26])
         f.close()
         
@@ -125,7 +128,7 @@ class TestJobConfig(unittest.TestCase):
 
 
         # set predefined fitnesses and compare individuals to compare whether replacing works
-
+    @unittest.skipIf(os.environ["EVOLVE_GPU"]=='FALSE', "no gpu/mpi environment available")
     def test_initPop_helicalstability_openmm(self):
         print('OpenMM test')
         print("-"*50)
@@ -150,6 +153,7 @@ class TestJobConfig(unittest.TestCase):
         ga["evaluators"][0](settings, [initial_indiv], 0)
         print("openMM", initial_indiv.fitnesses[0])
 
+    @unittest.skipIf(os.environ["EVOLVE_GPU"]=='FALSE', "no gpu/mpi environment available")
     def test_initPop_helicalstability_openmm_entropy(self):
         print('OpenMM test with entropy corrections')
         print("-"*50)

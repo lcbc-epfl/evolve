@@ -12,12 +12,12 @@ from __future__ import absolute_import
 from builtins import str
 from builtins import range
 from past.utils import old_div
-import openbabel
-from openbabel import OBResidue
-from openbabel import OBAtom
-# from openbabel import openbabel
-# from openbabel.openbabel import OBResidue
-# from openbabel.openbabel import OBAtom
+# import openbabel
+# from openbabel import OBResidue
+# from openbabel import OBAtom
+from openbabel import openbabel
+from openbabel.openbabel import OBResidue
+from openbabel.openbabel import OBAtom
 import numpy as np
 from . import constants
 
@@ -86,7 +86,7 @@ def getResType(obres):
         Query residue
     """
     res = obres.GetName()
-    
+
     # check richardson rotamers and return rotamer_type
     for i in range (0, len(constants.rotamers)):
         if (constants.rotamers[i] == res):
@@ -185,7 +185,7 @@ def getBetaAtom(obres):
     obres : OBResidue
         Query residue
     """
-    
+
     alpha_carbon = getAlphaCarbon(obres)
     
     bbcarboxyl = getBBCarboxyl(obres)
@@ -206,7 +206,7 @@ def getBetaAtom(obres):
     carboxyl_vec = np.asarray([bbcarboxyl.GetX(), bbcarboxyl.GetY(), bbcarboxyl.GetZ()])
     
     res = getResType(obres)
-
+    
     for obatom in openbabel.OBAtomAtomIter(alpha_carbon):
         if (res == "GLY"):
             if (obatom.GetType() == 'H'):
@@ -604,6 +604,7 @@ def getChi1DihedralAtom(obres):
     beta_atom = getBetaAtom(obres)
     gamma_atom = None
     
+
     if beta_atom is None:
         return None
     
