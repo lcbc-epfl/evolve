@@ -20,6 +20,8 @@ EVOLVE is python3 based and depends on the following packages
 ```
 pygmo
 amber18
+openmm
+openbabel
 ```
 
 ### Installing
@@ -37,8 +39,7 @@ evaluator and a detailed instructions to run the tests in the [Documentation](ht
 
 * [openbabel](http://openbabel.org/) - Openbabel
 * [Amber](https://ambermd.org/) - to build toplogies
-* [Gromacs](http://gromacs.com) - to run molecular dynamics
-* [MDAnalysis](http://mdanalysis) - to run automated analysis of MD simulations
+* [OpenMM](http://openmm.org) - to run molecular dynamics
 
 ## Contributing
 

@@ -3,7 +3,7 @@ MoleculeInfo.py
 
 Contains helper functions for finding + identifying certain atoms in proteins.
 
-@author: Nicholas Browning
+.. codeauthor:: Nicholas Browning
 '''
 from __future__ import division
 from __future__ import print_function
@@ -12,9 +12,12 @@ from __future__ import absolute_import
 from builtins import str
 from builtins import range
 from past.utils import old_div
-import openbabel
-from openbabel import OBResidue
-from openbabel import OBAtom
+# import openbabel
+# from openbabel import OBResidue
+# from openbabel import OBAtom
+from openbabel import openbabel
+from openbabel.openbabel import OBResidue
+from openbabel.openbabel import OBAtom
 import numpy as np
 from . import constants
 
@@ -83,13 +86,14 @@ def getResType(obres):
         Query residue
     """
     res = obres.GetName()
-    
+
     # check richardson rotamers and return rotamer_type
     for i in range (0, len(constants.rotamers)):
         if (constants.rotamers[i] == res):
             return constants.rotamer_types[i]
         
     # seems to be a standard AA, search 3-letter code list
+    # DUPLICATE
     for i in range (0, len(constants.rotamer_types)):
         if (constants.rotamer_types[i] == res):
             return constants.rotamer_types[i]
@@ -110,17 +114,14 @@ def getAlphaCarbon(obres):
         Query residue
     """
     res = obres.GetName()
-
     for obatom in openbabel.OBResidueAtomIter(obres):
-        
-        if (obatom.IsCarbon()):
+
+        if (obatom.GetAtomicNum()==6):
             carboxl_carbon = getConnectedCarboxylCarbon(obatom)
-            
             # identify carboxyl carbon in peptide
             if (carboxl_carbon is not None):
                 # now also find the nitrogen
                 amide_nitro = getConnectedAmideNitrogen(obatom)
-                
                 if (amide_nitro is not None):
                     return obatom
     return None
@@ -141,14 +142,14 @@ def getConnectedAmideNitrogen(calpha_atom):
     #    --> assume that atom is the alpha_carbon
     if (obres.GetName() == "PRO"):
         for obatom in openbabel.OBAtomAtomIter(calpha_atom):
-            if (obatom.IsNitrogen()):
+            if (obatom.GetAtomicNum()==7):
                 return obatom
                     
     else:
         for obatom in openbabel.OBAtomAtomIter(calpha_atom):
-            if (obatom.IsNitrogen()):
+            if (obatom.GetAtomicNum()==7):
                 for obatom2 in openbabel.OBAtomAtomIter(obatom):
-                    if (obatom2.IsHydrogen()):
+                    if (obatom2.GetAtomicNum()==1):
                         return obatom
     return None
 
@@ -165,7 +166,7 @@ def getConnectedCarboxylCarbon(atom):
     obres = atom.GetResidue()
     
     for obatom in openbabel.OBAtomAtomIter(atom):
-        if (obatom.IsCarbon()):
+        if (obatom.GetAtomicNum()==6):
        
             for obbond in openbabel.OBAtomBondIter(obatom):
                 if (countBonds(obbond.GetNbrAtom(obatom)) == 1 and obbond.GetNbrAtom(obatom).GetAtomicNum() == 8):
@@ -183,13 +184,13 @@ def getBetaAtom(obres):
     obres : OBResidue
         Query residue
     """
-    
+
     alpha_carbon = getAlphaCarbon(obres)
     
     bbcarboxyl = getBBCarboxyl(obres)
     
     bbnitrogen = getBBNitrogen(obres)
- 
+    
     if alpha_carbon is None:
         return None
     
@@ -204,13 +205,12 @@ def getBetaAtom(obres):
     carboxyl_vec = np.asarray([bbcarboxyl.GetX(), bbcarboxyl.GetY(), bbcarboxyl.GetZ()])
     
     res = getResType(obres)
-
     for obatom in openbabel.OBAtomAtomIter(alpha_carbon):
         if (res == "GLY"):
             if (obatom.GetType() == 'H'):
                  # want to find the L-enantiomer of the two GLY hydrogens on CA
                 ob_vec = np.asarray([obatom.GetX(), obatom.GetY(), obatom.GetZ()])
-
+                
                 RH = ob_vec - alpha_vec
                 RC = carboxyl_vec - alpha_vec
                 RN = nitro_vec - alpha_vec
@@ -220,7 +220,7 @@ def getBetaAtom(obres):
                     return obatom
 
         else:
-            if (bbcarboxyl is not None and obatom.IsCarbon() and obatom.GetIdx() != bbcarboxyl.GetIdx()):
+            if (bbcarboxyl is not None and obatom.GetAtomicNum()==6 and obatom.GetIdx() != bbcarboxyl.GetIdx()):
                 return obatom
     return None
 
@@ -241,7 +241,7 @@ def getBBNitrogen(obres):
         return None
     
     for obatom in openbabel.OBAtomAtomIter(alpha_carbon):
-        if (obatom.IsNitrogen()):
+        if (obatom.GetAtomicNum()==7):
             return obatom
     return None
 
@@ -266,7 +266,7 @@ def getNeg1BBCarboxyl(obres):
         if (obatom == ca):
             continue
         
-        if (obatom.IsHydrogen()):
+        if (obatom.GetAtomicNum()==1):
             continue
         
         for obbond in openbabel.OBAtomBondIter(obatom):
@@ -292,7 +292,7 @@ def getBBCarboxyl(obres):
     
     for obatom in openbabel.OBAtomAtomIter(ca_atom):
         
-        if (not obatom.IsCarbon()):
+        if (not obatom.GetAtomicNum()==6):
             continue
         
         for obbond in openbabel.OBAtomBondIter(obatom):
@@ -318,7 +318,7 @@ def getPlus1BBNitrogen(obres):
     
     for obatom in openbabel.OBAtomAtomIter(bb_n):
 
-        if (obatom.IsNitrogen()):
+        if (obatom.GetAtomicNum()==7):
             return obatom
     return None
 
@@ -403,8 +403,8 @@ def getChiDihedralAtomIndexes(mol, residue_indexes):
         chi_atoms.append(res_chi_atoms)
             
     return np.asarray(chi_atoms)
-       
-       
+
+
 def getPhiPsiDihedralByAtomIndex(mol, dihedral_atom_indexes):
     """
     Returns a list of [phi, psi] dihedrals for the backbone dihedrals given by dihedral_atom_indexes
@@ -602,6 +602,7 @@ def getChi1DihedralAtom(obres):
     beta_atom = getBetaAtom(obres)
     gamma_atom = None
     
+
     if beta_atom is None:
         return None
     
@@ -612,13 +613,13 @@ def getChi1DihedralAtom(obres):
         if (obatom.GetIdx() == alpha_carbon.GetIdx()):
             continue
         
-        if ((res == "SER" or res == "THR") and obatom.IsOxygen()):
+        if ((res == "SER" or res == "THR") and obatom.GetAtomicNum()==8):
             return obatom
-        elif (res == "CYS" and obatom.IsSulfur()):
+        elif (res == "CYS" and obatom.GetAtomicNum()==16):
             return obatom
-        elif (res == "ALA" and obatom.IsHydrogen()):
+        elif (res == "ALA" and obatom.GetAtomicNum()==1):
             return obatom
-        elif((res != "SER" and res != "THR" and res != "CYS" and res != "ALA") and obatom.IsCarbon()):
+        elif((res != "SER" and res != "THR" and res != "CYS" and res != "ALA") and obatom.GetAtomicNum()==6):
             return obatom
         
     return None

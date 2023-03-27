@@ -58,7 +58,7 @@ if __name__ == '__main__':
         sys.exit()
     
     print("Swapping Side Chain")
-    mc.swapsidechain(mol, args.res_index, frag)
+    mc.swapsidechain(settings, mol, args.res_index, frag)
     print("Writing File:", args.out_molecule)
     obConversion.WriteFile(mol, args.out_molecule)
 

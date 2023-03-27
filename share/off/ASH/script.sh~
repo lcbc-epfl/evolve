@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+END=5;
+str="";
+for i in $(seq 1 $END); 
+do 
+
+added=$(( $i + $END ))
+
+if [ $added -lt 10 ]
+then
+str="D0";
+else
+str="D";
+fi 
+
+echo "$str";
+val="$i";
+
+regexSearch="$str$val";
+
+
+
+regexReplace="$str$added";
+
+filename="$regexReplace.off";
+
+echo "added: $added"; 
+echo "regexSearch: $regexSearch"; 
+echo "regexReplace: $regexReplace"; 
+echo "fileName: $filename";
+sed -i "s/$regexSearch/$regexReplace/g" "$filename";
+
+
+done
+
+
+

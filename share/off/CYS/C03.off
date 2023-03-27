@@ -1,0 +1,99 @@
+!!index array str
+ "C03"
+!entry.C03.unit.atoms table  str name  str type  int typex  int resx  int flags  int seq  int elmnt  dbl chg
+ "N" "N" 0 1 131075 1 7 -0.415700
+ "H" "H" 0 1 131075 2 1 0.271900
+ "CA" "CX" 0 1 131075 3 20 0.021300
+ "HA" "H1" 0 1 131075 4 1 0.112400
+ "CB" "CT" 0 1 131075 5 6 -0.123100
+ "HB2" "H1" 0 1 131075 6 1 0.111200
+ "HB3" "H1" 0 1 131075 7 1 0.111200
+ "SG" "SH" 0 1 131075 8 16 -0.311900
+ "HG" "HS" 0 1 131075 9 1 0.193300
+ "C" "C" 0 1 131075 10 6 0.597300
+ "O" "O" 0 1 131075 11 8 -0.567900
+!entry.C03.unit.atomspertinfo table  str pname  str ptype  int ptypex  int pelmnt  dbl pchg
+ "N" "N" 0 -1 0.0
+ "H" "H" 0 -1 0.0
+ "CA" "CX" 0 -1 0.0
+ "HA" "H1" 0 -1 0.0
+ "CB" "CT" 0 -1 0.0
+ "HB2" "H1" 0 -1 0.0
+ "HB3" "H1" 0 -1 0.0
+ "SG" "SH" 0 -1 0.0
+ "HG" "HS" 0 -1 0.0
+ "C" "C" 0 -1 0.0
+ "O" "O" 0 -1 0.0
+!entry.C03.unit.boundbox array dbl
+ -1.000000
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+!entry.C03.unit.childsequence single int
+ 2
+!entry.C03.unit.connect array int
+ 1
+ 10
+!entry.C03.unit.connectivity table  int atom1x  int atom2x  int flags
+ 2 1 17
+ 3 1 17
+ 4 3 17
+ 5 3 17
+ 6 5 17
+ 7 5 17
+ 8 5 17
+ 9 8 17
+ 10 3 17
+ 11 10 17
+!entry.C03.unit.hierarchy table  str abovetype  int abovex  str belowtype  int belowx
+ "U" 0 "R" 1
+ "R" 1 "A" 1
+ "R" 1 "A" 2
+ "R" 1 "A" 3
+ "R" 1 "A" 4
+ "R" 1 "A" 5
+ "R" 1 "A" 6
+ "R" 1 "A" 7
+ "R" 1 "A" 8
+ "R" 1 "A" 9
+ "R" 1 "A" 10
+ "R" 1 "A" 11
+!entry.C03.unit.name single str
+ ""
+!entry.C03.unit.positions table  dbl x  dbl y  dbl z
+ -1.458000 0.0 0.0
+ -1.937000 -0.770000 -0.445000
+ 0.0 0.0 0.0
+ 0.369000 0.890000 -0.510000
+ 0.536000 0.0 1.433000
+ 1.625557 0.026310 1.428798
+ 0.153825 0.862149 1.979460
+ 0.070000 -1.465000 2.411000
+ 0.697277 -1.094400 3.523837
+ 0.551000 -1.198000 -0.766000
+ 0.024000 -2.306000 -0.667000
+!entry.C03.unit.residueconnect table  int c1x  int c2x  int c3x  int c4x  int c5x  int c6x
+ 0 0 0 0 0 0
+!entry.C03.unit.residues table  str name  int seq  int childseq  int startatomx  str restype  int imagingx
+ "C03" 1 12 1 "?" 0
+!entry.C03.unit.residuesPdbSequenceNumber array int
+ 1
+!entry.C03.unit.solventcap array dbl
+ -1.000000
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+!entry.C03.unit.velocities table  dbl x  dbl y  dbl z
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0

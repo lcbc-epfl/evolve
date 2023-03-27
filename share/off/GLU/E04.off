@@ -1,0 +1,123 @@
+!!index array str
+ "E04"
+!entry.E04.unit.atoms table  str name  str type  int typex  int resx  int flags  int seq  int elmnt  dbl chg
+ "N" "N" 0 1 131075 1 7 -0.516300
+ "H" "H" 0 1 131075 2 1 0.293600
+ "CA" "CX" 0 1 131075 3 20 0.039700
+ "HA" "H1" 0 1 131075 4 1 0.110500
+ "CB" "CT" 0 1 131075 5 6 0.056000
+ "HB2" "HC" 0 1 131075 6 1 -0.017300
+ "HB3" "HC" 0 1 131075 7 1 -0.017300
+ "CG" "CT" 0 1 131075 8 6 0.013600
+ "HG2" "HC" 0 1 131075 9 1 -0.042500
+ "HG3" "HC" 0 1 131075 10 1 -0.042500
+ "CD" "C" 0 1 131075 11 6 0.805400
+ "OE1" "O2" 0 1 131075 12 8 -0.818800
+ "OE2" "O2" 0 1 131075 13 8 -0.818800
+ "C" "C" 0 1 131075 14 6 0.536600
+ "O" "O" 0 1 131075 15 8 -0.581900
+!entry.E04.unit.atomspertinfo table  str pname  str ptype  int ptypex  int pelmnt  dbl pchg
+ "N" "N" 0 -1 0.0
+ "H" "H" 0 -1 0.0
+ "CA" "CX" 0 -1 0.0
+ "HA" "H1" 0 -1 0.0
+ "CB" "CT" 0 -1 0.0
+ "HB2" "HC" 0 -1 0.0
+ "HB3" "HC" 0 -1 0.0
+ "CG" "CT" 0 -1 0.0
+ "HG2" "HC" 0 -1 0.0
+ "HG3" "HC" 0 -1 0.0
+ "CD" "C" 0 -1 0.0
+ "OE1" "O2" 0 -1 0.0
+ "OE2" "O2" 0 -1 0.0
+ "C" "C" 0 -1 0.0
+ "O" "O" 0 -1 0.0
+!entry.E04.unit.boundbox array dbl
+ -1.000000
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+!entry.E04.unit.childsequence single int
+ 2
+!entry.E04.unit.connect array int
+ 1
+ 14
+!entry.E04.unit.connectivity table  int atom1x  int atom2x  int flags
+ 14 15 17
+ 11 12 17
+ 11 13 17
+ 8 10 17
+ 8 9 17
+ 8 11 17
+ 5 7 17
+ 5 6 17
+ 5 8 17
+ 3 4 17
+ 3 14 17
+ 3 5 17
+ 1 2 17
+ 1 3 17
+!entry.E04.unit.hierarchy table  str abovetype  int abovex  str belowtype  int belowx
+ "U" 0 "R" 1
+ "R" 1 "A" 15
+ "R" 1 "A" 14
+ "R" 1 "A" 13
+ "R" 1 "A" 12
+ "R" 1 "A" 11
+ "R" 1 "A" 10
+ "R" 1 "A" 9
+ "R" 1 "A" 8
+ "R" 1 "A" 7
+ "R" 1 "A" 6
+ "R" 1 "A" 5
+ "R" 1 "A" 4
+ "R" 1 "A" 3
+ "R" 1 "A" 2
+ "R" 1 "A" 1
+!entry.E04.unit.name single str
+ ""
+!entry.E04.unit.positions table  dbl x  dbl y  dbl z
+ -1.458000 0.0 0.0
+ -1.937000 -0.770000 -0.445000
+ 0.0 0.0 0.0
+ 0.369000 0.890000 -0.510000
+ 0.536000 0.0 1.433000
+ 0.098575 0.860743 1.939499
+ 0.185442 -0.916933 1.907160
+ 2.051000 0.072000 1.529000
+ 2.460326 -0.790218 1.002781
+ 2.375526 0.986789 1.033701
+ 2.545000 0.071000 2.962000
+ 3.776000 0.126000 3.167000
+ 1.701000 0.014000 3.881000
+ 0.551000 -1.198000 -0.766000
+ 0.024000 -2.306000 -0.667000
+!entry.E04.unit.residueconnect table  int c1x  int c2x  int c3x  int c4x  int c5x  int c6x
+ 0 0 0 0 0 0
+!entry.E04.unit.residues table  str name  int seq  int childseq  int startatomx  str restype  int imagingx
+ "E04" 1 16 1 "?" 0
+!entry.E04.unit.residuesPdbSequenceNumber array int
+ 1
+!entry.E04.unit.solventcap array dbl
+ -1.000000
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+!entry.E04.unit.velocities table  dbl x  dbl y  dbl z
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0

@@ -1,7 +1,8 @@
 '''
-generators.py
+The generator populates the first generation with a set of rotamers based on the selection in the input file
 
-@author: Nicholas Browning
+.. codeauthor:: Nicholas Browning
+.. codeauthor:: Simon Duerr dev@simonduerr.eu
 '''
 from __future__ import print_function
 from __future__ import absolute_import
@@ -13,11 +14,24 @@ from src import constants as cnts
 import numpy as np
 
 from src import MoleculeInfo as mi
-import openbabel
+from openbabel import openbabel
 
 
-# Initialisation of the first population
 def initialisePopulation(settings):
+    '''
+
+    Initialisation of the first population
+
+    Parameters
+    ----------
+    settings: object
+        see :class:`src.JobConfig.Settings`
+
+    Returns
+    -------
+    individuals: list
+        a list containing objects holding each one individual with its properties and the associated molfile as OBMolec
+    '''
     
     individuals = []
     
@@ -28,9 +42,50 @@ def initialisePopulation(settings):
         
     return individuals
 
+def generate(settings, population, generator_op, **args):
+    '''
 
-# Generate dihedrals with uniform distribution
+    Generator operation that selects the coressponding generator operation function from the setting object
+
+    Select one of the three options in the input file as follows.
+
+    Only needed if you use composition optimization
+
+    .. code-block:: python
+
+        [GENERATOR]
+       generator=swissprot|uniform|random
+
+
+    Parameters
+    ----------
+    settings: object
+        see :class:`src.JobConfig.Settings`
+    population: list
+        list of :class:`src.gaapi.Individual`
+
+    Returns
+    -------
+    generator_op : function
+        selected replacer
+
+    '''
+    return generator_op(settings, population, **args)
+
 def UniformDihedralGenerator(settings, individuals):
+    '''
+
+    Generate dihedrals with uniform distribution.
+    Parameters
+    ----------
+    settings : object
+        see :class:`src.JobConfig`
+    individuals : object
+        see :class:`src.gaapi.Individual`
+
+
+
+    '''
     
     num_phipsi = len(settings.dihedral_residue_indexes)
    
@@ -41,9 +96,86 @@ def UniformDihedralGenerator(settings, individuals):
             indiv.phi_dihedrals[j] = initial_solution[j][0]
             indiv.psi_dihedrals[j] = initial_solution[j][1]
         indiv.applyPhiPsiDihedrals(settings)
-    
+
+
+def swissprot_composition_generator(settings, individuals):
+    '''
+
+     Generates a composition distribution from the probabilities present in swissprot
+
+    Parameters
+    ----------
+    settings
+    individuals
+
+    Returns
+    -------
+
+    '''
+    def swissprot_to_index(min, max, selected_rotamers, selected_rotamer_types, swissprot):
+        rot_count_dict = {}
+
+        for i in range(min, max):
+            rot_type = selected_rotamer_types[i]
+            if rot_type in rot_count_dict.keys():
+                rot_count_dict[rot_type] = rot_count_dict[rot_type] + 1
+            else:
+                rot_count_dict[rot_type] = 0
+
+        rotamer_counts = rot_count_dict.values()
+
+        rot_types = list(rot_count_dict.keys())
+        # todo potentially both unbiased and swissprot should be unified
+        # same code as below only that we don"t use randint but use a normalized probability
+        probabilities = []
+        for key in rot_types:
+            probabilities.append(swissprot[key])
+            pass
+        # normalize probabilities to 1
+        sum_probabilities = sum(probabilities)
+        norm_probabilities = [float(i) / sum_probabilities for i in probabilities]
+        which_type = np.random.choice(len(rot_types), p=norm_probabilities)
+
+        chosen_rot = rot_types[which_type]
+
+        allowed_indexes = []
+        for i in range(min, max):
+            rot_type = selected_rotamer_types[i]
+
+            if (rot_type == chosen_rot):
+                allowed_indexes.append(i)
+
+        allowed_indexes = np.asarray(allowed_indexes)
+
+        rel_index = np.random.randint(0, len(allowed_indexes))
+
+        return allowed_indexes[rel_index]
+
+    for i in range(0, settings.population_size):
+        indiv = individuals[i]
+
+        for j in range(0, len(settings.composition_residue_indexes)):
+            indiv.composition[j] = swissprot_to_index(settings.composition_lower_bounds[j],
+                                                      settings.composition_upper_bounds[j], cnts.selected_rotamers,
+                                                      cnts.selected_rotamer_types, cnts.swissprot_probabilities)
+
+        print(indiv.composition)
+        indiv.applyComposition(settings)
 
 def UniformCompositionGenerator(settings, individuals):
+    '''
+
+    This will randomly sample all the selected rotamers and thus will oversample amino acids with many rotamers (e.g Lys) compared to alanine.
+
+
+    Parameters
+    ----------
+    settings : object
+        see :class:`src.JobConfig`
+    individuals : object
+        see :class:`src.gaapi.Individual`
+
+    '''
     
     for i in range (0, settings.population_size):
         indiv = individuals[i]
@@ -54,9 +186,42 @@ def UniformCompositionGenerator(settings, individuals):
 
         
 def unbiased_protein_composition_generator(settings, individuals):
-    
-    # Generates an unbiased sample across all rotamers (ie weights each rotamer type equally for initial sampling)
-    def get_ubia_index(min, max, selected_rotamers, selected_rotamer_types):
+    '''
+
+    Generates an unbiased sample across all rotamers (ie weights each rotamer type equally for initial sampling)
+    All amino acids have probability of :math:`\\frac{ 1 }{n(selected amino acid types}` to be selected.
+
+    Parameters
+    ----------
+    settings : object
+        see :class:`src.JobConfig`
+    individuals : object
+        see :class:`src.gaapi.Individual`
+
+    Returns
+    -------
+
+    '''
+
+    def get_ubia_index(min, max, selected_rotamer_types):
+        '''
+
+        defines the indexes of allowed rotamers
+
+        Parameters
+        ----------
+        min : int
+            lower bound of allowed rotamers for this site
+        max : int
+            upper bound of allowed rotamers for this site
+        selected_rotamer_types:
+            list of rotamer types that are alllowed according to input file
+
+        Returns
+        -------
+        allowed_indexes[rel_index]: int
+            random index within bounds of this rotamer
+        '''
         rot_count_dict = {}
 
         for i in range(min, max):
@@ -91,22 +256,40 @@ def unbiased_protein_composition_generator(settings, individuals):
         indiv = individuals[i]
         
         for j in range (0, len(settings.composition_residue_indexes)):
-            indiv.composition[j] = get_ubia_index(settings.composition_lower_bounds[j], settings.composition_upper_bounds[j], cnts.selected_rotamers, cnts.selected_rotamer_types)
+            indiv.composition[j] = get_ubia_index(settings.composition_lower_bounds[j], settings.composition_upper_bounds[j], cnts.selected_rotamers)
         
         print(indiv.composition)
         indiv.applyComposition(settings)  
 
-            
-# Generate dihedrals by Monte Carlo
+
 def MonteCarloDihedralGenerator(settings, individuals, prob_pointers=None):
-    
-#     [MC_GENERATE]
-# mc_generate_dihedrals = True
-# distribution_path = 's'
-# mcmove_lbound = -45.0
-# mcmove_ubound = 45.0
-# num_mc_steps = 1000
-# dihedral_probability_pointers = 1 2 3 1
+    '''
+
+    Generate dihedrals by Monte Carlo simulation
+
+    to use this option in the inputfile use
+
+        [MC_GENERATE]
+         mc_generate_dihedrals = True
+         distribution_path = 's'
+         mcmove_lbound = -45.0
+         mcmove_ubound = 45.0
+         num_mc_steps = 1000
+         dihedral_probability_pointers = 1 2 3 1
+
+    Parameters
+    ----------
+    settings : object
+        see :class:`src.JobConfig`
+    individuals : object
+        see :class:`src.gaapi.Individual`
+    prob_pointers
+
+    Returns
+    -------
+
+    '''
+
     
     from deprecated.montecarlo import dihedral_opt as mcopt
  
@@ -141,11 +324,24 @@ def MonteCarloDihedralGenerator(settings, individuals, prob_pointers=None):
             indiv.psi_dihedrals[j] = dihedrals[i * num_phipsi + j][1]
 
 
-# Generate dihedrals with BASILISK by trained DBN that interpolates continuous distribution and gives side-chain angles chis
-def BasiliskSideChainDihedralsGenerator(settings, individuals):
 
-    # MC dihedrals generation like in upper function
-    # MonteCarloDihedralGenerator(settings, individuals)
+def BasiliskSideChainDihedralsGenerator(settings, individuals):
+    '''
+
+    Generate dihedrals with BASILISK by trained DBN that interpolates continuous distribution and gives side-chain angles chis
+    MC dihedrals generation like in upper function
+    MonteCarloDihedralGenerator(settings, individuals)
+
+    Parameters
+    ----------
+    settings
+    individuals
+
+    Returns
+    -------
+
+    '''
+
 
     print("BASILISK_OPT BACKBONE & SIDE CHAIN DIHEDRALS ARE GENERATED")
 
@@ -197,6 +393,18 @@ def BasiliskSideChainDihedralsGenerator(settings, individuals):
 
         
 def getBasiliskSample(obmol):
+    '''
+
+    #TODO Nick
+
+    Parameters
+    ----------
+    obmol
+
+    Returns
+    -------
+
+    '''
     from deprecated.basilisk.basilisk_lib import basilisk_dbn
     
     res_name, res_index = getResidueIndexes(obmol)
@@ -218,6 +426,18 @@ def getBasiliskSample(obmol):
     
        
 def getResidueIndexes(obmol):
+    '''
+
+    #TODO Nick
+
+    Parameters
+    ----------
+    obmol
+
+    Returns
+    -------
+
+    '''
     from deprecated.basilisk.basilisk_lib import basilisk_utils
     from src import MoleculeInfo as mi
     res_index = []
@@ -231,7 +451,8 @@ def getResidueIndexes(obmol):
 
 
 def getMCProbPinters(obmol):
-    
+
+    # TODO Nick
     pointers = []
     for i in range(obmol.NumResidues()):
         
@@ -252,6 +473,10 @@ def getMCProbPinters(obmol):
 
 
 if __name__ == "__main__":
+    '''
+     Test for standalone run for the basilisk test case. 
+     Should be moved to a test #TODO
+    '''
     import openbabel
     import sys
     from math import degrees, radians

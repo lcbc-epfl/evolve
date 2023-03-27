@@ -1,0 +1,52 @@
+[OPTIMIZATION]
+dihedral_optimization = False
+composition_optimization = True
+composition_residue_indexes = 1 2 
+composition_lower_bounds = 1 175 
+composition_upper_bounds = 176 176 
+composition_library = ../share/flat/
+
+
+[MOLECULE]
+initial_molecule = example_files/ALA20.pdb
+
+[IO]
+store_intermediate_mol = True
+output_path = .
+output_file = final.pdb
+
+[GA_GLOBAL]
+seed_population = False
+population_file_path = None
+population_size = 10
+max_iteration = 10
+
+[EVALUATOR]
+evaluators = helical_stability
+tleap_template = example_files/tleap_template.in
+amber_params =  example_files/amber_minimization.in
+mpi_processors = 20
+dielectric = 80.0
+
+[GA_SELECTION]
+selector = tournament_wor
+tournament_size = 2
+
+[GA_CROSSOVER]
+crossover = sbx
+sbx_distribution_index = 7.0
+mating_probability = 0.7
+genewise_crossover_probability = 0.4
+
+[GA_MUTATION]
+mutator = polynomial_mutation
+mutation_probability = 0.3
+genewise__mutation_probability = 0.15
+poly_eta = 7.0
+
+[GA_REPLACER]
+replacer = elitism
+elitist_factor = 0.25
+
+[DEBUG]
+verbose = True

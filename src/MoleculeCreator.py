@@ -3,7 +3,7 @@ MoleculeCreator.py
 
 Contains a few key functions for performing mutations specifically on proteins. Extensions to more general molecules should be straightforward to implement based on the code here.
 
-@author: Nicholas Browning
+.. codeauthor:: Nicholas Browning
 '''
 from __future__ import division
 from __future__ import print_function
@@ -11,12 +11,19 @@ from __future__ import absolute_import
 
 from builtins import range
 from past.utils import old_div
-import openbabel
-from openbabel import OBResidue
-from openbabel import OBAtom
-from openbabel import OBMol
-from openbabel import OBAtomTyper
+# import openbabel
+# from openbabel import OBResidue
+# from openbabel import OBAtom
+# from openbabel import OBMol
+# from openbabel import OBAtomTyper
+from openbabel import openbabel
+from openbabel.openbabel import OBResidue
+from openbabel.openbabel import OBAtom
+from openbabel.openbabel import OBMol
+from openbabel.openbabel import OBAtomTyper
 import numpy as np
+import os
+
 from . import MoleculeInfo as mi
 
 
@@ -111,30 +118,32 @@ def add_fragment(mol, fragment, id_start):
         new_atom.SetId(id)
         new_atom.SetVector(frag_atom.GetVector())
         new_atom.SetAtomicNum(frag_atom.GetAtomicNum())
-        
         new_atom.SetType(frag_atom.GetType())
         new_atom.SetSpinMultiplicity(frag_atom.GetSpinMultiplicity())
         new_atom.SetFormalCharge(frag_atom.GetFormalCharge())
-        new_atom.SetImplicitValence(frag_atom.GetImplicitValence())
+        
+        #new_atom.SetImplicitValence(frag_atom.GetImplicitValence())
+        new_atom.SetImplicitHCount(frag_atom.GetImplicitHCount())
         new_atom.SetPartialCharge(frag_atom.GetPartialCharge())
-    
+        
         for data in frag_atom.GetData():
             new_atom.SetData(data)
   
         id += 1
+        #print(debugAtom(new_atom))
         
     for obbond in openbabel.OBMolBondIter(fragment):
         begin_atom = obbond.GetBeginAtom()
         end_atom = obbond.GetEndAtom()
-        mol.AddBond(obbond.GetBeginAtomIdx() + prevAtoms, obbond.GetEndAtomIdx() + prevAtoms, obbond.GetBO(), obbond.GetFlags())
+        mol.AddBond(obbond.GetBeginAtomIdx() + prevAtoms, obbond.GetEndAtomIdx() + prevAtoms, obbond.GetBondOrder(), obbond.GetFlags())
     
     
 def debugAtom(obatom):
-    return "AN:", obatom.GetAtomicNum(), "T:", obatom.GetType(), "idx:", obatom.GetIdx(), "id:", obatom.GetId(), "BO(1):", obatom.CountBondsOfOrder(1)
+    return "AN:", obatom.GetAtomicNum(), "T:", obatom.GetType(), obatom.GetResidue().GetName(), "idx:", obatom.GetIdx(), "id:", obatom.GetId(), "BO(1):", obatom.CountBondsOfOrder(1)
 
 
 def debugBond(obbond):
-    return "begin_idx:", obbond.GetBeginAtomIdx(), "end_idx:", obbond.GetEndAtomIdx(), "norm:", obbond.GetLength(), "BO:", obbond.GetBO()
+    return "begin_idx:", obbond.GetBeginAtomIdx(), "end_idx:", obbond.GetEndAtomIdx(), "norm:", obbond.GetLength(), "BO:", obbond.GetBondOrder()
 
 
 def getAtomByID(mol, atom_id):
@@ -143,7 +152,7 @@ def getAtomByID(mol, atom_id):
             return mol.GetAtom(i)
 
         
-def swapsidechain (mol, res_index, aa_mol):
+def swapsidechain(settings, mol, res_index, aa_mol):
     """
     Mutates a certain residue in a protein to another amino acid. 
     
@@ -163,30 +172,50 @@ def swapsidechain (mol, res_index, aa_mol):
     """
     
     mol.BeginModify()
-   
-    curr = mol.GetResidue(res_index)
-  
-    new = aa_mol.GetResidue(0)
+    aa_mol.BeginModify()
     
+    #mol.SetChainsPerceived(False) 
+    
+
+    curr = mol.GetResidue(res_index)
+     
+    new = aa_mol.GetResidue(0)
     mol_CA = mi.getAlphaCarbon(curr)
     mol_CB = mi.getBetaAtom(curr)
     mol_N = mi.getBBNitrogen(curr)
-   
+    mol_NplusOne = mi.getPlus1BBNitrogen(curr)
+    mol_C = mi.getBBCarboxyl(curr)
+
     aa_CA = mi.getAlphaCarbon(new)
     aa_CB = mi.getBetaAtom(new)
     aa_bb_nitrogen = mi.getBBNitrogen(new)
     aa_gamma_atom = mi.getChi1DihedralAtom(new)
+    aa_bb_oxygen = mi.getBBCarboxyl(new)
 
-    frag_res = aa_CB.GetResidue()
+
+    frag_res = new
     frag_name = frag_res.GetName()
+
+
+    res_name =mi.getResType(curr)
     
     aa_tor = 0
+    aa_tor2 = 0
     if (aa_gamma_atom is not None):
         aa_tor = aa_mol.GetTorsion(aa_gamma_atom, aa_CA, aa_CB, aa_bb_nitrogen)
+
     
-    mol_cb_vec = np.asarray([mol_CB.GetX(), mol_CB.GetY(), mol_CB.GetZ()])
-    mol_ca_vec = np.asarray([mol_CA.GetX(), mol_CA.GetY(), mol_CA.GetZ()])
     
+    psi_tor = mol.GetTorsion(mol_N, mol_CA, mol_C, mol_NplusOne)
+
+
+    try:
+        mol_cb_vec = np.asarray([mol_CB.GetX(), mol_CB.GetY(), mol_CB.GetZ()])
+        mol_ca_vec = np.asarray([mol_CA.GetX(), mol_CA.GetY(), mol_CA.GetZ()])
+    except:
+        print('could not get coordinates from the molecule. EVOLVE needs a protonated structure')
+        exit()
+
     frag_cb_vec = np.asarray([aa_CB.GetX(), aa_CB.GetY(), aa_CB.GetZ()])
     frag_ca_vec = np.asarray([aa_CA.GetX(), aa_CA.GetY(), aa_CA.GetZ()])
     
@@ -224,6 +253,7 @@ def swapsidechain (mol, res_index, aa_mol):
     frag_atom_ids_del = [aa_mol.GetAtom(i).GetId() for i in frag_atoms_del]
     frag_atom_ids_del.append(aa_CA.GetId())
     
+
     # delete unnecessary atoms
     for i in range (0, len(frag_atom_ids_del)):
         
@@ -235,7 +265,7 @@ def swapsidechain (mol, res_index, aa_mol):
             res.RemoveAtom(atom)
         
         aa_mol.DeleteAtom(atom)
-        
+
     for i in range (0, len(mol_atom_ids_del)):
         atom = getAtomByID(mol, mol_atom_ids_del[i])
         
@@ -250,8 +280,8 @@ def swapsidechain (mol, res_index, aa_mol):
     
     # add fragment to the protein
     add_fragment(mol, aa_mol, orig_num_atoms)
-    
-    mol.EndModify()
+
+    #mol.EndModify()
     
     renum_atoms = openbabel.vectorInt(prev_atoms + aa_mol.NumAtoms())
     
@@ -274,54 +304,112 @@ def swapsidechain (mol, res_index, aa_mol):
         if (atom.GetId() == aa_CB.GetId()):
             corr_frag_cb = atom
 
+
     mol.AddBond(mol_CA.GetIdx(), corr_frag_cb.GetIdx(), 1)
  
     frag_res_type = mi.getResType(frag_res)
     
-    curr.SetName(frag_name)
-        
+    if settings.use_res_type == True:
+        curr.SetName(frag_res_type)
+        pass
+    else:
+        curr.SetName(frag_name)
+     
     for obatom in openbabel.OBResidueAtomIter(frag_res):
         frag_atom = getAtomByID(mol, obatom.GetId())
         curr.AddAtom(frag_atom)
-    
         curr.SetAtomID(frag_atom, frag_res.GetAtomID(obatom))
+
+    # need to renumber IDs now to be consecutive
+    mol.RenumberAtoms(renum_atoms)
+    
+    for i in range (1, mol.NumAtoms() + 1) :
+        mol.GetAtom(i).SetId(i - 1) 
+
+    aa_mol.EndModify()
+
+
+    # For several residues in order for the amber settings to work, one needs to rename a few hydrogens which is done here.
+    # if old resname = glycine we need to rename the remaining H to HA, the other has been replaced by the sidechain
+    if res_name=="GLY":
+        for obatom in openbabel.OBResidueAtomIter(curr):
+            if curr.GetAtomID(obatom) in ["HA2", "HA3", " HA2", " HA2 "]:
+                curr.SetAtomID(obatom, "HA")
+    
+    if frag_res_type=="GLY" and settings.use_res_type:
+        for obatom in openbabel.OBResidueAtomIter(curr):
+            #print("."+curr.GetAtomID(obatom)+".")
+            if curr.GetAtomID(obatom) in ["HA", " HA", " HA "] :
+                curr.SetAtomID(obatom, "HA2")
+    
+    if frag_res_type=="HID" and settings.use_res_type:
+        for obatom in openbabel.OBResidueAtomIter(curr):
+            if curr.GetAtomID(obatom)in ["HD3", "HD4", "HD5", "HD6", "HD7", "HD8"]:
+                curr.SetAtomID(obatom, "HD1")
+
+    if frag_res_type=="HID" and frag_name=="HD2" and settings.use_res_type:
+        for obatom in openbabel.OBResidueAtomIter(curr):
+            if curr.GetAtomID(obatom)=="HD2":
+                curr.SetAtomID(obatom, "HD1")
+            if curr.GetAtomID(obatom)=="H1":
+                curr.SetAtomID(obatom, "HD2")
+    
+    if frag_name=="HE2" and settings.use_res_type:
+        for obatom in openbabel.OBResidueAtomIter(curr):
+            if curr.GetAtomID(obatom)=="HE2":
+                curr.SetAtomID(obatom, "HE1")
+        for obatom in openbabel.OBResidueAtomIter(curr):
+            if curr.GetAtomID(obatom)=="H1":
+                curr.SetAtomID(obatom, "HE2")
+    
+    if frag_res_type=="HIE" and frag_name!="HE2" and settings.use_res_type:
+        for obatom in openbabel.OBResidueAtomIter(curr):
+            if curr.GetAtomID(obatom) in ["HE3", "HE4", "HE5", "HE6", "HE7", "HE8"]:
+                curr.SetAtomID(obatom, "HE1")
+    
+    mol.SetAromaticPerceived(False)
+    # Fix to get around openbabel screwing up the structure when calling EndModify()
+    # This is necessary because we need to set the Chi1 dihedral correctly
+    obConversion = openbabel.OBConversion()
+    obConversion.SetInAndOutFormats("pdb", "pdb")            
+    obConversion.WriteFile(mol, "temp.pdb")
+    obConversion = openbabel.OBConversion() 
+    obConversion.SetInAndOutFormats("pdb", "pdb") 
+    obConversion.ReadFile(mol, "temp.pdb")    
+    # os.remove('temp.pdb')
+
+
+
+    # preparation for setting the chi1 dihedral
+    curr = mol.GetResidue(res_index)
 
     alpha_carbon = mi.getAlphaCarbon(curr)
     bb_nitrogen = mi.getBBNitrogen(curr)
     beta_atom = mi.getBetaAtom(curr)
     chi_atom = mi.getChi1DihedralAtom(curr)
+    bb_carbonyl = mi.getBBCarboxyl(curr)
+    bb_nitrogenPlusOne =  mi.getPlus1BBNitrogen(curr)
     
-    if (chi_atom is not None and aa_gamma_atom is not None):
-        mol.SetTorsion(bb_nitrogen, alpha_carbon, beta_atom, chi_atom, aa_tor * (old_div(np.pi, 180.0)))
-  
-    # need to renumber IDs now to be consecutive
-    mol.RenumberAtoms(renum_atoms)
+    psi_tor_before = mol.GetTorsion(bb_nitrogen, alpha_carbon, bb_carbonyl, bb_nitrogenPlusOne)
+    # print('BB oxygen', aa_mol.GetTorsion(aa_gamma_atom, aa_CA, aa_CB, aa_bb_oxygen))
+
+
+    ## Here the correct dihedral needs to be set! 
+    if (chi_atom is not None and aa_gamma_atom is not None ):
+        # mol.SetTorsion(bb_carbonyl, alpha_carbon, beta_atom, chi_atom, aa_tor2 * np.pi/180.0)
+        mol.SetTorsion(bb_nitrogen, alpha_carbon, beta_atom, chi_atom, aa_tor * np.pi/180.0)
+        # mol.SetTorsion(bb_nitrogen, alpha_carbon, bb_carbonyl, bb_nitrogenPlusOne, psi_tor*-180* np.pi/180.0)
+    psi_tor_after = mol.GetTorsion(bb_nitrogen, alpha_carbon, bb_carbonyl, bb_nitrogenPlusOne)
     
-    for i in range (1, mol.NumAtoms() + 1) :
-        mol.GetAtom(i).SetId(i - 1)
+    if psi_tor_before != psi_tor_after:
+        print('something went wrong for this individual')
+
+    
+
+
+
         
     
 if __name__ == '__main__':
-    print("Starting")
-
-    obConversion = openbabel.OBConversion()
-    obConversion.SetInAndOutFormats("pdb", "pdb")
-
-    mol = openbabel.OBMol()
-    
-    obtype = openbabel.OBAtomTyper()
-    obConversion.ReadFile(mol, "gpgg.pdb") 
-    
-    frag2 = openbabel.OBMol()
-    obConversion.SetInAndOutFormats("mol2", "pdb")
-    obConversion.ReadFile(frag2, "/lcbcdata/nbrownin/Rotamers_mol2/HID/HD3.mol2") 
-    
-    print("first swap")
-    
-    swapsidechain(mol, 1, frag)
-    
-    print("second swap")
-    swapsidechain(mol, 3, frag2)
-    print("WRITING OUT")                                                                                                                                                                                                                                                                                       
-    obConversion.WriteFile(mol, "test2.pdb")
+    pass
     

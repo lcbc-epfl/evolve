@@ -1,0 +1,11 @@
+mm_pbsa_input
+&general
+ keep_files=1,
+/
+&gb
+  igb=8,
+  saltcon=0.150,
+/
+&pb
+radiopt=0,
+/

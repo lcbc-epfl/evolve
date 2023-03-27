@@ -1,0 +1,136 @@
+!!index array str
+ "HE7"
+!entry.HE7.unit.atoms table  str name  str type  int typex  int resx  int flags  int seq  int elmnt  dbl chg
+ "N" "N" 0 1 131075 1 7 -0.415700
+ "H" "H" 0 1 131075 2 1 0.271900
+ "CA" "CX" 0 1 131075 3 6 -0.058100
+ "HA" "H1" 0 1 131075 4 1 0.136000
+ "CB" "CT" 0 1 131075 5 6 -0.007400
+ "HB2" "HC" 0 1 131075 6 1 0.036700
+ "HB3" "HC" 0 1 131075 7 1 0.036700
+ "CG" "CC" 0 1 131075 8 6 0.186800
+ "ND1" "NB" 0 1 131075 9 7 -0.543200
+ "CE1" "CR" 0 1 131075 10 6 0.163500
+ "HE7" "H5" 0 1 131075 11 1 0.143500
+ "NE2" "NA" 0 1 131075 12 7 -0.279500
+ "HE2" "H" 0 1 131075 13 1 0.333900
+ "CD2" "CW" 0 1 131075 14 6 -0.220700
+ "HD2" "H4" 0 1 131075 15 1 0.186200
+ "C" "C" 0 1 131075 16 6 0.597300
+ "O" "O" 0 1 131075 17 8 -0.567900
+!entry.HE7.unit.atomspertinfo table  str pname  str ptype  int ptypex  int pelmnt  dbl pchg
+ "N" "N" 0 -1 0.0
+ "H" "H" 0 -1 0.0
+ "CA" "CX" 0 -1 0.0
+ "HA" "H1" 0 -1 0.0
+ "CB" "CT" 0 -1 0.0
+ "HB2" "HC" 0 -1 0.0
+ "HB3" "HC" 0 -1 0.0
+ "CG" "CC" 0 -1 0.0
+ "ND1" "NB" 0 -1 0.0
+ "CE1" "CR" 0 -1 0.0
+ "HE7" "H5" 0 -1 0.0
+ "NE2" "NA" 0 -1 0.0
+ "HE2" "H" 0 -1 0.0
+ "CD2" "CW" 0 -1 0.0
+ "HD2" "H4" 0 -1 0.0
+ "C" "C" 0 -1 0.0
+ "O" "O" 0 -1 0.0
+!entry.HE7.unit.boundbox array dbl
+ -1.000000
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+!entry.HE7.unit.childsequence single int
+ 2
+!entry.HE7.unit.connect array int
+ 1
+ 16
+!entry.HE7.unit.connectivity table  int atom1x  int atom2x  int flags
+ 16 17 17
+ 14 15 17
+ 12 13 17
+ 12 14 17
+ 10 11 17
+ 10 12 17
+ 9 10 17
+ 8 14 17
+ 8 9 17
+ 5 6 17
+ 5 7 17
+ 5 8 17
+ 3 4 17
+ 3 16 17
+ 3 5 17
+ 1 2 17
+ 1 3 17
+!entry.HE7.unit.hierarchy table  str abovetype  int abovex  str belowtype  int belowx
+ "U" 0 "R" 1
+ "R" 1 "A" 17
+ "R" 1 "A" 16
+ "R" 1 "A" 15
+ "R" 1 "A" 14
+ "R" 1 "A" 13
+ "R" 1 "A" 12
+ "R" 1 "A" 11
+ "R" 1 "A" 10
+ "R" 1 "A" 9
+ "R" 1 "A" 8
+ "R" 1 "A" 7
+ "R" 1 "A" 6
+ "R" 1 "A" 5
+ "R" 1 "A" 4
+ "R" 1 "A" 3
+ "R" 1 "A" 2
+ "R" 1 "A" 1
+!entry.HE7.unit.name single str
+ "default_name"
+!entry.HE7.unit.positions table  dbl x  dbl y  dbl z
+ -1.458000 0.0 0.0
+ -1.937000 -0.770000 -0.445000
+ 0.0 0.0 0.0
+ 0.369000 0.890000 -0.510000
+ 0.536000 0.0 1.433000
+ 1.625309 0.029098 1.424214
+ 0.154453 0.864630 1.976304
+ 0.146000 -1.209000 2.224000
+ -1.124000 -1.392000 2.727000
+ -1.174000 -2.541000 3.378000
+ -2.098977 -2.867306 3.852477
+ 0.013000 -3.110000 3.315000
+ 0.270576 -3.997500 3.722884
+ 0.858000 -2.298000 2.599000
+ 1.893890 -2.597267 2.436104
+ 0.551000 -1.198000 -0.766000
+ 0.024000 -2.306000 -0.667000
+!entry.HE7.unit.residueconnect table  int c1x  int c2x  int c3x  int c4x  int c5x  int c6x
+ 0 0 0 0 0 0
+!entry.HE7.unit.residues table  str name  int seq  int childseq  int startatomx  str restype  int imagingx
+ "HE7" 1 18 1 "?" 0
+!entry.HE7.unit.residuesPdbSequenceNumber array int
+ 1
+!entry.HE7.unit.solventcap array dbl
+ -1.000000
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+!entry.HE7.unit.velocities table  dbl x  dbl y  dbl z
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
+ 0.0 0.0 0.0
