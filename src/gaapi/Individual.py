@@ -307,6 +307,8 @@ class Individual(object):
             return
         print(self.composition_residue_indexes)
         cmp = []
+        if (settings.verbose):
+            print("Created Individual:")
         for i in range(0, len(self.composition_residue_indexes)):
             if (settings.multi_individual):
                 for x in range(0, settings.no_frames):
@@ -318,7 +320,10 @@ class Individual(object):
                     rotamer_type = constants.rotamers[self.composition[i]]
 
                     obConversion.ReadFile(frag, settings.composition_library + "/" + rotamer_type + ".mol2")
-                    mcr.swapsidechain(settings, self.mol[x], self.composition_residue_indexes[i], frag)
+                    try:
+                        mcr.swapsidechain(settings, self.mol[x], self.composition_residue_indexes[i], frag)
+                    except AttributeError as e:
+                        print(f"{i} went wrong, ignore it")
                     pass
                 cmp.append(rotamer_type) # append only after loop because all individuals are identical
             else:
@@ -328,11 +333,12 @@ class Individual(object):
 
                 rotamer_type = constants.selected_rotamers[self.composition[i]]
                 cmp.append(rotamer_type)
+                if (settings.verbose):
+                    print(cmp)
                 obConversion.ReadFile(frag, settings.composition_library + "/" + rotamer_type + ".mol2")
                 mcr.swapsidechain(settings, self.mol, self.composition_residue_indexes[i], frag)
 
-        if (settings.verbose):
-            print("Created Individual:", cmp)
+
     
 
 

@@ -21,7 +21,7 @@ from openbabel import openbabel
 import time
 
 
-def runtleap(work_dir="", mol_file="mol.pdb", tleaptemp="tleap_template.in", tleapin="leap.in", inpcrd_out="mol.inpcrd", prmtop_out="mol.prmtop"):
+def runtleap(work_dir="", mol_file="mol_amber.pdb", tleaptemp="tleap_template.in", tleapin="leap.in", inpcrd_out="mol.inpcrd", prmtop_out="mol.prmtop"):
     '''
 
     runs tleap to process a pdb file into a valid amber prmtop file.
@@ -49,7 +49,24 @@ def runtleap(work_dir="", mol_file="mol.pdb", tleaptemp="tleap_template.in", tle
         os.remove(work_dir + inpcrd_out)
     if (os.path.exists(work_dir + prmtop_out)):
         os.remove(work_dir + prmtop_out)
-        
+    
+    try:
+        f = open(work_dir+mol_file, "w")
+        FNULL = open(os.devnull, 'w')
+        pPDB4Amber = subprocess.Popen(["pdb4amber", work_dir+'mol.pdb', ], universal_newlines=True, stdout=f,
+                                      stderr=FNULL)
+        pPDB4Amber.wait()
+        print('running pdb4amber')
+        FNULL.close()
+        f.close()
+    except IOError as e:
+        sys.exit("I/O error on '%s': %s" % (e.filename, e.strerror))
+    except subprocess.CalledProcessError as e:
+        sys.exit("pdb4amber failed processing mutated.pdb, returned code %d " % (e.returncode))
+    except OSError as e:
+        sys.exit("failed to execute pdb4amber: %s" % (str(e)))
+    pass
+
     f = open(tleaptemp, "r")
     g = f.readlines()
     filename = (work_dir + mol_file).split('.')[0]

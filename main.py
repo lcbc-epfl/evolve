@@ -66,6 +66,7 @@ def mainLoop(settings):
     parent_population = []
 
     ga = initialise_ga(settings)
+
     
     # if ("helical_stability" in settings.evaluators):
     #     print('Fitness of {}:'.format(settings.initial_molecule_path))
@@ -418,6 +419,7 @@ def printIterationInfo(settings, curr_iteration, pop, ending):
     print("Best ind - Fitness(es):", pop[min_indiv].fitnesses)
 
     if settings.write_energies:
+        print("writing energies to file")
         op.writeEnergyLog(path=settings.output_path, energies=pop[min_indiv].energies, iteration=curr_iteration)
             
     obConversion = openbabel.OBConversion()

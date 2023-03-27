@@ -173,18 +173,25 @@ def swapsidechain(settings, mol, res_index, aa_mol):
     
     mol.BeginModify()
     aa_mol.BeginModify()
-    curr = mol.GetResidue(res_index)
     
-    new = aa_mol.GetResidue(0)
+    #mol.SetChainsPerceived(False) 
+    
 
+    curr = mol.GetResidue(res_index)
+     
+    new = aa_mol.GetResidue(0)
     mol_CA = mi.getAlphaCarbon(curr)
     mol_CB = mi.getBetaAtom(curr)
     mol_N = mi.getBBNitrogen(curr)
+    mol_NplusOne = mi.getPlus1BBNitrogen(curr)
+    mol_C = mi.getBBCarboxyl(curr)
 
     aa_CA = mi.getAlphaCarbon(new)
     aa_CB = mi.getBetaAtom(new)
     aa_bb_nitrogen = mi.getBBNitrogen(new)
     aa_gamma_atom = mi.getChi1DihedralAtom(new)
+    aa_bb_oxygen = mi.getBBCarboxyl(new)
+
 
     frag_res = new
     frag_name = frag_res.GetName()
@@ -193,12 +200,22 @@ def swapsidechain(settings, mol, res_index, aa_mol):
     res_name =mi.getResType(curr)
     
     aa_tor = 0
+    aa_tor2 = 0
     if (aa_gamma_atom is not None):
         aa_tor = aa_mol.GetTorsion(aa_gamma_atom, aa_CA, aa_CB, aa_bb_nitrogen)
+
     
-    mol_cb_vec = np.asarray([mol_CB.GetX(), mol_CB.GetY(), mol_CB.GetZ()])
-    mol_ca_vec = np.asarray([mol_CA.GetX(), mol_CA.GetY(), mol_CA.GetZ()])
     
+    psi_tor = mol.GetTorsion(mol_N, mol_CA, mol_C, mol_NplusOne)
+
+
+    try:
+        mol_cb_vec = np.asarray([mol_CB.GetX(), mol_CB.GetY(), mol_CB.GetZ()])
+        mol_ca_vec = np.asarray([mol_CA.GetX(), mol_CA.GetY(), mol_CA.GetZ()])
+    except:
+        print('could not get coordinates from the molecule. EVOLVE needs a protonated structure')
+        exit()
+
     frag_cb_vec = np.asarray([aa_CB.GetX(), aa_CB.GetY(), aa_CB.GetZ()])
     frag_ca_vec = np.asarray([aa_CA.GetX(), aa_CA.GetY(), aa_CA.GetZ()])
     
@@ -350,17 +367,16 @@ def swapsidechain(settings, mol, res_index, aa_mol):
             if curr.GetAtomID(obatom) in ["HE3", "HE4", "HE5", "HE6", "HE7", "HE8"]:
                 curr.SetAtomID(obatom, "HE1")
     
-
+    mol.SetAromaticPerceived(False)
     # Fix to get around openbabel screwing up the structure when calling EndModify()
     # This is necessary because we need to set the Chi1 dihedral correctly
     obConversion = openbabel.OBConversion()
     obConversion.SetInAndOutFormats("pdb", "pdb")            
     obConversion.WriteFile(mol, "temp.pdb")
-
     obConversion = openbabel.OBConversion() 
     obConversion.SetInAndOutFormats("pdb", "pdb") 
     obConversion.ReadFile(mol, "temp.pdb")    
-    os.remove('temp.pdb')
+    # os.remove('temp.pdb')
 
 
 
@@ -371,10 +387,23 @@ def swapsidechain(settings, mol, res_index, aa_mol):
     bb_nitrogen = mi.getBBNitrogen(curr)
     beta_atom = mi.getBetaAtom(curr)
     chi_atom = mi.getChi1DihedralAtom(curr)
-   
+    bb_carbonyl = mi.getBBCarboxyl(curr)
+    bb_nitrogenPlusOne =  mi.getPlus1BBNitrogen(curr)
+    
+    psi_tor_before = mol.GetTorsion(bb_nitrogen, alpha_carbon, bb_carbonyl, bb_nitrogenPlusOne)
+    # print('BB oxygen', aa_mol.GetTorsion(aa_gamma_atom, aa_CA, aa_CB, aa_bb_oxygen))
+
+
     ## Here the correct dihedral needs to be set! 
-    if (chi_atom is not None and aa_gamma_atom is not None):
-        mol.SetTorsion(bb_nitrogen, alpha_carbon, beta_atom, chi_atom, aa_tor * (old_div(np.pi, 180.0)))
+    if (chi_atom is not None and aa_gamma_atom is not None ):
+        # mol.SetTorsion(bb_carbonyl, alpha_carbon, beta_atom, chi_atom, aa_tor2 * np.pi/180.0)
+        mol.SetTorsion(bb_nitrogen, alpha_carbon, beta_atom, chi_atom, aa_tor * np.pi/180.0)
+        # mol.SetTorsion(bb_nitrogen, alpha_carbon, bb_carbonyl, bb_nitrogenPlusOne, psi_tor*-180* np.pi/180.0)
+    psi_tor_after = mol.GetTorsion(bb_nitrogen, alpha_carbon, bb_carbonyl, bb_nitrogenPlusOne)
+    
+    if psi_tor_before != psi_tor_after:
+        print('something went wrong for this individual')
+
     
 
 

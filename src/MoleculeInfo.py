@@ -122,7 +122,6 @@ def getAlphaCarbon(obres):
             if (carboxl_carbon is not None):
                 # now also find the nitrogen
                 amide_nitro = getConnectedAmideNitrogen(obatom)
-                
                 if (amide_nitro is not None):
                     return obatom
     return None
@@ -191,7 +190,7 @@ def getBetaAtom(obres):
     bbcarboxyl = getBBCarboxyl(obres)
     
     bbnitrogen = getBBNitrogen(obres)
- 
+    
     if alpha_carbon is None:
         return None
     
@@ -206,7 +205,6 @@ def getBetaAtom(obres):
     carboxyl_vec = np.asarray([bbcarboxyl.GetX(), bbcarboxyl.GetY(), bbcarboxyl.GetZ()])
     
     res = getResType(obres)
-    
     for obatom in openbabel.OBAtomAtomIter(alpha_carbon):
         if (res == "GLY"):
             if (obatom.GetType() == 'H'):

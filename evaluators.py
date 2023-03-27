@@ -312,7 +312,7 @@ def amber_energy_minimize(settings, individual):
     obconv.SetOutFormat("pdb")
     obconv.WriteFile(individual.mol, directory + "/mol.pdb")
 
-    op.runtleap(work_dir=directory + "/", mol_file='mol.pdb', tleaptemp=settings.tleap_template, tleapin="leap.in")
+    op.runtleap(work_dir=directory + "/", mol_file='mol2.pdb', tleaptemp=settings.tleap_template, tleapin="leap.in")
 
     op.runPMEMD(work_dir=directory + "/", np=settings.mpi_procs, amberin=settings.amber_params)
     
@@ -415,7 +415,7 @@ def openmm_energy_minimize(settings, individual):
     obconv.SetOutFormat("pdb")
     obconv.WriteFile(individual.mol, directory + "/mol.pdb")
 
-    op.runtleap(work_dir=directory + "/", mol_file='mol.pdb', tleaptemp=settings.tleap_template, tleapin="leap.in")
+    op.runtleap(work_dir=directory + "/", mol_file='mol_amber.pdb', tleaptemp=settings.tleap_template, tleapin="leap.in")
     
     tleapfiles = load_file(os.getcwd()+"/amber_run/mol.prmtop",os.getcwd()+"/amber_run/mol.inpcrd")
     system = tleapfiles.createSystem(nonbondedMethod=app.NoCutoff,implicitSolvent=app.OBC2,)
@@ -452,10 +452,10 @@ def openmm_energy_minimize(settings, individual):
         integrator = openmmtools.integrators.GradientDescentMinimizationIntegrator(initial_step_size=0.04 * u.angstroms)  
         sim = app.Simulation(tleapfiles.topology, system, integrator, platform, prop)
         sim.context.setPositions(tleapfiles.positions)
-        sim.minimizeEnergy(maxIterations=1000)
-        sim.reporters.append(StateDataReporter(os.devnull, 1000, step=True, potentialEnergy=True,kineticEnergy=True, temperature=True))
-        sim.reporters.append(app.PDBReporter(directory +'/min.pdb', 1000))
-        sim.step(1000)
+        #sim.minimizeEnergy(maxIterations=1000)
+        sim.reporters.append(StateDataReporter(os.devnull, 15000, step=True, potentialEnergy=True,kineticEnergy=True, temperature=True))
+        sim.reporters.append(app.PDBReporter(directory +'/min.pdb', 15000))
+        sim.step(15000)
         state = sim.context.getState(getEnergy=True,getPositions=True)
         finalEnergy=state.getPotentialEnergy().value_in_unit(u.kilocalories_per_mole)
         
@@ -608,7 +608,6 @@ def helical_stability(settings, individuals, fitness_index, pop_start=0):
             #add += constants.energies['ALA'][settings.helical_dielectric]  # TODO this won't work for a non poly ala protein!!
             #negate += constants.energies[res][settings.helical_dielectric]
             res = mi.getResType(individuals[i].mol.GetResidue(settings.composition_residue_indexes[j]))
-            
             add += constants.energies[str(settings.originalResidues[j])][settings.helical_dielectric]
             negate += constants.energies[res][settings.helical_dielectric]
             if settings.entropy_correction:
@@ -844,13 +843,10 @@ def mmpbsa_multi(settings, individuals, fitness_index, pop_start=0):
         op.runtleapMultiInd(work_dir=work_dir, leap_inputfile=settings.tleap_template, n_frames=settings.no_frames)
         # run pmemd using multipmemd version. Need to use pmemd.MPI because of force truncation in pmemd.cuda!
         minReturnCode = op.runPMEMDMultiInd(work_dir=work_dir, np=settings.mpi_procs, amberin=settings.amber_params,
-                                            n_frames=settings.no_frames, compute_cluster=settings.use_compute_cluster,
-                                            nodes=settings.compute_cluster_nodes,
-                                            ntasks=settings.compute_cluster_ntasks,
-                                            queuename=settings.compute_cluster_queuename)
+                                            n_frames=settings.no_frames)
         logfile = open(work_dir + "/evaluator_mmpbsa_multi.log", "a")
         if minReturnCode == 0:
-            print("Setting indivdual fitness to 0 due to error in the minimization (Seg fault)")
+            print("Setting individual fitness to 0 due to error in the minimization (Seg fault)")
             finalEnergy = 0
             pass
         else:
@@ -860,10 +856,6 @@ def mmpbsa_multi(settings, individuals, fitness_index, pop_start=0):
             # Do mmpbsa calculation after frames have been minimized and converted to a solvent free pdb file. MMPBSA calculation can run on as many cores as there are frames.
             finalEnergy = op.runMMPBSAMultiInd(work_dir=work_dir, mmpbsa_inputfile=settings.mmpbsa_params,
                                                n_frames=settings.no_frames,
-                                               compute_cluster=settings.use_compute_cluster,
-                                               nodes=settings.compute_cluster_nodes,
-                                               ntasks=settings.compute_cluster_ntasks,
-                                               queuename=settings.compute_cluster_queuename,
                                                energy_evaluator=settings.energy_calculator)
             logfile = open(work_dir + "/evaluator_mmpbsa_multi.log", "a")
             logfile.write("finished MMPBSA min\n")

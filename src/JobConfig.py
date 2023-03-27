@@ -272,6 +272,7 @@ class Settings(object):
                 self.update_files = True
             if "stability_multi" in self.evaluators or 'helical_stability' in self.evaluators:
                 self.initial_fitness_computation = True
+                self.write_energies = self.config.getboolean('EVALUATOR', 'write_energies', fallback=False)
             if "helical_stability" in self.evaluators:
                 self.tleap_template = self.config.get('EVALUATOR', 'tleap_template')
                 self.amber_params = self.config.get('EVALUATOR', 'amber_params')
@@ -283,7 +284,7 @@ class Settings(object):
                 self.gpudeviceindex = self.config.get('EVALUATOR', 'gpudeviceindex', fallback=0)
                 self.simAnneal = self.config.getboolean('EVALUATOR', 'simAnneal', fallback=False)
 
-                self.write_energies = self.config.getboolean('EVALUATOR', 'writeEnergies', fallback=False)
+                self.write_energies = self.config.getboolean('EVALUATOR', 'write_energies', fallback=False)
 
                 self.entropy_correction = self.config.get('EVALUATOR', 'entropy_correction', fallback=None)
                 
